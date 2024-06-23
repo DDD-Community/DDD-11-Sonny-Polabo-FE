@@ -29,4 +29,4 @@ jobs:
       - name: Delete existing container
         run: docker rm -f polabo-fe || true
       - name: Run container
-        run: docker run -d -p 3000:3000 --name polabo-fe sonny2024/polabo-fe:latest
+        run: docker run -d -p 80:3000 --name polabo-fe sonny2024/polabo-fe:latest
