@@ -1,0 +1,32 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - feature/deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build docker image
+        run: docker build -t sonny2024/polabo-fe .
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+      - name: Push to DockerHub
+        run: docker push sonny2024/polabo-fe:latest
+
+  deploy:
+    needs: build
+    runs-on: ip-172-31-6-84
+
+    steps:
+      - name: Pull from DockerHub
+        run: docker pull sonny2024/polabo-fe:latest
+      - name: Delete existing container
+        run: docker rm -f polabo-fe || true
+      - name: Run container
+        run: docker run -d -p 80:80 --name polabo-fe sonny2024/polabo-fe:latest
