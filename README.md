@@ -1,4 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 우리만의 추억보드, Polabo
+
+## 실행 방법
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+## 주요 기능
+
+## FE Tech Stack
+
+| 기술         | 설명           |
+| ------------ | -------------- |
+| Next.js      | Web Framework  |
+| TypeScript   |                |
+| Zustand?     | 상태관리       |
+| React-query? | 서버 상태 관리 |
+| Tailwind     | 스타일링       |
+| Jest         | 테스트         |
+| Vercel       | 배포           |
+
+## Team Member
+
+- **Product Manager** : 안호정
+- **Designer** : 김다은, 조재인
+- **Web Front** : 임준섭, 정환희
+- **Backend Engineer** : 이은비
+- **Team Manager** : 김도경
+
+<!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -33,4 +69,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details. -->
