@@ -7,6 +7,6 @@ export interface Polaroid {
 
 export interface CreatePolaroidPayload {
   boardId: number
-  content: string
-  text: string
+  imageUrl: string
+  caption: string
 }
