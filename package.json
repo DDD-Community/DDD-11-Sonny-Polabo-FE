@@ -10,7 +10,8 @@
     "prepare": "husky",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watchAll",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "mock:start": "json-server json-server/db.json --port 3001"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -45,6 +46,7 @@
     "husky": "^9.0.11",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "json-server": "^1.0.0-beta.1",
     "lint-staged": "^15.2.7",
     "postcss": "^8",
     "prettier": "^3.3.2",
