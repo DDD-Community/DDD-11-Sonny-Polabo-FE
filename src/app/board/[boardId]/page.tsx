@@ -4,16 +4,13 @@ import Link from 'next/link'
 
 const BoardPage = async ({ params }: { params: { boardId: string } }) => {
   const { boardId } = params
-  let board: Board | null = null
+  let board: Board = { id: 0, name: '' }
   try {
     board = await getBoard(boardId)
   } catch (e) {
     console.error(e)
   }
 
-  if (!board) {
-    return <div>보드를 불러오는 중입니다...</div>
-  }
   return (
     <div className="min-h-screen">
       <h1>{board.id}</h1>
