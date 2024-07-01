@@ -12,7 +12,7 @@ const BoardPage = async ({ params }: { params: { boardId: string } }) => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div>
       <h1>{board.id}</h1>
       <h2>{board.name}</h2>
       <Link href={`/board/${boardId}/polaroid/create`}>폴라로이드 추가</Link>

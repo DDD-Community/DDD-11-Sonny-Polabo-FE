@@ -26,7 +26,7 @@ const CreateBoardPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center">
+    <div className="flex flex-col justify-between items-center">
       <h1 className="text-2xl font-bold">내 보드의 이름을 정해주세요!</h1>
       <input
         type="text"

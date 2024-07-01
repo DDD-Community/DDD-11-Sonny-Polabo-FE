@@ -19,7 +19,7 @@ const CreatePolaroidPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center">
+    <div className="flex flex-col justify-between items-center">
       <h1 className="text-2xl font-bold">사진을 업로드해주세요!</h1>
       <input
         type="text"

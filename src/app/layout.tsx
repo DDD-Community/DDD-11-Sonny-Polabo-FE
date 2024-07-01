@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main
-          className="max-w-md mx-auto p-4"
+          className="max-w-md mx-auto p-4 min-h-screen"
           style={{
             backgroundColor: 'aliceblue',
           }}
