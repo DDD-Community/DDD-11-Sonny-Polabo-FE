@@ -33,10 +33,4 @@ function Button({
   )
 }
 
-Button.defaultProps = {
-  variant: 'primary',
-  className: '',
-  isSubmit: false,
-}
-
 export default Button

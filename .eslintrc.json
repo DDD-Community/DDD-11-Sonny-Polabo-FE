@@ -32,6 +32,7 @@
       {
         "html": "ignore"
       }
-    ]
+    ],
+    "react/require-default-props": ["off"]
   }
 }

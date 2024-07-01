@@ -22,6 +22,7 @@
     ]
   },
   "dependencies": {
+    "@storybook/preview-api": "^8.1.11",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
