@@ -1,8 +1,17 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import '@/styles/globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const PretendVariable = localFont({
+  src: '../styles/PretendardVariable.woff2',
+  weight: '45 920',
+  variable: '--font-pretendard-variable',
+})
+
+const Jooree = localFont({
+  src: '../styles/Jooree.ttf',
+  variable: '--font-jooree',
+})
 
 export const metadata: Metadata = {
   title: 'POLABO',
@@ -16,9 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${PretendVariable.variable} ${Jooree.variable}`}>
         <main
-          className="max-w-md mx-auto p-4 min-h-screen"
+          className="max-w-md mx-auto p-4 min-h-screen font-pretendard"
           style={{
             backgroundColor: 'aliceblue',
           }}
