@@ -1,21 +1,48 @@
+import Image from 'next/image'
+
 function Polaroid({
-  imageSrc,
-  caption,
+  imageUrl,
+  oneLineMessage,
+  filter,
 }: {
-  imageSrc: string
-  caption: string
+  imageUrl: string
+  oneLineMessage: string
+  filter: number
 }) {
+  let filterStyle = ''
+  if (filter === 1) {
+    filterStyle =
+      'sepia(0.2) contrast(1.3) brightness(1.0) saturate(1.2) blur(0.7px)'
+  } else if (filter === 2) {
+    filterStyle =
+      'sepia(0.4) contrast(1.1) brightness(0.9) saturate(0.8) hue-rotate(-20deg) blur(0.6px)'
+  } else {
+    filterStyle = 'none'
+  }
+
   return (
-    <div className="w-64 bg-white shadow-lg rounded-lg overflow-hidden m-4">
-      <div className="p-4">
-        <img
-          src={imageSrc}
+    <div
+      className="w-48 shadow-lg rounded-lg overflow-hidden m-4"
+      style={{ background: '#E5E5E5' }}
+    >
+      <div className="p-4 pt-8">
+        <Image
+          src={imageUrl}
           alt="Polaroid"
-          className="w-full h-auto object-cover"
+          width={160}
+          height={192}
+          className="w-full h-48 object-cover"
+          style={{ filter: filterStyle }}
         />
       </div>
-      <div className="bg-white p-4">
-        <p className="text-center text-gray-700">{caption}</p>
+      <div
+        className="p-4"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #ECECEC',
+        }}
+      >
+        <p className="text-center">{oneLineMessage}</p>
       </div>
     </div>
   )
