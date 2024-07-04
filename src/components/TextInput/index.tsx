@@ -2,8 +2,8 @@
 
 import { ChangeEvent, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import ExitIcon from '../../../../../../../../public/icons/exit.svg'
-import PinIcon from '../../../../../../../../public/icons/pinFilled.svg'
+import ExitIcon from 'public/icons/exit.svg'
+import PinIcon from 'public/icons/pinFilled.svg'
 
 interface TextInputProps {
   value: string
