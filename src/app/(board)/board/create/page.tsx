@@ -1,5 +1,6 @@
 'use client'
 
+import TextInput from '@/components/TextInput'
 import { postBoard } from '@/lib'
 import { CreateBoardPayload } from '@/types'
 import { useRouter } from 'next/navigation'
@@ -12,6 +13,11 @@ const CreateBoardPage = () => {
   const router = useRouter()
 
   const handleCreateBoard = async () => {
+    if (boardName.length >= 20) {
+      alert('20자 미만으로 입력해주세요.')
+      return
+    }
+
     setLoading(true)
     try {
       const payload: CreateBoardPayload = { name: boardName }
@@ -28,11 +34,8 @@ const CreateBoardPage = () => {
   return (
     <div className="flex flex-col justify-between items-center">
       <h1 className="text-2xl font-bold">내 보드의 이름을 정해주세요!</h1>
-      <input
-        type="text"
-        value={boardName}
-        onChange={(e) => setBoardName(e.target.value)}
-      />
+      <TextInput value={boardName} setValue={setBoardName} />
+
       <button type="button" onClick={handleCreateBoard}>
         {loading ? '보드 생성중..' : '완료'}
       </button>
