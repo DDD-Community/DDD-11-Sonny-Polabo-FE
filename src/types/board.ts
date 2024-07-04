@@ -1,8 +1,11 @@
+import { Polaroid } from '@/types/polaroid'
+
 export interface Board {
-  id: number
-  name: string
+  title: string
+  items: Polaroid[]
 }
 
 export interface CreateBoardPayload {
-  name: string
+  title: string
+  userId: string
 }

@@ -39,3 +39,19 @@ export const post = async (
     useMocked,
     '데이터를 저장하는데 실패했습니다.',
   )
+
+export const deleteApi = async (
+  path: string,
+  options: RequestInit = {},
+  useMocked = false,
+) =>
+  fetchApi(
+    path,
+    {
+      ...options,
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    },
+    useMocked,
+    '데이터를 삭제하는데 실패했습니다.',
+  )
