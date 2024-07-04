@@ -3,13 +3,13 @@ import localFont from 'next/font/local'
 import '@/styles/globals.css'
 
 const PretendVariable = localFont({
-  src: '../styles/PretendardVariable.woff2',
+  src: '../../public/fonts/PretendardVariable.woff2',
   weight: '45 920',
   variable: '--font-pretendard-variable',
 })
 
 const Jooree = localFont({
-  src: '../styles/Jooree.ttf',
+  src: '../../public/fonts/Jooree.ttf',
   variable: '--font-jooree',
 })
 
