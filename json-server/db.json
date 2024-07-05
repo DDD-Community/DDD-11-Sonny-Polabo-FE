@@ -1,33 +1,41 @@
 {
   "boards": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Board 1"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Board 2"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Board 3"
+    },
+    {
+      "id": "12bf",
+      "name": "0"
+    },
+    {
+      "id": "fd69",
+      "name": "00"
     }
   ],
   "polaroids": [
     {
-      "id": 1,
+      "id": "1",
       "content": "Polaroid 1",
       "text": "Polaroid 1",
       "boardId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "content": "Polaroid 2",
       "text": "Polaroid 2",
       "boardId": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "content": "Polaroid 3",
       "text": "Polaroid 3",
       "boardId": 3

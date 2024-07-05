@@ -26,12 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${PretendVariable.variable} ${Jooree.variable}`}>
-        <main
-          className="max-w-md mx-auto p-4 min-h-screen font-pretendard"
-          style={{
-            backgroundColor: 'aliceblue',
-          }}
-        >
+        <main className="max-w-md mx-auto p-4 min-h-screen font-pretendard flex flex-col">
           {children}
         </main>
       </body>

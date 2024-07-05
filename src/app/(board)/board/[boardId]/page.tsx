@@ -1,6 +1,9 @@
+import Empty from '@/components/Board/Empty'
+import BoardHeader from '@/components/Board/Header'
 import { getBoard } from '@/lib'
 import { Board } from '@/types'
 import Link from 'next/link'
+import AddPolaroid from 'public/icons/add_polaroid.svg'
 
 const BoardPage = async ({ params }: { params: { boardId: string } }) => {
   const { boardId } = params
@@ -12,10 +15,15 @@ const BoardPage = async ({ params }: { params: { boardId: string } }) => {
   }
 
   return (
-    <div>
-      <h1>{board.id}</h1>
-      <h2>{board.name}</h2>
-      <Link href={`/board/${boardId}/polaroid/create`}>폴라로이드 추가</Link>
+    <div className="flex-1 flex flex-col relative">
+      <BoardHeader name={board.name} />
+      <Empty />
+      <Link
+        href={`/board/${boardId}/polaroid/create`}
+        className="absolute right-10 bottom-10"
+      >
+        <AddPolaroid />
+      </Link>
     </div>
   )
 }
