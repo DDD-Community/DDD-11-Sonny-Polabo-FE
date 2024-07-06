@@ -20,14 +20,14 @@ const TextInput = ({ value, setValue }: TextInputProps) => {
 
   const borderClass = twMerge(
     'flex items-center mb-2 border-b',
-    error ? 'border-red-600' : 'border-black',
+    error ? 'border-negative' : 'border-gray-950',
   )
 
   return (
-    <div className={error ? `text-red-600` : ''}>
+    <div className={error ? `text-negative` : ''}>
       <div className={borderClass}>
         <div className="mr-2">
-          {error ? <ExitIcon className="text-red-600" /> : <PinIcon />}
+          {error ? <ExitIcon className="text-negative" /> : <PinIcon />}
         </div>
         <input
           type="text"
