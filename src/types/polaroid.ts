@@ -1,12 +1,11 @@
 export interface Polaroid {
   id: number
-  boardId: number
-  content: string
-  text: string
+  imageUrl: string
+  oneLineMessage: string
+  userId: string
 }
 
 export interface CreatePolaroidPayload {
-  boardId: number
-  content: string
-  text: string
+  imageKey: string
+  oneLineMessage: string
 }
