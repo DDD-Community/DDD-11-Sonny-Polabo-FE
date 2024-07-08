@@ -3,7 +3,7 @@ import { CreatePolaroidPayload, Polaroid } from '@/types/polaroid'
 import { get, post } from './base'
 
 export const getPolaroid = (id: string): Promise<Polaroid> => {
-  return get(`/polaroids/${id}`, {
+  return get(`/api/v1/polaroids/${id}`, {
     next: {
       tags: [`polaroid:${id}`],
     },
@@ -11,13 +11,14 @@ export const getPolaroid = (id: string): Promise<Polaroid> => {
 }
 
 export const postPolaroid = async (
+  boardId: string,
   body: CreatePolaroidPayload,
-): Promise<Polaroid> => {
-  const result: Polaroid = await post('/polaroids', {
+): Promise<number> => {
+  const result = await post(`/api/v1/boards/${boardId}/polaroids`, {
     body: JSON.stringify(body),
   })
 
-  revalidateTag(`board:${body.boardId}`)
+  revalidateTag(`board:${boardId}`)
 
   return result
 }
