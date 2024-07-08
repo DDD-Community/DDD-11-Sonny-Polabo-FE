@@ -1,14 +1,12 @@
 import Image from 'next/image'
 
-function Polaroid({
-  imageUrl,
-  oneLineMessage,
-  filter,
-}: {
+interface PolaroidProps {
   imageUrl: string
   oneLineMessage: string
-  filter: number
-}) {
+  filter?: number
+}
+
+function Polaroid({ imageUrl, oneLineMessage, filter }: PolaroidProps) {
   let filterStyle = ''
   if (filter === 1) {
     filterStyle =
@@ -21,10 +19,7 @@ function Polaroid({
   }
 
   return (
-    <div
-      className="w-48 shadow-lg rounded-lg overflow-hidden m-4"
-      style={{ background: '#E5E5E5' }}
-    >
+    <div className="w-48 shadow-lg rounded-lg overflow-hidden m-4 bg-gray-200">
       <div className="p-4 pt-8">
         <Image
           src={imageUrl}
@@ -35,17 +30,15 @@ function Polaroid({
           style={{ filter: filterStyle }}
         />
       </div>
-      <div
-        className="p-4"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #ECECEC',
-        }}
-      >
+      <div className="p-4 bg-gradient-polaroid">
         <p className="text-center">{oneLineMessage}</p>
       </div>
     </div>
   )
+}
+
+Polaroid.defaultProps = {
+  filter: 1,
 }
 
 export default Polaroid
