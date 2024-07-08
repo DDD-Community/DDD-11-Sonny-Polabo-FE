@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Base from './Base'
 
 interface PolaroidProps {
   imageUrl: string
@@ -19,8 +20,8 @@ function Polaroid({ imageUrl, oneLineMessage, filter }: PolaroidProps) {
   }
 
   return (
-    <div className="w-48 shadow-lg rounded-lg overflow-hidden m-4 bg-gray-200">
-      <div className="p-4 pt-8">
+    <Base>
+      <Base.Top>
         <Image
           src={imageUrl}
           alt="Polaroid"
@@ -29,11 +30,11 @@ function Polaroid({ imageUrl, oneLineMessage, filter }: PolaroidProps) {
           className="w-full h-48 object-cover"
           style={{ filter: filterStyle }}
         />
-      </div>
-      <div className="p-4 bg-gradient-polaroid">
+      </Base.Top>
+      <Base.Bottom>
         <p className="text-center">{oneLineMessage}</p>
-      </div>
-    </div>
+      </Base.Bottom>
+    </Base>
   )
 }
 
