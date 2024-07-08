@@ -57,6 +57,7 @@ const config: Config = {
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],
         jooree: ['var(--font-jooree)'],
+        hesom: ['var(--font-hesom)'],
       },
     },
   },
