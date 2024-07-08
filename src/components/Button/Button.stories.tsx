@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import type { Meta, StoryObj } from '@storybook/react'
 import Button from '.'
 
@@ -32,31 +34,59 @@ const meta: Meta<typeof Button> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+export const Primary_Small: Story = {
   args: {
     variant: 'primary',
+    size: 'sm',
     children: 'Primary Button',
   },
 }
 
-export const Secondary: Story = {
+export const Primary_Medium: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    children: 'Primary Button',
+  },
+}
+
+export const Primary_Large: Story = {
+  args: {
+    variant: 'primary',
+    size: 'lg',
+    children: 'Primary Button',
+  },
+}
+
+export const Secondary_Small: Story = {
   args: {
     variant: 'secondary',
+    size: 'sm',
     children: 'Secondary Button',
   },
 }
 
-export const Tertiary: Story = {
+export const Secondary_Medium: Story = {
   args: {
-    variant: 'tertiary',
-    children: 'Tertiary Button',
+    variant: 'secondary',
+    size: 'md',
+    children: 'Secondary Button',
   },
 }
 
-export const LongButton: Story = {
+export const Secondary_Large: Story = {
   args: {
-    className: 'mx-4',
     variant: 'secondary',
-    children: 'Longlonglonglonglonglonglong Button',
+    size: 'lg',
+    children: 'Secondary Button',
+  },
+}
+
+export const disabled: Story = {
+  args: {
+    variant: 'secondary',
+    size: 'lg',
+    disabled: true,
+    children: 'Secondary Button',
   },
 }
