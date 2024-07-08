@@ -7,5 +7,5 @@ export interface Board {
 
 export interface CreateBoardPayload {
   title: string
-  userId: string
+  userId: string | null
 }

@@ -20,7 +20,7 @@ const CreateBoardPage = () => {
 
     setLoading(true)
     try {
-      const payload: CreateBoardPayload = { name: boardName }
+      const payload: CreateBoardPayload = { title: boardName, userId: null }
       const newBoard = await postBoard(payload)
       router.push(`/board/${newBoard.id}`)
     } catch (e) {

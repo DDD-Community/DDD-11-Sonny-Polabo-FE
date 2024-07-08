@@ -2,7 +2,7 @@ export interface Polaroid {
   id: number
   imageUrl: string
   oneLineMessage: string
-  userId: string
+  userId?: string
 }
 
 export interface CreatePolaroidPayload {

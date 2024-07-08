@@ -1,4 +1,3 @@
-import Empty from '@/components/Board/Empty'
 import BoardHeader from '@/components/Board/Header'
 import { getBoard } from '@/lib'
 import { Board } from '@/types'
@@ -16,8 +15,10 @@ const BoardPage = async ({ params }: { params: { boardId: string } }) => {
 
   return (
     <div className="flex-1 flex flex-col relative">
-      <BoardHeader name={board.name} />
-      <Empty />
+      <BoardHeader name={board.title} />
+
+      {/* <Empty /> */}
+
       <Link
         href={`/board/${boardId}/polaroid/create`}
         className="absolute right-10 bottom-10"
