@@ -6,6 +6,9 @@ const __dirname = path.dirname(__filename)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    API_HOST: process.env.API_HOST,
+  },
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src')
     config.resolve.alias['public'] = path.resolve(__dirname, 'public')

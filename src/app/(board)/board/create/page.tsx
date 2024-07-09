@@ -20,9 +20,10 @@ const CreateBoardPage = () => {
 
     setLoading(true)
     try {
-      const payload: CreateBoardPayload = { name: boardName }
+      const payload: CreateBoardPayload = { title: boardName, userId: null }
       const newBoard = await postBoard(payload)
-      router.push(`/board/${newBoard.id}`)
+
+      router.push(`/board/${newBoard}`)
     } catch (e) {
       alert('보드 생성에 실패했습니다.')
       console.error(e)
