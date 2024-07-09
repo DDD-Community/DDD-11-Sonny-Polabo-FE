@@ -16,7 +16,7 @@ const BoardPage = async ({ params }: { params: { boardId: string } }) => {
       {board.items.length === 0 ? (
         <Empty />
       ) : (
-        <div className="flex-1 flex flex-wrap justify-center">
+        <div>
           {board.items.map((item) => (
             <Polaroid
               key={item.id}
