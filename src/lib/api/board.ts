@@ -28,11 +28,3 @@ export const getTotalBoards = (): Promise<string> => {
     },
   })
 }
-
-export const getTotalBoards = (): Promise<string> => {
-  return get('/api/v1/boards/total-count', {
-    next: {
-      tags: ['totalBoards'],
-    },
-  })
-}
