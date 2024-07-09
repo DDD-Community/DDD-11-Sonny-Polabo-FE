@@ -1,11 +1,11 @@
 'use client'
 
 import Link from 'next/link'
+import ArrowBack from 'public/icons/arrow_back_ios.svg'
 import { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import ArrowBack from 'public/icons/arrow_back_ios.svg'
-import PolaroidMaker from '../Polaroid/PolaroidMaker'
 import Button from '../Button'
+import PolaroidMaker from '../Polaroid/PolaroidMaker'
 
 interface ModalProps {
   headerPathname: string
@@ -20,6 +20,7 @@ const CreatePolaroidModal = ({ headerPathname }: ModalProps) => {
   }, [])
 
   if (!isMounted) return null
+
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-gray-950 bg-opacity-60">
       <div className="max-w-md mx-auto min-h-screen px-5 py-10 flex flex-col justify-between">
