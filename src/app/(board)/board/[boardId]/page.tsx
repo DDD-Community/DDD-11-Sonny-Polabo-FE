@@ -1,7 +1,7 @@
 import Empty from '@/components/Board/Empty'
 import BoardHeader from '@/components/Board/Header'
 import CreatePolaroidModal from '@/components/Board/Modal'
-import Polaroid from '@/components/Polaroid'
+import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
 import { headers } from 'next/headers'
 import Link from 'next/link'
@@ -33,7 +33,7 @@ const BoardPage = async ({ params, searchParams }: BoardPageProps) => {
       ) : (
         <div>
           {board.items.map((item) => (
-            <Polaroid
+            <PolaroidCard
               key={item.id}
               imageUrl={item.imageUrl}
               oneLineMessage={item.oneLineMessage}

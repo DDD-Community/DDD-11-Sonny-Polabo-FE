@@ -1,9 +1,9 @@
 'use client'
 
 import { MAX_LENGTH } from '@/lib'
+import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
 import { ChangeEvent, useEffect, useState } from 'react'
-import Loading from '../Loading'
 import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
@@ -14,31 +14,42 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [loadingImg, setLoadingImg] = useState<boolean>(true)
+  const [selectedFile, setSelectedFile] = useState<string | null>(null)
+  // const [loadingImg, setLoadingImg] = useState<boolean>(false)
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files && event.target.files.length > 0) {
-      setSelectedFile(event.target.files[0])
+      // setSelectedFile(event.target.files[0])
+
+      const file = event.target.files[0]
+      const imageUrl = URL.createObjectURL(file)
+      const rotatedUrl = await rotateImageIfNeeded(imageUrl)
+      setSelectedFile(rotatedUrl)
     }
   }
 
   useEffect(() => {
-    if (selectedFile) {
-      setLoadingImg(true)
-      setButtonDisabled(true)
-      const timer = setTimeout(() => {
-        setLoadingImg(false)
-        setButtonDisabled(false)
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-    setButtonDisabled(true)
-
-    return undefined
+    setButtonDisabled(!selectedFile)
   }, [selectedFile, setButtonDisabled])
 
-  if (loadingImg) return <Loading message="필터를 적용하고 있어요!" />
+  // useEffect(() => {
+  //   if (selectedFile) {
+  //     setLoadingImg(true)
+  //     setButtonDisabled(true)
+  //     const timer = setTimeout(() => {
+  //       setLoadingImg(false)
+  //       setButtonDisabled(false)
+  //     }, 3000)
+  //     return () => clearTimeout(timer)
+  //   }
+  //   setButtonDisabled(true)
+
+  //   return undefined
+  // }, [selectedFile, setButtonDisabled])
+
+  // if (loadingImg) return <Loading message="필터를 적용하고 있어요!" />
   return (
     <Base>
       <Base.Top>
@@ -56,7 +67,7 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
             id="fileInput"
           />
           {selectedFile ? (
-            <PolaroidImage imageUrl={URL.createObjectURL(selectedFile)} />
+            <PolaroidImage imageUrl={selectedFile} />
           ) : (
             <AddPhotoIcon className="text-gray-0" />
           )}
