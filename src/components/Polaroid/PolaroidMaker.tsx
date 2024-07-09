@@ -1,8 +1,9 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import Base, { MAX_LENGTH } from './Base'
+import { ChangeEvent, useState } from 'react'
+import { MAX_LENGTH } from '@/lib'
+import Base, { PolaroidImage } from './Base'
 
 const PolaroidMaker = () => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
@@ -33,11 +34,7 @@ const PolaroidMaker = () => {
             id="fileInput"
           />
           {selectedFile ? (
-            <img
-              src={URL.createObjectURL(selectedFile)}
-              alt="Polaroid"
-              className="w-full h-full object-cover"
-            />
+            <PolaroidImage imageUrl={URL.createObjectURL(selectedFile)} />
           ) : (
             <AddPhotoIcon className="text-gray-0" />
           )}

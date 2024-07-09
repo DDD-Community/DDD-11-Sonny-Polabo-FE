@@ -1,6 +1,21 @@
+import { FILTERS } from '@/lib'
+import { PolaroidImageProps } from '@/types'
+import Image from 'next/image'
 import { ReactNode } from 'react'
 
-export const MAX_LENGTH = 20
+export const PolaroidImage = ({
+  imageUrl,
+  filter = 'POLAROID',
+}: PolaroidImageProps) => (
+  <Image
+    src={imageUrl}
+    alt="Polaroid 미리보기"
+    width={160}
+    height={192}
+    className="w-full h-full object-cover"
+    style={{ filter: FILTERS[filter] }}
+  />
+)
 
 const Top = ({ children }: { children: ReactNode }) => (
   <div className="p-3 pt-5">

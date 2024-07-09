@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ExitIcon from 'public/icons/exit.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
-import { MAX_LENGTH } from '../Polaroid/Base'
+import { MAX_LENGTH } from '@/lib'
 
 interface TextInputProps {
   value: string

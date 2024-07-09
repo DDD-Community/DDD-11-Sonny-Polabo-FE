@@ -1,3 +1,5 @@
+import { FILTERS } from '../lib/constants/polaroidConfig'
+
 export interface Polaroid {
   id: number
   imageUrl: string
@@ -8,4 +10,9 @@ export interface Polaroid {
 export interface CreatePolaroidPayload {
   imageKey: string
   oneLineMessage: string
+}
+
+export interface PolaroidImageProps {
+  imageUrl: string
+  filter?: keyof typeof FILTERS
 }

@@ -1,5 +1,5 @@
 import { revalidateTag } from 'next/cache'
-import { CreatePolaroidPayload, Polaroid } from '@/types/polaroid'
+import { CreatePolaroidPayload, Polaroid } from '@/types'
 import { get, post } from './base'
 
 export const getPolaroid = (id: string): Promise<Polaroid> => {
