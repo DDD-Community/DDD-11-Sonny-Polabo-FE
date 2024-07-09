@@ -1,4 +1,4 @@
-import { Polaroid } from '@/types/polaroid'
+import { Polaroid } from './polaroid'
 
 export interface Board {
   title: string

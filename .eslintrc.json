@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier", "import"],
   "parserOptions": {
     "project": "./tsconfig.json",
     "createDefaultProgram": true
@@ -22,11 +22,23 @@
     "plugin:prettier/recommended", // eslint의 포매팅을 prettier로 사용.
     "prettier" // eslint-config-prettier prettier와 중복된 eslint 규칙 제거
   ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
   "rules": {
     "react/react-in-jsx-scope": "off", // react 17부턴 import 안해도돼서 기능 끔
     // 경고표시, 파일 확장자를 .ts나 .tsx 모두 허용함
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
     "no-useless-catch": "off", // 불필요한 catch 못쓰게 하는 기능 끔,
+    "jsx-a11y/no-autofocus": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "import/no-unresolved": "error",
     "react/function-component-definition": [
       2,
       { "namedComponents": ["arrow-function", "function-declaration"] }
