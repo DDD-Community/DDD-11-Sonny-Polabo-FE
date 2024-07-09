@@ -1,26 +1,50 @@
 'use client'
 
 import { ChangeEvent, useState } from 'react'
-import Base from './Base'
+import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
+import Base, { MAX_LENGTH } from './Base'
 
 const PolaroidMaker = () => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
-  const MAX_LENGTH = 20
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0])
+    }
+  }
+
   return (
     <Base>
       <Base.Top>
         <div
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'black',
+          className="cursor-pointer w-full h-full bg-gray-950 flex items-center justify-center"
+          onClick={() => {
+            document.getElementById('fileInput')?.click()
           }}
-        />
+        >
+          <input
+            accept="image/*"
+            type="file"
+            onChange={handleFileChange}
+            className="hidden"
+            id="fileInput"
+          />
+          {selectedFile ? (
+            <img
+              src={URL.createObjectURL(selectedFile)}
+              alt="Polaroid"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <AddPhotoIcon className="text-gray-0" />
+          )}
+        </div>
       </Base.Top>
       <Base.Bottom>
         {inputEnabled ? (
-          /* eslint-disable-next-line jsx-a11y/no-autofocus */
           <input
             type="text"
             value={text}

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+export const MAX_LENGTH = 20
+
 const Top = ({ children }: { children: ReactNode }) => (
   <div className="p-3 pt-5">
     <div className="w-40 h-48 overflow-hidden">{children}</div>

@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ExitIcon from 'public/icons/exit.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
+import { MAX_LENGTH } from '../Polaroid/Base'
 
 interface TextInputProps {
   value: string
@@ -12,7 +13,6 @@ interface TextInputProps {
 
 const TextInput = ({ value, setValue }: TextInputProps) => {
   const [error, setError] = useState<boolean>(false)
-  const MAX_LENGTH = 20
 
   useEffect(() => {
     setError(value.length >= MAX_LENGTH)
