@@ -1,11 +1,15 @@
 'use client'
 
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { MAX_LENGTH } from '@/lib'
 import Base, { PolaroidImage } from './Base'
 
-const PolaroidMaker = () => {
+const PolaroidMaker = ({
+  setButtonDisabled,
+}: {
+  setButtonDisabled: (disabled: boolean) => void
+}) => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
 
@@ -16,6 +20,10 @@ const PolaroidMaker = () => {
       setSelectedFile(event.target.files[0])
     }
   }
+
+  useEffect(() => {
+    setButtonDisabled(!selectedFile)
+  }, [selectedFile])
 
   return (
     <Base>
