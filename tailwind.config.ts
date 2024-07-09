@@ -26,6 +26,7 @@ const config: Config = {
       },
       positive: '#10b981',
       negative: '#ef4444',
+      transparent: 'transparent',
     },
     fontSize: {
       xxs: '10px',
