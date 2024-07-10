@@ -29,7 +29,7 @@ const Bottom = ({ children }: { children: ReactNode }) => (
 
 const Base = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="shadow-lg rounded-lg m-4 bg-gray-200 font-hesom">
+    <div className="shadow-lg rounded-lg m-4 bg-gray-200 font-hesom overflow-hidden">
       {children}
     </div>
   )

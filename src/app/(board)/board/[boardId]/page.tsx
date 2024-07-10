@@ -1,13 +1,28 @@
 import Empty from '@/components/Board/Empty'
 import BoardHeader from '@/components/Board/Header'
-import Polaroid from '@/components/Polaroid'
+import CreatePolaroidModal from '@/components/Board/Modal'
+import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
+import { headers } from 'next/headers'
 import Link from 'next/link'
 import AddPolaroid from 'public/icons/add_polaroid.svg'
 
-const BoardPage = async ({ params }: { params: { boardId: string } }) => {
+interface BoardPageProps {
+  params: {
+    boardId: string
+  }
+  searchParams: Record<string, string> | null | undefined
+}
+
+const BoardPage = async ({ params, searchParams }: BoardPageProps) => {
   const { boardId } = params
   const board = await getBoard(boardId)
+
+  const show = searchParams?.show
+
+  // get current path
+  const headersList = headers()
+  const headerPathname = headersList.get('x-pathname') || ''
 
   return (
     <div className="flex-1 flex flex-col relative">
@@ -18,7 +33,7 @@ const BoardPage = async ({ params }: { params: { boardId: string } }) => {
       ) : (
         <div>
           {board.items.map((item) => (
-            <Polaroid
+            <PolaroidCard
               key={item.id}
               imageUrl={item.imageUrl}
               oneLineMessage={item.oneLineMessage}
@@ -27,8 +42,9 @@ const BoardPage = async ({ params }: { params: { boardId: string } }) => {
         </div>
       )}
 
+      {show && <CreatePolaroidModal headerPathname={headerPathname} />}
       <Link
-        href={`/board/${boardId}/polaroid/create`}
+        href={`${headerPathname}?show=true`}
         className="absolute right-10 bottom-10"
       >
         <AddPolaroid />
