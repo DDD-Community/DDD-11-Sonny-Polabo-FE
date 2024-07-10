@@ -1,6 +1,6 @@
+import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import '@/styles/globals.css'
 
 const PretendVariable = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
@@ -30,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}>
+      <body
+        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
+      >
         <main className="max-w-md mx-auto p-4 min-h-screen font-pretendard flex flex-col">
           {children}
         </main>

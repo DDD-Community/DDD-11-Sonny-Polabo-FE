@@ -1,4 +1,3 @@
-import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import Link from 'next/link'
 
 const HomePage = () => {
@@ -8,7 +7,6 @@ const HomePage = () => {
         <h2>함께 꾸미는 폴라로이드 보드</h2>
         <h1 className="text-4xl font-bold">POLABO</h1>
       </div>
-      <PolaroidMaker />
       <Link href="/board/create">시작하기</Link>
     </div>
   )

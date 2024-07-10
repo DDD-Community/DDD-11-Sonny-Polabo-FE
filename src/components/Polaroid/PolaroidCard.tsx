@@ -12,7 +12,7 @@ function PolaroidCard({ imageUrl, oneLineMessage, filter }: PolaroidCardProps) {
         <PolaroidImage imageUrl={imageUrl} filter={filter} />
       </Base.Top>
       <Base.Bottom>
-        <p className="text-center">{oneLineMessage}</p>
+        <p>{oneLineMessage}</p>
       </Base.Bottom>
     </Base>
   )
