@@ -15,14 +15,11 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
   const [text, setText] = useState<string>('')
 
   const [selectedFile, setSelectedFile] = useState<string | null>(null)
-  // const [loadingImg, setLoadingImg] = useState<boolean>(false)
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (event.target.files && event.target.files.length > 0) {
-      // setSelectedFile(event.target.files[0])
-
       const file = event.target.files[0]
       const imageUrl = URL.createObjectURL(file)
       const rotatedUrl = await rotateImageIfNeeded(imageUrl)
@@ -34,22 +31,6 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
     setButtonDisabled(!selectedFile)
   }, [selectedFile, setButtonDisabled])
 
-  // useEffect(() => {
-  //   if (selectedFile) {
-  //     setLoadingImg(true)
-  //     setButtonDisabled(true)
-  //     const timer = setTimeout(() => {
-  //       setLoadingImg(false)
-  //       setButtonDisabled(false)
-  //     }, 3000)
-  //     return () => clearTimeout(timer)
-  //   }
-  //   setButtonDisabled(true)
-
-  //   return undefined
-  // }, [selectedFile, setButtonDisabled])
-
-  // if (loadingImg) return <Loading message="필터를 적용하고 있어요!" />
   return (
     <Base>
       <Base.Top>
