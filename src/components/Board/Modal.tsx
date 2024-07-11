@@ -1,5 +1,6 @@
 'use client'
 
+import { getPreSignedUrl } from '@/lib'
 import ArrowBack from 'public/icons/arrow_back_ios.svg'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
@@ -8,13 +9,38 @@ import PolaroidMaker from '../Polaroid/PolaroidMaker'
 
 interface ModalProps {
   setModalOpen: (open: boolean) => void
+  id: string
 }
 
-const CreatePolaroidModal = ({ setModalOpen }: ModalProps) => {
+const CreatePolaroidModal = ({ setModalOpen, id }: ModalProps) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-  const uploadHandler = () => {
-    console.log('upload')
+  const uploadHandler = async () => {
+    try {
+      const { url, imageKey } = await getPreSignedUrl(id)
+
+      // 파일 업로드
+      if (!selectedFile) {
+        throw new Error('이미지 파일이 선택되지 않음')
+      }
+
+      const uploadResponse = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': selectedFile.type,
+        },
+        body: selectedFile,
+      })
+
+      if (!uploadResponse.ok) {
+        throw new Error('Image upload failed')
+      }
+      console.log('>>> Imagekey', imageKey)
+      setModalOpen(false)
+    } catch (error) {
+      console.error('Failed to upload image', error)
+    }
   }
 
   return ReactDOM.createPortal(
@@ -26,7 +52,11 @@ const CreatePolaroidModal = ({ setModalOpen }: ModalProps) => {
         />
 
         <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <PolaroidMaker setButtonDisabled={setButtonDisabled} />
+          <PolaroidMaker
+            setButtonDisabled={setButtonDisabled}
+            setSelectedFile={setSelectedFile}
+            selectedFile={selectedFile}
+          />
         </div>
         <div className="px-5">
           <Button

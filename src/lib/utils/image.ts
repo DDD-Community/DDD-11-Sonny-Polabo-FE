@@ -1,9 +1,13 @@
-const rotateImageIfNeeded = (src: string) => {
-  return new Promise<string>((resolve) => {
+const rotateImageIfNeeded = (file: File): Promise<File> => {
+  return new Promise<File>((resolve, reject) => {
     const img = new Image()
     img.crossOrigin = 'Anonymous'
+    const src = URL.createObjectURL(file)
     img.src = src
+
     img.onload = () => {
+      URL.revokeObjectURL(src) // 메모리 누수 방지
+
       if (img.width > img.height) {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
@@ -16,13 +20,26 @@ const rotateImageIfNeeded = (src: string) => {
           ctx.rotate((90 * Math.PI) / 180)
           ctx.drawImage(img, -img.width / 2, -img.height / 2)
 
-          resolve(canvas.toDataURL())
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const rotatedFile = new File([blob], file.name, {
+                type: file.type,
+              })
+              resolve(rotatedFile)
+            } else {
+              reject(new Error('Canvas toBlob failed'))
+            }
+          }, file.type)
         } else {
-          resolve(src)
+          reject(new Error('Canvas context is not available'))
         }
       } else {
-        resolve(src)
+        resolve(file)
       }
+    }
+
+    img.onerror = () => {
+      reject(new Error('Image load failed'))
     }
   })
 }

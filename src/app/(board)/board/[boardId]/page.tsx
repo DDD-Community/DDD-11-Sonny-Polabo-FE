@@ -29,7 +29,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         ))
       )}
 
-      <OpenModalBtn />
+      <OpenModalBtn id={boardId} />
     </div>
   )
 }

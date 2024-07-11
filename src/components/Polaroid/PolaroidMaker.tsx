@@ -8,21 +8,24 @@ import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
   setButtonDisabled: (disabled: boolean) => void
+  selectedFile: File | null
+  setSelectedFile: (file: File | null) => void
 }
 
-const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
+const PolaroidMaker = ({
+  setButtonDisabled,
+  selectedFile,
+  setSelectedFile,
+}: PolaroidMakerProps) => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
-
-  const [selectedFile, setSelectedFile] = useState<string | null>(null)
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
-      const imageUrl = URL.createObjectURL(file)
-      const rotatedUrl = await rotateImageIfNeeded(imageUrl)
+      const rotatedUrl = await rotateImageIfNeeded(file)
       setSelectedFile(rotatedUrl)
     }
   }
@@ -48,7 +51,7 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
             id="fileInput"
           />
           {selectedFile ? (
-            <PolaroidImage imageUrl={selectedFile} />
+            <PolaroidImage imageUrl={URL.createObjectURL(selectedFile)} />
           ) : (
             <AddPhotoIcon className="text-gray-0" />
           )}
@@ -67,7 +70,7 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
             }}
             className="bg-transparent w-full outline-none text-sm"
             maxLength={MAX_LENGTH}
-            placeholder="눌러서 텍스트를 입력하세요"
+            placeholder="눌러서 한줄 문구를 입력하세요"
             autoFocus
           />
         ) : (
@@ -75,7 +78,7 @@ const PolaroidMaker = ({ setButtonDisabled }: PolaroidMakerProps) => {
             className="text-sm cursor-pointer"
             onClick={() => setInputEnabled(true)}
           >
-            눌러서 텍스트를 입력하세요
+            눌러서 한줄 문구를 입력하세요
           </div>
         )}
 
