@@ -8,17 +8,29 @@ import Button from '../Button'
 import PolaroidMaker from '../Polaroid/PolaroidMaker'
 
 interface ModalProps {
-  setModalOpen: (open: boolean) => void
   id: string
+  setModalOpen: (open: boolean) => void
+  setImageKey: (imageKey: string) => void
+  text: string
+  setText: (text: string) => void
+  setReady: (ready: boolean) => void
 }
 
-const CreatePolaroidModal = ({ setModalOpen, id }: ModalProps) => {
+const CreatePolaroidModal = ({
+  id,
+  setModalOpen,
+  setImageKey,
+  text,
+  setText,
+  setReady,
+}: ModalProps) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const uploadHandler = async () => {
     try {
       const { url, imageKey } = await getPreSignedUrl(id)
+      setImageKey(imageKey)
 
       // 파일 업로드
       if (!selectedFile) {
@@ -36,8 +48,9 @@ const CreatePolaroidModal = ({ setModalOpen, id }: ModalProps) => {
       if (!uploadResponse.ok) {
         throw new Error('Image upload failed')
       }
-      console.log('>>> Imagekey', imageKey)
+
       setModalOpen(false)
+      setReady(true)
     } catch (error) {
       console.error('Failed to upload image', error)
     }
@@ -56,6 +69,8 @@ const CreatePolaroidModal = ({ setModalOpen, id }: ModalProps) => {
             setButtonDisabled={setButtonDisabled}
             setSelectedFile={setSelectedFile}
             selectedFile={selectedFile}
+            setText={setText}
+            text={text}
           />
         </div>
         <div className="px-5">

@@ -14,6 +14,8 @@ export const PolaroidImage = ({
     height={192}
     className="w-full h-full object-cover"
     style={{ filter: FILTERS[filter] }}
+    // placeholder="blur"
+    priority
   />
 )
 

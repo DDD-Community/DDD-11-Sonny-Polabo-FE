@@ -10,15 +10,19 @@ interface PolaroidMakerProps {
   setButtonDisabled: (disabled: boolean) => void
   selectedFile: File | null
   setSelectedFile: (file: File | null) => void
+  text: string
+  setText: (text: string) => void
 }
 
 const PolaroidMaker = ({
   setButtonDisabled,
   selectedFile,
   setSelectedFile,
+
+  text,
+  setText,
 }: PolaroidMakerProps) => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
-  const [text, setText] = useState<string>('')
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
