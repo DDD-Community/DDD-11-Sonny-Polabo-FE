@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@storybook/preview-api": "^8.1.11",
     "eslint-import-resolver-typescript": "^3.6.1",
     "next": "14.2.4",
     "react": "^18",
