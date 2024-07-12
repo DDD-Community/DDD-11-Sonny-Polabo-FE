@@ -184,10 +184,6 @@ const ModalFooterConfirm = ({
   )
 }
 
-ModalFooterConfirm.defaultProps = {
-  onConfirm: () => {},
-}
-
 const ModalFooterConfirmCancel = ({
   cancelText,
   confirmText,
@@ -214,10 +210,6 @@ const ModalFooterConfirmCancel = ({
       </Button>
     </>
   )
-}
-
-ModalFooterConfirmCancel.defaultProps = {
-  onConfirm: () => {},
 }
 
 Modal.CenterModal = CenterModal

@@ -9,11 +9,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function Button({
-  className,
-  size,
+  className = '',
+  size = 'md',
   children,
-  variant,
-  isSubmit,
+  variant = 'primary',
+  isSubmit = false,
   ...props
 }: ButtonProps) {
   const getSizeClass = () => {
@@ -49,13 +49,6 @@ function Button({
       {children}
     </button>
   )
-}
-
-Button.defaultProps = {
-  variant: 'primary',
-  size: 'md',
-  className: '',
-  isSubmit: false,
 }
 
 export default Button

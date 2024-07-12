@@ -8,9 +8,9 @@ interface TagButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function TagButton({
-  className,
   children,
-  isSubmit,
+  className = '',
+  isSubmit = false,
   disabled,
   size,
   ...props
@@ -41,11 +41,6 @@ function TagButton({
       {children}
     </button>
   )
-}
-
-TagButton.defaultProps = {
-  className: '',
-  isSubmit: false,
 }
 
 export default TagButton

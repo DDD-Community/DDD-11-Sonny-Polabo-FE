@@ -48,6 +48,11 @@
       {
         "html": "ignore"
       }
+    ],
+    "react/require-default-props": [
+      "error", {
+        "functions" : "defaultArguments"
+      }
     ]
   }
 }
