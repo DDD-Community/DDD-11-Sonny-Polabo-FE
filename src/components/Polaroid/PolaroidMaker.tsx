@@ -18,7 +18,6 @@ const PolaroidMaker = ({
   setButtonDisabled,
   selectedFile,
   setSelectedFile,
-
   text,
   setText,
 }: PolaroidMakerProps) => {
@@ -40,7 +39,7 @@ const PolaroidMaker = ({
 
   return (
     <Base>
-      <Base.Top>
+      <Base.Top size="lg">
         <div
           className="cursor-pointer w-full h-full bg-gray-950 flex items-center justify-center"
           onClick={() => {

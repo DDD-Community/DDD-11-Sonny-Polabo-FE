@@ -2,6 +2,10 @@ import { FILTERS } from '@/lib'
 import { PolaroidImageProps } from '@/types'
 import Image from 'next/image'
 import { ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
+
+// lg: 160 x 192
+// ms: 104 x 128
 
 export const PolaroidImage = ({
   imageUrl,
@@ -19,11 +23,27 @@ export const PolaroidImage = ({
   />
 )
 
-const Top = ({ children }: { children: ReactNode }) => (
-  <div className="p-3 pt-5">
-    <div className="w-40 h-48 overflow-hidden">{children}</div>
-  </div>
-)
+interface TopProps {
+  children: ReactNode
+  size?: 'lg' | 'sm'
+}
+
+const Top = ({ children, size = 'lg' }: TopProps) => {
+  const getSizeClass = () => {
+    if (size === 'sm') {
+      return 'w-[104px] h-32'
+    }
+    return 'w-40 h-48'
+  }
+
+  const containerClass = twMerge(getSizeClass(), 'overflow-hidden')
+
+  return (
+    <div className="p-3 pt-5">
+      <div className={containerClass}>{children}</div>
+    </div>
+  )
+}
 
 const Bottom = ({ children }: { children: ReactNode }) => (
   <div className="px-1 pb-3 bg-gradient-polaroid">{children}</div>
