@@ -21,10 +21,12 @@ export const postBoard = async (
   return res.data
 }
 
-export const getTotalBoards = (): Promise<string> => {
-  return get('/api/v1/boards/total-count', {
+export const getTotalBoards = async (): Promise<number> => {
+  const res = await get('/api/v1/boards/total-count', {
     next: {
       tags: ['totalBoards'],
     },
   })
+
+  return res.data
 }
