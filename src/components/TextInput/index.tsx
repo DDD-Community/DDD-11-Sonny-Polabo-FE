@@ -9,13 +9,14 @@ import { MAX_LENGTH } from '@/lib'
 interface TextInputProps {
   value: string
   setValue: (value: string) => void
+  className?: string
 }
 
-const TextInput = ({ value, setValue }: TextInputProps) => {
+const TextInput = ({ value, setValue, className = '' }: TextInputProps) => {
   const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
-    setError(value.length >= MAX_LENGTH)
+    setError(value.length > MAX_LENGTH)
   }, [value])
 
   const borderClass = twMerge(
@@ -24,7 +25,7 @@ const TextInput = ({ value, setValue }: TextInputProps) => {
   )
 
   return (
-    <div className={error ? `text-negative` : ''}>
+    <div className={`${className} ${error ? 'text-negative' : ''}`}>
       <div className={borderClass}>
         <div className="mr-2">
           {error ? <ExitIcon className="text-negative" /> : <PinIcon />}
@@ -35,14 +36,13 @@ const TextInput = ({ value, setValue }: TextInputProps) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setValue(e.target.value)
           }
-          maxLength={MAX_LENGTH}
           className="flex-1 outline-none p-1 bg-transparent"
         />
       </div>
 
       <div className="text-right text-xs">
         {error
-          ? `${MAX_LENGTH}자 미만으로 입력해주세요`
+          ? `${MAX_LENGTH}자 이내로 입력 가능해요`
           : `${value.length}/${MAX_LENGTH}자`}
       </div>
     </div>
