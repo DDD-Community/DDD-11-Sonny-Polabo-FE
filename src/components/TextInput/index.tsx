@@ -9,10 +9,9 @@ import { MAX_LENGTH } from '@/lib'
 interface TextInputProps {
   value: string
   setValue: (value: string) => void
-  className?: string
 }
 
-const TextInput = ({ value, setValue, className = '' }: TextInputProps) => {
+const TextInput = ({ value, setValue }: TextInputProps) => {
   const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const TextInput = ({ value, setValue, className = '' }: TextInputProps) => {
   )
 
   return (
-    <div className={`${className} ${error ? 'text-negative' : ''}`}>
+    <div className={`${error ? 'text-negative' : ''}`}>
       <div className={borderClass}>
         <div className="mr-2">
           {error ? <ExitIcon className="text-negative" /> : <PinIcon />}
