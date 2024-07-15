@@ -21,7 +21,7 @@ const BoardNameForm = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <TextInput className="w-full px-10" value={title} setValue={setTitle} />
+      <TextInput value={title} setValue={setTitle} />
       {children}
       <Button type="submit" size="lg" onClick={createBoard}>
         완료
