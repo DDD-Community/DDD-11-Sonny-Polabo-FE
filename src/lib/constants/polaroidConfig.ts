@@ -1,5 +1,3 @@
-export const MAX_LENGTH = 20
-
 export const FILTERS = {
   NORMAL: 'none',
   POLAROID:
