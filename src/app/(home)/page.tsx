@@ -15,6 +15,7 @@ const HomePage = () => {
         muted
         preload="auto"
         className="fixed top -z-10 w-full h-full object-cover"
+        poster="images/home.png"
       >
         <source src="videos/home.mp4" type="video/mp4" />
       </video>
