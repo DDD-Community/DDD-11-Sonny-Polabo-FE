@@ -8,6 +8,17 @@ import TotalCount from './components/TotalCount'
 const HomePage = () => {
   return (
     <div className="h-dvh flex flex-col items-center justify-between">
+      <video
+        autoPlay
+        loop
+        playsInline
+        muted
+        preload="auto"
+        className="fixed top -z-10 w-full h-full object-cover"
+        poster="images/home.png"
+      >
+        <source src="videos/home.mp4" type="video/mp4" />
+      </video>
       <div className="pt-12">
         <PolaroidsIcon className="m-auto" />
         <span className="pt-2 font-jooree text-sm leading-4 block text-center m-auto">
