@@ -103,7 +103,9 @@ const CenterModal = ({
           {icon}
         </div>
       )}
-      {children}
+      <div className="flex flex-col w-full justify-center items-center">
+        {children}
+      </div>
     </div>
   )
 }
@@ -123,7 +125,9 @@ const BottomModal = ({
       {icon && (
         <div className="w-full flex justify-center mt-5 mb-3">{icon}</div>
       )}
-      {children}
+      <div className="flex flex-col w-full justify-center items-center">
+        {children}
+      </div>
     </div>
   )
 }
@@ -132,14 +136,6 @@ const ModalClose = () => {
   const { onClose } = useContext(ModalContext)
   return (
     <Close className="absolute right-0 top-0 mr-4 mt-4" onClick={onClose} />
-  )
-}
-
-const ModalBody = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="flex flex-col w-full justify-center items-center">
-      {children}
-    </div>
   )
 }
 
@@ -159,11 +155,7 @@ const ModalBodyContent = ({ children }: { children: ReactNode }) => {
   )
 }
 
-const ModalFooter = ({ children }: { children: ReactNode }) => {
-  return <div className="my-4 mx-auto flex gap-1.5">{children}</div>
-}
-
-const ModalFooterConfirm = ({
+const CenterModalConfirm = ({
   confirmText,
   onConfirm = () => {},
 }: {
@@ -178,13 +170,41 @@ const ModalFooterConfirm = ({
   }
 
   return (
-    <Button variant="primary" size="md" onClick={clickHandler}>
+    <Button variant="primary" size="md" className="my-4" onClick={clickHandler}>
       {confirmText}
     </Button>
   )
 }
 
-const ModalFooterConfirmCancel = ({
+const BottomModalConfirm = ({
+  confirmText,
+  onConfirm = () => {},
+}: {
+  confirmText: string
+  onConfirm?: () => void
+}) => {
+  const { onClose } = useContext(ModalContext)
+
+  const clickHandler = () => {
+    onClose()
+    onConfirm()
+  }
+
+  return (
+    <div className="my-4 w-full flex">
+      <Button
+        variant="primary"
+        size="lg"
+        className="mx-8 h-[38px] rounded-md"
+        onClick={clickHandler}
+      >
+        {confirmText}
+      </Button>
+    </div>
+  )
+}
+
+const CenterConfirmCancel = ({
   cancelText,
   confirmText,
   onConfirm = () => {},
@@ -201,25 +221,63 @@ const ModalFooterConfirmCancel = ({
   }
 
   return (
-    <>
+    <div className="my-4 flex gap-1.5">
       <Button variant="secondary" size="sm" onClick={onClose}>
         {cancelText}
       </Button>
       <Button variant="primary" size="sm" onClick={clickHandler}>
         {confirmText}
       </Button>
-    </>
+    </div>
+  )
+}
+
+const BottomConfirmCancel = ({
+  cancelText,
+  confirmText,
+  onConfirm = () => {},
+}: {
+  cancelText: string
+  confirmText: string
+  onConfirm?: () => void
+}) => {
+  const { onClose } = useContext(ModalContext)
+
+  const clickHandler = () => {
+    onClose()
+    onConfirm()
+  }
+
+  return (
+    <div className="my-4 flex gap-1.5">
+      <Button
+        variant="secondary"
+        size="md"
+        className="w-[135px]"
+        onClick={onClose}
+      >
+        {cancelText}
+      </Button>
+      <Button
+        variant="primary"
+        size="md"
+        className="w-[135px]"
+        onClick={clickHandler}
+      >
+        {confirmText}
+      </Button>
+    </div>
   )
 }
 
 Modal.CenterModal = CenterModal
 Modal.BottomModal = BottomModal
 Modal.Close = ModalClose
-Modal.Body = ModalBody
-Modal.BodyTitle = ModalBodyTitle
-Modal.BodyContent = ModalBodyContent
-Modal.Footer = ModalFooter
-Modal.FooterConfirm = ModalFooterConfirm
-Modal.FooterConfirmCancel = ModalFooterConfirmCancel
+Modal.Title = ModalBodyTitle
+Modal.Content = ModalBodyContent
+Modal.CenterConfirm = CenterModalConfirm
+Modal.BottomConfirm = BottomModalConfirm
+Modal.CenterConfirmCancel = CenterConfirmCancel
+Modal.BottomConfirmCancel = BottomConfirmCancel
 
 export default Modal
