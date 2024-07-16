@@ -50,9 +50,8 @@
       }
     ],
     "react/require-default-props": [
-      "error",
-      {
-        "functions": "defaultArguments"
+      "error", {
+        "functions" : "defaultArguments"
       }
     ]
   }

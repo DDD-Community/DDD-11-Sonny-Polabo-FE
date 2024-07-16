@@ -3,17 +3,17 @@ import { twMerge } from 'tailwind-merge'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary'
-  size: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
   className?: string
   isSubmit?: boolean
 }
 
 function Button({
-  className,
-  size,
+  className = '',
+  size = 'md',
   children,
-  variant,
-  isSubmit,
+  variant = 'primary',
+  isSubmit = false,
   ...props
 }: ButtonProps) {
   const getSizeClass = () => {
@@ -49,12 +49,6 @@ function Button({
       {children}
     </button>
   )
-}
-
-Button.defaultProps = {
-  variant: 'primary',
-  className: '',
-  isSubmit: false,
 }
 
 export default Button

@@ -20,10 +20,24 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src')
     config.resolve.alias['public'] = path.resolve(__dirname, 'public')
+
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
+
+    config.module.rules.push({
+      test: /\.mp4$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          publicPath: '/_next/static/videos',
+          outputPath: 'static/videos',
+          name: '[name].[ext]',
+        }
+      }]
+    })
+
     return config
   },
   logging: {
