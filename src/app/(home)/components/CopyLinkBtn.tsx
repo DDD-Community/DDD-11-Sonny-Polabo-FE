@@ -33,15 +33,11 @@ const CopyLinkBtn = () => {
       {showLinkCopyModal && (
         <Modal isOpen={showLinkCopyModal} onClose={closeModal}>
           <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
-            <Modal.Body>
-              <Modal.BodyTitle>링크가 복사되었습니다!</Modal.BodyTitle>
-              <Modal.BodyContent>
-                {'POLABO를\n 지인들에게도 알려주세요!'}
-              </Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirm confirmText="확인" />
-            </Modal.Footer>
+            <Modal.Title>링크가 복사되었습니다!</Modal.Title>
+            <Modal.Content>
+              {'POLABO를\n 지인들에게도 알려주세요!'}
+            </Modal.Content>
+            <Modal.CenterConfirm confirmText="확인" />
           </Modal.CenterModal>
         </Modal>
       )}

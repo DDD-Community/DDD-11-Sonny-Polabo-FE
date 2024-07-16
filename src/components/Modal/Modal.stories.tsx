@@ -36,15 +36,11 @@ export const Bottom_Modal_Confirm: Story = {
         <Modal isOpen={isOpen} onClose={onClose}>
           <Modal.BottomModal icon={<BottomModalSvg />}>
             <Modal.Close />
-            <Modal.Body>
-              <Modal.BodyTitle>링크가 복사되었습니다!</Modal.BodyTitle>
-              <Modal.BodyContent>
-                {'POLABO를\n지인들에게도 알려주세요!'}
-              </Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirm confirmText="확인" />
-            </Modal.Footer>
+            <Modal.Title>링크가 복사되었습니다!</Modal.Title>
+            <Modal.Content>
+              {'POLABO를\n지인들에게도 알려주세요!'}
+            </Modal.Content>
+            <Modal.BottomConfirm confirmText="확인" />
           </Modal.BottomModal>
         </Modal>
       </div>
@@ -67,18 +63,14 @@ export const Bottom_Modal_Confirm_Cancel: Story = {
         <Modal isOpen={isOpen} onClose={onClose}>
           <Modal.BottomModal icon={<BottomModalSvg />}>
             <Modal.Close />
-            <Modal.Body>
-              <Modal.BodyTitle>링크가 복사되었습니다!</Modal.BodyTitle>
-              <Modal.BodyContent>
-                {'POLABO를\n지인들에게도 알려주세요!'}
-              </Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirmCancel
-                cancelText="돌아가기"
-                confirmText="확인"
-              />
-            </Modal.Footer>
+            <Modal.Title>링크가 복사되었습니다!</Modal.Title>
+            <Modal.Content>
+              {'POLABO를\n지인들에게도 알려주세요!'}
+            </Modal.Content>
+            <Modal.BottomConfirmCancel
+              cancelText="돌아가기"
+              confirmText="확인"
+            />
           </Modal.BottomModal>
         </Modal>
       </div>
@@ -101,15 +93,11 @@ export const Center_Modal_Confirm: Story = {
         <Modal isOpen={isOpen} onClose={onClose}>
           <Modal.CenterModal icon={<ModalSvg />}>
             <Modal.Close />
-            <Modal.Body>
-              <Modal.BodyTitle>링크가 복사되었습니다!</Modal.BodyTitle>
-              <Modal.BodyContent>
-                {'POLABO를\n지인들에게도 알려주세요!'}
-              </Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirm confirmText="확인" />
-            </Modal.Footer>
+            <Modal.Title>링크가 복사되었습니다!</Modal.Title>
+            <Modal.Content>
+              {'POLABO를\n지인들에게도 알려주세요!'}
+            </Modal.Content>
+            <Modal.CenterConfirm confirmText="확인" />
           </Modal.CenterModal>
         </Modal>
       </div>
@@ -132,18 +120,14 @@ export const Center_Modal_Confirm_Cancel: Story = {
         <Modal isOpen={isOpen} onClose={onClose}>
           <Modal.CenterModal icon={<ModalSvg />}>
             <Modal.Close />
-            <Modal.Body>
-              <Modal.BodyTitle>링크가 복사되었습니다!</Modal.BodyTitle>
-              <Modal.BodyContent>
-                {'POLABO를\n지인들에게도 알려주세요!'}
-              </Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirmCancel
-                cancelText="돌아가기"
-                confirmText="확인"
-              />
-            </Modal.Footer>
+            <Modal.Title>링크가 복사되었습니다!</Modal.Title>
+            <Modal.Content>
+              {'POLABO를\n지인들에게도 알려주세요!'}
+            </Modal.Content>
+            <Modal.CenterConfirmCancel
+              cancelText="돌아가기"
+              confirmText="확인"
+            />
           </Modal.CenterModal>
         </Modal>
       </div>
