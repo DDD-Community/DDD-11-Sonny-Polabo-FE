@@ -4,14 +4,19 @@ import { get, deleteApi } from './base'
 export const getPreSignedUrl = async (
   boardId: string,
 ): Promise<PreSignedUrl> => {
-  const response = await fetch(
-    `${process.env.API_HOST}/api/v1/file/pre-signed-url?fileKey=${boardId}`,
-  )
-  if (!response.ok) {
-    throw new Error('Failed to get pre-signed URL')
-  }
-  const result = await response.json()
+  const result = await get(`/api/v1/file/pre-signed-url?fileKey=${boardId}`)
+
   return result.data
+}
+
+export const uploadImage = ({ url, file }: { url: string; file: File }) => {
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': file.type,
+    },
+    body: file,
+  })
 }
 
 export const getImageUrl = (imageKey: string): Promise<string> => {

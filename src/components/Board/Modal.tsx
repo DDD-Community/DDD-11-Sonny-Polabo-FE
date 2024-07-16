@@ -1,6 +1,6 @@
 'use client'
 
-import { getPreSignedUrl } from '@/lib'
+import { getPreSignedUrl, uploadImage } from '@/lib'
 import ArrowBack from 'public/icons/arrow_back_ios.svg'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
@@ -37,13 +37,7 @@ const CreatePolaroidModal = ({
         throw new Error('이미지 파일이 선택되지 않음')
       }
 
-      const uploadResponse = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': selectedFile.type,
-        },
-        body: selectedFile,
-      })
+      const uploadResponse = await uploadImage({ url, file: selectedFile })
 
       if (!uploadResponse.ok) {
         throw new Error('Image upload failed')
