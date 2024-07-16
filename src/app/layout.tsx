@@ -33,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
-        <main className="max-w-md mx-auto p-4 min-h-screen font-pretendard flex flex-col">
+        <main className="max-w-md mx-auto px-5 font-pretendard">
           {children}
         </main>
         <div className="font-pretendard" id="modal-root" />
