@@ -9,6 +9,14 @@ const nextConfig = {
   env: {
     API_HOST: process.env.API_HOST,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'polabo-contents.s3.ap-northeast-2.amazonaws.com',
+      },
+    ],
+  },
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src')
     config.resolve.alias['public'] = path.resolve(__dirname, 'public')
@@ -31,6 +39,11 @@ const nextConfig = {
     })
 
     return config
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 }
 

@@ -6,15 +6,24 @@ interface PolaroidCardProps extends PolaroidImageProps {
 }
 
 function PolaroidCard({ imageUrl, oneLineMessage, filter }: PolaroidCardProps) {
+  // random rotate -2 < x < -1 | 1 < x < 2
+  const rotate =
+    Math.random() > 0.5 ? Math.random() * 1 + 1 : Math.random() * -1 - 1
+
   return (
-    <Base>
-      <Base.Top>
-        <PolaroidImage imageUrl={imageUrl} filter={filter} />
-      </Base.Top>
-      <Base.Bottom>
-        <p>{oneLineMessage}</p>
-      </Base.Bottom>
-    </Base>
+    <div
+      className="transform flex justify-center items-center"
+      style={{ rotate: `${rotate}deg` }}
+    >
+      <Base>
+        <Base.Top size="sm">
+          <PolaroidImage imageUrl={imageUrl} filter={filter} />
+        </Base.Top>
+        <Base.Bottom>
+          <p>{oneLineMessage}</p>
+        </Base.Bottom>
+      </Base>
+    </div>
   )
 }
 

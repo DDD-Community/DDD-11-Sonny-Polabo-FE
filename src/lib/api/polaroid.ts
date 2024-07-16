@@ -1,3 +1,5 @@
+'use server'
+
 import { revalidateTag } from 'next/cache'
 import { CreatePolaroidPayload, Polaroid } from '@/types'
 import { get, post } from './base'
