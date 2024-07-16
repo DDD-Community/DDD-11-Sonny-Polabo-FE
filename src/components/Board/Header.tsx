@@ -1,24 +1,8 @@
-'use client'
-
 import PinIcon from 'public/icons/pinFilled.svg'
-import Share from 'public/icons/ios_share.svg'
+import ShareBtn from './ShareBtn'
 
 interface BoardHeaderProps {
   name: string
-}
-
-// HTTPS에서만 동작
-const ShareButton = () => {
-  const handleClick = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'Polabo',
-        text: 'Polabo',
-        url: window.location.href,
-      })
-    }
-  }
-  return <Share onClick={handleClick} className="w-6" />
 }
 
 const BoardHeader = ({ name }: BoardHeaderProps) => {
@@ -29,7 +13,7 @@ const BoardHeader = ({ name }: BoardHeaderProps) => {
         <PinIcon />
         <h1 className="text-xl">{name}</h1>
       </div>
-      <ShareButton />
+      <ShareBtn />
     </div>
   )
 }

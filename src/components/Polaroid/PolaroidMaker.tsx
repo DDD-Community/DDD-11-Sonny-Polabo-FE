@@ -79,7 +79,10 @@ const PolaroidMaker = ({
         ) : (
           <div
             className="text-sm cursor-pointer"
-            onClick={() => setInputEnabled(true)}
+            onClick={() => {
+              setInputEnabled(true)
+              setText('')
+            }}
           >
             눌러서 한줄 문구를 입력하세요
           </div>
