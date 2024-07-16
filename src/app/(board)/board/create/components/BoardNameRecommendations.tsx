@@ -44,31 +44,25 @@ const RecommendationBtns = ({
 const BoardNameRecommendations = () => {
   const topRecommendations = [
     {
-      title: 'Top 보드 만들기 1',
+      title: '내 첫인상에 대해 알려줘',
     },
     {
-      title: 'Top 보드 만들기 2',
+      title: '장하오 데뷔 1주년',
     },
     {
-      title: 'Top 보드 만들기 3',
-    },
-    {
-      title: 'Top 보드 만들기 4',
+      title: '23학번 디자인과 MT',
     },
   ]
 
   const bottomRecommendations = [
     {
-      title: 'Top 보드 만들기 1',
+      title: '2024년 여름 일본여행1',
     },
     {
-      title: 'Top 보드 만들기 2',
+      title: '고등학교 졸사찍은 날',
     },
     {
-      title: 'Top 보드 만들기 3',
-    },
-    {
-      title: 'Top 보드 만들기 4',
+      title: '100일 축하보드',
     },
   ]
 
