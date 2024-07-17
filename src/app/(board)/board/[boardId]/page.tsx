@@ -1,8 +1,9 @@
-import Empty from '@/components/Board/Empty'
-import BoardHeader from '@/components/Board/Header'
-import OpenModalBtn from '@/components/Board/OpenModalBtn'
+import Empty from '@/app/(board)/board/[boardId]/components/Empty'
+
 import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
+import BoardHeader from './components/Header'
+import OpenModalBtn from './components/OpenModalBtn'
 
 interface BoardPageProps {
   params: {

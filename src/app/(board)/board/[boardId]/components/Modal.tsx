@@ -1,11 +1,11 @@
 'use client'
 
+import Button from '@/components/Button'
+import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { getPreSignedUrl, uploadImage } from '@/lib'
 import ArrowBack from 'public/icons/arrow_back_ios.svg'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Button from '../Button'
-import PolaroidMaker from '../Polaroid/PolaroidMaker'
 
 interface ModalProps {
   id: string
