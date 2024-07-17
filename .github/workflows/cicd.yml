@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set .ENV file
+        run: echo "API_HOST=${{ secrets.API_HOST }}" > .env
       - name: Build docker image
         run: docker build -t sonny2024/polabo-fe .
       - name: Login to DockerHub
