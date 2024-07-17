@@ -18,7 +18,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   console.log('>> BOARD: ', board)
 
   return (
-    <div className="flex-1 flex flex-col relative">
+    <div className="h-dvh flex flex-col relative">
       <BoardHeader name={board.title} />
       {board.items.length === 0 ? (
         <Empty />
@@ -34,7 +34,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         </div>
       )}
 
-      <OpenModalBtn id={boardId} />
+      <OpenModalBtn id={boardId} polaroidNum={board.items.length} />
     </div>
   )
 }

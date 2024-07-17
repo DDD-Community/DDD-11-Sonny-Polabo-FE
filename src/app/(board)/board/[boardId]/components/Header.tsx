@@ -7,7 +7,7 @@ interface BoardHeaderProps {
 
 const BoardHeader = ({ name }: BoardHeaderProps) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center px-3">
       <div className="w-6" />
       <div className="flex flex-col justify-center items-center">
         <PinIcon />

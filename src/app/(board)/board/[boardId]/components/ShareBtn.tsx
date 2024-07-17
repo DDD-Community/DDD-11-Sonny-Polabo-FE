@@ -8,7 +8,10 @@ import { useState } from 'react'
 const ShareBtn = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
 
-  const currentURL = window.location.href
+  let currentURL = ''
+  if (typeof window !== 'undefined') {
+    currentURL = window.location.href
+  }
 
   const copyLink = () => {
     return navigator.clipboard.writeText(currentURL).then(() => {
