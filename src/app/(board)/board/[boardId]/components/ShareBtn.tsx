@@ -25,16 +25,10 @@ const ShareBtn = () => {
       {showShareModal && (
         <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)}>
           <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
-            <Modal.Body>
-              <Modal.BodyTitle>보드를 친구에게 공유해보세요!</Modal.BodyTitle>
-              <Modal.BodyContent>{currentURL}</Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirm
-                confirmText="복사하기"
-                onConfirm={copyLink}
-              />
-            </Modal.Footer>
+            <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
+            <Modal.Content>{currentURL}</Modal.Content>
+
+            <Modal.CenterConfirm confirmText="복사하기" onConfirm={copyLink} />
           </Modal.CenterModal>
         </Modal>
       )}

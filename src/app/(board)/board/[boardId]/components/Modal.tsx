@@ -54,7 +54,7 @@ const CreatePolaroidModal = ({
   }
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-gray-950 bg-opacity-60">
+    <div className="fixed inset-0 bg-gray-950/60">
       <div className="max-w-md mx-auto min-h-screen px-5 py-10 flex flex-col justify-between">
         <ArrowBack
           className="text-gray-0"
@@ -67,21 +67,16 @@ const CreatePolaroidModal = ({
             onClose={() => setShowAskBfCloseModal(false)}
           >
             <Modal.CenterModal icon={<SurprisedIcon />}>
-              <Modal.Body>
-                <Modal.BodyTitle>
-                  {'폴라로이드 제작을\n 그만 하시겠습니까?'}
-                </Modal.BodyTitle>
-                <Modal.BodyContent>
-                  여태까지 작성한 내용이 사라져요
-                </Modal.BodyContent>
-              </Modal.Body>
-              <Modal.Footer>
-                <Modal.FooterConfirmCancel
-                  cancelText="아니요"
-                  confirmText="예"
-                  onConfirm={() => setModalOpen(false)}
-                />
-              </Modal.Footer>
+              <Modal.Title>
+                {'폴라로이드 제작을\n 그만 하시겠습니까?'}
+              </Modal.Title>
+              <Modal.Content>여태까지 작성한 내용이 사라져요</Modal.Content>
+
+              <Modal.BottomConfirmCancel
+                cancelText="아니요"
+                confirmText="예"
+                onConfirm={() => setModalOpen(false)}
+              />
             </Modal.CenterModal>
           </Modal>
         )}

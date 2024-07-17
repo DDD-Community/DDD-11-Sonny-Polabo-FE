@@ -36,15 +36,12 @@ const OpenModalBtn = ({ id, polaroidNum }: OpenModalBtnProps) => {
       return (
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           <Modal.CenterModal icon={<SurprisedIcon />}>
-            <Modal.Body>
-              <Modal.BodyTitle>
-                {'이 보드에는 더이상 업로드가\n 불가합니다.'}
-              </Modal.BodyTitle>
-              <Modal.BodyContent>(한 보드당 최대 50개 가능)</Modal.BodyContent>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.FooterConfirm confirmText="확인" />
-            </Modal.Footer>
+            <Modal.Title>
+              {'이 보드에는 더이상 업로드가\n 불가합니다.'}
+            </Modal.Title>
+            <Modal.Content>(한 보드당 최대 50개 가능)</Modal.Content>
+
+            <Modal.CenterConfirm confirmText="확인" />
           </Modal.CenterModal>
         </Modal>
       )
