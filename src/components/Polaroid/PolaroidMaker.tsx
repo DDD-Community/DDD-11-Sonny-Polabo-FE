@@ -1,6 +1,5 @@
 'use client'
 
-import { MAX_LENGTH } from '@/lib'
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
 import { ChangeEvent, useEffect, useState } from 'react'
@@ -13,6 +12,8 @@ interface PolaroidMakerProps {
   text: string
   setText: (text: string) => void
 }
+
+const MAX_LENGTH = 20
 
 const PolaroidMaker = ({
   setButtonDisabled,
