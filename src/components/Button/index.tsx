@@ -23,7 +23,7 @@ function Button({
     if (size === 'md') {
       return 'text-sm w-[154px] h-10 rounded-lg'
     }
-    return 'text-md font-semibold w-[240px] h-[54px] rounded-xl'
+    return 'text-md font-semibold w-[calc(100%-40px)] h-[54px] rounded-xl'
   }
 
   const getVariantClass = () => {

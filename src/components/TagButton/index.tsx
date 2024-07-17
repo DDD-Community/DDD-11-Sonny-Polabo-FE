@@ -26,7 +26,7 @@ function TagButton({
   }
 
   const buttonClass = twMerge(
-    'whitespace-normal break-words border border-gray-900 bg-gray-0 active:bg-gray-100',
+    'border border-gray-900 bg-gray-0 active:bg-gray-100',
     getSizeClass(),
     className,
   )

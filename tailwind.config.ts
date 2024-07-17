@@ -60,6 +60,46 @@ const config: Config = {
         jooree: ['var(--font-jooree)'],
         hesom: ['var(--font-hesom)'],
       },
+      keyframes: {
+        'slide-left': {
+          '0%': {
+            transform: 'translateX(100%)',
+          },
+          '100%': {
+            transform: 'translateX(-100%)',
+          },
+        },
+        'slide-left-delay': {
+          '0%': {
+            transform: 'translateX(0%)',
+          },
+          '100%': {
+            transform: 'translateX(-200%)',
+          },
+        },
+        'slide-right': {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(100%)',
+          },
+        },
+        'slide-right-delay': {
+          '0%': {
+            transform: 'translateX(-200%)',
+          },
+          '100%': {
+            transform: 'translateX(0%)',
+          },
+        },
+      },
+      animation: {
+        'slide-left': 'slide-left 30s linear -30s infinite',
+        'slide-left-delay': 'slide-left-delay 30s linear -15s infinite',
+        'slide-right': 'slide-right 30s linear -30s infinite',
+        'slide-right-delay': 'slide-right-delay 30s linear -15s infinite',
+      },
     },
   },
   plugins: [],

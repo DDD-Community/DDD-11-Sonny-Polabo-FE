@@ -26,7 +26,7 @@ const HomePage = () => {
         </span>
         <Image src={PolaboLogo} alt="logo" className="px-20 py-0.5" />
       </div>
-      <div className="flex flex-col items-center mb-[30px]">
+      <div className="flex flex-col w-full items-center mb-[30px]">
         <TotalCount />
         <CreateBoardBtn />
         <CopyLinkBtn />
