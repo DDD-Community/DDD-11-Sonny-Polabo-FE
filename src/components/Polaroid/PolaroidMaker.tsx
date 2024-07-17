@@ -1,6 +1,6 @@
 'use client'
 
-import { MAX_LENGTH } from '@/lib'
+import { ONE_LINE_MSG_MAX_LEN } from '@/lib'
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
 import { ChangeEvent, useEffect, useState } from 'react'
@@ -38,7 +38,7 @@ const PolaroidMaker = ({
   }, [selectedFile, setButtonDisabled])
 
   return (
-    <Base>
+    <Base className="m-4">
       <Base.Top size="lg">
         <div
           className="cursor-pointer w-full h-full bg-gray-950 flex items-center justify-center"
@@ -66,13 +66,13 @@ const PolaroidMaker = ({
             type="text"
             value={text}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              if (e.target.value.length > MAX_LENGTH) {
-                e.target.value = e.target.value.slice(0, MAX_LENGTH)
+              if (e.target.value.length > ONE_LINE_MSG_MAX_LEN) {
+                e.target.value = e.target.value.slice(0, ONE_LINE_MSG_MAX_LEN)
               }
               setText(e.target.value)
             }}
             className="bg-transparent w-full outline-none text-sm"
-            maxLength={MAX_LENGTH}
+            maxLength={ONE_LINE_MSG_MAX_LEN}
             placeholder="눌러서 한줄 문구를 입력하세요"
             autoFocus
           />
@@ -89,7 +89,7 @@ const PolaroidMaker = ({
         )}
 
         <p className="text-xs text-gray-400 text-right">
-          {text.length}/{MAX_LENGTH}
+          {text.length}/{ONE_LINE_MSG_MAX_LEN}
         </p>
       </Base.Bottom>
     </Base>

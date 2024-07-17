@@ -38,8 +38,14 @@ const Top = ({ children, size = 'lg' }: TopProps) => {
 
   const containerClass = twMerge(getSizeClass(), 'overflow-hidden')
 
+  const paddingClass = () => {
+    if (size === 'sm') {
+      return 'p-2'
+    }
+    return 'p-3 pt-5'
+  }
   return (
-    <div className="p-3 pt-5">
+    <div className={paddingClass()}>
       <div className={containerClass}>{children}</div>
     </div>
   )
@@ -49,9 +55,20 @@ const Bottom = ({ children }: { children: ReactNode }) => (
   <div className="px-1 pb-3 bg-gradient-polaroid">{children}</div>
 )
 
-const Base = ({ children }: { children: ReactNode }) => {
+const Base = ({
+  children,
+  className = '',
+}: {
+  children: ReactNode
+  className?: string
+}) => {
   return (
-    <div className="shadow-lg rounded-lg m-4 bg-gray-200 font-hesom overflow-hidden">
+    <div
+      className={twMerge(
+        'shadow-lg rounded-lg m-2 bg-gray-200 font-hesom overflow-hidden',
+        className,
+      )}
+    >
       {children}
     </div>
   )

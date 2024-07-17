@@ -32,6 +32,7 @@ const CreatePolaroidModal = ({
 
   const uploadHandler = async () => {
     try {
+      setButtonDisabled(true)
       const { url, imageKey } = await getPreSignedUrl(id)
       setImageKey(imageKey)
 
@@ -46,6 +47,7 @@ const CreatePolaroidModal = ({
         throw new Error('Image upload failed')
       }
 
+      setButtonDisabled(false)
       setModalOpen(false)
       setReady(true)
     } catch (error) {
