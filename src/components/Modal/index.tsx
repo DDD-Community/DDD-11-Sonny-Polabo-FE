@@ -141,7 +141,7 @@ const ModalClose = () => {
 
 const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="font-semibold text-md font-semiBold leading-6">
+    <div className="font-semibold text-md font-semiBold leading-6 whitespace-pre text-center">
       {children}
     </div>
   )

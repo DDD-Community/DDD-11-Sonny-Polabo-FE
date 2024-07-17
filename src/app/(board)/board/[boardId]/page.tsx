@@ -1,8 +1,9 @@
-import Empty from '@/components/Board/Empty'
-import BoardHeader from '@/components/Board/Header'
-import OpenModalBtn from '@/components/Board/OpenModalBtn'
+import Empty from '@/app/(board)/board/[boardId]/components/Empty'
+
 import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
+import BoardHeader from './components/Header'
+import OpenModalBtn from './components/OpenModalBtn'
 
 interface BoardPageProps {
   params: {
@@ -17,7 +18,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   console.log('>> BOARD: ', board)
 
   return (
-    <div className="flex-1 flex flex-col relative">
+    <div className="h-dvh flex flex-col relative">
       <BoardHeader name={board.title} />
       {board.items.length === 0 ? (
         <Empty />
@@ -33,7 +34,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         </div>
       )}
 
-      <OpenModalBtn id={boardId} />
+      <OpenModalBtn id={boardId} polaroidNum={board.items.length} />
     </div>
   )
 }
