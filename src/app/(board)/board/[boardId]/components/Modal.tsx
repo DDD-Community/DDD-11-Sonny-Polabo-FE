@@ -1,11 +1,13 @@
 'use client'
 
 import Button from '@/components/Button'
+import Modal from '@/components/Modal'
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { getPreSignedUrl, uploadImage } from '@/lib'
 import ArrowBack from 'public/icons/arrow_back_ios.svg'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
+import SurprisedIcon from 'public/icons/surprised.svg'
 
 interface ModalProps {
   id: string
@@ -26,6 +28,7 @@ const CreatePolaroidModal = ({
 }: ModalProps) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [showAskBfCloseModal, setShowAskBfCloseModal] = useState<boolean>(false)
 
   const uploadHandler = async () => {
     try {
@@ -55,8 +58,33 @@ const CreatePolaroidModal = ({
       <div className="max-w-md mx-auto min-h-screen px-5 py-10 flex flex-col justify-between">
         <ArrowBack
           className="text-gray-0"
-          onClick={() => setModalOpen(false)}
+          onClick={() => setShowAskBfCloseModal(true)}
         />
+
+        {showAskBfCloseModal && (
+          <Modal
+            isOpen={showAskBfCloseModal}
+            onClose={() => setShowAskBfCloseModal(false)}
+          >
+            <Modal.CenterModal icon={<SurprisedIcon />}>
+              <Modal.Body>
+                <Modal.BodyTitle>
+                  {'폴라로이드 제작을\n 그만 하시겠습니까?'}
+                </Modal.BodyTitle>
+                <Modal.BodyContent>
+                  여태까지 작성한 내용이 사라져요
+                </Modal.BodyContent>
+              </Modal.Body>
+              <Modal.Footer>
+                <Modal.FooterConfirmCancel
+                  cancelText="아니요"
+                  confirmText="예"
+                  onConfirm={() => setModalOpen(false)}
+                />
+              </Modal.Footer>
+            </Modal.CenterModal>
+          </Modal>
+        )}
 
         <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <PolaroidMaker
