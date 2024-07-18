@@ -29,6 +29,7 @@ const CreatePolaroidModal = ({
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [showAskBfCloseModal, setShowAskBfCloseModal] = useState<boolean>(false)
+  const [showFinalModal, setShowFinalModal] = useState<boolean>(false)
 
   const uploadHandler = async () => {
     try {
@@ -92,9 +93,29 @@ const CreatePolaroidModal = ({
             text={text}
           />
         </div>
+
+        {showFinalModal && (
+          <Modal
+            isOpen={showFinalModal}
+            onClose={() => setShowFinalModal(false)}
+          >
+            <Modal.CenterModal icon={<SurprisedIcon />}>
+              <Modal.Title>
+                {'업로드 후에는\n 수정 및 삭제가 불가합니다.'}
+              </Modal.Title>
+              <Modal.Content>폴라로이드를 업로드 할까요?</Modal.Content>
+
+              <Modal.BottomConfirmCancel
+                cancelText="아니요"
+                confirmText="예"
+                onConfirm={uploadHandler}
+              />
+            </Modal.CenterModal>
+          </Modal>
+        )}
         <div className="px-5">
           <Button
-            onClick={uploadHandler}
+            onClick={() => setShowFinalModal(true)}
             size="lg"
             className="w-full"
             disabled={buttonDisabled}
