@@ -1,5 +1,7 @@
 'use client'
 
+import Button from '@/components/Button'
+import Close from 'public/icons/close.svg'
 import React, {
   createContext,
   ReactNode,
@@ -9,8 +11,6 @@ import React, {
   useState,
 } from 'react'
 import ReactDOM from 'react-dom'
-import Close from 'public/icons/close.svg'
-import Button from '@/components/Button'
 
 interface ModalContextProps {
   isVisible: boolean
@@ -159,7 +159,7 @@ const CenterModalConfirm = ({
   confirmText,
   onConfirm = () => {},
 }: {
-  confirmText: string
+  confirmText: ReactNode
   onConfirm?: () => void
 }) => {
   const { onClose } = useContext(ModalContext)
@@ -170,7 +170,12 @@ const CenterModalConfirm = ({
   }
 
   return (
-    <Button variant="primary" size="md" className="my-4" onClick={clickHandler}>
+    <Button
+      variant="primary"
+      size="md"
+      className="my-4 flex justify-center items-center gap-1"
+      onClick={clickHandler}
+    >
       {confirmText}
     </Button>
   )
