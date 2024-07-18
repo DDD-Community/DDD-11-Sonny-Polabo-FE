@@ -52,7 +52,9 @@ const Top = ({ children, size = 'lg' }: TopProps) => {
 }
 
 const Bottom = ({ children }: { children: ReactNode }) => (
-  <div className="px-1 pb-3 bg-gradient-polaroid">{children}</div>
+  <div className="px-1 pb-3 bg-gradient-polaroid tracking-tight">
+    {children}
+  </div>
 )
 
 const Base = ({

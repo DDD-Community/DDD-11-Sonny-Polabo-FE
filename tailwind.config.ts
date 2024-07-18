@@ -55,6 +55,9 @@ const config: Config = {
       semiBold: '600',
       bold: '700',
     },
+    letterSpacing: {
+      tight: '-0.2px',
+    },
     extend: {
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],

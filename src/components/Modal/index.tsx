@@ -149,7 +149,7 @@ const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
 
 const ModalBodyContent = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="w-32 text-center whitespace-pre text-gray-700 mt-2 text-xs leading-4">
+    <div className="w-40 text-center whitespace-pre text-gray-700 mt-2 text-xs leading-4">
       {children}
     </div>
   )

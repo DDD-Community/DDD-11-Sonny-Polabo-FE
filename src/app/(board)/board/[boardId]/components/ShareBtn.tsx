@@ -27,7 +27,9 @@ const ShareBtn = () => {
         <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)}>
           <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
             <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
-            <Modal.Content>{currentURL}</Modal.Content>
+            <Modal.Content>
+              <div className="truncate">{currentURL}</div>
+            </Modal.Content>
 
             <Modal.CenterConfirm
               confirmText={
