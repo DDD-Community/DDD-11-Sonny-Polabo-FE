@@ -1,3 +1,4 @@
+import GoogleAnalytics from '@/components/GoogleAnalytics'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
@@ -30,6 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
