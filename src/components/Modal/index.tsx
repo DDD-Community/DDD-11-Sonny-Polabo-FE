@@ -25,14 +25,16 @@ const ModalContext = createContext<ModalContextProps>({
 const ModalOverlay = ({
   children,
   handleTransitionEnd,
+  closeOnClick,
 }: {
   children: ReactNode
   handleTransitionEnd: () => void
+  closeOnClick: boolean
 }) => {
   const { isVisible, onClose } = useContext(ModalContext)
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (event.target === event.currentTarget) {
+    if (closeOnClick && event.target === event.currentTarget) {
       onClose()
     }
   }
@@ -54,9 +56,15 @@ interface ModalProps {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
+  closeOnOutsideClick?: boolean
 }
 
-function Modal({ isOpen, onClose, children }: ModalProps) {
+function Modal({
+  isOpen,
+  onClose,
+  children,
+  closeOnOutsideClick = true,
+}: ModalProps) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -80,7 +88,10 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
   return isOpen
     ? ReactDOM.createPortal(
         <ModalContext.Provider value={context}>
-          <ModalOverlay handleTransitionEnd={handleTransitionEnd}>
+          <ModalOverlay
+            closeOnClick={closeOnOutsideClick}
+            handleTransitionEnd={handleTransitionEnd}
+          >
             {children}
           </ModalOverlay>
         </ModalContext.Provider>,
