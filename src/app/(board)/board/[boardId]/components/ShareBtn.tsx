@@ -15,9 +15,7 @@ const ShareBtn = () => {
   }
 
   const copyLink = () => {
-    return navigator.clipboard.writeText(currentURL).then(() => {
-      setShowShareModal(false)
-    })
+    return navigator.clipboard.writeText(currentURL)
   }
 
   return (

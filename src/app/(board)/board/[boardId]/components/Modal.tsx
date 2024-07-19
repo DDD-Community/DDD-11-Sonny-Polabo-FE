@@ -58,7 +58,7 @@ const CreatePolaroidModal = ({
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-gray-950/60">
-      <div className="max-w-md mx-auto min-h-screen px-5 py-10 flex flex-col justify-between">
+      <div className="max-w-md mx-auto h-dvh px-5 py-10 flex flex-col justify-between">
         <ArrowBack
           className="text-gray-0"
           onClick={() => setShowAskBfCloseModal(true)}
