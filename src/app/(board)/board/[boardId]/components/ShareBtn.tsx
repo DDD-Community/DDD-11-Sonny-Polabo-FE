@@ -4,6 +4,7 @@ import Modal from '@/components/Modal'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
 import { useState } from 'react'
+import CopyIcon from 'public/icons/copy.svg'
 
 const ShareBtn = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
@@ -14,9 +15,7 @@ const ShareBtn = () => {
   }
 
   const copyLink = () => {
-    return navigator.clipboard.writeText(currentURL).then(() => {
-      setShowShareModal(false)
-    })
+    return navigator.clipboard.writeText(currentURL)
   }
 
   return (
@@ -26,9 +25,19 @@ const ShareBtn = () => {
         <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)}>
           <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
             <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
-            <Modal.Content>{currentURL}</Modal.Content>
+            <Modal.Content>
+              <div className="truncate">{currentURL}</div>
+            </Modal.Content>
 
-            <Modal.CenterConfirm confirmText="복사하기" onConfirm={copyLink} />
+            <Modal.CenterConfirm
+              confirmText={
+                <>
+                  <CopyIcon />
+                  복사하기
+                </>
+              }
+              onConfirm={copyLink}
+            />
           </Modal.CenterModal>
         </Modal>
       )}

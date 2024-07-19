@@ -12,7 +12,7 @@ function PolaroidCard({ imageUrl, oneLineMessage, filter }: PolaroidCardProps) {
 
   return (
     <div
-      className="transform flex justify-center items-center"
+      className="transform flex justify-center items-center w-[142px]"
       style={{ rotate: `${rotate}deg` }}
     >
       <Base>
@@ -20,7 +20,7 @@ function PolaroidCard({ imageUrl, oneLineMessage, filter }: PolaroidCardProps) {
           <PolaroidImage imageUrl={imageUrl} filter={filter} />
         </Base.Top>
         <Base.Bottom>
-          <p>{oneLineMessage}</p>
+          <p className="h-5 text-xs">{oneLineMessage}</p>
         </Base.Bottom>
       </Base>
     </div>
