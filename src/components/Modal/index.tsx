@@ -71,7 +71,11 @@ function Modal({
   } | null>(null)
 
   useEffect(() => {
-    setIsVisible(isOpen)
+    if (isOpen) {
+      requestAnimationFrame(() => {
+        setIsVisible(true)
+      })
+    }
   }, [isOpen])
 
   const closeModal = () => {
