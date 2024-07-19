@@ -14,12 +14,12 @@ import ReactDOM from 'react-dom'
 
 interface ModalContextProps {
   isVisible: boolean
-  onClose: () => void
+  onClose: () => Promise<void>
 }
 
 const ModalContext = createContext<ModalContextProps>({
   isVisible: false,
-  onClose: () => {},
+  onClose: async () => {},
 })
 
 const ModalOverlay = ({
@@ -66,21 +66,35 @@ function Modal({
   closeOnOutsideClick = true,
 }: ModalProps) {
   const [isVisible, setIsVisible] = useState(false)
+  const [closePromise, setClosePromise] = useState<{
+    resolve: () => void
+  } | null>(null)
 
   useEffect(() => {
     setIsVisible(isOpen)
   }, [isOpen])
 
+  const closeModal = () => {
+    setIsVisible(false)
+    return new Promise<void>((resolve) => {
+      setClosePromise({ resolve })
+    })
+  }
+
   const handleTransitionEnd = () => {
     if (!isVisible) {
       onClose()
+      if (closePromise) {
+        closePromise.resolve()
+        setClosePromise(null)
+      }
     }
   }
 
   const context = useMemo(
     () => ({
       isVisible,
-      onClose: () => setIsVisible(false),
+      onClose: closeModal,
     }),
     [isVisible, setIsVisible],
   )
@@ -176,8 +190,7 @@ const CenterModalConfirm = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    onClose()
-    onConfirm()
+    return onClose().then(() => onConfirm())
   }
 
   return (
@@ -202,8 +215,7 @@ const BottomModalConfirm = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    onClose()
-    onConfirm()
+    return onClose().then(() => onConfirm())
   }
 
   return (
@@ -232,8 +244,7 @@ const CenterConfirmCancel = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    onClose()
-    onConfirm()
+    return onClose().then(() => onConfirm())
   }
 
   return (
@@ -260,8 +271,7 @@ const BottomConfirmCancel = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    onClose()
-    onConfirm()
+    return onClose().then(() => onConfirm())
   }
 
   return (
