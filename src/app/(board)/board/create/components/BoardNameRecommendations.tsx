@@ -1,12 +1,27 @@
-import PinFilledIcon from 'public/icons/pinFilled.svg'
-import TagButton from '@/components/TagButton'
+import SketchIcon1 from 'public/icons/sketchIcons-1.svg'
+import SketchIcon2 from 'public/icons/sketchIcons-2.svg'
+import SketchIcon3 from 'public/icons/sketchIcons-3.svg'
+import SketchIcon4 from 'public/icons/sketchIcons-4.svg'
+import SketchIcon5 from 'public/icons/sketchIcons-5.svg'
+import SketchIcon6 from 'public/icons/sketchIcons-6.svg'
+import { ReactNode } from 'react'
+
+const Tag = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="border border-gray-900 bg-gray-0 text-xxs rounded-[36px] h-[26px] flex items-center justify-center px-2.5 first:ml-2 gap-1.5">
+      {children}
+    </div>
+  )
+}
 
 type RecommendationBtnsProps = {
   recommendations: {
     title: string
+    icon: ReactNode
   }[]
   direction: 'left' | 'right'
 }
+
 const RecommendationBtns = ({
   direction,
   recommendations,
@@ -20,21 +35,21 @@ const RecommendationBtns = ({
       : 'animate-slide-right-delay'
 
   return (
-    <div className="relative flex overflow-hidden w-screen">
-      <div className={`${animationClass} whitespace-nowrap`}>
+    <div className="relative flex overflow-x-hidden w-screen">
+      <div className={`${animationClass} whitespace-nowrap flex gap-2`}>
         {recommendations.map((recommendation) => (
-          <TagButton size="medium" key={recommendation.title} className="mr-2">
-            <PinFilledIcon className="inline mr-1" />
+          <Tag key={recommendation.title}>
+            {recommendation.icon}
             {recommendation.title}
-          </TagButton>
+          </Tag>
         ))}
       </div>
-      <div className={`${delayedAnimationClass} whitespace-nowrap`}>
+      <div className={`${delayedAnimationClass} whitespace-nowrap flex gap-2`}>
         {recommendations.map((recommendation) => (
-          <TagButton size="medium" key={recommendation.title} className="mr-2">
-            <PinFilledIcon className="inline mr-1" />
+          <Tag key={recommendation.title}>
+            {recommendation.icon}
             {recommendation.title}
-          </TagButton>
+          </Tag>
         ))}
       </div>
     </div>
@@ -45,24 +60,30 @@ const BoardNameRecommendations = () => {
   const topRecommendations = [
     {
       title: '내 첫인상에 대해 알려줘',
+      icon: <SketchIcon1 />,
     },
     {
       title: '장하오 데뷔 1주년',
+      icon: <SketchIcon2 />,
     },
     {
       title: '23학번 디자인과 MT',
+      icon: <SketchIcon3 />,
     },
   ]
 
   const bottomRecommendations = [
     {
-      title: '2024년 여름 일본여행1',
+      title: '2024년 여름 일본여행',
+      icon: <SketchIcon4 />,
     },
     {
       title: '고등학교 졸사찍은 날',
+      icon: <SketchIcon5 />,
     },
     {
       title: '100일 축하보드',
+      icon: <SketchIcon6 />,
     },
   ]
 
