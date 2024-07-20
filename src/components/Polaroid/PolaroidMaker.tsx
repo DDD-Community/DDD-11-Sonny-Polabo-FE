@@ -1,40 +1,40 @@
-'use client'
-
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
-  setButtonDisabled: (disabled: boolean) => void
-  selectedFile: File | null
-  setSelectedFile: (file: File | null) => void
-  text: string
-  setText: (text: string) => void
+  setBtnDisabled: (disabled: boolean) => void
 }
 
 const MAX_LENGTH = 20
 
-const PolaroidMaker = ({
-  setButtonDisabled,
-  selectedFile,
-  setSelectedFile,
-  text,
-  setText,
-}: PolaroidMakerProps) => {
+const PolaroidMaker = ({ setBtnDisabled }: PolaroidMakerProps) => {
+  const [text, setText] = useState<string>('')
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
+
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
       const rotatedUrl = await rotateImageIfNeeded(file)
-      setSelectedFile(rotatedUrl)
+
+      const fileReader = new FileReader()
+
+      fileReader.onload = () => {
+        if (typeof fileReader.result === 'string') {
+          setFileUrl(fileReader.result)
+        }
+      }
+
+      fileReader.readAsDataURL(rotatedUrl)
     }
   }
 
   useEffect(() => {
-    setButtonDisabled(!selectedFile)
-  }, [selectedFile, setButtonDisabled])
+    setBtnDisabled(!fileUrl)
+  }, [fileUrl])
 
   return (
     <Base className="m-4">
@@ -51,9 +51,10 @@ const PolaroidMaker = ({
             onChange={handleFileChange}
             className="hidden"
             id="fileInput"
+            name="fileInput"
           />
-          {selectedFile ? (
-            <PolaroidImage imageUrl={URL.createObjectURL(selectedFile)} />
+          {fileUrl ? (
+            <PolaroidImage imageUrl={fileUrl} />
           ) : (
             <AddPhotoIcon className="text-gray-0" />
           )}
@@ -72,6 +73,7 @@ const PolaroidMaker = ({
           className="bg-transparent w-[176px] h-6 outline-none text-sm"
           maxLength={MAX_LENGTH}
           placeholder="눌러서 한줄 문구를 입력하세요"
+          name="oneLineMessage"
         />
 
         <p className="text-xs text-gray-400 text-right">
