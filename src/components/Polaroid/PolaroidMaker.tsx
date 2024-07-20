@@ -2,7 +2,7 @@
 
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
@@ -22,18 +22,15 @@ const PolaroidMaker = ({
   text,
   setText,
 }: PolaroidMakerProps) => {
-  const [inputEnabled, setInputEnabled] = useState<boolean>(false)
-
-  const handleFileChange = useCallback(
-    async (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files && event.target.files.length > 0) {
-        const file = event.target.files[0]
-        const rotatedUrl = await rotateImageIfNeeded(file)
-        setSelectedFile(rotatedUrl)
-      }
-    },
-    [rotateImageIfNeeded, setSelectedFile],
-  )
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0]
+      const rotatedUrl = await rotateImageIfNeeded(file)
+      setSelectedFile(rotatedUrl)
+    }
+  }
 
   useEffect(() => {
     setButtonDisabled(!selectedFile)
@@ -63,32 +60,19 @@ const PolaroidMaker = ({
         </div>
       </Base.Top>
       <Base.Bottom>
-        {inputEnabled ? (
-          <input
-            type="text"
-            value={text}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              if (e.target.value.length > MAX_LENGTH) {
-                e.target.value = e.target.value.slice(0, MAX_LENGTH)
-              }
-              setText(e.target.value)
-            }}
-            className="bg-transparent w-[176px] h-6 outline-none text-sm"
-            maxLength={MAX_LENGTH}
-            placeholder="눌러서 한줄 문구를 입력하세요"
-            autoFocus
-          />
-        ) : (
-          <div
-            className="text-sm cursor-pointer w-[176px] h-6"
-            onClick={() => {
-              setInputEnabled(true)
-              setText('')
-            }}
-          >
-            눌러서 한줄 문구를 입력하세요
-          </div>
-        )}
+        <input
+          type="text"
+          value={text}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.value.length > MAX_LENGTH) {
+              e.target.value = e.target.value.slice(0, MAX_LENGTH)
+            }
+            setText(e.target.value)
+          }}
+          className="bg-transparent w-[176px] h-6 outline-none text-sm"
+          maxLength={MAX_LENGTH}
+          placeholder="눌러서 한줄 문구를 입력하세요"
+        />
 
         <p className="text-xs text-gray-400 text-right">
           {text.length}/{MAX_LENGTH}
