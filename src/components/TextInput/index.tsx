@@ -26,7 +26,7 @@ const TextInput = ({
   )
 
   return (
-    <div className={`${hasError ? 'text-negative' : ''}`}>
+    <div className={`w-60 ${hasError ? 'text-negative' : ''}`}>
       <div className={borderClass}>
         <div className="mr-2">
           {hasError ? <ExitIcon className="text-negative" /> : <PinIcon />}
