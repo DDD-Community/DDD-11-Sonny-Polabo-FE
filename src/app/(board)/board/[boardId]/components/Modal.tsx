@@ -1,13 +1,13 @@
 'use client'
 
 import Button from '@/components/Button'
-import Modal from '@/components/Modal'
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { getPreSignedUrl, uploadImage } from '@/lib'
 import ArrowBack from 'public/icons/arrow_back_ios.svg'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
-import SurprisedIcon from 'public/icons/surprised.svg'
+import AskBfCloseModal from './modal/AskBfCloseModal'
+import FinalModal from './modal/FinalModal'
 
 interface ModalProps {
   id: string
@@ -60,29 +60,14 @@ const CreatePolaroidModal = ({
     <div className="fixed inset-0 bg-gray-950/60">
       <div className="max-w-md mx-auto h-dvh px-5 py-10 flex flex-col justify-between">
         <ArrowBack
-          className="text-gray-0"
+          className="text-gray-0 cursor-pointer"
           onClick={() => setShowAskBfCloseModal(true)}
         />
-
-        {showAskBfCloseModal && (
-          <Modal
-            isOpen={showAskBfCloseModal}
-            onClose={() => setShowAskBfCloseModal(false)}
-          >
-            <Modal.CenterModal icon={<SurprisedIcon />}>
-              <Modal.Title>
-                {'폴라로이드 제작을\n 그만 하시겠습니까?'}
-              </Modal.Title>
-              <Modal.Content>여태까지 작성한 내용이 사라져요</Modal.Content>
-
-              <Modal.BottomConfirmCancel
-                cancelText="아니요"
-                confirmText="예"
-                onConfirm={() => setModalOpen(false)}
-              />
-            </Modal.CenterModal>
-          </Modal>
-        )}
+        <AskBfCloseModal
+          isOpen={showAskBfCloseModal}
+          onClose={() => setShowAskBfCloseModal(false)}
+          onConfirm={() => setModalOpen(false)}
+        />
 
         <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <PolaroidMaker
@@ -94,25 +79,6 @@ const CreatePolaroidModal = ({
           />
         </div>
 
-        {showFinalModal && (
-          <Modal
-            isOpen={showFinalModal}
-            onClose={() => setShowFinalModal(false)}
-          >
-            <Modal.CenterModal icon={<SurprisedIcon />}>
-              <Modal.Title>
-                {'업로드 후에는\n 수정 및 삭제가 불가합니다.'}
-              </Modal.Title>
-              <Modal.Content>폴라로이드를 업로드 할까요?</Modal.Content>
-
-              <Modal.BottomConfirmCancel
-                cancelText="아니요"
-                confirmText="예"
-                onConfirm={uploadHandler}
-              />
-            </Modal.CenterModal>
-          </Modal>
-        )}
         <div className="px-5">
           <Button
             onClick={() => setShowFinalModal(true)}
@@ -123,6 +89,11 @@ const CreatePolaroidModal = ({
             업로드하기
           </Button>
         </div>
+        <FinalModal
+          isOpen={showFinalModal}
+          onClose={() => setShowFinalModal(false)}
+          onConfirm={uploadHandler}
+        />
       </div>
     </div>,
     document.getElementById('modal-root') as HTMLElement,

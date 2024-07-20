@@ -2,7 +2,7 @@
 
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
@@ -24,15 +24,16 @@ const PolaroidMaker = ({
 }: PolaroidMakerProps) => {
   const [inputEnabled, setInputEnabled] = useState<boolean>(false)
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0]
-      const rotatedUrl = await rotateImageIfNeeded(file)
-      setSelectedFile(rotatedUrl)
-    }
-  }
+  const handleFileChange = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files && event.target.files.length > 0) {
+        const file = event.target.files[0]
+        const rotatedUrl = await rotateImageIfNeeded(file)
+        setSelectedFile(rotatedUrl)
+      }
+    },
+    [rotateImageIfNeeded, setSelectedFile],
+  )
 
   useEffect(() => {
     setButtonDisabled(!selectedFile)
@@ -72,14 +73,14 @@ const PolaroidMaker = ({
               }
               setText(e.target.value)
             }}
-            className="bg-transparent w-full outline-none text-sm"
+            className="bg-transparent w-[176px] h-6 outline-none text-sm"
             maxLength={MAX_LENGTH}
             placeholder="눌러서 한줄 문구를 입력하세요"
             autoFocus
           />
         ) : (
           <div
-            className="text-sm cursor-pointer"
+            className="text-sm cursor-pointer w-[176px] h-6"
             onClick={() => {
               setInputEnabled(true)
               setText('')
