@@ -35,7 +35,7 @@ const RecommendationBtns = ({
       : 'animate-slide-right-delay'
 
   return (
-    <div className="relative flex overflow-x-hidden">
+    <div className="relative flex w-screen max-w-md overflow-x-hidden">
       <div className={`${animationClass} whitespace-nowrap flex gap-2`}>
         {recommendations.map((recommendation) => (
           <Tag key={recommendation.title}>
@@ -88,11 +88,11 @@ const BoardNameRecommendations = () => {
   ]
 
   return (
-    <div className="w-full">
+    <div>
       <div className="text-gray-400 text-xs text-center my-5">
         다른 사용자들은 이런 보드를 만들었어요
       </div>
-      <div className="flex flex-col gap-3 mb-20 w-full">
+      <div className="flex flex-col gap-3 mb-20">
         <RecommendationBtns
           recommendations={topRecommendations}
           direction="left"
