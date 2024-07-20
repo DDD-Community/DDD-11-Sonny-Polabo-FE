@@ -1,10 +1,16 @@
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import { ChangeEvent, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
-  setBtnDisabled: (disabled: boolean) => void
+  setBtnDisabled: Dispatch<SetStateAction<boolean>>
 }
 
 const MAX_LENGTH = 20
