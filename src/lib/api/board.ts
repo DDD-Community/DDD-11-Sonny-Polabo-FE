@@ -30,3 +30,11 @@ export const getTotalBoards = async (): Promise<number> => {
 
   return res.data
 }
+
+export const getBoardAvailableCount = async (): Promise<number> => {
+  const res = await get('/api/v1/boards/create-available', {
+    cache: 'no-cache',
+  })
+
+  return res.data
+}
