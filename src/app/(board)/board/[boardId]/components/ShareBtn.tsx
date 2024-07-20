@@ -3,16 +3,16 @@
 import Modal from '@/components/Modal'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CopyIcon from 'public/icons/copy.svg'
 
 const ShareBtn = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
+  const [currentURL, setCurrentURL] = useState<string>('')
 
-  let currentURL = ''
-  if (typeof window !== 'undefined') {
-    currentURL = window.location.href
-  }
+  useEffect(() => {
+    setCurrentURL(window.location.href)
+  }, [])
 
   const copyLink = () => {
     return navigator.clipboard.writeText(currentURL)
