@@ -1,6 +1,5 @@
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
 import PolaboLogo from 'public/images/polabo_logo.png'
-import HomeImage from 'public/images/home.png'
 import Image from 'next/image'
 import CreateBoardBtn from './components/CreateBoardBtn'
 import CopyLinkBtn from './components/CopyLinkBtn'
@@ -8,14 +7,8 @@ import TotalCount from './components/TotalCount'
 
 const HomePage = () => {
   return (
-    <div className="h-dvh w-full flex flex-col items-center justify-between">
-      <Image
-        className="fixed top max-w-md -z-10 h-full object-cover animate-slide-up"
-        alt="home image"
-        priority
-        src={HomeImage}
-      />
-      <div className="pt-12">
+    <div className="fixed h-dvh px-5 top-0 left-0 flex flex-col items-center justify-between bg-cover bg-[url('/images/home.png')]">
+      <div className="pt-12 overscroll-none">
         <PolaroidsIcon className="m-auto" />
         <span className="pt-2 font-jooree text-sm leading-4 block text-center m-auto">
           함께 꾸미는 폴라로이드 보드
