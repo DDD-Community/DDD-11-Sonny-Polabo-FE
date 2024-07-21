@@ -76,14 +76,14 @@ const PolaroidMaker = ({ setBtnDisabled }: PolaroidMakerProps) => {
             }
             setText(e.target.value)
           }}
-          className="bg-transparent w-[176px] h-6 outline-none text-sm"
+          className="bg-transparent w-[196px] h-[16px] outline-none text-sm"
           maxLength={MAX_LENGTH}
           placeholder="눌러서 한줄 문구를 입력하세요"
           name="oneLineMessage"
         />
 
         <p className="text-xs text-gray-400 text-right">
-          {text.length}/{MAX_LENGTH}
+          {text.length}/{MAX_LENGTH}자
         </p>
       </Base.Bottom>
     </Base>

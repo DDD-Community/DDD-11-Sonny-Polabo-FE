@@ -33,7 +33,7 @@ const Top = ({ children, size = 'lg' }: TopProps) => {
     if (size === 'sm') {
       return 'w-[104px] h-32'
     }
-    return 'w-40 h-48'
+    return 'w-[180px] h-56'
   }
 
   const containerClass = twMerge(getSizeClass(), 'overflow-hidden')
