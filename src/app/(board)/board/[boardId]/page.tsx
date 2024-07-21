@@ -24,7 +24,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
       {board.items.length === 0 ? (
         <Empty />
       ) : (
-        <div className="overflow-y-scroll overflow-x-hidden w-[280px] mx-auto scrollbar-hide">
+        <div className="flex-1 overflow-y-scroll overflow-x-hidden w-[280px] mx-auto scrollbar-hide">
           <div className="grid grid-cols-2">
             {board.items.map((item) => (
               <PolaroidCard
