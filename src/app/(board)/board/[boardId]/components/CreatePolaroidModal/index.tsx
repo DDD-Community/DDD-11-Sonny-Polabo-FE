@@ -2,6 +2,7 @@
 
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { useRef, useState } from 'react'
+import rotateImageIfNeeded from '@/lib/utils/image'
 import { uploadAction } from '../../actions/uploadAction'
 import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'
@@ -21,6 +22,14 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
       <ArrowBack />
       <form
         action={async (formData) => {
+          const fileInput = formData.get('fileInput')
+          if (fileInput && fileInput instanceof File) {
+            const rotatedFile = await rotateImageIfNeeded(fileInput)
+            if (rotatedFile !== fileInput) {
+              formData.set('fileInput', rotatedFile)
+            }
+          }
+
           const res = await uploadAction(id, formData)
           if (res) {
             closeModal()

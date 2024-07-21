@@ -24,17 +24,16 @@ const PolaroidMaker = ({ setBtnDisabled }: PolaroidMakerProps) => {
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
-      const rotatedUrl = await rotateImageIfNeeded(file)
+      const rotatedFile = await rotateImageIfNeeded(file)
 
+      // image preview
       const fileReader = new FileReader()
-
       fileReader.onload = () => {
         if (typeof fileReader.result === 'string') {
           setFileUrl(fileReader.result)
         }
       }
-
-      fileReader.readAsDataURL(rotatedUrl)
+      fileReader.readAsDataURL(rotatedFile)
     }
   }
 
