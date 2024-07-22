@@ -6,7 +6,7 @@ import Button from '@/components/Button'
 import { postBoard } from '@/lib'
 import { useRouter } from 'next/navigation'
 
-const MAX_BOARD_NAME_LENGTH = 20
+const MAX_BOARD_NAME_LENGTH = 15
 
 const BoardNameForm = ({ children }: { children: ReactNode }) => {
   const [title, setTitle] = useState('')

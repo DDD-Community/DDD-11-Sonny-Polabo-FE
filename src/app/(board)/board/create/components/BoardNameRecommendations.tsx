@@ -35,7 +35,7 @@ const RecommendationBtns = ({
       : 'animate-slide-right-delay'
 
   return (
-    <div className="relative flex overflow-x-hidden w-screen">
+    <div className="relative flex w-screen max-w-md overflow-x-hidden">
       <div className={`${animationClass} whitespace-nowrap flex gap-2`}>
         {recommendations.map((recommendation) => (
           <Tag key={recommendation.title}>
