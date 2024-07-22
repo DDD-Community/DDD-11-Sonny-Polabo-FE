@@ -21,6 +21,24 @@ const Hesom = localFont({
 export const metadata: Metadata = {
   title: 'POLABO',
   description: '우리만의 추억보드',
+  metadataBase: new URL('https://polabo.site'),
+
+  openGraph: {
+    images: [
+      {
+        url: '/images/opengraph-image.jpg',
+        alt: 'Polabo',
+      },
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: '/images/opengraph-image.jpg',
+        alt: 'Polabo',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({

@@ -22,5 +22,5 @@ export const postPolaroid = async (
 
   revalidateTag(`board:${boardId}`)
 
-  return result
+  return result.data
 }

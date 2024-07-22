@@ -11,7 +11,7 @@ const BoardHeader = ({ name }: BoardHeaderProps) => {
       <div className="w-6" />
       <div className="flex flex-col justify-center items-center">
         <PinIcon />
-        <h1 className="text-xl">{name}</h1>
+        <h1 className="text-md font-semiBold leading-6">{name}</h1>
       </div>
       <ShareBtn />
     </div>
