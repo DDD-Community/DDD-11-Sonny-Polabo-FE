@@ -12,7 +12,7 @@ function PolaroidCard({ imageUrl, oneLineMessage, filter }: PolaroidCardProps) {
 
   return (
     <div
-      className="transform flex justify-center items-center w-[142px]"
+      className="flex w-[144px] transform items-center justify-center"
       style={{ rotate: `${rotate}deg` }}
     >
       <Base>

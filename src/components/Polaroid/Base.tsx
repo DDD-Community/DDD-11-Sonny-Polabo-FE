@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-// lg: 160 x 192
-// ms: 104 x 128
+// lg: 188 x 236
+// sm: 120 x 148
 
 export const PolaroidImage = ({
   imageUrl,
@@ -14,9 +14,9 @@ export const PolaroidImage = ({
   <Image
     src={imageUrl}
     alt="Polaroid 미리보기"
-    width={160}
-    height={192}
-    className="w-full h-full object-cover"
+    width={188}
+    height={236}
+    className="h-full w-full object-cover"
     style={{ filter: FILTERS[filter] }}
     // placeholder="blur"
     priority
@@ -31,9 +31,9 @@ interface TopProps {
 const Top = ({ children, size = 'lg' }: TopProps) => {
   const getSizeClass = () => {
     if (size === 'sm') {
-      return 'w-[104px] h-32'
+      return 'w-[120px] h-[148px]'
     }
-    return 'w-[180px] h-56'
+    return 'w-[188px] h-[236px]'
   }
 
   const containerClass = twMerge(getSizeClass(), 'overflow-hidden')
@@ -52,7 +52,7 @@ const Top = ({ children, size = 'lg' }: TopProps) => {
 }
 
 const Bottom = ({ children }: { children: ReactNode }) => (
-  <div className="px-1 pb-3 bg-gradient-polaroid tracking-tight">
+  <div className="bg-gradient-polaroid px-1 pb-3 tracking-tight">
     {children}
   </div>
 )
@@ -67,7 +67,7 @@ const Base = ({
   return (
     <div
       className={twMerge(
-        'shadow-lg rounded-lg m-2 bg-gray-200 font-hesom overflow-hidden',
+        'overflow-hidden rounded-lg bg-gray-200 font-hesom shadow-lg',
         className,
       )}
     >
