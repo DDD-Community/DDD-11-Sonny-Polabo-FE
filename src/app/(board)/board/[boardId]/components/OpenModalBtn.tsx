@@ -28,10 +28,7 @@ const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
   return (
     <div>
       {isOpen && renderModalContent()}
-      <AddPolaroid
-        onClick={openModal}
-        className="absolute right-10 bottom-10"
-      />
+      <AddPolaroid onClick={openModal} className="absolute bottom-10 right-4" />
     </div>
   )
 }

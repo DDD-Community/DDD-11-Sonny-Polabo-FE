@@ -18,7 +18,7 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
   const { closeModal } = useModal()
 
   return (
-    <div className="max-w-md mx-auto h-dvh px-5 py-10 flex flex-col justify-between flex-1">
+    <div className="mx-auto flex h-dvh max-w-md flex-1 flex-col justify-between px-5 py-10">
       <ArrowBack />
       <form
         action={async (formData) => {
@@ -37,7 +37,7 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
         }}
         ref={formRef}
       >
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
           <PolaroidMaker setBtnDisabled={setBtnDisabled} />
         </div>
         <UploadBtn formRef={formRef} btnDisabled={btnDisabled} />

@@ -1,3 +1,5 @@
+'use client'
+
 import rotateImageIfNeeded from '@/lib/utils/image'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
 import {
@@ -42,10 +44,10 @@ const PolaroidMaker = ({ setBtnDisabled }: PolaroidMakerProps) => {
   }, [fileUrl])
 
   return (
-    <Base className="m-4">
-      <Base.Top size="lg">
+    <Base className="m-4" size="lg">
+      <Base.Top>
         <div
-          className="cursor-pointer w-full h-full bg-gray-950 flex items-center justify-center"
+          className="flex h-full w-full cursor-pointer items-center justify-center bg-gray-950"
           onClick={() => {
             document.getElementById('fileInput')?.click()
           }}
@@ -75,13 +77,13 @@ const PolaroidMaker = ({ setBtnDisabled }: PolaroidMakerProps) => {
             }
             setText(e.target.value)
           }}
-          className="bg-transparent w-[196px] h-[16px] outline-none text-sm"
+          className="h-[20px] w-[204px] bg-transparent outline-none"
           maxLength={MAX_LENGTH}
           placeholder="눌러서 한줄 문구를 입력하세요"
           name="oneLineMessage"
         />
 
-        <p className="text-xs text-gray-400 text-right">
+        <p className="text-right text-sm text-gray-400">
           {text.length}/{MAX_LENGTH}자
         </p>
       </Base.Bottom>

@@ -19,13 +19,13 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   console.log('>> BOARD: ', board)
 
   return (
-    <div className="h-dvh flex flex-col relative">
+    <div className="relative flex h-dvh flex-col bg-gray-50">
       <BoardHeader name={board.title} />
       {board.items.length === 0 ? (
         <Empty />
       ) : (
-        <div className="flex-1 overflow-y-scroll overflow-x-hidden w-[280px] mx-auto scrollbar-hide">
-          <div className="grid grid-cols-2">
+        <div className="mx-auto flex-1 overflow-x-hidden overflow-y-scroll scrollbar-hide">
+          <div className="grid grid-cols-2 gap-3 p-[10px]">
             {board.items.map((item) => (
               <PolaroidCard
                 key={item.id}

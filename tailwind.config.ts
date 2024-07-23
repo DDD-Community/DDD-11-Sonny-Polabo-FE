@@ -104,6 +104,9 @@ const config: Config = {
         'slide-right': 'slide-right 30s linear -30s infinite',
         'slide-right-delay': 'slide-right-delay 30s linear -15s infinite',
       },
+      boxShadow: {
+        header: '0px 1px 2px 0px rgba(0, 0, 0, 0.10)',
+      },
     },
   },
   plugins: [require('tailwind-scrollbar-hide')],

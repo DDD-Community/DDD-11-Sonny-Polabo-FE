@@ -6,11 +6,11 @@ import BoardAvailabilityCheckModal from './components/BoardAvailabilityCheckModa
 
 const CreateBoardPage = () => {
   return (
-    <div className="flex flex-col h-dvh items-center justify-between">
+    <div className="flex h-dvh flex-col items-center justify-between px-5">
       <Image
         src={PolaboLogo}
         alt="logo"
-        className="px-20 pt-6 object-contain"
+        className="object-contain px-20 pt-6"
       />
       <BoardAvailabilityCheckModal />
       <BoardNameForm>
