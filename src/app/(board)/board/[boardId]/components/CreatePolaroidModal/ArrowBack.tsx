@@ -11,12 +11,12 @@ const ArrowBack = () => {
   return (
     <>
       <ArrowBackIcon
-        className="text-gray-0 cursor-pointer"
+        className="cursor-pointer text-gray-0"
         onClick={() => setShowAskBfCloseModal(true)}
       />
       <AskBfCloseModal
         isOpen={showAskBfCloseModal}
-        onClose={() => setShowAskBfCloseModal(false)}
+        onClose={async () => setShowAskBfCloseModal(false)}
         onConfirm={closeModal}
       />
     </>
