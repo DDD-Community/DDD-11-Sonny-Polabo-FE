@@ -52,9 +52,9 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
+        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable} bg-gray-200`}
       >
-        <main className="max-w-md mx-auto px-5 font-pretendard">
+        <main className="mx-auto max-w-md bg-gray-50 font-pretendard">
           {children}
         </main>
         <div className="font-pretendard" id="modal-root" />
