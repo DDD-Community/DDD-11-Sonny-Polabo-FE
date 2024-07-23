@@ -19,7 +19,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   console.log('>> BOARD: ', board)
 
   return (
-    <div className="relative flex h-dvh flex-col">
+    <div className="relative flex h-dvh flex-col bg-gray-50">
       <BoardHeader name={board.title} />
       {board.items.length === 0 ? (
         <Empty />

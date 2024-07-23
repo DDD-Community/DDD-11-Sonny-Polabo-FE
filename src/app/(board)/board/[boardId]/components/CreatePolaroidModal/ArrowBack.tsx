@@ -16,7 +16,7 @@ const ArrowBack = () => {
       />
       <AskBfCloseModal
         isOpen={showAskBfCloseModal}
-        onClose={async () => setShowAskBfCloseModal(false)}
+        onClose={() => setShowAskBfCloseModal(false)}
         onConfirm={closeModal}
       />
     </>
