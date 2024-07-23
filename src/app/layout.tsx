@@ -52,7 +52,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable} bg-gray-200`}
+        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
         <main className="mx-auto max-w-md bg-gray-50 font-pretendard">
           {children}
