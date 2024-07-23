@@ -213,11 +213,11 @@ const CenterConfirmCancel = ({
 
   return (
     <div className="my-4 flex gap-1.5">
-      <Button variant="secondary" size="sm" onClick={onClose}>
-        {cancelText}
-      </Button>
-      <Button variant="primary" size="sm" onClick={clickHandler}>
+      <Button variant="secondary" size="sm" onClick={clickHandler}>
         {confirmText}
+      </Button>
+      <Button variant="primary" size="sm" onClick={onClose}>
+        {cancelText}
       </Button>
     </div>
   )
@@ -245,17 +245,17 @@ const BottomConfirmCancel = ({
         variant="secondary"
         size="md"
         className="w-[135px]"
-        onClick={onClose}
+        onClick={clickHandler}
       >
-        {cancelText}
+        {confirmText}
       </Button>
       <Button
         variant="primary"
         size="md"
         className="w-[135px]"
-        onClick={clickHandler}
+        onClick={onClose}
       >
-        {confirmText}
+        {cancelText}
       </Button>
     </div>
   )
