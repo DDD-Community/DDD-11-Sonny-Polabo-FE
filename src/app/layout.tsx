@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   title: 'POLABO',
   description: '우리만의 추억보드',
   metadataBase: new URL('https://polabo.site'),
-
   openGraph: {
     images: [
       {
@@ -54,7 +53,8 @@ export default function RootLayout({
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
-        <main className="mx-auto max-w-md font-pretendard">{children}</main>
+        <main className="mx-auto max-w-md font-pretendard bg-gray-0">{children}</main>
+        <div className="fixed top-0 left-0 -z-10 bg-gray-200 w-screen h-dvh" />
         <div className="font-pretendard" id="modal-root" />
       </body>
     </html>
