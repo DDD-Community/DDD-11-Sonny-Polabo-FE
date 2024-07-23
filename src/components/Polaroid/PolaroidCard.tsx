@@ -1,3 +1,5 @@
+'use client'
+
 import { PolaroidImageProps } from '@/types'
 import Base, { PolaroidImage } from './Base'
 
@@ -15,12 +17,12 @@ function PolaroidCard({ imageUrl, oneLineMessage, filter }: PolaroidCardProps) {
       className="flex w-[144px] transform items-center justify-center"
       style={{ rotate: `${rotate}deg` }}
     >
-      <Base>
-        <Base.Top size="sm">
+      <Base size="sm">
+        <Base.Top>
           <PolaroidImage imageUrl={imageUrl} filter={filter} />
         </Base.Top>
         <Base.Bottom>
-          <p className="h-5 text-xs">{oneLineMessage}</p>
+          <p className="h-5">{oneLineMessage}</p>
         </Base.Bottom>
       </Base>
     </div>

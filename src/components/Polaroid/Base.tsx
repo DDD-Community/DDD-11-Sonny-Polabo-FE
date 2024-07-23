@@ -1,34 +1,58 @@
 import { FILTERS } from '@/lib'
 import { PolaroidImageProps } from '@/types'
 import Image from 'next/image'
-import { ReactNode } from 'react'
+import { ReactNode, createContext, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 // lg: 188 x 236
 // sm: 120 x 148
 
+const SizeContext = createContext('lg')
+export const useSize = () => useContext(SizeContext)
+
+interface BaseProps {
+  children: ReactNode
+  className?: string
+  size: 'lg' | 'sm'
+}
+
+const Base = ({ children, className = '', size = 'lg' }: BaseProps) => {
+  return (
+    <SizeContext.Provider value={size}>
+      <div
+        className={twMerge(
+          'overflow-hidden rounded-lg bg-gray-200 font-hesom shadow-lg',
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </SizeContext.Provider>
+  )
+}
+
 export const PolaroidImage = ({
   imageUrl,
   filter = 'POLAROID',
-}: PolaroidImageProps) => (
-  <Image
-    src={imageUrl}
-    alt="Polaroid 미리보기"
-    width={188}
-    height={236}
-    className="h-full w-full object-cover"
-    style={{ filter: FILTERS[filter] }}
-    // placeholder="blur"
-    priority
-  />
-)
-
-interface TopProps {
-  children: ReactNode
-  size?: 'lg' | 'sm'
+}: PolaroidImageProps) => {
+  const size = useSize()
+  return (
+    <Image
+      src={imageUrl}
+      alt="Polaroid 미리보기"
+      width={size === 'sm' ? 120 : 188}
+      height={size === 'sm' ? 148 : 236}
+      className="h-full w-full object-cover"
+      style={{ filter: FILTERS[filter] }}
+      // placeholder="blur"
+      priority
+    />
+  )
 }
 
-const Top = ({ children, size = 'lg' }: TopProps) => {
+const Top = ({ children }: { children: ReactNode }) => {
+  const size = useSize()
+
   const getSizeClass = () => {
     if (size === 'sm') {
       return 'w-[120px] h-[148px]'
@@ -51,24 +75,21 @@ const Top = ({ children, size = 'lg' }: TopProps) => {
   )
 }
 
-const Bottom = ({ children }: { children: ReactNode }) => (
-  <div className="bg-gradient-polaroid px-1 pb-3 tracking-tight">
-    {children}
-  </div>
-)
+const Bottom = ({ children }: { children: ReactNode }) => {
+  const size = useSize()
 
-const Base = ({
-  children,
-  className = '',
-}: {
-  children: ReactNode
-  className?: string
-}) => {
+  const textClass = () => {
+    if (size === 'sm') {
+      return 'text-xs'
+    }
+    return 'text-lg'
+  }
+
   return (
     <div
       className={twMerge(
-        'overflow-hidden rounded-lg bg-gray-200 font-hesom shadow-lg',
-        className,
+        textClass(),
+        'bg-gradient-polaroid px-1 pb-3 tracking-tight',
       )}
     >
       {children}
