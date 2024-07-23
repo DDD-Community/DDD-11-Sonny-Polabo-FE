@@ -1,3 +1,5 @@
+'use client'
+
 import { FILTERS } from '@/lib'
 import { PolaroidImageProps } from '@/types'
 import Image from 'next/image'
