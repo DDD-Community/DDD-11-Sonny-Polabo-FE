@@ -7,7 +7,7 @@ import TotalCount from './components/TotalCount'
 
 const HomePage = () => {
   return (
-    <div className="fixed h-dvh px-5 top-0 left-0 flex flex-col items-center justify-between bg-cover bg-[url('/images/home.png')]">
+    <div className="fixed left-0 right-0 max-w-md mx-auto h-dvh px-5 flex flex-col items-center justify-between bg-cover bg-[url('/images/home.png')]">
       <div className="pt-12 overscroll-none">
         <PolaroidsIcon className="m-auto" />
         <span className="pt-2 font-jooree text-sm leading-4 block text-center m-auto">

@@ -6,7 +6,11 @@ const TotalCount = async () => {
   if (!sharedCount) return null
 
   return (
-    <div className="text-center mb-2.5">{`지금까지 ${sharedCount.toLocaleString()}명이 공유했어요!`}</div>
+    <div className="text-center mb-2.5">
+      지금까지
+      <span className="font-semiBold">{sharedCount.toLocaleString()}개</span>의
+      보드가 만들어졌어요!
+    </div>
   )
 }
 
