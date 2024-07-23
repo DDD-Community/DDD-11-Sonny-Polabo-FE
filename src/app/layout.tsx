@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   title: 'POLABO',
   description: '우리만의 추억보드',
   metadataBase: new URL('https://polabo.site'),
-
   openGraph: {
     images: [
       {
@@ -52,9 +51,9 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
+        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable} bg-gray-200`}
       >
-        <main className="max-w-md mx-auto px-5 font-pretendard">
+        <main className="max-w-md mx-auto px-5 font-pretendard bg-gray-0">
           {children}
         </main>
         <div className="font-pretendard" id="modal-root" />
