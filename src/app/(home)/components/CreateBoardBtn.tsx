@@ -9,7 +9,7 @@ const CreateBoardBtn = () => {
   return (
     <Button
       size="lg"
-      className="mb-3"
+      className="mb-3 shadow-[0px_0px_20px_0px_rgba(255,255,255,0.6)]"
       onClick={() => {
         router.push('/board/create')
       }}
