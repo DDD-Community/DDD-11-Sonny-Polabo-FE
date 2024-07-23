@@ -2,33 +2,24 @@
 
 import Button from '@/components/Button'
 import Close from 'public/icons/close.svg'
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import React, { createContext, ReactNode, useContext, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 
 interface ModalContextProps {
   isVisible: boolean
-  onClose: () => Promise<void>
+  onClose: () => void
 }
 
 const ModalContext = createContext<ModalContextProps>({
   isVisible: false,
-  onClose: async () => {},
+  onClose: () => {},
 })
 
 const ModalOverlay = ({
   children,
-  handleTransitionEnd,
   closeOnClick,
 }: {
   children: ReactNode
-  handleTransitionEnd: () => void
   closeOnClick: boolean
 }) => {
   const { isVisible, onClose } = useContext(ModalContext)
@@ -41,11 +32,10 @@ const ModalOverlay = ({
 
   return (
     <div
-      className={`fixed inset-0 flex justify-center items-center bg-gray-900/60 transition-opacity duration-500 ${
+      className={`fixed inset-0 flex justify-center items-center bg-gray-900/60 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={handleClick}
-      onTransitionEnd={handleTransitionEnd}
     >
       {children}
     </div>
@@ -65,51 +55,18 @@ function Modal({
   children,
   closeOnOutsideClick = true,
 }: ModalProps) {
-  const [isVisible, setIsVisible] = useState(false)
-  const [closePromise, setClosePromise] = useState<{
-    resolve: () => void
-  } | null>(null)
-
-  useEffect(() => {
-    if (isOpen) {
-      requestAnimationFrame(() => {
-        setIsVisible(true)
-      })
-    }
-  }, [isOpen])
-
-  const closeModal = () => {
-    setIsVisible(false)
-    return new Promise<void>((resolve) => {
-      setClosePromise({ resolve })
-    })
-  }
-
-  const handleTransitionEnd = () => {
-    if (!isVisible) {
-      onClose()
-      if (closePromise) {
-        closePromise.resolve()
-        setClosePromise(null)
-      }
-    }
-  }
-
   const context = useMemo(
     () => ({
-      isVisible,
-      onClose: closeModal,
+      isVisible: isOpen,
+      onClose,
     }),
-    [isVisible, setIsVisible],
+    [isOpen, onClose],
   )
 
   return isOpen
     ? ReactDOM.createPortal(
         <ModalContext.Provider value={context}>
-          <ModalOverlay
-            closeOnClick={closeOnOutsideClick}
-            handleTransitionEnd={handleTransitionEnd}
-          >
+          <ModalOverlay closeOnClick={closeOnOutsideClick}>
             {children}
           </ModalOverlay>
         </ModalContext.Provider>,
@@ -149,7 +106,7 @@ const BottomModal = ({
   const { isVisible } = useContext(ModalContext)
   return (
     <div
-      className={`fixed w-full bg-gray-0 bottom-0 rounded-t-[20px] flex flex-col justify-items-start items-start shadow-lg transition-transform duration-300  ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
+      className={`fixed w-full bg-gray-0 bottom-0 rounded-t-[20px] flex flex-col justify-items-start items-start shadow-lg ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
     >
       {icon && (
         <div className="w-full flex justify-center mt-5 mb-3">{icon}</div>
@@ -194,7 +151,8 @@ const CenterModalConfirm = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    return onClose().then(() => onConfirm())
+    onClose()
+    onConfirm()
   }
 
   return (
@@ -219,7 +177,8 @@ const BottomModalConfirm = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    return onClose().then(() => onConfirm())
+    onClose()
+    onConfirm()
   }
 
   return (
@@ -248,7 +207,8 @@ const CenterConfirmCancel = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    return onClose().then(() => onConfirm())
+    onClose()
+    onConfirm()
   }
 
   return (
@@ -275,7 +235,8 @@ const BottomConfirmCancel = ({
   const { onClose } = useContext(ModalContext)
 
   const clickHandler = () => {
-    return onClose().then(() => onConfirm())
+    onClose()
+    onConfirm()
   }
 
   return (
