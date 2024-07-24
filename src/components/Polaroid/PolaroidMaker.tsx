@@ -36,14 +36,12 @@ const PolaroidMaker = ({
 
       const fileReader = new FileReader()
       // image compression
-      console.log(`originalFile size ${rotatedFile.size / 1024 / 1024} MB`)
       const options = {
         maxSizeMB: 0.2,
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       }
       const compressedFile = await imageCompression(rotatedFile, options)
-      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`)
       setCompressedFile(compressedFile)
 
       // image preview
