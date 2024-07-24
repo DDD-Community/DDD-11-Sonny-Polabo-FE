@@ -9,14 +9,26 @@ export const getPreSignedUrl = async (
   return result.data
 }
 
-export const uploadImage = ({ url, file }: { url: string; file: File }) => {
-  return fetch(url, {
+export const uploadImage = async ({
+  url,
+  file,
+}: {
+  url: string
+  file: File
+}) => {
+  const res = await fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': file.type,
     },
     body: file,
   })
+
+  if (!res.ok) {
+    throw new Error('Failed to upload image')
+  }
+
+  return res
 }
 
 export const getImageUrl = (imageKey: string): Promise<string> => {

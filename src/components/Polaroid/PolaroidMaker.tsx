@@ -1,6 +1,7 @@
 'use client'
 
 import rotateImageIfNeeded from '@/lib/utils/image'
+import imageCompression from 'browser-image-compression'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
 import {
   ChangeEvent,
@@ -13,35 +14,49 @@ import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
   setBtnDisabled: Dispatch<SetStateAction<boolean>>
+  setCompressedFile: Dispatch<SetStateAction<File | null>>
 }
 
 const MAX_LENGTH = 20
 
-const PolaroidMaker = ({ setBtnDisabled }: PolaroidMakerProps) => {
+const PolaroidMaker = ({
+  setBtnDisabled,
+  setCompressedFile,
+}: PolaroidMakerProps) => {
   const [text, setText] = useState<string>('')
   const [fileUrl, setFileUrl] = useState<string | null>(null)
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    setFileUrl(null)
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
       const rotatedFile = await rotateImageIfNeeded(file)
 
-      // image preview
       const fileReader = new FileReader()
+      // image compression
+      const options = {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      }
+      const compressedFile = await imageCompression(rotatedFile, options)
+      setCompressedFile(compressedFile)
+
+      // image preview
       fileReader.onload = () => {
         if (typeof fileReader.result === 'string') {
           setFileUrl(fileReader.result)
         }
       }
-      fileReader.readAsDataURL(rotatedFile)
+      fileReader.readAsDataURL(compressedFile)
     }
   }
 
   useEffect(() => {
     setBtnDisabled(!fileUrl)
-  }, [fileUrl])
+  }, [fileUrl, setBtnDisabled])
 
   return (
     <Base className="m-4" size="lg">
