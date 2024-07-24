@@ -24,6 +24,7 @@
   "dependencies": {
     "@storybook/preview-api": "^8.1.11",
     "@svgr/webpack": "^8.1.0",
+    "browser-image-compression": "^2.0.2",
     "eslint-import-resolver-typescript": "^3.6.1",
     "next": "14.2.4",
     "prettier-plugin-tailwindcss": "^0.6.5",
