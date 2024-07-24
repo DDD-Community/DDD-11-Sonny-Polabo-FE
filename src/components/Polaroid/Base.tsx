@@ -19,11 +19,19 @@ interface BaseProps {
 }
 
 const Base = ({ children, className = '', size = 'lg' }: BaseProps) => {
+  const borderClass = () => {
+    if (size === 'sm') {
+      return 'rounded-[2px]'
+    }
+    return 'rounded-[2px]'
+  }
+
   return (
     <SizeContext.Provider value={size}>
       <div
         className={twMerge(
-          'overflow-hidden rounded-lg bg-gray-200 font-hesom shadow-lg',
+          `overflow-hidden rounded-[4px] bg-gray-200 font-hesom shadow-lg`,
+          borderClass(),
           className,
         )}
       >
@@ -80,18 +88,18 @@ const Top = ({ children }: { children: ReactNode }) => {
 const Bottom = ({ children }: { children: ReactNode }) => {
   const size = useSize()
 
-  const textClass = () => {
+  const sizeClass = () => {
     if (size === 'sm') {
-      return 'text-xs'
+      return 'text-xs h-[44px]' // 12px
     }
-    return 'text-lg'
+    return 'text-lg h-[67px]' // 20px
   }
 
   return (
     <div
       className={twMerge(
-        textClass(),
-        'bg-gradient-polaroid px-1 pb-3 tracking-tight',
+        sizeClass(),
+        'bg-gradient-polaroid px-1 tracking-tight',
       )}
     >
       {children}
