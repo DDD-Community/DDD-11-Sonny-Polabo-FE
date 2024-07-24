@@ -17,7 +17,7 @@ const PolaroidDetailModal = ({
   filter,
 }: PolaroidDetailModalProps) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOutsideClick={false}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className="mx-auto flex h-dvh max-w-md flex-1 flex-col justify-between px-5 py-10">
         <ArrowBackIcon
           className="cursor-pointer text-gray-0"
