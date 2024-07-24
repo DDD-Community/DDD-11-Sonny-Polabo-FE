@@ -26,7 +26,7 @@ const TextInput = ({
   )
 
   return (
-    <div className={`w-60 ${hasError ? 'text-negative' : ''}`}>
+    <div className={`w-[264px] ${hasError ? 'text-negative' : ''}`}>
       <div className={borderClass}>
         <div className="mr-2">
           {hasError ? <ExitIcon className="text-negative" /> : <PinIcon />}
@@ -37,7 +37,7 @@ const TextInput = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setValue(e.target.value)
           }
-          className="flex-1 outline-none p-1 bg-transparent"
+          className="flex-1 bg-transparent p-1 outline-none"
         />
       </div>
       <div className="text-right text-xs">
