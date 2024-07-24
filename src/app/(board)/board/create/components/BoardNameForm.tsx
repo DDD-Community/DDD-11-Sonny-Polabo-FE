@@ -35,7 +35,7 @@ const BoardNameForm = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <div>
-        <div className="text-gray-900 text-lg font-thin leading-6 py-9 text-center">
+        <div className="py-9 text-center text-xl font-thin leading-8 text-gray-900">
           보드 주제를 정해주세요!
         </div>
         <TextInput

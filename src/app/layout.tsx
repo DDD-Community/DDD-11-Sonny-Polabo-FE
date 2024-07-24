@@ -53,8 +53,10 @@ export default function RootLayout({
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
-        <main className="mx-auto max-w-md font-pretendard bg-gray-0">{children}</main>
-        <div className="fixed top-0 left-0 -z-10 bg-gray-200 w-screen h-dvh" />
+        <main className="mx-auto max-w-md bg-gray-0 font-pretendard">
+          {children}
+        </main>
+        <div className="fixed left-0 top-0 -z-10 h-dvh w-screen bg-gray-200" />
         <div className="font-pretendard" id="modal-root" />
       </body>
     </html>

@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 
 const Tag = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="border border-gray-900 bg-gray-0 text-xxs rounded-[36px] h-[26px] flex items-center justify-center px-2.5 first:ml-2 gap-1.5">
+    <div className="flex h-[26px] items-center justify-center gap-1.5 rounded-[36px] border border-gray-900 bg-gray-0 px-2.5 text-xxs first:ml-2">
       {children}
     </div>
   )
@@ -36,7 +36,7 @@ const RecommendationBtns = ({
 
   return (
     <div className="relative flex w-screen max-w-md overflow-x-hidden">
-      <div className={`${animationClass} whitespace-nowrap flex gap-2`}>
+      <div className={`${animationClass} flex gap-2 whitespace-nowrap`}>
         {recommendations.map((recommendation) => (
           <Tag key={recommendation.title}>
             {recommendation.icon}
@@ -44,7 +44,7 @@ const RecommendationBtns = ({
           </Tag>
         ))}
       </div>
-      <div className={`${delayedAnimationClass} whitespace-nowrap flex gap-2`}>
+      <div className={`${delayedAnimationClass} flex gap-2 whitespace-nowrap`}>
         {recommendations.map((recommendation) => (
           <Tag key={recommendation.title}>
             {recommendation.icon}
@@ -89,10 +89,10 @@ const BoardNameRecommendations = () => {
 
   return (
     <div>
-      <div className="text-gray-400 text-xs text-center my-5">
+      <div className="my-5 text-center text-sm leading-4 text-gray-400">
         다른 사용자들은 이런 보드를 만들었어요
       </div>
-      <div className="flex flex-col gap-3 mb-20">
+      <div className="mb-20 flex flex-col gap-3">
         <RecommendationBtns
           recommendations={topRecommendations}
           direction="left"

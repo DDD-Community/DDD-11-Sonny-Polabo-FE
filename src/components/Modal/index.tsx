@@ -32,7 +32,7 @@ const ModalOverlay = ({
 
   return (
     <div
-      className={`fixed inset-0 flex justify-center items-center bg-gray-900/60 ${
+      className={`fixed inset-0 flex items-center justify-center bg-gray-900/60 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={handleClick}
@@ -83,13 +83,13 @@ const CenterModal = ({
   children: ReactNode
 }) => {
   return (
-    <div className="fixed max-w-[300px] pt-10 w-4/5 bg-gray-0 rounded-lg flex flex-col justify-items-start items-start shadow-lg">
+    <div className="fixed flex w-4/5 max-w-[300px] flex-col items-start justify-items-start rounded-lg bg-gray-0 pt-10 shadow-lg">
       {icon && (
-        <div className="absolute -top-[0%] left-[50%] -translate-y-1/2 -translate-x-1/2">
+        <div className="absolute -top-[0%] left-[50%] -translate-x-1/2 -translate-y-1/2">
           {icon}
         </div>
       )}
-      <div className="flex flex-col w-full justify-center items-center">
+      <div className="flex w-full flex-col items-center justify-center">
         {children}
       </div>
     </div>
@@ -106,12 +106,12 @@ const BottomModal = ({
   const { isVisible } = useContext(ModalContext)
   return (
     <div
-      className={`fixed w-full bg-gray-0 bottom-0 rounded-t-[20px] flex flex-col justify-items-start items-start shadow-lg ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
+      className={`fixed bottom-0 flex w-full flex-col items-start justify-items-start rounded-t-[20px] bg-gray-0 shadow-lg ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
     >
       {icon && (
-        <div className="w-full flex justify-center mt-5 mb-3">{icon}</div>
+        <div className="mb-3 mt-5 flex w-full justify-center">{icon}</div>
       )}
-      <div className="flex flex-col w-full justify-center items-center">
+      <div className="flex w-full flex-col items-center justify-center">
         {children}
       </div>
     </div>
@@ -127,7 +127,7 @@ const ModalClose = () => {
 
 const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="font-semibold text-md font-semiBold leading-6 whitespace-pre text-center">
+    <div className="font-semibold whitespace-pre text-center text-md font-semiBold leading-6">
       {children}
     </div>
   )
@@ -135,7 +135,7 @@ const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
 
 const ModalBodyContent = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="w-40 text-center whitespace-pre text-gray-700 mt-2 text-xs leading-4">
+    <div className="mt-2 w-40 whitespace-pre text-center text-xs leading-4 text-gray-700">
       {children}
     </div>
   )
@@ -159,7 +159,7 @@ const CenterModalConfirm = ({
     <Button
       variant="primary"
       size="md"
-      className="my-4 flex justify-center items-center gap-1"
+      className="my-4 flex items-center justify-center gap-1"
       onClick={clickHandler}
     >
       {confirmText}
@@ -182,7 +182,7 @@ const BottomModalConfirm = ({
   }
 
   return (
-    <div className="my-4 w-full flex">
+    <div className="my-4 flex w-full">
       <Button
         variant="primary"
         size="lg"
@@ -213,11 +213,11 @@ const CenterConfirmCancel = ({
 
   return (
     <div className="my-4 flex gap-1.5">
-      <Button variant="secondary" size="sm" onClick={clickHandler}>
-        {confirmText}
-      </Button>
-      <Button variant="primary" size="sm" onClick={onClose}>
+      <Button variant="secondary" size="sm" onClick={onClose}>
         {cancelText}
+      </Button>
+      <Button variant="primary" size="sm" onClick={clickHandler}>
+        {confirmText}
       </Button>
     </div>
   )
@@ -245,17 +245,17 @@ const BottomConfirmCancel = ({
         variant="secondary"
         size="md"
         className="w-[135px]"
-        onClick={clickHandler}
+        onClick={onClose}
       >
-        {confirmText}
+        {cancelText}
       </Button>
       <Button
         variant="primary"
         size="md"
         className="w-[135px]"
-        onClick={onClose}
+        onClick={clickHandler}
       >
-        {cancelText}
+        {confirmText}
       </Button>
     </div>
   )
