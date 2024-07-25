@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: '/images/opengraph-image.jpg',
+        url: '/images/opengraph-image.png',
         alt: 'Polabo',
       },
     ],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     images: [
       {
-        url: '/images/opengraph-image.jpg',
+        url: '/images/opengraph-image.png',
         alt: 'Polabo',
       },
     ],
