@@ -3,12 +3,12 @@ import { MetadataRoute } from 'next'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
-      url: `${process.env.BASE_URL}`,
+      url: `https://polabo.site`,
       lastModified: new Date(),
       priority: 1,
     },
     {
-      url: `${process.env.BASE_URL}/board/create`,
+      url: `https://polabo.site/board/create`,
       lastModified: new Date(),
       priority: 0.8,
     },
