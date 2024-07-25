@@ -59,6 +59,9 @@ const config: Config = {
       tight: '-0.2px',
     },
     extend: {
+      height: {
+        dvh: 'var(--dynamic-vh)',
+      },
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],
         jooree: ['var(--font-jooree)'],
