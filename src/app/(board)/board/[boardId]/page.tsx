@@ -1,10 +1,29 @@
 import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
+import { Metadata } from 'next'
 import CreatePolaroid from './components/CreatePolaroidModal'
 import { ModalProvider } from './components/CreatePolaroidModal/ModalContext'
 import Empty from './components/Empty'
 import BoardHeader from './components/Header'
 import OpenModalBtn from './components/OpenModalBtn'
+
+export async function generateMetadata({
+  params,
+}: BoardPageProps): Promise<Metadata> {
+  const { boardId } = params
+  const board = await getBoard(boardId)
+
+  return {
+    openGraph: {
+      title: board.title,
+      description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
+    },
+    twitter: {
+      title: board.title,
+      description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
+    },
+  }
+}
 
 interface BoardPageProps {
   params: {
@@ -15,8 +34,6 @@ interface BoardPageProps {
 const BoardPage = async ({ params }: BoardPageProps) => {
   const { boardId } = params
   const board = await getBoard(boardId)
-
-  console.log('>> BOARD: ', board)
 
   return (
     <div className="relative flex h-dvh flex-col bg-gray-50">
