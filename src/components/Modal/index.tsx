@@ -1,16 +1,9 @@
 'use client'
 
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
-import ReactDOM from 'react-dom'
-import Close from 'public/icons/close.svg'
 import Button from '@/components/Button'
+import Close from 'public/icons/close.svg'
+import React, { createContext, ReactNode, useContext, useMemo } from 'react'
+import ReactDOM from 'react-dom'
 
 interface ModalContextProps {
   isVisible: boolean
@@ -24,26 +17,25 @@ const ModalContext = createContext<ModalContextProps>({
 
 const ModalOverlay = ({
   children,
-  handleTransitionEnd,
+  closeOnClick,
 }: {
   children: ReactNode
-  handleTransitionEnd: () => void
+  closeOnClick: boolean
 }) => {
   const { isVisible, onClose } = useContext(ModalContext)
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (event.target === event.currentTarget) {
+    if (closeOnClick && event.target === event.currentTarget) {
       onClose()
     }
   }
 
   return (
     <div
-      className={`fixed inset-0 flex justify-center items-center bg-gray-900/60 transition-opacity duration-500 ${
+      className={`fixed inset-0 flex items-center justify-center bg-gray-900/60 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={handleClick}
-      onTransitionEnd={handleTransitionEnd}
     >
       {children}
     </div>
@@ -54,33 +46,27 @@ interface ModalProps {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
+  closeOnOutsideClick?: boolean
 }
 
-function Modal({ isOpen, onClose, children }: ModalProps) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(isOpen)
-  }, [isOpen])
-
-  const handleTransitionEnd = () => {
-    if (!isVisible) {
-      onClose()
-    }
-  }
-
+function Modal({
+  isOpen,
+  onClose,
+  children,
+  closeOnOutsideClick = true,
+}: ModalProps) {
   const context = useMemo(
     () => ({
-      isVisible,
-      onClose: () => setIsVisible(false),
+      isVisible: isOpen,
+      onClose,
     }),
-    [isVisible, setIsVisible],
+    [isOpen, onClose],
   )
 
   return isOpen
     ? ReactDOM.createPortal(
         <ModalContext.Provider value={context}>
-          <ModalOverlay handleTransitionEnd={handleTransitionEnd}>
+          <ModalOverlay closeOnClick={closeOnOutsideClick}>
             {children}
           </ModalOverlay>
         </ModalContext.Provider>,
@@ -97,13 +83,13 @@ const CenterModal = ({
   children: ReactNode
 }) => {
   return (
-    <div className="fixed max-w-[300px] pt-10 w-4/5 bg-gray-0 rounded-lg flex flex-col justify-items-start items-start shadow-lg">
+    <div className="fixed flex w-4/5 max-w-[300px] flex-col items-start justify-items-start rounded-lg bg-gray-0 pt-10 shadow-lg">
       {icon && (
-        <div className="absolute -top-[0%] left-[50%] -translate-y-1/2 -translate-x-1/2">
+        <div className="absolute -top-[0%] left-[50%] -translate-x-1/2 -translate-y-1/2">
           {icon}
         </div>
       )}
-      <div className="flex flex-col w-full justify-center items-center">
+      <div className="flex w-full flex-col items-center justify-center">
         {children}
       </div>
     </div>
@@ -120,12 +106,12 @@ const BottomModal = ({
   const { isVisible } = useContext(ModalContext)
   return (
     <div
-      className={`fixed w-full bg-gray-0 bottom-0 rounded-t-[20px] flex flex-col justify-items-start items-start shadow-lg transition-transform duration-300  ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
+      className={`fixed bottom-0 flex w-full flex-col items-start justify-items-start rounded-t-[20px] bg-gray-0 shadow-lg ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
     >
       {icon && (
-        <div className="w-full flex justify-center mt-5 mb-3">{icon}</div>
+        <div className="mb-3 mt-5 flex w-full justify-center">{icon}</div>
       )}
-      <div className="flex flex-col w-full justify-center items-center">
+      <div className="flex w-full flex-col items-center justify-center">
         {children}
       </div>
     </div>
@@ -141,7 +127,7 @@ const ModalClose = () => {
 
 const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="font-semibold text-md font-semiBold leading-6 whitespace-pre text-center">
+    <div className="font-semibold whitespace-pre text-center text-md font-semiBold leading-6">
       {children}
     </div>
   )
@@ -149,7 +135,7 @@ const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
 
 const ModalBodyContent = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="w-32 text-center whitespace-pre text-gray-700 mt-2 text-xs leading-4">
+    <div className="mt-2 w-40 whitespace-pre text-center text-xs leading-4 text-gray-700">
       {children}
     </div>
   )
@@ -159,7 +145,7 @@ const CenterModalConfirm = ({
   confirmText,
   onConfirm = () => {},
 }: {
-  confirmText: string
+  confirmText: ReactNode
   onConfirm?: () => void
 }) => {
   const { onClose } = useContext(ModalContext)
@@ -170,7 +156,12 @@ const CenterModalConfirm = ({
   }
 
   return (
-    <Button variant="primary" size="md" className="my-4" onClick={clickHandler}>
+    <Button
+      variant="primary"
+      size="md"
+      className="my-4 flex items-center justify-center gap-1"
+      onClick={clickHandler}
+    >
       {confirmText}
     </Button>
   )
@@ -191,7 +182,7 @@ const BottomModalConfirm = ({
   }
 
   return (
-    <div className="my-4 w-full flex">
+    <div className="my-4 flex w-full">
       <Button
         variant="primary"
         size="lg"

@@ -7,26 +7,15 @@ import TotalCount from './components/TotalCount'
 
 const HomePage = () => {
   return (
-    <div className="h-dvh flex flex-col items-center justify-between">
-      <video
-        autoPlay
-        loop
-        playsInline
-        muted
-        preload="auto"
-        className="fixed top -z-10 w-full h-full object-cover"
-        poster="images/home.png"
-      >
-        <source src="videos/home.mp4" type="video/mp4" />
-      </video>
-      <div className="pt-12">
+    <div className="fixed left-0 right-0 mx-auto flex h-dvh max-w-md flex-col items-center justify-between bg-[url('/images/home.png')] bg-cover px-5">
+      <div className="overscroll-none pt-12">
         <PolaroidsIcon className="m-auto" />
-        <span className="pt-2 font-jooree text-sm leading-4 block text-center m-auto">
+        <span className="m-auto block pt-2 text-center font-jooree text-sm leading-4">
           함께 꾸미는 폴라로이드 보드
         </span>
-        <Image src={PolaboLogo} alt="logo" className="px-20 py-0.5" />
+        <Image src={PolaboLogo} priority alt="logo" className="px-20 py-0.5" />
       </div>
-      <div className="flex flex-col w-full items-center mb-[30px]">
+      <div className="mb-[30px] flex w-full flex-col items-center">
         <TotalCount />
         <CreateBoardBtn />
         <CopyLinkBtn />

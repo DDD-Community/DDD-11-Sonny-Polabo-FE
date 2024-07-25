@@ -20,8 +20,26 @@ const Hesom = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'POLABO',
-  description: '우리만의 추억보드',
+  title: 'POLABO | 함께 꾸미는 폴라로이드 보드, 폴라보',
+  description:
+    '우리의 일상도 특별하게! 소중한 추억들을 공유하며 폴라로이드로 보드를 꾸며봐요.',
+  metadataBase: new URL('https://polabo.site'),
+  openGraph: {
+    images: [
+      {
+        url: '/images/opengraph-image.jpg',
+        alt: 'Polabo',
+      },
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: '/images/opengraph-image.jpg',
+        alt: 'Polabo',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
@@ -32,12 +50,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics />
+      <head>
+        <link rel="icon" href="/images/favicon.ico" sizes="any" />
+      </head>
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
-        <main className="max-w-md mx-auto px-5 font-pretendard">
+        <main className="mx-auto max-w-md bg-gray-0 font-pretendard">
           {children}
         </main>
+        <div className="fixed left-0 top-0 -z-10 h-dvh w-screen bg-gray-200" />
         <div className="font-pretendard" id="modal-root" />
       </body>
     </html>

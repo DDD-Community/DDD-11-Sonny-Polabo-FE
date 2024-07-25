@@ -1,57 +1,107 @@
+'use client'
+
 import { FILTERS } from '@/lib'
 import { PolaroidImageProps } from '@/types'
 import Image from 'next/image'
-import { ReactNode } from 'react'
+import { ReactNode, createContext, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-// lg: 160 x 192
-// ms: 104 x 128
+// lg: 188 x 236
+// sm: 120 x 148
+
+const SizeContext = createContext('lg')
+export const useSize = () => useContext(SizeContext)
+
+interface BaseProps {
+  children: ReactNode
+  className?: string
+  size: 'lg' | 'sm'
+}
+
+const Base = ({ children, className = '', size = 'lg' }: BaseProps) => {
+  const borderClass = () => {
+    if (size === 'sm') {
+      return 'rounded-[2px]'
+    }
+    return 'rounded-[2px]'
+  }
+
+  return (
+    <SizeContext.Provider value={size}>
+      <div
+        className={twMerge(
+          `overflow-hidden rounded-[4px] bg-gray-200 font-hesom shadow-lg`,
+          borderClass(),
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </SizeContext.Provider>
+  )
+}
 
 export const PolaroidImage = ({
   imageUrl,
   filter = 'POLAROID',
-}: PolaroidImageProps) => (
-  <Image
-    src={imageUrl}
-    alt="Polaroid 미리보기"
-    width={160}
-    height={192}
-    className="w-full h-full object-cover"
-    style={{ filter: FILTERS[filter] }}
-    // placeholder="blur"
-    priority
-  />
-)
-
-interface TopProps {
-  children: ReactNode
-  size?: 'lg' | 'sm'
+}: PolaroidImageProps) => {
+  const size = useSize()
+  return (
+    <Image
+      src={imageUrl}
+      alt="Polaroid 미리보기"
+      width={size === 'sm' ? 120 : 188}
+      height={size === 'sm' ? 148 : 236}
+      className="h-full w-full object-cover"
+      style={{ filter: FILTERS[filter] }}
+      // placeholder="blur"
+      priority
+    />
+  )
 }
 
-const Top = ({ children, size = 'lg' }: TopProps) => {
+const Top = ({ children }: { children: ReactNode }) => {
+  const size = useSize()
+
   const getSizeClass = () => {
     if (size === 'sm') {
-      return 'w-[104px] h-32'
+      return 'w-[120px] h-[148px]'
     }
-    return 'w-40 h-48'
+    return 'w-[188px] h-[236px]'
   }
 
   const containerClass = twMerge(getSizeClass(), 'overflow-hidden')
 
+  const paddingClass = () => {
+    if (size === 'sm') {
+      return 'p-2'
+    }
+    return 'p-3 pt-5'
+  }
   return (
-    <div className="p-3 pt-5">
+    <div className={paddingClass()}>
       <div className={containerClass}>{children}</div>
     </div>
   )
 }
 
-const Bottom = ({ children }: { children: ReactNode }) => (
-  <div className="px-1 pb-3 bg-gradient-polaroid">{children}</div>
-)
+const Bottom = ({ children }: { children: ReactNode }) => {
+  const size = useSize()
 
-const Base = ({ children }: { children: ReactNode }) => {
+  const sizeClass = () => {
+    if (size === 'sm') {
+      return 'text-xs h-[44px]' // 12px
+    }
+    return 'text-lg h-[67px]' // 20px
+  }
+
   return (
-    <div className="shadow-lg rounded-lg m-4 bg-gray-200 font-hesom overflow-hidden">
+    <div
+      className={twMerge(
+        sizeClass(),
+        'bg-gradient-polaroid px-1 tracking-tight',
+      )}
+    >
       {children}
     </div>
   )

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -54,6 +55,9 @@ const config: Config = {
       semiBold: '600',
       bold: '700',
     },
+    letterSpacing: {
+      tight: '-0.2px',
+    },
     extend: {
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],
@@ -100,8 +104,11 @@ const config: Config = {
         'slide-right': 'slide-right 30s linear -30s infinite',
         'slide-right-delay': 'slide-right-delay 30s linear -15s infinite',
       },
+      boxShadow: {
+        header: '0px 1px 2px 0px rgba(0, 0, 0, 0.10)',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 }
 export default config

@@ -1,7 +1,7 @@
-<div align="center"> 
-<p style="font-size: 50px;">📷</p> 
-<p style="font-size: 30px; font-weight: bold">우리만의 추억보드, Polabo</p> 
-<!-- <strong>부제목</strong> -->
+<div align="center">
+  <img src="./public/images/polabo_logo.png" height="100" />   
+  <br />
+  <strong>함께 꾸미는 폴라로이드 보드</strong>
 </div>
 
 <br/>

@@ -19,28 +19,24 @@ const CopyLinkBtn = () => {
 
   return (
     <>
-      <div className="text-center text-gray-400 text-xxs leading-3 mb-1">
+      <div className="text-center text-gray-700 text-xxs leading-3 mb-1">
         copy link!
       </div>
       <button
         type="button"
-        className="p-3 bg-gray-200 rounded-[30px]"
+        className="p-3 bg-gray-100 rounded-[30px] shadow-[0_4px_8px_0_rgba(0,0,0,0.15)]"
         aria-label="copy link"
         onClick={copyLink}
       >
         <LinkIcon />
       </button>
-      {showLinkCopyModal && (
-        <Modal isOpen={showLinkCopyModal} onClose={closeModal}>
-          <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
-            <Modal.Title>링크가 복사되었습니다!</Modal.Title>
-            <Modal.Content>
-              {'POLABO를\n 지인들에게도 알려주세요!'}
-            </Modal.Content>
-            <Modal.CenterConfirm confirmText="확인" />
-          </Modal.CenterModal>
-        </Modal>
-      )}
+      <Modal isOpen={showLinkCopyModal} onClose={closeModal}>
+        <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
+          <Modal.Title>링크가 복사되었습니다!</Modal.Title>
+          <Modal.Content>{'POLABO를\n 지인들에게도 알려주세요!'}</Modal.Content>
+          <Modal.CenterConfirm confirmText="확인" />
+        </Modal.CenterModal>
+      </Modal>
     </>
   )
 }

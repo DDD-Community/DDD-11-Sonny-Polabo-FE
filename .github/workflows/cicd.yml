@@ -13,7 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set .ENV file
-        run: echo "API_HOST=${{ secrets.API_HOST }}" > .env
+        run: |
+          echo "API_HOST=${{ secrets.API_HOST }}" >> .env
+          echo "NEXT_PUBLIC_GA_ID=${{ secrets.PUBLIC_GA_ID }}" >> .env
       - name: Build docker image
         run: docker build -t sonny2024/polabo-fe .
       - name: Login to DockerHub
@@ -31,4 +33,4 @@ jobs:
       - name: Delete existing container
         run: docker rm -f polabo-fe || true
       - name: Run container
-        run: docker run -d -p 80:3000 --name polabo-fe sonny2024/polabo-fe:latest
+        run: docker run -d -p 3000:3000 --name polabo-fe sonny2024/polabo-fe:latest

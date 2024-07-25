@@ -1,48 +1,68 @@
 'use client'
 
 import rotateImageIfNeeded from '@/lib/utils/image'
+import imageCompression from 'browser-image-compression'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
-import { ChangeEvent, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 import Base, { PolaroidImage } from './Base'
 
 interface PolaroidMakerProps {
-  setButtonDisabled: (disabled: boolean) => void
-  selectedFile: File | null
-  setSelectedFile: (file: File | null) => void
-  text: string
-  setText: (text: string) => void
+  setBtnDisabled: Dispatch<SetStateAction<boolean>>
+  setCompressedFile: Dispatch<SetStateAction<File | null>>
 }
 
 const MAX_LENGTH = 20
 
 const PolaroidMaker = ({
-  setButtonDisabled,
-  selectedFile,
-  setSelectedFile,
-  text,
-  setText,
+  setBtnDisabled,
+  setCompressedFile,
 }: PolaroidMakerProps) => {
-  const [inputEnabled, setInputEnabled] = useState<boolean>(false)
+  const [text, setText] = useState<string>('')
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    setFileUrl(null)
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
-      const rotatedUrl = await rotateImageIfNeeded(file)
-      setSelectedFile(rotatedUrl)
+      const rotatedFile = await rotateImageIfNeeded(file)
+
+      const fileReader = new FileReader()
+      // image compression
+      const options = {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      }
+      const compressedFile = await imageCompression(rotatedFile, options)
+      setCompressedFile(compressedFile)
+
+      // image preview
+      fileReader.onload = () => {
+        if (typeof fileReader.result === 'string') {
+          setFileUrl(fileReader.result)
+        }
+      }
+      fileReader.readAsDataURL(compressedFile)
     }
   }
 
   useEffect(() => {
-    setButtonDisabled(!selectedFile)
-  }, [selectedFile, setButtonDisabled])
+    setBtnDisabled(!fileUrl)
+  }, [fileUrl, setBtnDisabled])
 
   return (
-    <Base>
-      <Base.Top size="lg">
+    <Base className="m-4" size="lg">
+      <Base.Top>
         <div
-          className="cursor-pointer w-full h-full bg-gray-950 flex items-center justify-center"
+          className="flex h-full w-full cursor-pointer items-center justify-center bg-gray-950"
           onClick={() => {
             document.getElementById('fileInput')?.click()
           }}
@@ -53,44 +73,32 @@ const PolaroidMaker = ({
             onChange={handleFileChange}
             className="hidden"
             id="fileInput"
+            name="fileInput"
           />
-          {selectedFile ? (
-            <PolaroidImage imageUrl={URL.createObjectURL(selectedFile)} />
+          {fileUrl ? (
+            <PolaroidImage imageUrl={fileUrl} />
           ) : (
             <AddPhotoIcon className="text-gray-0" />
           )}
         </div>
       </Base.Top>
       <Base.Bottom>
-        {inputEnabled ? (
-          <input
-            type="text"
-            value={text}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              if (e.target.value.length > MAX_LENGTH) {
-                e.target.value = e.target.value.slice(0, MAX_LENGTH)
-              }
-              setText(e.target.value)
-            }}
-            className="bg-transparent w-full outline-none text-sm"
-            maxLength={MAX_LENGTH}
-            placeholder="눌러서 한줄 문구를 입력하세요"
-            autoFocus
-          />
-        ) : (
-          <div
-            className="text-sm cursor-pointer"
-            onClick={() => {
-              setInputEnabled(true)
-              setText('')
-            }}
-          >
-            눌러서 한줄 문구를 입력하세요
-          </div>
-        )}
-
-        <p className="text-xs text-gray-400 text-right">
-          {text.length}/{MAX_LENGTH}
+        <input
+          type="text"
+          value={text}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.value.length > MAX_LENGTH) {
+              e.target.value = e.target.value.slice(0, MAX_LENGTH)
+            }
+            setText(e.target.value)
+          }}
+          className="w-[204px] bg-transparent outline-none"
+          maxLength={MAX_LENGTH}
+          placeholder="눌러서 한줄 문구를 입력하세요"
+          name="oneLineMessage"
+        />
+        <p className="text-right text-sm text-gray-400">
+          {text.length}/{MAX_LENGTH}자
         </p>
       </Base.Bottom>
     </Base>
