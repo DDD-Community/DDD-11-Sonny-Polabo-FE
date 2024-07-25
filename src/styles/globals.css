@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --dynamic-vh: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --dynamic-vh: 100dvh;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
