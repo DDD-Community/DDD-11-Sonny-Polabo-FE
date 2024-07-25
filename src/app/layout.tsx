@@ -19,8 +19,9 @@ const Hesom = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'POLABO',
-  description: '우리만의 추억보드',
+  title: 'POLABO | 함께 꾸미는 폴라로이드 보드, 폴라보',
+  description:
+    '우리의 일상도 특별하게! 소중한 추억들을 공유하며 폴라로이드로 보드를 꾸며봐요.',
   metadataBase: new URL('https://polabo.site'),
   openGraph: {
     images: [
