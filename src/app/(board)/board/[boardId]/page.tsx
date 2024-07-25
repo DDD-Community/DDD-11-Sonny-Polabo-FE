@@ -17,10 +17,22 @@ export async function generateMetadata({
     openGraph: {
       title: board.title,
       description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
+      images: [
+        {
+          url: '/images/opengraph-image.png',
+          alt: 'Polabo',
+        },
+      ],
     },
     twitter: {
       title: board.title,
       description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
+      images: [
+        {
+          url: '/images/opengraph-image.png',
+          alt: 'Polabo',
+        },
+      ],
     },
   }
 }
