@@ -60,7 +60,9 @@ const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
     ? ReactDOM.createPortal(
         <DrawerContext.Provider value={context}>
           <ModalOverlay closeOnClick>
-            <div className="fixed left-0 top-0 h-dvh w-[220px] bg-gray-0">
+            <div
+              className={`fixed ${isOpen ? 'left-0' : 'left-[220px]'} top-0 h-dvh w-[220px] bg-gray-0`}
+            >
               {children}
             </div>
           </ModalOverlay>
