@@ -1,24 +1,31 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getBoardAvailableCount } from '@/lib'
 import Modal from '@/components/Modal'
 import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
 import { useRouter } from 'next/navigation'
 
 const BoardAvailabilityCheckModal = () => {
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    getBoardAvailableCount().then((availableBoardCount) => {
-      setShowModal(availableBoardCount === 0)
-    })
+    const checkBoardAvailability = async () => {
+      try {
+        const availableCount = await getBoardAvailableCount()
+        setShowModal(availableCount === 0)
+      } catch (e) {
+        console.error('Failed to fetch board availability count', e)
+      }
+    }
+
+    checkBoardAvailability()
   }, [])
 
-  const redirectToHome = () => {
+  const redirectToHome = useCallback(() => {
     router.replace('/')
-  }
+  }, [router])
 
   return (
     <Modal

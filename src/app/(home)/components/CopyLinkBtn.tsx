@@ -3,28 +3,31 @@
 import LinkIcon from 'public/icons/linkcopy.svg'
 import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
 import Modal from '@/components/Modal'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 const CopyLinkBtn = () => {
   const [showLinkCopyModal, setShowLinkCopyModal] = useState(false)
 
-  const closeModal = () => setShowLinkCopyModal(false)
+  const closeModal = useCallback(() => setShowLinkCopyModal(false), [])
 
-  const copyLink = () => {
-    const currentURL = window.location.href
-    return navigator.clipboard.writeText(currentURL).then(() => {
+  const copyLink = useCallback(async () => {
+    try {
+      const currentURL = window.location.href
+      await navigator.clipboard.writeText(currentURL)
       setShowLinkCopyModal(true)
-    })
-  }
+    } catch (error) {
+      console.log('Failed to copy link:', error)
+    }
+  }, [])
 
   return (
     <>
-      <div className="text-center text-gray-700 text-xxs leading-3 mb-1">
+      <div className="mb-1 text-center text-xxs leading-3 text-gray-700">
         copy link!
       </div>
       <button
         type="button"
-        className="p-3 bg-gray-100 rounded-[30px] shadow-[0_4px_8px_0_rgba(0,0,0,0.15)]"
+        className="rounded-[30px] bg-gray-100 p-3 shadow-[0_4px_8px_0_rgba(0,0,0,0.15)]"
         aria-label="copy link"
         onClick={copyLink}
       >

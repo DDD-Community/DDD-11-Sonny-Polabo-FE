@@ -1,7 +1,7 @@
 'use client'
 
 import TextInput from '@/components/TextInput'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useCallback, useState } from 'react'
 import Button from '@/components/Button'
 import { postBoard } from '@/lib'
 import { useRouter } from 'next/navigation'
@@ -14,23 +14,22 @@ const BoardNameForm = ({ children }: { children: ReactNode }) => {
   const isEmpty = title.length === 0
   const router = useRouter()
 
-  const onInput = (value: string) => {
+  const onInput = useCallback((value: string) => {
     setTitle(value)
-    if (value.length > MAX_BOARD_NAME_LENGTH) {
-      setHasError(true)
-    } else {
-      setHasError(false)
+    setHasError(value.length > MAX_BOARD_NAME_LENGTH)
+  }, [])
+
+  const createBoard = useCallback(async () => {
+    try {
+      const boardId = await postBoard({
+        title,
+        userId: null,
+      })
+      router.push(`/board/${boardId}`)
+    } catch (error) {
+      console.error('Failed to create board:', error)
     }
-  }
-
-  const createBoard = async () => {
-    const boardId = await postBoard({
-      title,
-      userId: null,
-    })
-
-    router.push(`/board/${boardId}`)
-  }
+  }, [title, router])
 
   return (
     <>
