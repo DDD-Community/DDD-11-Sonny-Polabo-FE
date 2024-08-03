@@ -1,6 +1,6 @@
 'use client'
 
-import ArrowBackIcon from 'public/icons/arrow_back_ios.svg'
+import CloseIcon from 'public/icons/close.svg'
 import { useState } from 'react'
 import AskBfCloseModal from '../modals/AskBfCloseModal'
 import { useModal } from './ModalContext'
@@ -10,7 +10,7 @@ const ArrowBack = () => {
   const { closeModal } = useModal()
   return (
     <>
-      <ArrowBackIcon
+      <CloseIcon
         className="cursor-pointer text-gray-0"
         onClick={() => setShowAskBfCloseModal(true)}
       />

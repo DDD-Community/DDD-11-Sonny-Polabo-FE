@@ -1,9 +1,9 @@
 'use client'
 
-import { ChangeEvent } from 'react'
-import { twMerge } from 'tailwind-merge'
 import ExitIcon from 'public/icons/exit.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
+import { ChangeEvent } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface TextInputProps {
   value: string

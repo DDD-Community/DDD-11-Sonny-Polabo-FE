@@ -1,6 +1,7 @@
 'use client'
 
 import rotateImageIfNeeded from '@/lib/utils/image'
+import { preventKeyboardSubmit } from '@/lib/utils/keyboard'
 import imageCompression from 'browser-image-compression'
 import AddPhotoIcon from 'public/icons/add_photo_alternate.svg'
 import {
@@ -92,6 +93,7 @@ const PolaroidMaker = ({
             }
             setText(e.target.value)
           }}
+          onKeyDown={preventKeyboardSubmit}
           className="w-[204px] bg-transparent outline-none"
           maxLength={MAX_LENGTH}
           placeholder="눌러서 한줄 문구를 입력하세요"
