@@ -4,6 +4,7 @@ import { ChangeEvent } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ExitIcon from 'public/icons/exit.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
+import { preventKeyboardSubmit } from '@/lib/utils/keyboard'
 
 interface TextInputProps {
   value: string
@@ -37,6 +38,7 @@ const TextInput = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setValue(e.target.value)
           }
+          onKeyDown={preventKeyboardSubmit}
           className="flex-1 bg-transparent p-1 outline-none"
         />
       </div>
