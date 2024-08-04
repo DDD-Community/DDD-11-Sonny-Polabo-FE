@@ -13,15 +13,15 @@ import ReactDOM from 'react-dom'
 
 interface DrawerContextProps {
   isVisible: boolean
-  onClose: () => Promise<void>
+  onClose: () => void
 }
 
 const DrawerContext = createContext<DrawerContextProps>({
   isVisible: false,
-  onClose: async () => {},
+  onClose: () => {},
 })
 
-const ModalOverlay = ({
+const DrawerOverlay = ({
   children,
   closeOnClick,
 }: {
@@ -38,7 +38,7 @@ const ModalOverlay = ({
 
   return (
     <div
-      className={`absolute inset-0 flex items-center justify-center bg-gray-900/60 ${
+      className={`absolute inset-0 flex items-center justify-center bg-gray-900/60 transition-opacity duration-300 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={handleClick}
@@ -56,16 +56,9 @@ interface DrawerProps {
 
 const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [closePromise, setClosePromise] = useState<{
-    resolve: () => void
-  } | null>(null)
 
   const closeModal = () => {
     setIsVisible(false)
-    return new Promise<void>((resolve) => {
-      // onClose()
-      setClosePromise({ resolve })
-    })
   }
 
   useEffect(() => {
@@ -81,10 +74,6 @@ const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
   const handleTransitionEnd = () => {
     if (!isVisible) {
       onClose()
-      if (closePromise) {
-        closePromise.resolve()
-        setClosePromise(null)
-      }
     }
   }
 
@@ -93,26 +82,28 @@ const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
       isVisible,
       onClose: closeModal,
     }),
-    [isVisible, setIsVisible],
+    [isVisible],
   )
 
-  if (!isOpen && !isVisible) return null
-
-  return ReactDOM.createPortal(
-    <div className="fixed left-0 right-0 top-0 mx-auto flex h-dvh max-w-md flex-col overflow-hidden">
-      <DrawerContext.Provider value={context}>
-        <ModalOverlay closeOnClick>
-          <div
-            className={`absolute left-0 top-0 h-dvh w-[220px] bg-gray-0 ${isVisible ? 'animate-drawer-slide-in' : 'animate-drawer-slide-out'} transition-transform`}
-            onTransitionEnd={handleTransitionEnd}
-          >
-            {children}
-          </div>
-        </ModalOverlay>
-      </DrawerContext.Provider>
-    </div>,
-    document.getElementById('modal-root') as HTMLElement,
-  )
+  return isOpen
+    ? ReactDOM.createPortal(
+        <div className="fixed left-0 right-0 top-0 mx-auto flex h-dvh max-w-md flex-col overflow-hidden">
+          <DrawerContext.Provider value={context}>
+            <DrawerOverlay closeOnClick>
+              <div
+                className={`absolute top-0 h-dvh w-[220px] transform bg-gray-0 transition-all duration-300 ${
+                  isVisible ? 'left-0' : '-left-[220px]'
+                }`}
+                onTransitionEnd={handleTransitionEnd}
+              >
+                {children}
+              </div>
+            </DrawerOverlay>
+          </DrawerContext.Provider>
+        </div>,
+        document.getElementById('modal-root') as HTMLElement,
+      )
+    : null
 }
 
 const DrawerClose = () => {
