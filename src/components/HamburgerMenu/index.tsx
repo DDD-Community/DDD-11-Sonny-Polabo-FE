@@ -3,6 +3,7 @@
 import HamburgerIcon from 'public/icons/hamburger.svg'
 import { useState } from 'react'
 import Drawer from './Drawer'
+import Menu from './Menu'
 
 const Hamburger = ({
   className = '',
@@ -19,6 +20,7 @@ const Hamburger = ({
       />
       <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Drawer.Close />
+        <Menu loggedIn={false} />
       </Drawer>
     </div>
   )
