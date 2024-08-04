@@ -100,12 +100,22 @@ const config: Config = {
             transform: 'translateX(0%)',
           },
         },
+        'drawer-slide-in': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        'drawer-slide-out': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
       animation: {
         'slide-left': 'slide-left 30s linear -30s infinite',
         'slide-left-delay': 'slide-left-delay 30s linear -15s infinite',
         'slide-right': 'slide-right 30s linear -30s infinite',
         'slide-right-delay': 'slide-right-delay 30s linear -15s infinite',
+        'drawer-slide-in': 'drawer-slide-in 0.3s ease-out forwards',
+        'drawer-slide-out': 'drawer-slide-out 0.3s ease-out forwards',
       },
       boxShadow: {
         header: '0px 1px 2px 0px rgba(0, 0, 0, 0.10)',

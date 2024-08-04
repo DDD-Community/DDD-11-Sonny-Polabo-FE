@@ -10,11 +10,12 @@ const Hamburger = ({
   className?: React.ComponentProps<'div'>['className']
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return (
     <div className={className}>
       <HamburgerIcon
-        className="cursor-pointer"
         onClick={() => setIsOpen(true)}
+        className="cursor-pointer"
       />
       <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Drawer.Close />
