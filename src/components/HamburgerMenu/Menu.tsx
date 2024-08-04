@@ -37,9 +37,7 @@ const Main = () => {
   )
 }
 
-const Divider = () => (
-  <div className="mx-[10px] my-5 flex h-[1px] bg-gray-200" />
-)
+const Divider = () => <div className="mx-[10px] my-5 flex h-px bg-gray-200" />
 
 const MyMenu = ({
   icon,
@@ -51,7 +49,7 @@ const MyMenu = ({
   onClick: React.ComponentProps<'div'>['onClick']
 }) => (
   <div
-    className="flex cursor-pointer items-center gap-[6px] pl-[30px] text-gray-700"
+    className="flex cursor-pointer items-center gap-[6px] pl-[28px] text-gray-700"
     onClick={onClick}
   >
     {icon}
@@ -74,9 +72,18 @@ const ServiceMenu = ({
   </div>
 )
 
+const Logout = () => (
+  <div
+    className="mt-auto cursor-pointer pl-[30px] text-sm font-semiBold text-gray-400"
+    onClick={() => {}}
+  >
+    로그아웃
+  </div>
+)
+
 const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
   return (
-    <div className="pt-[58px]">
+    <div className="flex h-full flex-col pb-[53px] pt-[58px]">
       <Profile loggedIn={loggedIn} onClick={() => {}} />
       <Main />
 
@@ -97,6 +104,8 @@ const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
         <ServiceMenu text="개인정보 처리방침" onClick={() => {}} />
         <ServiceMenu text="문의하기" onClick={() => {}} />
       </div>
+
+      {loggedIn && <Logout />}
     </div>
   )
 }
