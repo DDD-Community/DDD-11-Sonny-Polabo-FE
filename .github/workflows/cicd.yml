@@ -30,6 +30,8 @@ jobs:
   deploy:
     needs: build
     runs-on: ${{ github.event_name == 'release' && 'prod' || 'dev' }}
+    environment:
+      name: ${{ github.event_name == 'release' && 'production' || 'development' }}
 
     steps:
       - name: Pull from DockerHub
