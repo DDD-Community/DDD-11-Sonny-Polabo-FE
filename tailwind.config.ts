@@ -28,6 +28,7 @@ const config: Config = {
       positive: '#10b981',
       negative: '#ef4444',
       transparent: 'transparent',
+      kakao: '#FEE500',
     },
     fontSize: {
       xxs: '10px',

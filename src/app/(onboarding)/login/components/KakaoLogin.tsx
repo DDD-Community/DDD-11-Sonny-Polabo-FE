@@ -8,7 +8,7 @@ const KakaoLogin = () => {
   return (
     <Button
       size="lg"
-      className="mb-4 flex cursor-pointer items-center justify-center gap-[9px] bg-[#FEE500] font-semiBold text-gray-950 shadow-button active:bg-[#fee500b7]"
+      className="mb-4 flex cursor-pointer items-center justify-center gap-[9px] bg-kakao font-semiBold text-gray-950 shadow-button active:bg-[#FEE500] active:bg-gradient-to-t active:from-[rgba(0,0,0,0.10)] active:to-[rgba(0,0,0,0.10)]"
       onClick={() => {
         signIn('kakao', {
           redirect: true,
