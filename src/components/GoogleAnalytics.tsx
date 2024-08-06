@@ -1,6 +1,11 @@
 import Script from 'next/script'
+import { isDevMode } from '@/lib/utils/env'
 
 const GoogleAnalytics = () => {
+  if (isDevMode) {
+    return null
+  }
+
   return (
     <>
       <Script
