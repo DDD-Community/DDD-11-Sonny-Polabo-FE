@@ -17,6 +17,7 @@ const LoginPage = () => {
       </div>
       <Image
         src={ThreePolaroids}
+        priority
         alt="polaroids icon"
         className="px-20 pb-10"
       />

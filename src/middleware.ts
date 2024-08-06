@@ -1,14 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { auth } from '@/auth'
+import { NextResponse } from 'next/server'
 
-function middleware(request: NextRequest) {
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('x-pathname', request.nextUrl.pathname)
+// export { auth as middleware } from '@/auth'
 
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  })
+export async function middleware() {
+  const session = await auth()
+  if (!session) {
+    return NextResponse.redirect(`/login`)
+  }
+  return NextResponse.next()
 }
 
-export default middleware
+export const config = {
+  matcher: ['/mapage/:path*'],
+}
