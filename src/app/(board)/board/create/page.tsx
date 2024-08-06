@@ -4,7 +4,7 @@ import BoardAvailabilityCheckModal from './components/BoardAvailabilityCheckModa
 import BoardNameForm from './components/BoardNameForm'
 import BoardNameRecommendations from './components/BoardNameRecommendations'
 
-const CreateBoardPage = async () => {
+const CreateBoardPage = () => {
   return (
     <div className="flex h-dvh flex-col items-center justify-between px-5">
       <Image

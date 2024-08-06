@@ -7,7 +7,7 @@ import Policy from './components/Policy'
 
 const LoginPage = () => {
   return (
-    <div className="fixed left-0 right-0 mx-auto flex h-dvh max-w-md flex-col items-center justify-between bg-gray-0 px-5">
+    <div className="flex h-dvh flex-col items-center justify-between px-5">
       <div className="pb-8 pt-12">
         <PolaroidsIcon className="m-auto" />
         <span className="m-auto block pt-2 text-center font-jooree text-sm leading-4">

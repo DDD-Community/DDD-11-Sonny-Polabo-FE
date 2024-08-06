@@ -1,6 +1,6 @@
 const SignUpPage = () => {
   return (
-    <div className="flex h-dvh flex-col items-center justify-between px-5">
+    <div className="flex h-dvh">
       <div>Onboarding</div>
     </div>
   )
