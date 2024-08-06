@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
-import { cookies } from 'next/headers'
+import { getToken } from './lib/api'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -9,39 +9,58 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
   ],
-  pages: {
-    signIn: '/login',
+  session: {
+    strategy: 'jwt',
+    maxAge: 60 * 60 * 24, // 임시로 24시간으로 설정
   },
   callbacks: {
     async signIn({ user, account }) {
-      console.log('signin user', user)
-      console.log('signin account', account)
+      //   console.log('signin user', user)
+      //   console.log('signin account', account)
 
-      try {
-        const { accessToken, refreshToken } = await getToken({ account, user })
-        cookies.set('accessToken', accessToken)
-        cookies.set('refreshToken', refreshToken)
-      } catch (e) {
-        console.log('error', e)
-        return false
+      if (account && user) {
+        try {
+          // 신규 유저인지 확인, polabo 백에서 토큰 발급
+          const { isNewUser, accessToken, refreshToken } = await getToken({
+            account,
+            user,
+          })
+          // eslint-disable-next-line no-param-reassign
+          user.customData = {
+            isNewUser,
+            accessToken,
+            refreshToken,
+          }
+          if (isNewUser) return '/signup'
+        } catch (e) {
+          console.log('error', e)
+          return false
+        }
       }
 
       return true
     },
-    // async jwt({ token, user, account, profile }) {
-    //   console.log('jwt token', token)
-    //   console.log('jwt user', user)
-    //   console.log('jwt account', account)
-    //   console.log('jwt profile', profile)
-    //   return token
-    // },
-    // async session({ session, user, token }) {
-    //   console.log('session', session, user, token)
-    //   // session.accessToken = privateToken
-    //   return session
-    // },
-    async redirect({ baseUrl }) {
-      return `${baseUrl}/board/create`
+    async jwt({ token, user }) {
+      if (user) {
+        return {
+          ...token,
+          accessToken: user.customData.accessToken,
+          isNewUser: user.customData.isNewUser,
+        }
+      }
+
+      return token
+    },
+    async session({ session, token }) {
+      return {
+        ...session,
+        accessToken: token.accessToken,
+        isNewUser: token.isNewUser,
+      }
+    },
+
+    async redirect({ baseUrl, url }) {
+      return url === '/signup' ? `${baseUrl}/signup` : `${baseUrl}/board/create`
     },
   },
 })

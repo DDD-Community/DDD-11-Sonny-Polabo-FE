@@ -3,16 +3,17 @@
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
 import GoToLoginModal from './GoToLoginModal'
 
 const CreateBoardBtn = () => {
   const router = useRouter()
   const [loginModalOpen, setLoginModalOpen] = useState(false)
 
-  const loggedIn = false // 임시
+  const { data: session, status } = useSession()
 
   const handleClick = () => {
-    if (loggedIn) {
+    if (status === 'authenticated' && session.user) {
       router.push('/board/create')
     } else {
       setLoginModalOpen(true)

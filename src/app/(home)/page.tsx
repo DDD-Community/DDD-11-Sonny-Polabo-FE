@@ -1,8 +1,8 @@
+import Image from 'next/image'
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
 import PolaboLogo from 'public/images/polabo_logo.png'
-import Image from 'next/image'
-import CreateBoardBtn from './components/CreateBoardBtn'
 import CopyLinkBtn from './components/CopyLinkBtn'
+import CreateBoardBtn from './components/CreateBoardBtn'
 import TotalCount from './components/TotalCount'
 
 const HomePage = () => {
