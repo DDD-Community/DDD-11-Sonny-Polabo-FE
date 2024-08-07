@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
@@ -10,6 +11,7 @@ const Profile = ({
   loggedIn: boolean
   onClick: React.ComponentProps<'div'>['onClick']
 }) => {
+  const { data: session } = useSession()
   return (
     <div
       onClick={onClick}
@@ -17,7 +19,7 @@ const Profile = ({
     >
       <PersonIcon />
       <span className="text-sm font-semiBold">
-        {loggedIn ? '정환희' : '로그인해주세요.'}
+        {loggedIn ? session?.user?.name : '로그인해주세요.'}
       </span>
     </div>
   )
