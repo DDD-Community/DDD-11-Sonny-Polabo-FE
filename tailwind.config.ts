@@ -63,6 +63,9 @@ const config: Config = {
       height: {
         dvh: 'var(--dynamic-vh)',
       },
+      minHeight: {
+        dvh: 'var(--dynamic-vh)',
+      },
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],
         jooree: ['var(--font-jooree)'],

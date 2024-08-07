@@ -3,34 +3,40 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - main
+      - develop
+  release:
+    types: [published]
 
 jobs:
   build:
-    runs-on: self-hosted
-
+    runs-on: ${{ github.event_name == 'release' && 'prod' || 'dev' }}
+    environment:
+      name: ${{ github.event_name == 'release' && 'production' || 'development' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set .ENV file
         run: |
-          echo "API_HOST=${{ secrets.API_HOST }}" >> .env
+          echo "API_HOST=${{ vars.API_HOST }}" >> .env
+          echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
           echo "NEXT_PUBLIC_GA_ID=${{ secrets.PUBLIC_GA_ID }}" >> .env
       - name: Build docker image
-        run: docker build -t sonny2024/polabo-fe .
+        run: docker build -t ${{ vars.DOCKER_IMAGE }} .
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
       - name: Push to DockerHub
-        run: docker push sonny2024/polabo-fe:latest
+        run: docker push ${{ vars.DOCKER_IMAGE }}
 
   deploy:
     needs: build
-    runs-on: self-hosted
+    runs-on: ${{ github.event_name == 'release' && 'prod' || 'dev' }}
+    environment:
+      name: ${{ github.event_name == 'release' && 'production' || 'development' }}
 
     steps:
       - name: Pull from DockerHub
-        run: docker pull sonny2024/polabo-fe:latest
+        run: docker pull ${{ vars.DOCKER_IMAGE }}
       - name: Delete existing container
         run: docker rm -f polabo-fe || true
       - name: Run container
-        run: docker run -d -p 3000:3000 --name polabo-fe sonny2024/polabo-fe:latest
+        run: docker run -d -p 3000:3000 --name polabo-fe ${{ vars.DOCKER_IMAGE }}
