@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
@@ -74,14 +74,18 @@ const ServiceMenu = ({
   </div>
 )
 
-const Logout = () => (
-  <div
-    className="mt-auto cursor-pointer pl-[30px] text-sm font-semiBold text-gray-400"
-    onClick={() => {}}
-  >
-    로그아웃
-  </div>
-)
+const Logout = () => {
+  return (
+    <div
+      className="mt-auto cursor-pointer pl-[30px] text-sm font-semiBold text-gray-400"
+      onClick={() => {
+        signOut({ callbackUrl: '/' })
+      }}
+    >
+      로그아웃
+    </div>
+  )
+}
 
 const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
   return (

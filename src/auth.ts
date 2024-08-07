@@ -62,9 +62,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         isNewUser: token.isNewUser,
       }
     },
-
-    async redirect({ baseUrl }) {
-      return `${baseUrl}/signup`
-    },
   },
 })
