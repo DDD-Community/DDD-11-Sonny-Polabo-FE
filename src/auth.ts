@@ -9,6 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
   ],
+  trustHost: true,
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24, // TODO: 기획 논의 필요
@@ -28,7 +29,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             accessToken,
             refreshToken,
           }
-          if (isNewUser) return '/signup'
         } catch (e) {
           console.log('error', e)
           return false
@@ -65,7 +65,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async redirect({ baseUrl }) {
       return `${baseUrl}/signup`
-      // return url === '/signup' ? `${baseUrl}/signup` : `${baseUrl}/board/create`
     },
   },
 })

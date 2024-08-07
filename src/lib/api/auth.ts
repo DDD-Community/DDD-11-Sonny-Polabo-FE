@@ -18,7 +18,7 @@ export const getToken = async ({
   console.log(account, user)
 
   return {
-    isNewUser: false,
+    isNewUser: true,
     accessToken: 'AT',
     refreshToken: 'RT',
   }
