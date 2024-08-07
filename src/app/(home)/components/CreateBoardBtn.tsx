@@ -10,10 +10,10 @@ const CreateBoardBtn = () => {
   const router = useRouter()
   const [loginModalOpen, setLoginModalOpen] = useState(false)
 
-  const { data: session, status } = useSession()
+  const { status } = useSession()
 
   const handleClick = () => {
-    if (status === 'authenticated' && session.user) {
+    if (status === 'authenticated') {
       router.push('/board/create')
     } else {
       setLoginModalOpen(true)

@@ -11,13 +11,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24, // 임시로 24시간으로 설정
+    maxAge: 60 * 60 * 24, // TODO: 기획 논의 필요
   },
   callbacks: {
     async signIn({ user, account }) {
-      //   console.log('signin user', user)
-      //   console.log('signin account', account)
-
       if (account && user) {
         try {
           // 신규 유저인지 확인, polabo 백에서 토큰 발급
