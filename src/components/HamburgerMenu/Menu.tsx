@@ -2,7 +2,9 @@ import { signOut, useSession } from 'next-auth/react'
 import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
+import LogoutModalIcon from 'public/icons/linkShare.svg'
+import Modal from '../Modal'
 
 const Profile = ({
   loggedIn,
@@ -75,15 +77,29 @@ const ServiceMenu = ({
 )
 
 const Logout = () => {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <div
-      className="mt-auto cursor-pointer pl-[30px] text-sm font-semiBold text-gray-400"
-      onClick={() => {
-        signOut({ callbackUrl: '/' })
-      }}
-    >
-      로그아웃
-    </div>
+    <>
+      <div
+        className="mt-auto cursor-pointer pl-[30px] text-sm font-semiBold text-gray-400"
+        onClick={() => setIsOpen(true)}
+      >
+        로그아웃
+      </div>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal.CenterModal icon={<LogoutModalIcon />}>
+          <Modal.Close />
+          <Modal.Title>로그아웃 하시겠습니까?</Modal.Title>
+          <Modal.CenterConfirmCancel
+            cancelText="아니요"
+            confirmText="예"
+            onConfirm={() => {
+              signOut({ callbackUrl: '/' })
+            }}
+          />
+        </Modal.CenterModal>
+      </Modal>
+    </>
   )
 }
 
