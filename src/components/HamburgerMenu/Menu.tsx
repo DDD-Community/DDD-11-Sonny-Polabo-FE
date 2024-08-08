@@ -1,10 +1,10 @@
 import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import LogoutModalIcon from 'public/icons/linkShare.svg'
 import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
 import { ReactNode, useState } from 'react'
-import LogoutModalIcon from 'public/icons/linkShare.svg'
-import { useRouter } from 'next/navigation'
 import Modal from '../Modal'
 
 const Profile = ({
@@ -28,18 +28,14 @@ const Profile = ({
   )
 }
 
-const Main = ({
-  onClick,
-}: {
-  onClick: React.ComponentProps<'div'>['onClick']
-}) => {
+const Main = () => {
   return (
-    <div
-      onClick={onClick}
+    <Link
+      href="/"
       className="mb-[2px] mt-[27px] cursor-pointer pl-[30px] text-gray-950"
     >
       <span className="text-lg font-bold">POLABO 메인</span>
-    </div>
+    </Link>
   )
 }
 
@@ -48,19 +44,19 @@ const Divider = () => <div className="mx-[10px] my-5 flex h-px bg-gray-200" />
 const MyMenu = ({
   icon,
   text,
-  onClick,
+  linkTo,
 }: {
   icon: ReactNode
   text: string
-  onClick: React.ComponentProps<'div'>['onClick']
+  linkTo: string
 }) => (
-  <div
+  <Link
+    href={linkTo}
     className="flex cursor-pointer items-center gap-[6px] pl-[28px] text-gray-700"
-    onClick={onClick}
   >
     {icon}
     <span className="text-md font-semiBold">{text}</span>
-  </div>
+  </Link>
 )
 
 const ServiceMenu = ({
@@ -106,23 +102,22 @@ const Logout = () => {
 }
 
 const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
-  const router = useRouter()
   return (
     <div className="flex h-full flex-col pb-[53px] pt-[58px]">
       <Profile loggedIn={loggedIn} onClick={() => {}} />
-      <Main onClick={() => router.push('/')} />
+      <Main />
 
       {loggedIn && (
         <div className="mt-5 flex flex-col gap-3">
           <MyMenu
             icon={<PolaroidIcon />}
             text="프로필 수정"
-            onClick={() => router.push('/mypage/profileEdit')}
+            linkTo="/mypage/profileEdit"
           />
           <MyMenu
             icon={<PinIcon />}
             text="내 보드 목록"
-            onClick={() => router.push('/mypage/boards')}
+            linkTo="/mypage/boards"
           />
         </div>
       )}
