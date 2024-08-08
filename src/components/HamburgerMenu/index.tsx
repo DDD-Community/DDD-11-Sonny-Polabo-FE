@@ -12,8 +12,7 @@ const Hamburger = ({
   className?: React.ComponentProps<'div'>['className']
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { data: session, status } = useSession()
-  console.log('session', session, status)
+  const { status } = useSession()
 
   return (
     <div className={className}>

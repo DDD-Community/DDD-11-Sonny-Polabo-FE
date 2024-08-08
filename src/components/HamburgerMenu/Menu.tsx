@@ -4,6 +4,7 @@ import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
 import { ReactNode, useState } from 'react'
 import LogoutModalIcon from 'public/icons/linkShare.svg'
+import { useRouter } from 'next/navigation'
 import Modal from '../Modal'
 
 const Profile = ({
@@ -27,13 +28,14 @@ const Profile = ({
   )
 }
 
-const Main = () => {
-  const handleClick = () => {
-    console.log('메인 페이지로 이동')
-  }
+const Main = ({
+  onClick,
+}: {
+  onClick: React.ComponentProps<'div'>['onClick']
+}) => {
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className="mb-[2px] mt-[27px] cursor-pointer pl-[30px] text-gray-950"
     >
       <span className="text-lg font-bold">POLABO 메인</span>
@@ -104,19 +106,24 @@ const Logout = () => {
 }
 
 const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
+  const router = useRouter()
   return (
     <div className="flex h-full flex-col pb-[53px] pt-[58px]">
       <Profile loggedIn={loggedIn} onClick={() => {}} />
-      <Main />
+      <Main onClick={() => router.push('/')} />
 
       {loggedIn && (
         <div className="mt-5 flex flex-col gap-3">
           <MyMenu
             icon={<PolaroidIcon />}
             text="프로필 수정"
-            onClick={() => {}}
+            onClick={() => router.push('/mypage/profileEdit')}
           />
-          <MyMenu icon={<PinIcon />} text="내 보드 목록" onClick={() => {}} />
+          <MyMenu
+            icon={<PinIcon />}
+            text="내 보드 목록"
+            onClick={() => router.push('/mypage/boards')}
+          />
         </div>
       )}
       <Divider />
