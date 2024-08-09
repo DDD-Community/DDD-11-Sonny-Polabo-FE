@@ -20,7 +20,7 @@ const Hamburger = ({
       />
       <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Drawer.Close />
-        <Menu loggedIn />
+        <Menu />
       </Drawer>
     </div>
   )

@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import HeaderBackButton from '@/components/Header/HeaderBackButton'
 
 interface HeaderProps {
-  title?: string
+  title?: ReactNode
   description?: string
   leftButton?: ReactNode
   rightButton?: ReactNode

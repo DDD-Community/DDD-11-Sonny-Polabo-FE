@@ -1,11 +1,14 @@
+import Hamburger from '@/components/HamburgerMenu'
+import Header from '@/components/Header'
 import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
+import PinIcon from 'public/icons/pinFilled.svg'
 import CreatePolaroid from './components/CreatePolaroidModal'
 import { ModalProvider } from './components/CreatePolaroidModal/ModalContext'
 import Empty from './components/Empty'
-import BoardHeader from './components/Header'
 import OpenModalBtn from './components/OpenModalBtn'
+import ShareBtn from './components/ShareBtn'
 
 export async function generateMetadata({
   params,
@@ -49,7 +52,16 @@ const BoardPage = async ({ params }: BoardPageProps) => {
 
   return (
     <div className="relative flex h-dvh flex-col bg-gray-50">
-      <BoardHeader name={board.title} />
+      <Header
+        title={
+          <div className="flex items-center justify-center gap-[3px] text-center">
+            <PinIcon />
+            <h1 className="text-md font-semiBold leading-6">{board.title}</h1>
+          </div>
+        }
+        leftButton={<Hamburger />}
+        rightButton={<ShareBtn />}
+      />
       {board.items.length === 0 ? (
         <Empty />
       ) : (

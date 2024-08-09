@@ -9,6 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
   ],
+  trustHost: true,
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24, // TODO: 기획 논의 필요
@@ -17,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user, account }) {
       if (account && user) {
         try {
-          // 신규 유저인지 확인, polabo 백에서 토큰 발급
+          // 신규 유저인지 확인, polabo 백에서 토큰 발급, nickname
           const { isNewUser, accessToken, refreshToken } = await getToken({
             account,
             user,
@@ -28,7 +29,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             accessToken,
             refreshToken,
           }
-          if (isNewUser) return '/signup'
         } catch (e) {
           console.log('error', e)
           return false
@@ -37,7 +37,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return true
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update' && session?.name) {
+        const { name } = session
+        // eslint-disable-next-line no-param-reassign
+        token.name = name
+        // TODO: 서버에 nickname 전송
+      }
+
       if (user) {
         return {
           ...token,
@@ -54,10 +61,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         accessToken: token.accessToken,
         isNewUser: token.isNewUser,
       }
-    },
-
-    async redirect({ baseUrl, url }) {
-      return url === '/signup' ? `${baseUrl}/signup` : `${baseUrl}/board/create`
     },
   },
 })

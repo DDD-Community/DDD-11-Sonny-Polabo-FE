@@ -11,6 +11,7 @@ interface TextInputProps {
   hasError: boolean
   description: string
   errorMessage: string
+  icon?: React.ReactNode
 }
 
 const TextInput = ({
@@ -19,6 +20,7 @@ const TextInput = ({
   hasError,
   description,
   errorMessage,
+  icon = <PinIcon />,
 }: TextInputProps) => {
   const borderClass = twMerge(
     'flex items-center mb-2 border-b',
@@ -29,7 +31,7 @@ const TextInput = ({
     <div className={`w-[264px] ${hasError ? 'text-negative' : ''}`}>
       <div className={borderClass}>
         <div className="mr-2">
-          {hasError ? <ExitIcon className="text-negative" /> : <PinIcon />}
+          {hasError ? <ExitIcon className="text-negative" /> : icon}
         </div>
         <input
           type="text"
