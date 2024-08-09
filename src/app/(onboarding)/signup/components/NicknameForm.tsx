@@ -11,7 +11,8 @@ const MAX_NICKNAME_LENGTH = 10
 
 const NicknameForm = () => {
   const [nickname, setNickname] = useState('')
-  const [hasError, setHasError] = useState(false)
+
+  const [errorMessage, setErrorMessage] = useState('')
   const isEmpty = nickname.length === 0
   const { data: session, update } = useSession()
   const router = useRouter()
@@ -22,12 +23,22 @@ const NicknameForm = () => {
     }
   }, [session])
 
-  useEffect(() => {
-    if (nickname.length > MAX_NICKNAME_LENGTH) {
-      setHasError(true)
-    } else {
-      setHasError(false)
+  const validateNickname = (value: string) => {
+    if (value.length > MAX_NICKNAME_LENGTH) {
+      setErrorMessage(`${MAX_NICKNAME_LENGTH}자 미만으로 입력해주세요`)
+      return
     }
+
+    const regex = /^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]*$/
+    if (!regex.test(value)) {
+      setErrorMessage('국문, 영문, 숫자만 입력 가능해요.')
+      return
+    }
+    setErrorMessage('')
+  }
+
+  useEffect(() => {
+    validateNickname(nickname)
   }, [nickname])
 
   const onInput = (value: string) => {
@@ -48,10 +59,10 @@ const NicknameForm = () => {
           닉네임을 정해주세요!
         </div>
         <TextInput
-          errorMessage={`${MAX_NICKNAME_LENGTH}자 미만으로 입력해주세요`}
+          errorMessage={errorMessage}
           description={`${nickname.length}/${MAX_NICKNAME_LENGTH}자`}
           value={nickname}
-          hasError={hasError}
+          hasError={errorMessage.length > 0}
           setValue={onInput}
           icon={<SketchIcon />}
         />
@@ -59,7 +70,7 @@ const NicknameForm = () => {
       <Button
         size="lg"
         className="mb-10"
-        disabled={hasError || isEmpty}
+        disabled={errorMessage.length > 0 || isEmpty}
         onClick={createNickname}
       >
         완료
