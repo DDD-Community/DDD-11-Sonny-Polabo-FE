@@ -8,21 +8,19 @@ import { ReactNode, useState } from 'react'
 import Modal from '../Modal'
 
 const Profile = ({
-  loggedIn,
   onClick,
 }: {
-  loggedIn: boolean
   onClick: React.ComponentProps<'div'>['onClick']
 }) => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   return (
     <div
       onClick={onClick}
-      className={`flex cursor-pointer items-center gap-[6px] pl-[27px] ${loggedIn ? 'text-gray-800' : 'text-gray-400'} `}
+      className={`flex cursor-pointer items-center gap-[6px] pl-[27px] ${status === 'authenticated' ? 'text-gray-800' : 'text-gray-400'} `}
     >
       <PersonIcon />
       <span className="text-sm font-semiBold">
-        {loggedIn ? session?.user?.name : '로그인해주세요.'}
+        {status === 'authenticated' ? session?.user?.name : '로그인해주세요.'}
       </span>
     </div>
   )
@@ -101,13 +99,14 @@ const Logout = () => {
   )
 }
 
-const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
+const Menu = () => {
+  const { status } = useSession()
   return (
     <div className="flex h-full flex-col pb-[53px] pt-[58px]">
-      <Profile loggedIn={loggedIn} onClick={() => {}} />
+      <Profile onClick={() => {}} />
       <Main />
 
-      {loggedIn && (
+      {status === 'authenticated' && (
         <div className="mt-5 flex flex-col gap-3">
           <MyMenu
             icon={<PolaroidIcon />}
@@ -129,7 +128,7 @@ const Menu = ({ loggedIn }: { loggedIn: boolean }) => {
         <ServiceMenu text="문의하기" onClick={() => {}} />
       </div>
 
-      {loggedIn && <Logout />}
+      {status === 'authenticated' && <Logout />}
     </div>
   )
 }

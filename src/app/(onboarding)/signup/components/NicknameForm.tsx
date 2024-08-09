@@ -5,6 +5,7 @@ import TextInput from '@/components/TextInput'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import SketchIcon from 'public/icons/sketchIcons-1.svg'
 
 const MAX_NICKNAME_LENGTH = 10
 
@@ -21,13 +22,16 @@ const NicknameForm = () => {
     }
   }, [session])
 
-  const onInput = (value: string) => {
-    setNickname(value)
-    if (value.length > MAX_NICKNAME_LENGTH) {
+  useEffect(() => {
+    if (nickname.length > MAX_NICKNAME_LENGTH) {
       setHasError(true)
     } else {
       setHasError(false)
     }
+  }, [nickname])
+
+  const onInput = (value: string) => {
+    setNickname(value)
   }
 
   const createNickname = async () => {
@@ -49,11 +53,10 @@ const NicknameForm = () => {
           value={nickname}
           hasError={hasError}
           setValue={onInput}
-          type="NICKNAME"
+          icon={<SketchIcon />}
         />
       </div>
       <Button
-        type="submit"
         size="lg"
         className="mb-10"
         disabled={hasError || isEmpty}
