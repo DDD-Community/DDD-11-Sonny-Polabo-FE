@@ -16,7 +16,7 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <>
-      <header className="fixed grid h-16 w-full max-w-md grid-cols-3 justify-between bg-gray-0 p-5 shadow-header">
+      <header className="fixed z-10 grid h-16 w-full max-w-md grid-cols-3 justify-between bg-gray-0 p-5 shadow-header">
         <div className="justify-self-start">{leftButton}</div>
         <div className="justify-self-center">
           <div className="text-center text-md font-semiBold leading-6">
