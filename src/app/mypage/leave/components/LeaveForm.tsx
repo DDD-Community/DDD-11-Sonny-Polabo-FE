@@ -5,7 +5,7 @@ import Button from '@/components/Button'
 import { useEffect, useState } from 'react'
 import Select from '@/components/Select'
 import { withdraw } from '@/lib'
-import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import LeaveConfirmModal from './LeaveConfirmModal'
 
 const WITHDRAW_TYPE = {
@@ -25,8 +25,6 @@ const LeaveForm = () => {
   const errorMessage =
     customReason.length > 50 ? '50자까지 입력 가능합니다.' : ''
   const isCustomReasonValid = customReason && !errorMessage
-
-  const router = useRouter()
 
   useEffect(() => {
     if (withdrawType === WITHDRAW_TYPE.SELECT) {
@@ -48,13 +46,11 @@ const LeaveForm = () => {
       reason: customReason,
     })
 
-    // TODO: 탈퇴 후 로직
-
     setIsLeaveConfirmModalOpen(true)
   }
 
   const onCloseLeaveConfirmModal = () => {
-    router.back()
+    signOut({ callbackUrl: '/' })
   }
 
   return (
