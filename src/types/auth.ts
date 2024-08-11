@@ -9,4 +9,5 @@ export interface User {
   newUser: boolean
   nickName: string
   accessToken: string
+  refreshToken: string
 }

@@ -1,6 +1,9 @@
+/* eslint-disable no-param-reassign */
+
 import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
 import { login } from './lib/api'
+import { changeNickname } from './lib/api/user'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -16,24 +19,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     maxAge: 60 * 60 * 24, // TODO: 기획 논의 필요
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       if (account && user) {
-        console.log('account', account)
-        console.log('user', user)
-        console.log('profile', profile)
         try {
           // 신규 유저인지 확인, polabo 백에서 토큰 발급
           const { newUser, nickName, accessToken } = await login({
             email: user.email!,
             nickName: user.name!,
-            birthDt: '2024-08-11',
-            gender: 'F',
+            birthDt: '2024-08-11', // TODO: 기획 대기
+            gender: 'F', // TODO: 기획 대기
           })
-          // eslint-disable-next-line no-param-reassign
+
           user.name = nickName
-          // eslint-disable-next-line no-param-reassign
           user.newUser = newUser
-          // eslint-disable-next-line no-param-reassign
           user.accessToken = accessToken
         } catch (e) {
           console.log('error', e)
@@ -46,9 +44,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, trigger, session }) {
       if (trigger === 'update' && session?.name) {
         const { name } = session
-        // eslint-disable-next-line no-param-reassign
-        token.name = name
-        // TODO: 서버에 nickname 전송
+
+        token.name = name // client update
+        await changeNickname(name) // server update
       }
 
       if (user) {
