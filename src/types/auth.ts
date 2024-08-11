@@ -1,11 +1,12 @@
-import { Account, User } from 'next-auth'
-
-export interface GetAccessTokenPayload {
-  account: Account
-  user: User
+export interface SignInPayload {
+  email: string
+  nickName: string
+  birthDt: string // '2024-08-11'
+  gender: 'F' | 'M' | 'NONE'
 }
 
-export interface Token {
+export interface User {
+  newUser: boolean
+  nickName: string
   accessToken: string
-  refreshToken: string
 }

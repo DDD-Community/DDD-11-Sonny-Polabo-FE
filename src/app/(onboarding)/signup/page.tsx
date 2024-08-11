@@ -5,7 +5,7 @@ import NicknameForm from './components/NicknameForm'
 const SignUpPage = async () => {
   const session = await auth()
 
-  if (!session?.isNewUser) {
+  if (!session?.newUser) {
     redirect('/board/create')
   }
   return (

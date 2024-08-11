@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
-import { getToken } from './lib/api'
+import { login } from './lib/api'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -9,26 +9,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
   ],
+
   trustHost: true,
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24, // TODO: 기획 논의 필요
   },
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account, profile }) {
       if (account && user) {
+        console.log('account', account)
+        console.log('user', user)
+        console.log('profile', profile)
         try {
-          // 신규 유저인지 확인, polabo 백에서 토큰 발급, nickname
-          const { isNewUser, accessToken, refreshToken } = await getToken({
-            account,
-            user,
+          // 신규 유저인지 확인, polabo 백에서 토큰 발급
+          const { newUser, nickName, accessToken } = await login({
+            email: user.email!,
+            nickName: user.name!,
+            birthDt: '2024-08-11',
+            gender: 'F',
           })
           // eslint-disable-next-line no-param-reassign
-          user.customData = {
-            isNewUser,
-            accessToken,
-            refreshToken,
-          }
+          user.name = nickName
+          // eslint-disable-next-line no-param-reassign
+          user.newUser = newUser
+          // eslint-disable-next-line no-param-reassign
+          user.accessToken = accessToken
         } catch (e) {
           console.log('error', e)
           return false
@@ -48,8 +54,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         return {
           ...token,
-          accessToken: user.customData.accessToken,
-          isNewUser: user.customData.isNewUser,
+          accessToken: user.accessToken,
+          newUser: user.newUser,
         }
       }
 
@@ -59,7 +65,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return {
         ...session,
         accessToken: token.accessToken,
-        isNewUser: token.isNewUser,
+        newUser: token.newUser,
       }
     },
   },
