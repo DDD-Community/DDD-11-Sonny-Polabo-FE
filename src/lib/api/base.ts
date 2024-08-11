@@ -40,6 +40,22 @@ export const post = async (
     '데이터를 저장하는데 실패했습니다.',
   )
 
+export const put = async (
+  path: string,
+  options: RequestInit = {},
+  useMocked = false,
+) =>
+  fetchApi(
+    path,
+    {
+      ...options,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    },
+    useMocked,
+    '데이터를 저장하는데 실패했습니다.',
+  )
+
 export const deleteApi = async (
   path: string,
   options: RequestInit = {},
