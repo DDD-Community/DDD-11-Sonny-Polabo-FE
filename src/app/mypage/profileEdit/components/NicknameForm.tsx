@@ -3,7 +3,7 @@
 import Button from '@/components/Button'
 import { useSession } from 'next-auth/react'
 import { ReactNode, useState } from 'react'
-import NicknameInput from './NicknameInput'
+import NicknameInput from '@/components/TextInput/NicknameInput'
 import Title from './Title'
 
 const NicknameForm = ({ children }: { children: ReactNode }) => {

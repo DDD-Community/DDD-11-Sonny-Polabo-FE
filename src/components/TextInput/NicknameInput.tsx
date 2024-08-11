@@ -1,8 +1,8 @@
 'use client'
 
-import TextInput from '@/components/TextInput'
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import TextInput from '.'
 
 const MAX_NICKNAME_LENGTH = 10
 
@@ -10,14 +10,17 @@ interface NicknameInputProps {
   value: string
   setValue: Dispatch<SetStateAction<string>>
   setHasError: Dispatch<SetStateAction<boolean>>
+  icon?: ReactNode
 }
 
 const NicknameInput = ({
   value,
   setValue,
   setHasError,
+  icon = '',
 }: NicknameInputProps) => {
   const [errorMessage, setErrorMessage] = useState('')
+
   const { data: session } = useSession()
 
   useEffect(() => {
@@ -51,18 +54,15 @@ const NicknameInput = ({
   const onInput = (name: string) => {
     setValue(name)
   }
-
   return (
-    <div className="mb-3">
-      <TextInput
-        errorMessage={errorMessage}
-        description={`${value.length}/${MAX_NICKNAME_LENGTH}자`}
-        value={value}
-        hasError={errorMessage.length > 0}
-        setValue={onInput}
-        icon=""
-      />
-    </div>
+    <TextInput
+      errorMessage={errorMessage}
+      description={`${value.length}/${MAX_NICKNAME_LENGTH}자`}
+      value={value}
+      hasError={errorMessage.length > 0}
+      setValue={onInput}
+      icon={icon}
+    />
   )
 }
 
