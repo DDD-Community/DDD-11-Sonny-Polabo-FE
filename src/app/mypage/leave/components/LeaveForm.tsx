@@ -5,6 +5,8 @@ import Button from '@/components/Button'
 import { useEffect, useState } from 'react'
 import Select from '@/components/Select'
 import { withdraw } from '@/lib'
+import { useRouter } from 'next/navigation'
+import LeaveConfirmModal from './LeaveConfirmModal'
 
 const WITHDRAW_TYPE = {
   SELECT: '선택해주세요.',
@@ -19,12 +21,15 @@ const LeaveForm = () => {
   const [withdrawType, setWithdrawType] = useState<string>(WITHDRAW_TYPE.SELECT)
   const [customReason, setCustomReason] = useState<string>('')
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
+  const [isLeaveConfirmModalOpen, setIsLeaveConfirmModalOpen] = useState(false)
   const errorMessage =
     customReason.length > 50 ? '50자까지 입력 가능합니다.' : ''
   const isCustomReasonValid = customReason && !errorMessage
 
+  const router = useRouter()
+
   useEffect(() => {
-    if (withdrawType !== WITHDRAW_TYPE.SELECT) {
+    if (withdrawType === WITHDRAW_TYPE.SELECT) {
       setIsFormValid(false)
     } else if (withdrawType === WITHDRAW_TYPE.ETC && !isCustomReasonValid) {
       setIsFormValid(false)
@@ -44,6 +49,12 @@ const LeaveForm = () => {
     })
 
     // TODO: 탈퇴 후 로직
+
+    setIsLeaveConfirmModalOpen(true)
+  }
+
+  const onCloseLeaveConfirmModal = () => {
+    router.back()
   }
 
   return (
@@ -73,6 +84,10 @@ const LeaveForm = () => {
       >
         탈퇴하기
       </Button>
+      <LeaveConfirmModal
+        isOpen={isLeaveConfirmModalOpen}
+        onClose={onCloseLeaveConfirmModal}
+      />
     </form>
   )
 }
