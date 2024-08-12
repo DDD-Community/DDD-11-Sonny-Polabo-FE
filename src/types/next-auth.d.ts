@@ -3,21 +3,18 @@ import 'next-auth/jwt'
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    isNewUser: boolean
+    newUser: boolean
     accessToken: string
   }
 }
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
-    isNewUser: boolean
+    newUser: boolean
     accessToken: string
   }
   interface User {
-    customData: {
-      isNewUser: boolean
-      accessToken: string
-      refreshToken: string
-    }
+    newUser: boolean
+    accessToken: string
   }
 }

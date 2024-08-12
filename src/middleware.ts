@@ -7,7 +7,7 @@ function isMatch(pathname: string, urls: string[]) {
   return urls.some((url) => !!match(url)(pathname))
 }
 
-const matchersForAuth = ['/mypage/*', '/board/create/*']
+const matchersForAuth = ['/mypage/*', '/board/create/*', '/signup']
 
 const matchersForLogin = ['/login']
 

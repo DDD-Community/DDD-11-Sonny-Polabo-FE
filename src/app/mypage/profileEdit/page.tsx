@@ -1,14 +1,25 @@
 import Header from '@/components/Header'
+import Link from 'next/link'
+import Email from './components/Email'
+import NicknameForm from './components/NicknameForm'
+import Title from './components/Title'
 
 const Page = () => {
   return (
-    <div className="min-h-dvh">
+    <div className="flex min-h-dvh flex-col">
       <Header title="프로필 수정" leftButton={<Header.BackButton />} />
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet
-        atque consectetur culpa, doloribus earum eius eos eum fuga fugiat harum
-        ipsam laborum omnis quae sint tenetur totam ut voluptates.
-      </div>
+
+      <NicknameForm>
+        <Title>연결된 계정</Title>
+        <Email />
+
+        <Link
+          href="/mypage/leave"
+          className="cursor-pointer text-sm font-semiBold text-gray-400"
+        >
+          탈퇴하기
+        </Link>
+      </NicknameForm>
     </div>
   )
 }

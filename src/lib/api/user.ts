@@ -6,3 +6,9 @@ export const withdraw = async (body: WithdrawUserPayload) => {
     body: JSON.stringify(body),
   })
 }
+
+export const changeNickname = async (nickName: string) => {
+  return put('/api/v1/user/nickname', {
+    body: JSON.stringify({ nickName }),
+  })
+}

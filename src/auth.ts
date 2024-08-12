@@ -1,6 +1,9 @@
+/* eslint-disable no-param-reassign */
+
 import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
-import { getToken } from './lib/api'
+import { login } from './lib/api'
+import { changeNickname } from './lib/api/user'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -9,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
   ],
+
   trustHost: true,
   session: {
     strategy: 'jwt',
@@ -18,17 +22,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user, account }) {
       if (account && user) {
         try {
-          // 신규 유저인지 확인, polabo 백에서 토큰 발급, nickname
-          const { isNewUser, accessToken, refreshToken } = await getToken({
-            account,
-            user,
+          // 신규 유저인지 확인, polabo 백에서 토큰 발급
+          const { newUser, nickName, accessToken } = await login({
+            email: user.email!,
+            nickName: user.name!,
+            birthDt: '2024-08-11', // TODO: 기획 대기
+            gender: 'F', // TODO: 기획 대기
           })
-          // eslint-disable-next-line no-param-reassign
-          user.customData = {
-            isNewUser,
-            accessToken,
-            refreshToken,
-          }
+
+          user.name = nickName
+          user.newUser = newUser
+          user.accessToken = accessToken
         } catch (e) {
           console.log('error', e)
           return false
@@ -40,16 +44,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, trigger, session }) {
       if (trigger === 'update' && session?.name) {
         const { name } = session
-        // eslint-disable-next-line no-param-reassign
-        token.name = name
-        // TODO: 서버에 nickname 전송
+
+        token.name = name // client update
+        await changeNickname(name) // server update
       }
 
       if (user) {
         return {
           ...token,
-          accessToken: user.customData.accessToken,
-          isNewUser: user.customData.isNewUser,
+          accessToken: user.accessToken,
+          newUser: user.newUser,
         }
       }
 
@@ -59,7 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return {
         ...session,
         accessToken: token.accessToken,
-        isNewUser: token.isNewUser,
+        newUser: token.newUser,
       }
     },
   },
