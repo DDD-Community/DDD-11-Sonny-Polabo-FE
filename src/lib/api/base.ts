@@ -22,7 +22,20 @@ export const get = async (
   path: string,
   options: RequestInit = {},
   useMocked = false,
-) => fetchApi(path, options, useMocked, '데이터를 불러오는데 실패했습니다.')
+) =>
+  fetchApi(
+    path,
+    {
+      ...options,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    },
+    useMocked,
+    '데이터를 불러오는데 실패했습니다.',
+  )
 
 export const post = async (
   path: string,
@@ -34,7 +47,10 @@ export const post = async (
     {
       ...options,
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
     },
     useMocked,
     '데이터를 저장하는데 실패했습니다.',
@@ -50,7 +66,10 @@ export const put = async (
     {
       ...options,
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
     },
     useMocked,
     '데이터를 저장하는데 실패했습니다.',
@@ -66,7 +85,10 @@ export const deleteApi = async (
     {
       ...options,
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
     },
     useMocked,
     '데이터를 삭제하는데 실패했습니다.',
