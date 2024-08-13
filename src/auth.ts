@@ -2,10 +2,9 @@
 
 import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
-import { changeNickname, login, refreshAT } from './lib/api'
+import { changeNickname, login, refreshAT } from './lib/api/auth'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: true,
   providers: [
     Kakao({
       clientId: process.env.AUTH_KAKAO_ID,

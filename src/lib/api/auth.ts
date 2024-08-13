@@ -26,6 +26,8 @@ export const refreshAT = async (token: JWT) => {
     },
   })
 
+  console.log('=== access token refreshed ===')
+
   return {
     ...token,
     accessToken: res.data.accessToken,

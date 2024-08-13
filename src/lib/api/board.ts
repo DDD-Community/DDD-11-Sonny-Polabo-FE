@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-
 import { Board, CreateBoardPayload } from '@/types'
 import { get } from './base'
 import { authFetch } from './customFetch/authFetch'

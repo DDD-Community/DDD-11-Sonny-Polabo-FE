@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-
 import { put } from '@/lib/api/base'
 import { WithdrawUserPayload } from '@/types'
 import { authFetch } from './customFetch/authFetch'

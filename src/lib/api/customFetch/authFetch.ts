@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-
 'use server'
 
 import { auth } from '@/auth'
