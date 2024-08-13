@@ -4,7 +4,8 @@ import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
 import { changeNickname, login, refreshAT } from './lib/api/auth'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+/* eslint-disable-next-line @typescript-eslint/naming-convention */
+export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   providers: [
     Kakao({
       clientId: process.env.AUTH_KAKAO_ID,
@@ -46,9 +47,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, account, trigger, session }) {
       if (trigger === 'update' && session?.name) {
         const { name } = session
-
         await changeNickname(name, token.accessToken) // server update
         token.name = name // client update
+      }
+      if (trigger === 'update' && session?.accessToken) {
+        token.accessToken = session.accessToken
+        token.refreshToken = session.refreshToken
+        token.expiredDate = session.expiredDate
       }
 
       if (user && account) {
@@ -64,11 +69,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       if (Date.now() < new Date(token.expiredDate).getTime()) {
-        // not expired
+        // AT not expired
         return token
       }
-      // update token
-      return refreshAT(token)
+      // AT expired - update token
+      const newToken = await refreshAT(token.refreshToken)
+      return { ...token, ...newToken }
     },
     async session({ session, token }) {
       if (token) {

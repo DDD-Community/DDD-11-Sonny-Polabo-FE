@@ -1,5 +1,4 @@
 import { SignInPayload, User } from '@/types'
-import { JWT } from 'next-auth/jwt'
 import { post, put } from './base'
 
 export const login = async (body: SignInPayload): Promise<User> => {
@@ -19,17 +18,14 @@ export const changeNickname = async (nickName: string, token: string) => {
   })
 }
 
-export const refreshAT = async (token: JWT) => {
+export const refreshAT = async (refreshToken: string) => {
   const res = await put('/api/v1/oauth/re-issue', {
     headers: {
-      Authorization: `Bearer ${token.refreshToken}`,
+      Authorization: `Bearer ${refreshToken}`,
     },
   })
 
-  console.log('=== access token refreshed ===')
-
   return {
-    ...token,
     accessToken: res.data.accessToken,
     refreshToken: res.data.refreshToken,
     expiredDate: res.data.expiredDate,
