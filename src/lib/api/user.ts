@@ -1,9 +1,9 @@
-import { put } from '@/lib/api/base'
 import { WithdrawUserPayload } from '@/types'
 import { authFetch } from './customFetch/authFetch'
 
 export const withdraw = async (body: WithdrawUserPayload) => {
-  return put('/api/v1/user/withdraw', {
+  return authFetch('/api/v1/user/withdraw', {
+    method: 'PUT',
     body: JSON.stringify(body),
   })
 }

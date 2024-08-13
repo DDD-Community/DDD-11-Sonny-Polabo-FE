@@ -1,7 +1,6 @@
 'use server'
 
-import { auth, unstable_update as update } from '@/auth'
-import { signOut } from 'next-auth/react'
+import { auth, unstable_update as update, signOut } from '@/auth'
 import { refreshAT } from '../auth'
 
 export const authFetch = async (path: string, options: RequestInit) => {
@@ -35,12 +34,12 @@ export const authFetch = async (path: string, options: RequestInit) => {
       },
     })
     if (!res.ok) {
-      await signOut({ callbackUrl: '/' })
+      signOut()
     }
   }
 
   if (res.status === 500) {
-    await signOut({ callbackUrl: '/' })
+    signOut()
   }
 
   const text = await res.text()
