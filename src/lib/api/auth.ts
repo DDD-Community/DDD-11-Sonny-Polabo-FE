@@ -7,9 +7,16 @@ export const login = async (body: SignInPayload): Promise<User> => {
     body: JSON.stringify(body),
   })
 
-  console.log('From the login', res.data)
-
   return res.data
+}
+
+export const changeNickname = async (nickName: string, token: string) => {
+  return put('/api/v1/user/nickname', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ nickName }),
+  })
 }
 
 export const refreshAT = async (token: JWT) => {
@@ -18,8 +25,6 @@ export const refreshAT = async (token: JWT) => {
       Authorization: `Bearer ${token.refreshToken}`,
     },
   })
-
-  console.log('From the refreshAT', res.data)
 
   return {
     ...token,

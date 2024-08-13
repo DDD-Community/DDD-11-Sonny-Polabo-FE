@@ -1,5 +1,9 @@
+/* eslint-disable import/no-cycle */
+
+'use server'
+
 import { auth } from '@/auth'
-import { handleServerError } from '@/lib/utils/auth'
+import { signOut } from 'next-auth/react'
 
 export const authFetch = async (path: string, options: RequestInit) => {
   const session = await auth()
@@ -12,7 +16,10 @@ export const authFetch = async (path: string, options: RequestInit) => {
       ...(session && { Authorization: `Bearer ${session?.accessToken}` }),
     },
   })
-  await handleServerError(res.status)
+
+  if (res.status === 500) {
+    await signOut({ callbackUrl: '/' })
+  }
 
   const text = await res.text()
   return text ? JSON.parse(text) : null
