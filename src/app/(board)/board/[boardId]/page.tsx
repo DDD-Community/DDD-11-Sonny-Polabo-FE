@@ -9,6 +9,7 @@ import { ModalProvider } from './components/CreatePolaroidModal/ModalContext'
 import Empty from './components/Empty'
 import OpenModalBtn from './components/OpenModalBtn'
 import ShareBtn from './components/ShareBtn'
+import Tutorial from './components/Tutorial'
 
 export async function generateMetadata({
   params,
@@ -60,7 +61,11 @@ const BoardPage = async ({ params }: BoardPageProps) => {
           </div>
         }
         leftButton={<Hamburger />}
-        rightButton={<ShareBtn />}
+        rightButton={
+          <Tutorial step={1}>
+            <ShareBtn />
+          </Tutorial>
+        }
       />
       {board.items.length === 0 ? (
         <Empty />

@@ -5,6 +5,7 @@ import AddPolaroid from 'public/icons/add_polaroid.svg'
 import { ReactNode } from 'react'
 import { useModal } from './CreatePolaroidModal/ModalContext'
 import CannotUploadModal from './modals/CannotUploadModal'
+import Tutorial from './Tutorial'
 
 interface OpenModalBtnProps {
   polaroidNum: number
@@ -28,7 +29,11 @@ const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
   return (
     <div>
       {isOpen && renderModalContent()}
-      <AddPolaroid onClick={openModal} className="absolute bottom-10 right-4" />
+      <div className="absolute bottom-10 right-4">
+        <Tutorial step={2}>
+          <AddPolaroid onClick={openModal} />
+        </Tutorial>
+      </div>
     </div>
   )
 }
