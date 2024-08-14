@@ -1,10 +1,10 @@
 'use client'
 
-import TextInput from '@/components/TextInput'
-import { ReactNode, useState } from 'react'
 import Button from '@/components/Button'
+import TextInput from '@/components/TextInput'
 import { postBoard } from '@/lib'
 import { useRouter } from 'next/navigation'
+import { ReactNode, useState } from 'react'
 
 const MAX_BOARD_NAME_LENGTH = 15
 

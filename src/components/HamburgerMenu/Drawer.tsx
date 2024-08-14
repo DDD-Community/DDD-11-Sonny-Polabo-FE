@@ -87,7 +87,7 @@ const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
 
   return isOpen
     ? ReactDOM.createPortal(
-        <div className="fixed left-0 right-0 top-0 mx-auto flex h-dvh max-w-md flex-col overflow-hidden">
+        <div className="fixed left-0 right-0 top-0 z-20 mx-auto flex h-dvh max-w-md flex-col overflow-hidden">
           <DrawerContext.Provider value={context}>
             <DrawerOverlay closeOnClick>
               <div

@@ -4,6 +4,7 @@ import Button from '@/components/Button'
 import { useSession } from 'next-auth/react'
 import { ReactNode, useState } from 'react'
 import NicknameInput from '@/components/TextInput/NicknameInput'
+import { changeNickname } from '@/lib'
 import Title from './Title'
 
 const NicknameForm = ({ children }: { children: ReactNode }) => {
@@ -15,6 +16,7 @@ const NicknameForm = ({ children }: { children: ReactNode }) => {
     update({
       name: newName,
     })
+    await changeNickname(newName)
   }
 
   return (
