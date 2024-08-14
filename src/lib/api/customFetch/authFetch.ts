@@ -16,30 +16,34 @@ export const authFetch = async (path: string, options: RequestInit) => {
   })
 
   if (res.status === 401 && session) {
-    const newToken = await refreshAT(session.refreshToken)
+    const resJson = await res.json()
+    if (resJson.code === 'JWT002') {
+      // AT expired
+      try {
+        const newToken = await refreshAT(session.refreshToken)
 
-    await update({
-      accessToken: newToken.accessToken,
-      refreshToken: newToken.refreshToken,
-      expiredDate: newToken.expiredDate,
-    })
+        await update({
+          accessToken: newToken.accessToken,
+          refreshToken: newToken.refreshToken,
+          expiredDate: newToken.expiredDate,
+        })
 
-    // retry original request
-    res = await fetch(process.env.API_HOST + path, {
-      ...options,
-      headers: {
-        'content-type': 'application/json',
-        ...options?.headers,
-        Authorization: `Bearer ${newToken.accessToken}`,
-      },
-    })
-    if (!res.ok) {
+        // retry original request
+        res = await fetch(process.env.API_HOST + path, {
+          ...options,
+          headers: {
+            'content-type': 'application/json',
+            ...options?.headers,
+            Authorization: `Bearer ${newToken.accessToken}`,
+          },
+        })
+      } catch (e) {
+        signOut()
+      }
+    } else {
+      // RT expired or invalid
       signOut()
     }
-  }
-
-  if (res.status === 500) {
-    signOut()
   }
 
   const text = await res.text()
