@@ -1,33 +1,53 @@
 import { SignInPayload, User } from '@/types'
-import { post, put } from './base'
 
-export const login = async (body: SignInPayload): Promise<User> => {
-  const res = await post('/api/v1/oauth/sign-in', {
-    body: JSON.stringify(body),
-  })
+const handleResponse = async (res: Response) => {
+  const text = await res.text()
 
-  return res.data
+  if (!res.ok) {
+    throw new Error(
+      `Request failed: ${res.status} - ${res.statusText} - ${text || 'No error message provided'}`,
+    )
+  }
+
+  if (!text) {
+    throw new Error('No response body')
+  }
+
+  try {
+    return JSON.parse(text)
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  } catch (error: any) {
+    throw new Error(`Failed to parse JSON: ${error.message}`)
+  }
 }
 
-export const changeNickname = async (nickName: string, token: string) => {
-  return put('/api/v1/user/nickname', {
+export const login = async (body: SignInPayload): Promise<User> => {
+  const res = await fetch(`${process.env.API_HOST}/api/v1/oauth/sign-in`, {
+    method: 'POST',
+    body: JSON.stringify(body),
     headers: {
-      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ nickName }),
   })
+
+  const data = await handleResponse(res)
+  return data.data
 }
 
 export const refreshAT = async (refreshToken: string) => {
-  const res = await put('/api/v1/oauth/re-issue', {
+  const res = await fetch(`${process.env.API_HOST}/api/v1/oauth/re-issue`, {
+    method: 'PUT',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${refreshToken}`,
     },
   })
 
+  const data = await handleResponse(res)
+
   return {
-    accessToken: res.data.accessToken,
-    refreshToken: res.data.refreshToken,
-    expiredDate: res.data.expiredDate,
+    accessToken: data.data.accessToken,
+    refreshToken: data.data.refreshToken,
+    expiredDate: data.data.expiredDate,
   }
 }

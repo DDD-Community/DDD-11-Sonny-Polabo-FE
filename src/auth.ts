@@ -2,7 +2,7 @@
 
 import NextAuth from 'next-auth'
 import Kakao from 'next-auth/providers/kakao'
-import { changeNickname, login, refreshAT } from './lib/api/auth'
+import { login, refreshAT } from './lib/api/auth'
 
 /* eslint-disable-next-line @typescript-eslint/naming-convention */
 export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
@@ -30,7 +30,6 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
               birthDt: '2024-08-11', // TODO: 기획 대기
               gender: 'F', // TODO: 기획 대기
             })
-
           user.name = nickName
           user.newUser = newUser
           user.accessToken = accessToken
@@ -47,8 +46,7 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
     async jwt({ token, user, account, trigger, session }) {
       if (trigger === 'update' && session?.name) {
         const { name } = session
-        await changeNickname(name, token.accessToken) // server update
-        token.name = name // client update
+        token.name = name
       }
       if (trigger === 'update' && session?.accessToken) {
         token.accessToken = session.accessToken

@@ -2,6 +2,7 @@
 
 import Button from '@/components/Button'
 import NicknameInput from '@/components/TextInput/NicknameInput'
+import { changeNickname } from '@/lib'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import SketchIcon from 'public/icons/sketchIcons-1.svg'
@@ -18,6 +19,7 @@ const NicknameForm = () => {
     update({
       name: nickname,
     })
+    await changeNickname(nickname)
     router.push('/signup/complete')
   }
 

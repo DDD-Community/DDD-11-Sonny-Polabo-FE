@@ -1,15 +1,20 @@
 import { WithdrawUserPayload } from '@/types'
-import { authFetch } from './customFetch/authFetch'
+import { get, put } from './base'
 
 export const withdraw = async (body: WithdrawUserPayload) => {
-  return authFetch('/api/v1/user/withdraw', {
-    method: 'PUT',
+  return put('/api/v1/user/withdraw', {
     body: JSON.stringify(body),
   })
 }
 
+export const changeNickname = async (nickName: string) => {
+  return put(`/api/v1/user/nickname`, {
+    body: JSON.stringify({ nickName }),
+  })
+}
+
 export const viewProfile = async () => {
-  return authFetch('/api/v1/user/profile', {
+  return get('/api/v1/user/profile', {
     next: {
       tags: ['profile'],
     },

@@ -1,6 +1,5 @@
 import { Board, CreateBoardPayload } from '@/types'
-import { get } from './base'
-import { authFetch } from './customFetch/authFetch'
+import { get, post } from './base'
 
 export const getBoard = async (id: string): Promise<Board> => {
   const res = await get(`/api/v1/boards/${id}`, {
@@ -15,8 +14,7 @@ export const getBoard = async (id: string): Promise<Board> => {
 export const postBoard = async (
   payload: CreateBoardPayload,
 ): Promise<string> => {
-  const res = await authFetch('/api/v1/boards', {
-    method: 'POST',
+  const res = await post('/api/v1/boards', {
     body: JSON.stringify(payload),
   })
 
