@@ -58,7 +58,7 @@ const Tutorial = ({
         top: targetRect.bottom + 5,
       })
       setLeftBox({
-        right: `calc(100% - ${targetRect.left}px + 2px)`,
+        right: `calc(100% - ${targetRect.left}px + 3px)`,
       })
       setRightBox({
         left: targetRect.right + 3,

@@ -31,7 +31,7 @@ export const Step2Tooltip = () => {
         className="-left-[130px] -translate-y-3/4"
       />
       <Tooltip.Box
-        className="w-[260px] px-[18px] py-[20px]"
+        className="w-[260px] px-[18px] py-5"
         trianglePos="-bottom-[0%] translate-y-[20%]"
       >
         <Tooltip.Content>
