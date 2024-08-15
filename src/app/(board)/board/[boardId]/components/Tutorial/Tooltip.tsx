@@ -16,6 +16,12 @@ const Tooltip = ({ children, className = '' }: TooltipProps) => {
   return <div className={twMerge(`relative`, className)}>{children}</div>
 }
 
+const Triangle = () => (
+  <div className="absolute -top-[0%] right-3 -z-10 -translate-y-[20%]">
+    <div className="h-8 w-8 rotate-[30deg] skew-y-[30deg] scale-x-[0.866] transform rounded-lg bg-gray-0" />
+  </div>
+)
+
 const Box = ({
   children,
   className,
@@ -30,6 +36,7 @@ const Box = ({
         className,
       )}
     >
+      <Triangle />
       {children}
     </div>
   )
@@ -49,7 +56,7 @@ const Icon = ({ icon, sendToBack = false, className = '' }: IconProps) => {
   return (
     <div
       className={twMerge(
-        `'left-0' absolute -top-[0%] -translate-x-1/2 -translate-y-1/2 ${sendToBack ? 'z-10' : 'z-40'}`,
+        `absolute -top-[0%] left-0 -translate-x-1/2 -translate-y-1/2 ${sendToBack ? 'z-10' : 'z-40'}`,
         className,
       )}
     >
