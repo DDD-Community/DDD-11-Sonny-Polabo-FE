@@ -37,7 +37,7 @@ export const TutorialProvider = ({ children }: { children: ReactNode }) => {
     if (localStorage.getItem('needTutorial') === 'true') {
       startTutorial()
     }
-  }, [run])
+  }, [])
 
   const value = useMemo(
     () => ({

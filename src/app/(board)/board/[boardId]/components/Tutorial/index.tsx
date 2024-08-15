@@ -16,11 +16,7 @@ const Tutorial = ({ step, tooltip, children }: TutorialProps) => {
   const { run, currentStep } = useTutorial()
 
   useEffect(() => {
-    if (
-      run &&
-      step === currentStep &&
-      localStorage.getItem('needTutorial') === 'true'
-    ) {
+    if (run && step === currentStep) {
       setIsOpen(true)
     } else {
       setIsOpen(false)
@@ -43,10 +39,10 @@ const Tutorial = ({ step, tooltip, children }: TutorialProps) => {
         pointerEvents: 'all',
       })
     }
-  }, [isOpen, currentStep])
+  }, [isOpen])
 
   return (
-    <div className="">
+    <>
       <div ref={targetRef}>{children}</div>
       {isOpen && (
         <>
@@ -54,7 +50,7 @@ const Tutorial = ({ step, tooltip, children }: TutorialProps) => {
           {tooltip}
         </>
       )}
-    </div>
+    </>
   )
 }
 
