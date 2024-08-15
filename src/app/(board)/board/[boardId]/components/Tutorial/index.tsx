@@ -6,31 +6,26 @@ import { useTutorial } from './TutorialContext'
 interface TutorialProps {
   children: ReactNode
   step: number
-  hasNext?: boolean
   tooltip: ReactNode
 }
 
-const Tutorial = ({
-  step,
-  hasNext = true,
-  tooltip,
-  children,
-}: TutorialProps) => {
+const Tutorial = ({ step, tooltip, children }: TutorialProps) => {
   const targetRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [overlayStyle, setOverlayStyle] = useState<CSSProperties>({})
-  const { currentStep } = useTutorial()
-
-  console.log(hasNext)
+  const { run, currentStep } = useTutorial()
 
   useEffect(() => {
     if (
+      run &&
       step === currentStep &&
       localStorage.getItem('needTutorial') === 'true'
     ) {
       setIsOpen(true)
+    } else {
+      setIsOpen(false)
     }
-  }, [step])
+  }, [run, step, currentStep])
 
   useEffect(() => {
     if (isOpen && targetRef.current) {
@@ -43,22 +38,24 @@ const Tutorial = ({
         width: targetRect.width + 6,
         height: targetRect.height + 7,
         borderRadius: '50%',
-        zIndex: -10,
+        zIndex: 10,
         boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
         pointerEvents: 'all',
       })
     }
-  }, [isOpen])
+  }, [isOpen, currentStep])
 
   return (
     <div className="">
       <div ref={targetRef}>{children}</div>
-      <div style={overlayStyle} />
-      {tooltip}
+      {isOpen && (
+        <>
+          <div style={overlayStyle} />
+          {tooltip}
+        </>
+      )}
     </div>
   )
 }
-
-// Tutorial.Tooltip = Tooltip
 
 export default Tutorial

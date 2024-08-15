@@ -11,7 +11,7 @@ import Empty from './components/Empty'
 import OpenModalBtn from './components/OpenModalBtn'
 import ShareBtn from './components/ShareBtn'
 import Tutorial from './components/Tutorial'
-import Step1Tooltip from './components/Tutorial/Step1Tooltip'
+import { Step1Tooltip } from './components/Tutorial/Tooltips'
 import { TutorialProvider } from './components/Tutorial/TutorialContext'
 
 export async function generateMetadata({
@@ -68,8 +68,8 @@ const BoardPage = async ({ params }: BoardPageProps) => {
           }
           leftButton={<Hamburger />}
           rightButton={
-            !session ? (
-              <Tutorial step={1} hasNext tooltip={<Step1Tooltip />}>
+            session ? (
+              <Tutorial step={1} tooltip={<Step1Tooltip />}>
                 <ShareBtn />
               </Tutorial>
             ) : (

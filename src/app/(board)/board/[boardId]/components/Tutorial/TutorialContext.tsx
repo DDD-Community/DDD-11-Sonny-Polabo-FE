@@ -1,6 +1,13 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 interface TutorialContextProps {
   run: boolean
@@ -21,7 +28,16 @@ export const TutorialProvider = ({ children }: { children: ReactNode }) => {
   const nextStep = () => setCurrentStep((prev) => prev + 1)
 
   const startTutorial = () => setRun(true)
-  const endTutorial = () => setRun(false)
+  const endTutorial = () => {
+    setRun(false)
+    localStorage.setItem('needTutorial', 'false')
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('needTutorial') === 'true') {
+      startTutorial()
+    }
+  }, [run])
 
   const value = useMemo(
     () => ({
@@ -31,7 +47,7 @@ export const TutorialProvider = ({ children }: { children: ReactNode }) => {
       startTutorial,
       endTutorial,
     }),
-    [run],
+    [currentStep, run],
   )
 
   return (

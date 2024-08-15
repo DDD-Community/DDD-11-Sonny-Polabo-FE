@@ -10,24 +10,27 @@ interface TooltipProps {
 }
 
 const Tooltip = ({ children, className = '' }: TooltipProps) => {
-  //   const { run, currentStep, nextStep, startTutorial, endTutorial } =
-  //     useTutorial()
-
   return <div className={twMerge(`relative`, className)}>{children}</div>
 }
 
-const Triangle = () => (
-  <div className="absolute -top-[0%] right-3 -z-10 -translate-y-[20%]">
+const Triangle = ({
+  className = '',
+}: {
+  className?: React.ComponentProps<'div'>['className']
+}) => (
+  <div className={twMerge('absolute right-3 -z-10', className)}>
     <div className="h-8 w-8 rotate-[30deg] skew-y-[30deg] scale-x-[0.866] transform rounded-lg bg-gray-0" />
   </div>
 )
 
 const Box = ({
   children,
-  className,
+  className = '',
+  trianglePos = '',
 }: {
   children: ReactNode
-  className: React.ComponentProps<'div'>['className']
+  className?: React.ComponentProps<'div'>['className']
+  trianglePos?: React.ComponentProps<'div'>['className']
 }) => {
   return (
     <div
@@ -36,14 +39,18 @@ const Box = ({
         className,
       )}
     >
-      <Triangle />
+      <Triangle className={trianglePos} />
       {children}
     </div>
   )
 }
 
 const Content = ({ children }: { children: ReactNode }) => {
-  return <div className="mb-[3px] text-md font-semiBold">{children}</div>
+  return (
+    <div className="mb-[3px] whitespace-pre-line text-center text-md font-semiBold">
+      {children}
+    </div>
+  )
 }
 
 interface IconProps {
@@ -70,7 +77,7 @@ const NextBtn = ({ hasNext }: { hasNext: boolean }) => {
   return (
     <div
       onClick={hasNext ? nextStep : endTutorial}
-      className="text-right text-sm font-semiBold text-negative"
+      className="cursor-pointer text-right text-sm font-semiBold text-negative"
     >
       {hasNext ? '다음' : '확인'}
     </div>

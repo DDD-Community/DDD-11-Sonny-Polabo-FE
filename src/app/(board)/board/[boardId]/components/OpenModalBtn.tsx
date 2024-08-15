@@ -7,6 +7,7 @@ import { ReactNode } from 'react'
 import { useModal } from './CreatePolaroidModal/ModalContext'
 import CannotUploadModal from './modals/CannotUploadModal'
 import Tutorial from './Tutorial'
+import { Step2Tooltip } from './Tutorial/Tooltips'
 
 interface OpenModalBtnProps {
   polaroidNum: number
@@ -32,7 +33,7 @@ const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
     <div>
       {isOpen && renderModalContent()}
       <div className="absolute bottom-10 right-4">
-        <Tutorial step={session ? 2 : 1} hasNext={false} tooltip={<div />}>
+        <Tutorial step={session ? 2 : 1} tooltip={<Step2Tooltip />}>
           <AddPolaroid onClick={openModal} />
         </Tutorial>
       </div>
