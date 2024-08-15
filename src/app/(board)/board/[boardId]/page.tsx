@@ -1,3 +1,4 @@
+import { auth } from '@/auth'
 import Hamburger from '@/components/HamburgerMenu'
 import Header from '@/components/Header'
 import PolaroidCard from '@/components/Polaroid/PolaroidCard'
@@ -9,6 +10,9 @@ import { ModalProvider } from './components/CreatePolaroidModal/ModalContext'
 import Empty from './components/Empty'
 import OpenModalBtn from './components/OpenModalBtn'
 import ShareBtn from './components/ShareBtn'
+import Tutorial from './components/Tutorial'
+import { Step1Tooltip } from './components/Tutorial/Tooltips'
+import { TutorialProvider } from './components/Tutorial/TutorialContext'
 
 export async function generateMetadata({
   params,
@@ -50,40 +54,52 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   const { boardId } = params
   const board = await getBoard(boardId)
 
-  return (
-    <div className="relative flex h-dvh flex-col bg-gray-50">
-      <Header
-        title={
-          <div className="flex items-center justify-center gap-[3px] text-center">
-            <PinIcon />
-            <h1 className="text-md font-semiBold leading-6">{board.title}</h1>
-          </div>
-        }
-        leftButton={<Hamburger />}
-        rightButton={<ShareBtn />}
-      />
-      {board.items.length === 0 ? (
-        <Empty />
-      ) : (
-        <div className="mx-auto flex-1 overflow-x-hidden overflow-y-scroll scrollbar-hide">
-          <div className="grid grid-cols-2 gap-3 p-[10px]">
-            {board.items.map((item) => (
-              <PolaroidCard
-                key={item.id}
-                imageUrl={item.imageUrl}
-                oneLineMessage={item.oneLineMessage}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+  const session = await auth()
 
-      <ModalProvider>
-        <OpenModalBtn polaroidNum={board.items.length}>
-          <CreatePolaroid id={boardId} />
-        </OpenModalBtn>
-      </ModalProvider>
-    </div>
+  return (
+    <TutorialProvider>
+      <div className="relative flex h-dvh flex-col bg-gray-50">
+        <Header
+          title={
+            <div className="flex items-center justify-center gap-[3px] text-center">
+              <PinIcon />
+              <h1 className="text-md font-semiBold leading-6">{board.title}</h1>
+            </div>
+          }
+          leftButton={<Hamburger />}
+          rightButton={
+            session ? (
+              <Tutorial step={1} tooltip={<Step1Tooltip />} hasNext>
+                <ShareBtn />
+              </Tutorial>
+            ) : (
+              <ShareBtn />
+            )
+          }
+        />
+        {board.items.length === 0 ? (
+          <Empty />
+        ) : (
+          <div className="mx-auto flex-1 overflow-x-hidden overflow-y-scroll scrollbar-hide">
+            <div className="grid grid-cols-2 gap-3 p-[10px]">
+              {board.items.map((item) => (
+                <PolaroidCard
+                  key={item.id}
+                  imageUrl={item.imageUrl}
+                  oneLineMessage={item.oneLineMessage}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <ModalProvider>
+          <OpenModalBtn polaroidNum={board.items.length}>
+            <CreatePolaroid id={boardId} />
+          </OpenModalBtn>
+        </ModalProvider>
+      </div>
+    </TutorialProvider>
   )
 }
 

@@ -17,7 +17,7 @@ const Header = ({
   return (
     <>
       <header className="fixed z-10 grid h-16 w-full max-w-md grid-cols-3 justify-between bg-gray-0 p-5 shadow-header">
-        <div className="justify-self-start">{leftButton}</div>
+        <div className="cursor-pointer justify-self-start">{leftButton}</div>
         <div className="justify-self-center">
           <div className="text-center text-md font-semiBold leading-6">
             {title}
@@ -26,7 +26,7 @@ const Header = ({
             {description}
           </div>
         </div>
-        <div className="justify-self-end">{rightButton}</div>
+        <div className="cursor-pointer justify-self-end">{rightButton}</div>
       </header>
       <div className="block h-16 w-full" />
     </>
