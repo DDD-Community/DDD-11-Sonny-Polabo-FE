@@ -8,15 +8,18 @@ const CheckNewUser = () => {
 
   useEffect(() => {
     if (!session) {
+      // 비회원
       if (localStorage.getItem('needTutorial') === null) {
         localStorage.setItem('needTutorial', 'true')
       }
     } else if (session?.newUser) {
+      // 신규 회원
       localStorage.setItem('needTutorial', 'true')
     } else {
+      // 기존 회원
       localStorage.setItem('needTutorial', 'false')
     }
-  }, [])
+  }, [session])
 
   return null
 }

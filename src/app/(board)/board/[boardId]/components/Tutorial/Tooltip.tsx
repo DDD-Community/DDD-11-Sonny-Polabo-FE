@@ -4,12 +4,13 @@ import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useTutorial } from './TutorialContext'
 
-interface TooltipProps {
+const Tooltip = ({
+  children,
+  className = '',
+}: {
   children: ReactNode
   className?: React.ComponentProps<'div'>['className']
-}
-
-const Tooltip = ({ children, className = '' }: TooltipProps) => {
+}) => {
   return <div className={twMerge(`relative`, className)}>{children}</div>
 }
 
@@ -53,13 +54,15 @@ const Content = ({ children }: { children: ReactNode }) => {
   )
 }
 
-interface IconProps {
+const Icon = ({
+  icon,
+  sendToBack = false,
+  className = '',
+}: {
   icon: ReactNode
   sendToBack?: boolean
   className?: React.ComponentProps<'div'>['className']
-}
-
-const Icon = ({ icon, sendToBack = false, className = '' }: IconProps) => {
+}) => {
   return (
     <div
       className={twMerge(

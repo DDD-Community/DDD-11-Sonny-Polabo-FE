@@ -6,7 +6,7 @@ import Tooltip from './Tooltip'
 
 export const Step1Tooltip = () => {
   return (
-    <Tooltip className="absolute right-4 top-[100%]">
+    <Tooltip className="absolute right-4 top-[115%]">
       <Tooltip.Icon
         icon={<Step1Icon className="scale-150" />}
         sendToBack
