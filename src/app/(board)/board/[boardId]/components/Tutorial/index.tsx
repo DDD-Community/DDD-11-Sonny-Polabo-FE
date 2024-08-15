@@ -21,6 +21,12 @@ const Tutorial = ({
   const [overlayStyle, setOverlayStyle] = useState<CSSProperties>({})
   const { run, currentStep, endTutorial } = useTutorial()
 
+  // overlay 클릭 방지
+  const [topBox, setTopBox] = useState<CSSProperties>({})
+  const [bottomBox, setBottomBox] = useState<CSSProperties>({})
+  const [leftBox, setLeftBox] = useState<CSSProperties>({})
+  const [rightBox, setRightBox] = useState<CSSProperties>({})
+
   useEffect(() => {
     if (run && step === currentStep) {
       setIsOpen(true)
@@ -44,6 +50,19 @@ const Tutorial = ({
         boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
         pointerEvents: 'none',
       })
+
+      setTopBox({
+        bottom: `calc(100% - ${targetRect.top}px + 2px)`,
+      })
+      setBottomBox({
+        top: targetRect.bottom + 5,
+      })
+      setLeftBox({
+        right: `calc(100% - ${targetRect.left}px + 2px)`,
+      })
+      setRightBox({
+        left: targetRect.right + 3,
+      })
     }
   }, [isOpen])
 
@@ -61,7 +80,24 @@ const Tutorial = ({
       </div>
       {isOpen && (
         <>
-          <div style={overlayStyle} />
+          <div style={overlayStyle}>
+            <div
+              className="pointer-events-auto fixed left-0 h-dvh w-screen"
+              style={topBox}
+            />
+            <div
+              className="pointer-events-auto fixed left-0 h-dvh w-screen"
+              style={bottomBox}
+            />
+            <div
+              className="pointer-events-auto fixed top-0 h-dvh w-screen"
+              style={leftBox}
+            />
+            <div
+              className="pointer-events-auto fixed top-0 h-dvh w-screen"
+              style={rightBox}
+            />
+          </div>
           {tooltip}
         </>
       )}
