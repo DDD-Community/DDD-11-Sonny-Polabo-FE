@@ -69,7 +69,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
           leftButton={<Hamburger />}
           rightButton={
             session ? (
-              <Tutorial step={1} tooltip={<Step1Tooltip />}>
+              <Tutorial step={1} tooltip={<Step1Tooltip />} hasNext>
                 <ShareBtn />
               </Tutorial>
             ) : (

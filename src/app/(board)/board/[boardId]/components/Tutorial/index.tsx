@@ -7,13 +7,19 @@ interface TutorialProps {
   children: ReactNode
   step: number
   tooltip: ReactNode
+  hasNext?: boolean
 }
 
-const Tutorial = ({ step, tooltip, children }: TutorialProps) => {
+const Tutorial = ({
+  step,
+  tooltip,
+  hasNext = true,
+  children,
+}: TutorialProps) => {
   const targetRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [overlayStyle, setOverlayStyle] = useState<CSSProperties>({})
-  const { run, currentStep } = useTutorial()
+  const { run, currentStep, endTutorial } = useTutorial()
 
   useEffect(() => {
     if (run && step === currentStep) {
@@ -36,14 +42,23 @@ const Tutorial = ({ step, tooltip, children }: TutorialProps) => {
         borderRadius: '50%',
         zIndex: 10,
         boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
-        pointerEvents: 'all',
+        pointerEvents: 'none',
       })
     }
   }, [isOpen])
 
+  const handleTargetClick = () => {
+    setIsOpen(false)
+    if (!hasNext) {
+      endTutorial()
+    }
+  }
+
   return (
     <>
-      <div ref={targetRef}>{children}</div>
+      <div ref={targetRef} onClick={handleTargetClick}>
+        {children}
+      </div>
       {isOpen && (
         <>
           <div style={overlayStyle} />

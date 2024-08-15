@@ -5,6 +5,7 @@ import CopyIcon from 'public/icons/copy.svg'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
 import { useEffect, useState } from 'react'
+import { useTutorial } from './Tutorial/TutorialContext'
 
 const ShareBtn = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
@@ -18,11 +19,19 @@ const ShareBtn = () => {
     return navigator.clipboard.writeText(currentURL)
   }
 
+  const { run, nextStep } = useTutorial()
+  const handleClose = () => {
+    setShowShareModal(false)
+    if (run) {
+      nextStep()
+    }
+  }
+
   return (
     <>
       <Share onClick={() => setShowShareModal(true)} className="w-6" />
 
-      <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)}>
+      <Modal isOpen={showShareModal} onClose={handleClose}>
         <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
           <Modal.Close />
           <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
