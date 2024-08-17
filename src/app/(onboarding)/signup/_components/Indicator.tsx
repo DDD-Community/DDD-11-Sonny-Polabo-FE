@@ -1,4 +1,4 @@
-import { useStep } from './StepContext'
+import { useStep } from './contexts/StepContext'
 
 const Circle = ({ step, active }: { step: number; active: boolean }) => (
   <div

@@ -6,9 +6,11 @@ import NicknameInput from '@/components/TextInput/NicknameInput'
 // import { useRouter } from 'next/navigation'
 import SketchIcon from 'public/icons/sketchIcons-1.svg'
 import { useState } from 'react'
-import { useStep } from './StepContext'
+import { useProfile } from '../contexts/ProfileContext'
+import { useStep } from '../contexts/StepContext'
 
 const NicknameForm = () => {
+  const { setNewName } = useProfile()
   const [nickname, setNickname] = useState('')
   const [hasError, setHasError] = useState(false)
   const isEmpty = nickname.length === 0
@@ -21,6 +23,7 @@ const NicknameForm = () => {
     //   name: nickname,
     // })
     // await changeNickname(nickname)
+    setNewName(nickname)
     nextStep()
     // router.push('/signup/complete')
   }

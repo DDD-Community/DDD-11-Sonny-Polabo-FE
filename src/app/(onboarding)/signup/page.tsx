@@ -1,7 +1,7 @@
 // import { auth } from '@/auth'
 // import { redirect } from 'next/navigation'
 import ProfileForm from './_components/ProfileForm'
-import { StepProvider } from './_components/StepContext'
+import { StepProvider } from './_components/contexts/StepContext'
 import Header from './_components/Header'
 
 const SignUpPage = async () => {
