@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import NicknameInput from '@/components/TextInput/NicknameInput'
 import BirthDateInput from '@/components/BirthDateInput'
 import { UserProfile } from '@/types'
+import { updateProfile } from '@/lib'
 import Title from './Title'
 import SubmitBtn from './SubmitBtn'
 import GenderInput from './GenderInput'
@@ -34,6 +35,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
         if (session?.profile !== newProfile) {
           update({ profile: newProfile })
         }
+        await updateProfile(newProfile)
       }}
       ref={formRef}
       className="mt-9 flex flex-1 flex-col px-10"
@@ -59,7 +61,9 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
       <SubmitBtn
         formRef={formRef}
         btnDisabled={
-          session?.profile.nickName === newName ||
+          (session?.profile.nickName === newName &&
+            session?.profile.birthDt === newBirthDt &&
+            session?.profile.gender === newGender) ||
           newName.length === 0 ||
           hasError
         }
