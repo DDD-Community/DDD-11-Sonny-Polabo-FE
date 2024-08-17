@@ -1,6 +1,6 @@
 import Header from '@/components/Header'
-import LeaveForm from '@/app/mypage/leave/components/LeaveForm'
-import Title from './components/Title'
+import LeaveForm from '@/app/mypage/leave/_components/LeaveForm'
+import Title from './_components/Title'
 
 const Page = () => {
   const leaveCheckTitle = '탈퇴전 꼭 확인해주세요.'

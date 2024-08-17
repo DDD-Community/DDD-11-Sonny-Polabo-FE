@@ -1,8 +1,8 @@
 import Header from '@/components/Header'
 import Link from 'next/link'
-import Email from './components/Email'
-import NicknameForm from './components/NicknameForm'
-import Title from './components/Title'
+import Email from './_components/Email'
+import NicknameForm from './_components/NicknameForm'
+import Title from './_components/Title'
 
 const Page = () => {
   return (
