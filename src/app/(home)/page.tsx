@@ -2,9 +2,9 @@ import Image from 'next/image'
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
 import PolaboLogo from 'public/images/polabo_logo.png'
 import Hamburger from '@/components/HamburgerMenu'
-import CopyLinkBtn from './components/CopyLinkBtn'
-import CreateBoardBtn from './components/CreateBoardBtn'
-import TotalCount from './components/TotalCount'
+import CopyLinkBtn from './_components/CopyLinkBtn'
+import CreateBoardBtn from './_components/CreateBoardBtn'
+import TotalCount from './_components/TotalCount'
 
 const HomePage = () => {
   return (

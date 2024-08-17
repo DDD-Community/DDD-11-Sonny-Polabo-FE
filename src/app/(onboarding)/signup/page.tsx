@@ -1,6 +1,6 @@
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
-import NicknameForm from './components/NicknameForm'
+import NicknameForm from './_components/NicknameForm'
 
 const SignUpPage = async () => {
   const session = await auth()

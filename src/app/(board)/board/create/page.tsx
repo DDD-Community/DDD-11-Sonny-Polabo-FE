@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import PolaboLogo from 'public/images/polabo_logo.png'
-import BoardAvailabilityCheckModal from './components/BoardAvailabilityCheckModal'
-import BoardNameForm from './components/BoardNameForm'
-import BoardNameRecommendations from './components/BoardNameRecommendations'
+import BoardAvailabilityCheckModal from './_components/BoardAvailabilityCheckModal'
+import BoardNameForm from './_components/BoardNameForm'
+import BoardNameRecommendations from './_components/BoardNameRecommendations'
 
 const CreateBoardPage = () => {
   return (

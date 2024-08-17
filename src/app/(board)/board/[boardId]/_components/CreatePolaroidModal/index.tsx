@@ -2,7 +2,7 @@
 
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { useRef, useState } from 'react'
-import { uploadAction } from '../../actions/uploadAction'
+import { uploadAction } from '../../_actions/uploadAction'
 import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'
 import UploadBtn from './UploadBtn'

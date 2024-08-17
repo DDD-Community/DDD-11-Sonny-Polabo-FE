@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import ThreePolaroids from 'public/icons/threePolaroids.png'
 import CheckIcon from 'public/icons/sketch_check.svg'
-import { GoToCreateBoard, GoToMain } from './components/Buttons'
+import { GoToCreateBoard, GoToMain } from './_components/Buttons'
 
 const SignUpCompletePage = () => {
   return (
