@@ -2,33 +2,35 @@
 
 import Button from '@/components/Button'
 import NicknameInput from '@/components/TextInput/NicknameInput'
-import { changeNickname } from '@/lib'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+// import { useSession } from 'next-auth/react'
+// import { useRouter } from 'next/navigation'
 import SketchIcon from 'public/icons/sketchIcons-1.svg'
 import { useState } from 'react'
+import { useStep } from './StepContext'
 
 const NicknameForm = () => {
   const [nickname, setNickname] = useState('')
   const [hasError, setHasError] = useState(false)
   const isEmpty = nickname.length === 0
-  const { update } = useSession()
-  const router = useRouter()
+  // const { update } = useSession()
+  // const router = useRouter()
+  const { nextStep } = useStep()
 
   const createNickname = async () => {
-    update({
-      name: nickname,
-    })
-    await changeNickname(nickname)
-    router.push('/signup/complete')
+    // update({
+    //   name: nickname,
+    // })
+    // await changeNickname(nickname)
+    nextStep()
+    // router.push('/signup/complete')
   }
 
   return (
-    <>
-      <div>
-        <div className="mb-20 mt-[60px] text-2xl font-thin leading-10">
-          닉네임을 정해주세요!
-        </div>
+    <div className="flex flex-1 flex-col">
+      <div className="mb-20 text-2xl font-thin leading-10">
+        닉네임을 정해주세요!
+      </div>
+      <div className="mx-auto">
         <NicknameInput
           value={nickname}
           setValue={setNickname}
@@ -38,13 +40,13 @@ const NicknameForm = () => {
       </div>
       <Button
         size="lg"
-        className="mb-10"
+        className="mb-10 mt-auto w-full"
         disabled={hasError || isEmpty}
         onClick={createNickname}
       >
-        완료
+        다음
       </Button>
-    </>
+    </div>
   )
 }
 
