@@ -6,6 +6,7 @@ import NicknameInput from '@/components/TextInput/NicknameInput'
 import BirthDateInput from '@/components/BirthDateInput'
 import Title from './Title'
 import SubmitBtn from './SubmitBtn'
+import GenderInput from './GenderInput'
 
 const ProfileForm = ({ children }: { children: ReactNode }) => {
   const { data: session, update } = useSession()
@@ -24,7 +25,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
       ref={formRef}
       className="mt-9 flex flex-1 flex-col px-10"
     >
-      <div className="mx-auto w-[256px] flex-1">
+      <div className="mx-auto w-[256px] flex-1 pb-20">
         <div className="mb-[29px]">
           <Title>닉네임</Title>
           <NicknameInput
@@ -39,6 +40,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
           <BirthDateInput birthDt={newBirthDt} setBirthDt={setNewBirthDt} />
         </div>
         <Title>성별</Title>
+        <GenderInput />
         {children}
       </div>
       <SubmitBtn
