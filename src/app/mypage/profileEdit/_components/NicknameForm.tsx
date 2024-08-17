@@ -9,7 +9,9 @@ import Title from './Title'
 
 const NicknameForm = ({ children }: { children: ReactNode }) => {
   const { data: session, update } = useSession()
-  const [newName, setNewName] = useState<string>(session?.user?.name || '')
+  const [newName, setNewName] = useState<string>(
+    session?.profile.nickName || '',
+  )
   const [hasError, setHasError] = useState(false)
 
   const updateNickname = async () => {
@@ -35,7 +37,9 @@ const NicknameForm = ({ children }: { children: ReactNode }) => {
         onClick={updateNickname}
         className="mb-10 mt-auto w-full"
         disabled={
-          session?.user?.name === newName || newName.length === 0 || hasError
+          session?.profile.nickName === newName ||
+          newName.length === 0 ||
+          hasError
         }
       >
         저장

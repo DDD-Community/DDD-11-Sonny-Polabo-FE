@@ -33,7 +33,7 @@ const NicknameInput = ({
 
   useEffect(() => {
     if (session) {
-      setValue(session.user!.name!)
+      setValue(session.profile.nickName)
     }
   }, [session])
 

@@ -1,22 +1,24 @@
 import Button from '@/components/Button'
-import { SignInPayload } from '@/types'
-import { useState } from 'react'
+import { UserProfile } from '@/types'
+import { Dispatch, SetStateAction } from 'react'
 
-const GenderInput = () => {
-  const [selectedOption, setSelectedOption] =
-    useState<SignInPayload['gender']>('NONE')
+interface GenderInputProps {
+  gender: UserProfile['gender']
+  setGender: Dispatch<SetStateAction<UserProfile['gender']>>
+}
 
+const GenderInput = ({ gender, setGender }: GenderInputProps) => {
   return (
     <div className="mb-[38px] flex justify-center gap-2">
       <Button
-        variant={selectedOption === 'M' ? 'primary' : 'secondary'}
-        onClick={() => setSelectedOption('M')}
+        variant={gender === 'M' ? 'primary' : 'secondary'}
+        onClick={() => setGender('M')}
       >
         남성
       </Button>
       <Button
-        variant={selectedOption === 'F' ? 'primary' : 'secondary'}
-        onClick={() => setSelectedOption('F')}
+        variant={gender === 'F' ? 'primary' : 'secondary'}
+        onClick={() => setGender('F')}
       >
         여성
       </Button>

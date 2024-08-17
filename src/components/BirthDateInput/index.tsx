@@ -1,5 +1,7 @@
 'use client'
 
+import { UserProfile } from '@/types'
+import { useSession } from 'next-auth/react'
 import {
   ChangeEvent,
   Dispatch,
@@ -9,22 +11,24 @@ import {
 } from 'react'
 
 interface BirthDateInputProps {
-  birthDt: string // 'YYYY-MM-DD'
-  setBirthDt: Dispatch<SetStateAction<string>>
+  setBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
 }
 
-const BirthDateInput = ({ birthDt, setBirthDt }: BirthDateInputProps) => {
+const BirthDateInput = ({ setBirthDt }: BirthDateInputProps) => {
   const [year, setYear] = useState('')
   const [month, setMonth] = useState('')
   const [day, setDay] = useState('')
 
+  const { data: session } = useSession()
+
   useEffect(() => {
-    if (!birthDt) return
-    const [y, m, d] = birthDt.split('-')
+    if (!session || !session.profile.birthDt) return
+
+    const [y, m, d] = session.profile.birthDt.split('-')
     setYear(y)
     setMonth(m)
     setDay(d)
-  }, [birthDt])
+  }, [session])
 
   useEffect(() => {
     setBirthDt(`${year}-${month}-${day}`)

@@ -4,23 +4,36 @@ import { ReactNode, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import NicknameInput from '@/components/TextInput/NicknameInput'
 import BirthDateInput from '@/components/BirthDateInput'
+import { UserProfile } from '@/types'
 import Title from './Title'
 import SubmitBtn from './SubmitBtn'
 import GenderInput from './GenderInput'
 
 const ProfileForm = ({ children }: { children: ReactNode }) => {
   const { data: session, update } = useSession()
-  const [newName, setNewName] = useState<string>(session?.user?.name || '')
-  const [newBirthDt, setNewBirthDt] = useState<string>('')
+  const [newName, setNewName] = useState<UserProfile['nickName']>(
+    session?.profile.nickName ?? '',
+  )
+  const [newBirthDt, setNewBirthDt] = useState<UserProfile['birthDt']>(
+    session?.profile.birthDt,
+  )
+  const [newGender, setNewGender] = useState<UserProfile['gender']>(
+    session?.profile.gender ?? 'NONE',
+  )
   const formRef = useRef<HTMLFormElement>(null)
   const [hasError, setHasError] = useState(false)
 
   return (
     <form
       action={async () => {
-        update({
-          name: newName,
-        })
+        const newProfile = {
+          nickName: newName,
+          birthDt: newBirthDt,
+          gender: newGender,
+        }
+        if (session?.profile !== newProfile) {
+          update({ profile: newProfile })
+        }
       }}
       ref={formRef}
       className="mt-9 flex flex-1 flex-col px-10"
@@ -37,16 +50,18 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
         </div>
         <div className="mb-[26px]">
           <Title>생년월일</Title>
-          <BirthDateInput birthDt={newBirthDt} setBirthDt={setNewBirthDt} />
+          <BirthDateInput setBirthDt={setNewBirthDt} />
         </div>
         <Title>성별</Title>
-        <GenderInput />
+        <GenderInput gender={newGender} setGender={setNewGender} />
         {children}
       </div>
       <SubmitBtn
         formRef={formRef}
         btnDisabled={
-          session?.user?.name === newName || newName.length === 0 || hasError
+          session?.profile.nickName === newName ||
+          newName.length === 0 ||
+          hasError
         }
       />
     </form>

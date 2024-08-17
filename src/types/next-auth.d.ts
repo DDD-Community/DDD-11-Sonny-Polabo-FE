@@ -1,5 +1,6 @@
 import { DefaultSession } from 'next-auth'
 import 'next-auth/jwt'
+import { UserProfile } from '.'
 
 declare module 'next-auth/jwt' {
   interface JWT {
@@ -7,6 +8,7 @@ declare module 'next-auth/jwt' {
     accessToken: string
     refreshToken: string
     expiredDate: string
+    profile: UserProfile
   }
 }
 
@@ -16,11 +18,13 @@ declare module 'next-auth' {
     accessToken: string
     refreshToken: string
     expiredDate: string
+    profile: UserProfile
   }
   interface User {
     newUser: boolean
     accessToken: string
     refreshToken: string
     expiredDate: string
+    profile: UserProfile
   }
 }

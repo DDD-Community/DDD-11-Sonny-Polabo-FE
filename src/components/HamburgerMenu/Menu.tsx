@@ -20,7 +20,9 @@ const Profile = ({
     >
       <PersonIcon />
       <span className="text-sm font-semiBold">
-        {status === 'authenticated' ? session?.user?.name : '로그인해주세요.'}
+        {status === 'authenticated'
+          ? session.profile.nickName
+          : '로그인해주세요.'}
       </span>
     </div>
   )
