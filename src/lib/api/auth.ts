@@ -31,7 +31,7 @@ export const login = async (body: SignInPayload): Promise<User> => {
   })
 
   const data = await handleResponse(res)
-  return { ...data.data, birthDt: '2002-01-17', gender: 'F' }
+  return data.data
 }
 
 export const refreshAT = async (refreshToken: string) => {

@@ -27,7 +27,6 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
   const [unChanged, setUnChanged] = useState(true)
 
   useEffect(() => {
-    console.log('birthDt:', newBirthDt)
     if (
       session?.profile.nickName === newName &&
       session?.profile.birthDt === newBirthDt &&
@@ -37,7 +36,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
     } else {
       setUnChanged(false)
     }
-  }, [newName, newBirthDt, newGender])
+  }, [newName, newBirthDt, newGender, session])
 
   return (
     <form
