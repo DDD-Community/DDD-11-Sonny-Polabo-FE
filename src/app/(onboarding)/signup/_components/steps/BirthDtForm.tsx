@@ -1,4 +1,5 @@
 import Button from '@/components/Button'
+import Link from 'next/link'
 import { useProfile } from '../contexts/ProfileContext'
 import { useStep } from '../contexts/StepContext'
 
@@ -17,12 +18,18 @@ const BirthDtForm = () => {
 
       <Button
         size="lg"
-        className="mb-10 mt-auto w-full"
+        className="mb-5 mt-auto w-full"
         // disabled={}
         onClick={() => nextStep()}
       >
         다음
       </Button>
+      <Link
+        href="/"
+        className="mb-6 text-center text-md font-semiBold text-gray-400"
+      >
+        다음에 할게요
+      </Link>
     </div>
   )
 }

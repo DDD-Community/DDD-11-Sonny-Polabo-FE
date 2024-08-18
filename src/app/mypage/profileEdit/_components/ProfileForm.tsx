@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import NicknameInput from '@/components/TextInput/NicknameInput'
 import BirthDateInput from '@/components/BirthDateInput'
@@ -22,7 +22,22 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
     session?.profile.gender ?? 'NONE',
   )
   const formRef = useRef<HTMLFormElement>(null)
-  const [hasError, setHasError] = useState(false)
+  const [nameError, setNameError] = useState(false)
+  const [birthError, setBirthError] = useState(false)
+  const [unChanged, setUnChanged] = useState(true)
+
+  useEffect(() => {
+    console.log('birthDt:', newBirthDt)
+    if (
+      session?.profile.nickName === newName &&
+      session?.profile.birthDt === newBirthDt &&
+      session?.profile.gender === newGender
+    ) {
+      setUnChanged(true)
+    } else {
+      setUnChanged(false)
+    }
+  }, [newName, newBirthDt, newGender])
 
   return (
     <form
@@ -33,9 +48,12 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
           gender: newGender,
         }
         if (session?.profile !== newProfile) {
-          update({ profile: newProfile })
+          const serverRes = await updateProfile(newProfile)
+
+          if (serverRes.code === 'SUCCESS') {
+            update({ profile: newProfile })
+          }
         }
-        await updateProfile(newProfile)
       }}
       ref={formRef}
       className="mt-9 flex flex-1 flex-col px-10"
@@ -46,13 +64,16 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
           <NicknameInput
             value={newName}
             setValue={setNewName}
-            setHasError={setHasError}
+            setHasError={setNameError}
             name="nickname"
           />
         </div>
         <div className="mb-[26px]">
           <Title>생년월일</Title>
-          <BirthDateInput setBirthDt={setNewBirthDt} />
+          <BirthDateInput
+            setBirthDt={setNewBirthDt}
+            setHasError={setBirthError}
+          />
         </div>
         <Title>성별</Title>
         <GenderInput gender={newGender} setGender={setNewGender} />
@@ -61,11 +82,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
       <SubmitBtn
         formRef={formRef}
         btnDisabled={
-          (session?.profile.nickName === newName &&
-            session?.profile.birthDt === newBirthDt &&
-            session?.profile.gender === newGender) ||
-          newName.length === 0 ||
-          hasError
+          unChanged || newName.length === 0 || birthError || nameError
         }
       />
     </form>

@@ -12,9 +12,10 @@ import {
 
 interface BirthDateInputProps {
   setBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
+  setHasError: Dispatch<SetStateAction<boolean>>
 }
 
-const BirthDateInput = ({ setBirthDt }: BirthDateInputProps) => {
+const BirthDateInput = ({ setBirthDt, setHasError }: BirthDateInputProps) => {
   const [year, setYear] = useState('')
   const [month, setMonth] = useState('')
   const [day, setDay] = useState('')
@@ -31,7 +32,16 @@ const BirthDateInput = ({ setBirthDt }: BirthDateInputProps) => {
   }, [session])
 
   useEffect(() => {
-    setBirthDt(`${year}-${month}-${day}`)
+    if (!year && !month && !day) {
+      setHasError(false)
+      setBirthDt(undefined)
+    } else if (year.length === 4 && month.length === 2 && day.length === 2) {
+      setBirthDt(`${year}-${month}-${day}`)
+      setHasError(false)
+    } else {
+      setBirthDt(undefined)
+      setHasError(true)
+    }
   }, [year, month, day])
 
   const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => {
