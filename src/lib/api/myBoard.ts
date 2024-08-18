@@ -12,10 +12,12 @@ export const getMyBoards = async (
   })
 
   return {
-    totalCount: res.data.totalCount,
-    totalPage: res.data.totalPage,
-    currentPage: res.data.currentPage,
-    size: res.data.size,
+    pagination: {
+      totalCount: res.data.totalCount,
+      totalPage: res.data.totalPage,
+      currentPage: res.data.currentPage,
+      size: res.data.size,
+    },
     boards: res.data.data,
   }
 }

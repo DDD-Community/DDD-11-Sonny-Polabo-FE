@@ -6,6 +6,7 @@ export interface MyBoard {
   createdAt: string
 }
 
-export interface MyBoardList extends Pagination {
+export interface MyBoardList {
   boards: MyBoard[]
+  pagination: Pagination
 }
