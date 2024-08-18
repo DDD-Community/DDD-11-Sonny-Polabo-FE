@@ -37,7 +37,7 @@ const BoardItem = ({
   }
 
   return (
-    <li className="flex w-full items-center justify-between border-b border-gray-100 pb-4 pl-7 pr-5 pt-5">
+    <li className="flex w-full cursor-pointer items-center justify-between border-b border-gray-100 pb-4 pl-7 pr-5 pt-5">
       <div className="w-full" onClick={() => onClickBoard(id)}>
         <div className="text-sm font-semiBold">{title}</div>
         <div className="text-xs text-gray-400">
