@@ -9,13 +9,19 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface BirthDateInputProps {
   setBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
   setHasError: Dispatch<SetStateAction<boolean>>
+  className?: React.ComponentProps<'div'>['className']
 }
 
-const BirthDateInput = ({ setBirthDt, setHasError }: BirthDateInputProps) => {
+const BirthDateInput = ({
+  setBirthDt,
+  setHasError,
+  className = '',
+}: BirthDateInputProps) => {
   const [year, setYear] = useState('')
   const [month, setMonth] = useState('')
   const [day, setDay] = useState('')
@@ -65,14 +71,19 @@ const BirthDateInput = ({ setBirthDt, setHasError }: BirthDateInputProps) => {
     }
   }
   return (
-    <div className="flex w-[264px] items-center justify-around border-b border-gray-950 px-2 pb-2 text-md">
+    <div
+      className={twMerge(
+        'flex w-[264px] items-center justify-around px-2 pb-2 text-md',
+        className,
+      )}
+    >
       <div>
         <input
           type="number"
           value={year}
           onChange={handleYearChange}
           placeholder="YYYY"
-          className="w-full text-center focus:outline-none"
+          className="w-full px-4 text-center focus:outline-none"
           maxLength={4}
           inputMode="numeric"
         />

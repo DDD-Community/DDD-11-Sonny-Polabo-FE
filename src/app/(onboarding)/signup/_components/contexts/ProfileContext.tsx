@@ -7,6 +7,7 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react'
@@ -33,6 +34,10 @@ export const ProfileProvider = ({
   )
   const [newBirthDt, setBirthDt] = useState<UserProfile['birthDt']>(undefined)
   const [newGender, setGender] = useState<UserProfile['gender']>('NONE')
+
+  useEffect(() => {
+    console.log(newName, newBirthDt, newGender)
+  }, [newName, newBirthDt, newGender])
 
   const value = useMemo(
     () => ({

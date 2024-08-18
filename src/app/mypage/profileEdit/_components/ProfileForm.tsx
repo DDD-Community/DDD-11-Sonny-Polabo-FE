@@ -73,6 +73,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
           <BirthDateInput
             setBirthDt={setNewBirthDt}
             setHasError={setBirthError}
+            className="border-b border-gray-950"
           />
         </div>
         <Title>성별</Title>
