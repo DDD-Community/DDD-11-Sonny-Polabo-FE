@@ -39,7 +39,8 @@ const BoardList = () => {
 
   const deleteBoard = async (boardId: string) => {
     await deleteMyBoard(boardId)
-    return fetchBoards(1, pagination.size)
+    await fetchBoards(1, pagination.size)
+    router.refresh()
   }
 
   return (

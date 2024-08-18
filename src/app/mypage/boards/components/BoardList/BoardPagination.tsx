@@ -5,19 +5,19 @@ import PaginateRightDisabledIcon from 'public/icons/pagination_right_disabled.sv
 import { usePaginationContext } from '@/components/Pagination'
 
 const LeftPagination = () => {
-  const { currentPage, paginate } = usePaginationContext()!
+  const { canSkipToLeft, skipToLeft } = usePaginationContext()!
 
-  return currentPage > 1 ? (
-    <PaginateLeftIcon onClick={() => paginate(currentPage - 1)} />
+  return canSkipToLeft ? (
+    <PaginateLeftIcon onClick={skipToLeft} />
   ) : (
     <PaginateLeftDisabledIcon />
   )
 }
 
 const RightPagination = () => {
-  const { currentPage, totalPage, paginate } = usePaginationContext()!
-  return currentPage < totalPage ? (
-    <PaginateRightIcon onClick={() => paginate(currentPage + 1)} />
+  const { canSkipToRight, skipToRight } = usePaginationContext()!
+  return canSkipToRight ? (
+    <PaginateRightIcon onClick={skipToRight} />
   ) : (
     <PaginateRightDisabledIcon />
   )

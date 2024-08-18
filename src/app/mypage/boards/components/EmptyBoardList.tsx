@@ -19,7 +19,7 @@ const EmptyBoardList = () => {
         onClick={() => router.push('/board/create')}
       >
         보드 만들러가기
-        <ArrowRightIcon fill="#" />
+        <ArrowRightIcon />
       </Button>
     </div>
   )

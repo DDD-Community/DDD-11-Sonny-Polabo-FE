@@ -1,16 +1,34 @@
-import React, { createContext, useContext, useMemo, ReactNode } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react'
 import { Pagination } from '@/types'
 
 interface PaginationContextType {
   currentPage: number
   pages: number[]
   totalPage: number
+  canSkipToLeft: boolean
+  canSkipToRight: boolean
   paginate: (page: number) => void
+  skipToLeft: () => void
+  skipToRight: () => void
 }
 
-const PaginationContext = createContext<PaginationContextType | undefined>(
-  undefined,
-)
+const PaginationContext = createContext<PaginationContextType>({
+  currentPage: 0,
+  pages: [],
+  totalPage: 0,
+  canSkipToLeft: false,
+  canSkipToRight: false,
+  paginate: () => {},
+  skipToLeft: () => {},
+  skipToRight: () => {},
+})
 
 interface PaginationProviderProps {
   pagination: Pagination
@@ -26,30 +44,34 @@ export function PaginationProvider({
   pagination,
 }: PaginationProviderProps) {
   const { totalPage, currentPage } = pagination
-  const pages = useMemo<number[]>(() => {
-    if (totalPage <= maxVisiblePages) {
-      return Array.from({ length: totalPage }, (_, i) => i + 1)
-    }
+  const [pages, setPages] = useState<number[]>([])
+  const [canSkipToLeft, setCanSkipToLeft] = useState(false)
+  const [canSkipToRight, setCanSkipToRight] = useState(false)
+  useEffect(() => {
+    const startPage =
+      Math.floor((currentPage - 1) / maxVisiblePages) * maxVisiblePages + 1
+    const endPage = Math.min(startPage + maxVisiblePages - 1, totalPage)
+    const lastStartPage =
+      Math.floor((totalPage - 1) / maxVisiblePages) * maxVisiblePages + 1
 
-    let startPage
-    let endPage
-
-    if (currentPage <= Math.ceil(totalPage / 2)) {
-      startPage = 1
-      endPage = maxVisiblePages
-    } else if (currentPage + Math.floor(totalPage / 2) >= totalPage) {
-      startPage = totalPage - maxVisiblePages + 1
-      endPage = totalPage
-    } else {
-      startPage = currentPage - Math.floor(totalPage / 2)
-      endPage = currentPage + Math.floor(totalPage / 2)
-    }
-
-    return Array.from(
-      { length: endPage - startPage + 1 },
-      (_, i) => startPage + i,
+    setPages(
+      Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i),
     )
+    setCanSkipToLeft(currentPage > maxVisiblePages)
+    setCanSkipToRight(currentPage < lastStartPage)
   }, [currentPage, totalPage, maxVisiblePages])
+
+  const skipToLeft = () => {
+    onPaginate(
+      Math.floor((currentPage - 1) / maxVisiblePages) * maxVisiblePages,
+    )
+  }
+
+  const skipToRight = () => {
+    onPaginate(
+      Math.floor((currentPage - 1) / maxVisiblePages + 1) * maxVisiblePages + 1,
+    )
+  }
 
   const value = useMemo(
     () => ({
@@ -57,6 +79,10 @@ export function PaginationProvider({
       pages,
       totalPage,
       paginate: onPaginate,
+      canSkipToLeft,
+      canSkipToRight,
+      skipToLeft,
+      skipToRight,
     }),
     [currentPage, pages, totalPage],
   )
@@ -68,6 +94,6 @@ export function PaginationProvider({
   )
 }
 
-export function usePaginationContext(): PaginationContextType | undefined {
+export function usePaginationContext(): PaginationContextType {
   return useContext(PaginationContext)
 }
