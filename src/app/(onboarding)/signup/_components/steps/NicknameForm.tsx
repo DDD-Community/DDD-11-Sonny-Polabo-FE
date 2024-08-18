@@ -2,8 +2,6 @@
 
 import Button from '@/components/Button'
 import NicknameInput from '@/components/TextInput/NicknameInput'
-// import { useSession } from 'next-auth/react'
-// import { useRouter } from 'next/navigation'
 import SketchIcon from 'public/icons/sketchIcons-1.svg'
 import { useState } from 'react'
 import { useProfile } from '../contexts/ProfileContext'
@@ -14,18 +12,12 @@ const NicknameForm = () => {
   const [nickname, setNickname] = useState('')
   const [hasError, setHasError] = useState(false)
   const isEmpty = nickname.length === 0
-  // const { update } = useSession()
-  // const router = useRouter()
+
   const { nextStep } = useStep()
 
   const createNickname = async () => {
-    // update({
-    //   name: nickname,
-    // })
-    // await changeNickname(nickname)
     setNewName(nickname)
     nextStep()
-    // router.push('/signup/complete')
   }
 
   return (
