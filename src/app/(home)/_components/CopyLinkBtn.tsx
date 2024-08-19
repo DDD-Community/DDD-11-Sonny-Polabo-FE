@@ -19,12 +19,12 @@ const CopyLinkBtn = () => {
 
   return (
     <>
-      <div className="text-center text-gray-700 text-xxs leading-3 mb-1">
+      <div className="mb-1 text-center text-xxs leading-3 text-gray-700">
         copy link!
       </div>
       <button
         type="button"
-        className="p-3 bg-gray-100 rounded-[30px] shadow-[0_4px_8px_0_rgba(0,0,0,0.15)]"
+        className="rounded-[30px] bg-gray-100 p-3 shadow-[0_4px_8px_0_rgba(0,0,0,0.15)]"
         aria-label="copy link"
         onClick={copyLink}
       >

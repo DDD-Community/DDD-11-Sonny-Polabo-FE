@@ -2,8 +2,8 @@ import Image from 'next/image'
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
 import ThreePolaroids from 'public/icons/threePolaroids.png'
 import PolaboLogo from 'public/images/polabo_logo.png'
-import KakaoLogin from './components/KakaoLogin'
-import Policy from './components/Policy'
+import KakaoLogin from './_components/KakaoLogin'
+import Policy from './_components/Policy'
 
 const LoginPage = () => {
   return (

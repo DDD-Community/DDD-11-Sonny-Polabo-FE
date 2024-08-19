@@ -1,15 +1,14 @@
 import Header from '@/components/Header'
 import Link from 'next/link'
-import Email from './components/Email'
-import NicknameForm from './components/NicknameForm'
-import Title from './components/Title'
+import Email from './_components/Email'
+import ProfileForm from './_components/ProfileForm'
+import Title from './_components/Title'
 
 const Page = () => {
   return (
     <div className="flex min-h-dvh flex-col">
       <Header title="프로필 수정" leftButton={<Header.BackButton />} />
-
-      <NicknameForm>
+      <ProfileForm>
         <Title>연결된 계정</Title>
         <Email />
 
@@ -19,7 +18,7 @@ const Page = () => {
         >
           탈퇴하기
         </Link>
-      </NicknameForm>
+      </ProfileForm>
     </div>
   )
 }

@@ -23,18 +23,28 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
       if (account && user) {
         try {
           // 신규 유저인지 확인, polabo 백에서 토큰 발급
-          const { newUser, nickName, accessToken, refreshToken, expiredDate } =
-            await login({
-              email: user.email!,
-              nickName: user.name!,
-              birthDt: '2024-08-11', // TODO: 기획 대기
-              gender: 'F', // TODO: 기획 대기
-            })
-          user.name = nickName
+          const {
+            newUser,
+            nickName,
+            birthDt,
+            gender,
+            accessToken,
+            refreshToken,
+            expiredDate,
+          } = await login({
+            email: user.email!,
+            nickName: user.name!,
+          })
+          // user.name = nickName
           user.newUser = newUser
           user.accessToken = accessToken
           user.refreshToken = refreshToken
           user.expiredDate = expiredDate
+          user.profile = {
+            nickName,
+            birthDt,
+            gender,
+          }
         } catch (e) {
           console.log('error', e)
           return false
@@ -44,9 +54,8 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
       return true
     },
     async jwt({ token, user, account, trigger, session }) {
-      if (trigger === 'update' && session?.name) {
-        const { name } = session
-        token.name = name
+      if (trigger === 'update' && session?.profile) {
+        token.profile = session.profile
       }
       if (trigger === 'update' && session?.accessToken) {
         token.accessToken = session.accessToken
@@ -62,6 +71,7 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
           expiredDate: user.expiredDate,
+          profile: user.profile,
           user,
         }
       }
@@ -80,6 +90,7 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
         session.refreshToken = token.refreshToken
         session.expiredDate = token.expiredDate
         session.newUser = token.newUser
+        session.profile = token.profile
       }
       return session
     },

@@ -1,4 +1,4 @@
-import { WithdrawUserPayload } from '@/types'
+import { UserProfile, WithdrawUserPayload } from '@/types'
 import { get, put } from './base'
 
 export const withdraw = async (body: WithdrawUserPayload) => {
@@ -7,9 +7,9 @@ export const withdraw = async (body: WithdrawUserPayload) => {
   })
 }
 
-export const changeNickname = async (nickName: string) => {
-  return put(`/api/v1/user/nickname`, {
-    body: JSON.stringify({ nickName }),
+export const updateProfile = async (body: UserProfile) => {
+  return put('/api/v1/user/profile', {
+    body: JSON.stringify(body),
   })
 }
 

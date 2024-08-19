@@ -1,12 +1,19 @@
 'use client'
 
-import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
+import {
+  Dispatch,
+  InputHTMLAttributes,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 import { useSession } from 'next-auth/react'
 import TextInput from '.'
 
 const MAX_NICKNAME_LENGTH = 10
 
-interface NicknameInputProps {
+interface NicknameInputProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string
   setValue: Dispatch<SetStateAction<string>>
   setHasError: Dispatch<SetStateAction<boolean>>
@@ -18,6 +25,7 @@ const NicknameInput = ({
   setValue,
   setHasError,
   icon = '',
+  ...rest
 }: NicknameInputProps) => {
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -25,7 +33,7 @@ const NicknameInput = ({
 
   useEffect(() => {
     if (session) {
-      setValue(session.user!.name!)
+      setValue(session.profile.nickName)
     }
   }, [session])
 
@@ -62,6 +70,7 @@ const NicknameInput = ({
       hasError={errorMessage.length > 0}
       setValue={onInput}
       icon={icon}
+      {...rest} // eslint-disable-line react/jsx-props-no-spreading
     />
   )
 }
