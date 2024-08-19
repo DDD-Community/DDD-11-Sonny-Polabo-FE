@@ -2,17 +2,19 @@
 
 import Button from '@/components/Button'
 import TextInput from '@/components/TextInput'
-import { postBoard } from '@/lib'
-import { useRouter } from 'next/navigation'
 import { ReactNode, useState } from 'react'
 
 const MAX_BOARD_NAME_LENGTH = 15
 
-const BoardNameForm = ({ children }: { children: ReactNode }) => {
+interface BoardNameFormProps {
+  children: ReactNode
+  createBoard: (title: string) => void
+}
+
+const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
   const [title, setTitle] = useState('')
   const [hasError, setHasError] = useState(false)
   const isEmpty = title.length === 0
-  const router = useRouter()
 
   const onInput = (value: string) => {
     setTitle(value)
@@ -21,15 +23,6 @@ const BoardNameForm = ({ children }: { children: ReactNode }) => {
     } else {
       setHasError(false)
     }
-  }
-
-  const createBoard = async () => {
-    const boardId = await postBoard({
-      title,
-      userId: null,
-    })
-
-    router.push(`/board/${boardId}`)
   }
 
   return (
@@ -52,7 +45,7 @@ const BoardNameForm = ({ children }: { children: ReactNode }) => {
         size="lg"
         className="mb-12"
         disabled={hasError || isEmpty}
-        onClick={createBoard}
+        onClick={() => createBoard(title)}
       >
         완료
       </Button>

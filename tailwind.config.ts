@@ -114,6 +114,7 @@ const config: Config = {
       boxShadow: {
         header: '0px 1px 2px 0px rgba(0, 0, 0, 0.10)',
         button: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
+        popup: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
       },
     },
   },
