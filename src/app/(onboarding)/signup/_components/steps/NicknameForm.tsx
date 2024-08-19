@@ -4,11 +4,16 @@ import Button from '@/components/Button'
 import NicknameInput from '@/components/TextInput/NicknameInput'
 import SketchIcon from 'public/icons/sketchIcons-1.svg'
 import { useState } from 'react'
+import { UserProfile } from '@/types'
 import { useProfile } from '../contexts/ProfileContext'
 import { useStep } from '../contexts/StepContext'
 
-const NicknameForm = () => {
-  const { setNewName } = useProfile()
+const NicknameForm = ({
+  handleSubmit,
+}: {
+  handleSubmit: (profile: UserProfile) => Promise<boolean>
+}) => {
+  const { newName, setNewName, newBirthDt, newGender } = useProfile()
   const [nickname, setNickname] = useState('')
   const [hasError, setHasError] = useState(false)
   const isEmpty = nickname.length === 0
@@ -17,6 +22,11 @@ const NicknameForm = () => {
 
   const createNickname = async () => {
     setNewName(nickname)
+    await handleSubmit({
+      nickName: newName,
+      birthDt: newBirthDt,
+      gender: newGender,
+    })
     nextStep()
   }
 

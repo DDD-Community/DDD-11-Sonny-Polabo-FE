@@ -1,23 +1,32 @@
 import BirthDateInput from '@/components/BirthDateInput'
 import Button from '@/components/Button'
-import Link from 'next/link'
-import { useState } from 'react'
-import { validateBirthDt } from '@/lib/utils/validation'
 import BirthInvalidModal from '@/components/Modal/BirthInvalidModal'
+import { validateBirthDt } from '@/lib/utils/validation'
+import { useState } from 'react'
+import { UserProfile } from '@/types'
 import { useProfile } from '../contexts/ProfileContext'
 import { useStep } from '../contexts/StepContext'
 
-const BirthDtForm = () => {
-  const { newName, newBirthDt, setBirthDt } = useProfile()
+const BirthDtForm = ({
+  handleSubmit,
+}: {
+  handleSubmit: (profile: UserProfile) => Promise<boolean>
+}) => {
+  const { newName, newBirthDt, setBirthDt, newGender } = useProfile()
   const { nextStep } = useStep()
   const [hasError, setHasError] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 
-  const handleSubmit = async () => {
+  const onSubmit = async () => {
     if (validateBirthDt(newBirthDt!) === false) {
       setModalOpen(true)
       return
     }
+    await handleSubmit({
+      nickName: newName,
+      birthDt: newBirthDt,
+      gender: newGender,
+    })
     nextStep()
   }
 
@@ -43,16 +52,17 @@ const BirthDtForm = () => {
           size="lg"
           className="mb-5 mt-auto w-full"
           disabled={hasError || !newBirthDt}
-          onClick={handleSubmit}
+          onClick={onSubmit}
         >
           다음
         </Button>
-        <Link
-          href="/"
+        <button
+          type="button"
+          onClick={() => nextStep()}
           className="mb-6 text-center text-md font-semiBold text-gray-400"
         >
           다음에 할게요
-        </Link>
+        </button>
       </div>
       <BirthInvalidModal
         isOpen={modalOpen}

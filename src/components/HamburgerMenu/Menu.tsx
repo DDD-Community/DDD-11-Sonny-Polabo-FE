@@ -59,19 +59,13 @@ const MyMenu = ({
   </Link>
 )
 
-const ServiceMenu = ({
-  text,
-  onClick,
-}: {
-  text: string
-  onClick: React.ComponentProps<'div'>['onClick']
-}) => (
-  <div
+const ServiceMenu = ({ text, linkTo }: { text: string; linkTo: string }) => (
+  <Link
     className="cursor-pointer pl-[30px] text-sm font-semiBold text-gray-700"
-    onClick={onClick}
+    href={linkTo}
   >
     {text}
-  </div>
+  </Link>
 )
 
 const Logout = () => {
@@ -124,10 +118,22 @@ const Menu = () => {
       )}
       <Divider />
       <div className="flex flex-col gap-3">
-        <ServiceMenu text="POLABO 소개" onClick={() => {}} />
-        <ServiceMenu text="서비스 이용약관" onClick={() => {}} />
-        <ServiceMenu text="개인정보 처리방침" onClick={() => {}} />
-        <ServiceMenu text="문의하기" onClick={() => {}} />
+        <ServiceMenu
+          text="POLABO 소개"
+          linkTo="https://hwanheejung.notion.site/POLABO-39ac5a850dcb46bd83168043acea5bbc?pvs=74"
+        />
+        <ServiceMenu
+          text="서비스 이용약관"
+          linkTo="https://hwanheejung.notion.site/POLABO-292cb07b2fd74d7488aa4b684c67eb9a?pvs=74"
+        />
+        <ServiceMenu
+          text="개인정보 처리방침"
+          linkTo="https://hwanheejung.notion.site/POLABO-3c07098b731e419a92da9916c81c35f1"
+        />
+        <ServiceMenu
+          text="문의하기"
+          linkTo="https://forms.gle/ya9HVMSJWVSKYyV77"
+        />
       </div>
 
       {status === 'authenticated' && <Logout />}
