@@ -8,17 +8,35 @@ import { withdraw } from '@/lib'
 import { signOut } from 'next-auth/react'
 import LeaveConfirmModal from './LeaveConfirmModal'
 
-const WITHDRAW_TYPE = {
-  SELECT: '선택해주세요.',
-  UNUSED: '더 이상 이용하지 않아요.',
-  PRIVACY: '개인정보가 걱정돼요.',
-  DELETE_DATA: '제 데이터를 삭제하고 싶어요.',
-  NEW_ACCOUNT: '새로운 계정을 만들고 싶어요.',
-  ETC: '기타',
+type WithdrawType =
+  | 'NOT_USE'
+  | 'WORRY_ABOUT_PERSONAL_INFO'
+  | 'DROP_MY_DATA'
+  | 'WANT_TO_NEW_ACCOUNT'
+  | 'OTHER'
+  | null
+
+type WithDrawOptionType = {
+  value: WithdrawType
+  label: string
 }
 
+const WITHDRAW_OPTIONS: WithDrawOptionType[] = [
+  {
+    value: null,
+    label: '선택해주세요.',
+  },
+  { value: 'NOT_USE', label: '더 이상 이용하지 않아요.' },
+  { value: 'WORRY_ABOUT_PERSONAL_INFO', label: '개인정보가 걱정돼요.' },
+  { value: 'DROP_MY_DATA', label: '제 데이터를 삭제하고 싶어요.' },
+  { value: 'WANT_TO_NEW_ACCOUNT', label: '새로운 계정을 만들고 싶어요.' },
+  { value: 'OTHER', label: '기타' },
+]
+
 const LeaveForm = () => {
-  const [withdrawType, setWithdrawType] = useState<string>(WITHDRAW_TYPE.SELECT)
+  const [withdrawOption, setWithdrawOption] = useState<WithDrawOptionType>(
+    WITHDRAW_OPTIONS[0],
+  )
   const [customReason, setCustomReason] = useState<string>('')
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
   const [isLeaveConfirmModalOpen, setIsLeaveConfirmModalOpen] = useState(false)
@@ -27,14 +45,14 @@ const LeaveForm = () => {
   const isCustomReasonValid = customReason && !errorMessage
 
   useEffect(() => {
-    if (withdrawType === WITHDRAW_TYPE.SELECT) {
+    if (withdrawOption.value === null) {
       setIsFormValid(false)
-    } else if (withdrawType === WITHDRAW_TYPE.ETC && !isCustomReasonValid) {
+    } else if (withdrawOption.value === 'OTHER' && !isCustomReasonValid) {
       setIsFormValid(false)
     } else {
       setIsFormValid(true)
     }
-  }, [withdrawType, customReason])
+  }, [withdrawOption, customReason])
 
   const submit = async () => {
     if (!isFormValid) {
@@ -42,7 +60,7 @@ const LeaveForm = () => {
     }
 
     await withdraw({
-      type: withdrawType,
+      type: withdrawOption.value as string,
       reason: customReason,
     })
 
@@ -56,12 +74,12 @@ const LeaveForm = () => {
   return (
     <form className="flex flex-1 flex-col justify-between">
       <div className="flex flex-col gap-8">
-        <Select
-          value={withdrawType}
-          options={Object.values(WITHDRAW_TYPE)}
-          onSelect={setWithdrawType}
+        <Select<WithdrawType>
+          selectedOption={withdrawOption}
+          options={WITHDRAW_OPTIONS}
+          onSelect={setWithdrawOption}
         />
-        {withdrawType === WITHDRAW_TYPE.ETC && (
+        {withdrawOption.value === 'OTHER' && (
           <TextArea
             placeholder="이유를 입력해주세요."
             value={customReason}
