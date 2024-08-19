@@ -1,5 +1,6 @@
 export * from './board'
 export * from './polaroid'
 export * from './file'
-export * from './auth'
 export * from './user'
+export * from './myBoard'
+export * from './common'
