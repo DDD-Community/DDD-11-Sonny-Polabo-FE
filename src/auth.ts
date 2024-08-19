@@ -10,7 +10,6 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
     Kakao({
       clientId: process.env.AUTH_KAKAO_ID,
       clientSecret: process.env.AUTH_KAKAO_SECRET,
-      redirectProxyUrl: `${process.env.AUTH_REDIRECT_URI}/api/auth`,
     }),
   ],
 
