@@ -32,6 +32,14 @@ describe('validateBirthDt', () => {
 
   it('at the edge of the year range -> true', () => {
     expect(validateBirthDt('1900-01-01')).toBe(true)
-    expect(validateBirthDt(`${new Date().getFullYear()}-12-31`)).toBe(true)
+  })
+
+  it('future date -> false', () => {
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    const futureDate = tomorrow
+      .toISOString()
+      .split('T')[0] as `${string}-${string}-${string}`
+    expect(validateBirthDt(futureDate)).toBe(false)
   })
 })

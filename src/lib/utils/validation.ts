@@ -4,13 +4,12 @@ export const validateBirthDt = (
   birthDt: NonNullable<UserProfile['birthDt']>,
 ) => {
   const [year, month, day] = birthDt.split('-')
-  // year: 1900~2024
+
   const currentYear = new Date().getFullYear().toString()
   if (year < '1900' || year > currentYear) {
     return false
   }
 
-  // month: 01~12
   if (month < '01' || month > '12') {
     return false
   }
@@ -21,8 +20,18 @@ export const validateBirthDt = (
     0,
   ).getDate()
 
-  // day: 01~해당 월의 마지막 날짜
   if (day < '01' || parseInt(day, 10) > daysInMonth) {
+    return false
+  }
+
+  // 미래 날짜인 경우
+  const inputDate = new Date(
+    `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`,
+  )
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  if (inputDate > today) {
     return false
   }
 
