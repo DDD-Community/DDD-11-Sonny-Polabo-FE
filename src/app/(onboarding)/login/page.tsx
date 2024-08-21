@@ -19,7 +19,7 @@ const LoginPage = () => {
         src={ThreePolaroids}
         priority
         alt="polaroids icon"
-        className="px-20 pb-10"
+        className="object-contain px-20 pb-10"
       />
       <div className="flex w-full flex-col items-center pb-[97px]">
         <div className="pb-2 text-center text-xs">
