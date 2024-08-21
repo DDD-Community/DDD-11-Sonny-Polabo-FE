@@ -49,6 +49,7 @@ const Tutorial = ({
         zIndex: 10,
         boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
         pointerEvents: 'none',
+        // border: '2px dotted red',
       })
 
       setTopBox({
@@ -81,6 +82,13 @@ const Tutorial = ({
       {isOpen && (
         <>
           <div style={overlayStyle}>
+            <div
+              className="pointer-events-none absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] rounded-full border-2 border-dotted border-gray-300"
+              style={{
+                width: 'calc(100% + 10px)',
+                height: 'calc(100% + 10px)',
+              }}
+            />
             <div
               className="pointer-events-auto fixed left-0 h-dvh w-screen"
               style={topBox}

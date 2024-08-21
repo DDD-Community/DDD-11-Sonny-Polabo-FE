@@ -4,6 +4,7 @@ import HamburgerIcon from 'public/icons/hamburger.svg'
 import { useState } from 'react'
 import Drawer from './Drawer'
 import Menu from './Menu'
+import { DrawerProvider } from './DrawerContext'
 
 const Hamburger = ({
   className = '',
@@ -18,10 +19,12 @@ const Hamburger = ({
         onClick={() => setIsOpen(true)}
         className="cursor-pointer"
       />
-      <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Drawer.Close />
-        <Menu />
-      </Drawer>
+      <DrawerProvider>
+        <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <Drawer.Close />
+          <Menu />
+        </Drawer>
+      </DrawerProvider>
     </div>
   )
 }
