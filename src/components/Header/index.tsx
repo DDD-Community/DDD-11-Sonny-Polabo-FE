@@ -16,17 +16,17 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <>
-      <header className="fixed z-10 grid h-16 w-full max-w-md grid-cols-3 justify-between bg-gray-0 p-5 shadow-header">
-        <div className="cursor-pointer justify-self-start">{leftButton}</div>
-        <div className="justify-self-center">
+      <header className="fixed z-10 flex h-16 w-full max-w-md justify-between bg-gray-0 p-5 shadow-header">
+        <div className="w-6 cursor-pointer">{leftButton}</div>
+        <div className="text-gray-700">
           <div className="text-center text-md font-semiBold leading-6">
             {title}
           </div>
-          <div className="mt-1 text-center text-xs font-regular leading-4 text-gray-700">
+          <div className="mt-1 text-center text-xs font-regular leading-4">
             {description}
           </div>
         </div>
-        <div className="cursor-pointer justify-self-end">{rightButton}</div>
+        <div className="w-6 cursor-pointer">{rightButton}</div>
       </header>
       <div className="block h-16 w-full" />
     </>
