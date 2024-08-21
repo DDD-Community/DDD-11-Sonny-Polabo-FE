@@ -16,7 +16,7 @@ const SelectOption = ({ text, selected, onSelect }: SelectOptionProps) => {
     <button
       type="button"
       onClick={() => onSelect(text)}
-      className="ml-1.5 grid grid-cols-[13px_minmax(0,1fr)] items-center justify-items-start gap-1 border-b-[0.5px] border-b-gray-200 py-1.5 text-sm active:bg-gray-100"
+      className="ml-3 grid grid-cols-[13px_minmax(0,1fr)] items-center justify-items-start gap-2 border-b-[0.5px] border-b-gray-200 py-1.5 text-sm active:bg-gray-100"
     >
       {selected ? <CheckIcon /> : <div />}
       {text}
