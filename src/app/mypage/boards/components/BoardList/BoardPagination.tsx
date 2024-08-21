@@ -29,7 +29,7 @@ const Pages = () => {
   return pages.map((page) => (
     <span
       key={page}
-      className={`text-xs leading-5 ${page === currentPage ? 'underline' : ''}`}
+      className={`text-sm leading-5 ${page === currentPage ? 'underline' : ''}`}
       onClick={() => paginate(page)}
     >
       {page}
