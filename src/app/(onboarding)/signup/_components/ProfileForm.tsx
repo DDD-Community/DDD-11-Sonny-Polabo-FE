@@ -3,7 +3,6 @@
 import { updateProfile } from '@/lib'
 import { UserProfile } from '@/types'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import Indicator from './Indicator'
 import { ProfileProvider } from './contexts/ProfileContext'
 import { useStep } from './contexts/StepContext'
@@ -14,24 +13,26 @@ import NicknameForm from './steps/NicknameForm'
 const ProfileForm = () => {
   const { step } = useStep()
   const { data: session, update } = useSession()
-  const router = useRouter()
 
-  const handleSubmit = async (newProfile: UserProfile) => {
+  const handleSubmit = async (newProfile: UserProfile): Promise<boolean> => {
     if (session?.profile !== newProfile) {
       const serverRes = await updateProfile(newProfile)
+
       if (serverRes.code === 'SUCCESS') {
         update({ profile: newProfile })
-        router.push('/signup/complete')
+        return true
       }
+      return false
     }
+    return true
   }
 
   return (
     <div className="flex w-full flex-1 flex-col px-10">
       <Indicator />
       <ProfileProvider>
-        {step === 1 && <NicknameForm />}
-        {step === 2 && <BirthDtForm />}
+        {step === 1 && <NicknameForm handleSubmit={handleSubmit} />}
+        {step === 2 && <BirthDtForm handleSubmit={handleSubmit} />}
         {step === 3 && <GenderForm handleSubmit={handleSubmit} />}
       </ProfileProvider>
     </div>
