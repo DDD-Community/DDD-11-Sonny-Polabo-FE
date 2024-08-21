@@ -1,25 +1,9 @@
 'use client'
 
 import CloseIcon from 'public/icons/close.svg'
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { ReactNode, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-
-interface DrawerContextProps {
-  isVisible: boolean
-  onClose: () => void
-}
-
-const DrawerContext = createContext<DrawerContextProps>({
-  isVisible: false,
-  onClose: () => {},
-})
+import { useDrawer } from './DrawerContext'
 
 const DrawerOverlay = ({
   children,
@@ -28,11 +12,11 @@ const DrawerOverlay = ({
   children: ReactNode
   closeOnClick: boolean
 }) => {
-  const { isVisible, onClose } = useContext(DrawerContext)
+  const { isVisible, setClose } = useDrawer()
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (closeOnClick && event.target === event.currentTarget) {
-      onClose()
+      setClose()
     }
   }
 
@@ -55,19 +39,13 @@ interface DrawerProps {
 }
 
 const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
-  const [isVisible, setIsVisible] = useState(false)
-
-  const closeModal = () => {
-    setIsVisible(false)
-  }
+  const { isVisible, setClose, setOpen } = useDrawer()
 
   useEffect(() => {
     if (isOpen) {
-      requestAnimationFrame(() => {
-        setIsVisible(true)
-      })
+      requestAnimationFrame(() => setOpen())
     } else {
-      closeModal()
+      setClose()
     }
   }, [isOpen])
 
@@ -77,29 +55,19 @@ const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
     }
   }
 
-  const context = useMemo(
-    () => ({
-      isVisible,
-      onClose: closeModal,
-    }),
-    [isVisible],
-  )
-
   return isOpen
     ? ReactDOM.createPortal(
         <div className="fixed left-0 right-0 top-0 z-20 mx-auto flex h-dvh max-w-md flex-col overflow-hidden">
-          <DrawerContext.Provider value={context}>
-            <DrawerOverlay closeOnClick>
-              <div
-                className={`absolute top-0 h-dvh w-[220px] transform bg-gray-0 transition-all duration-300 ${
-                  isVisible ? 'left-0' : '-left-[220px]'
-                }`}
-                onTransitionEnd={handleTransitionEnd}
-              >
-                {children}
-              </div>
-            </DrawerOverlay>
-          </DrawerContext.Provider>
+          <DrawerOverlay closeOnClick>
+            <div
+              className={`absolute top-0 h-dvh w-[220px] transform bg-gray-0 transition-all duration-300 ${
+                isVisible ? 'left-0' : '-left-[220px]'
+              }`}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {children}
+            </div>
+          </DrawerOverlay>
         </div>,
         document.getElementById('modal-root') as HTMLElement,
       )
@@ -107,11 +75,11 @@ const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
 }
 
 const DrawerClose = () => {
-  const { onClose } = useContext(DrawerContext)
+  const { setClose } = useDrawer()
   return (
     <CloseIcon
       className="absolute right-[14px] top-[18px] cursor-pointer"
-      onClick={onClose}
+      onClick={setClose}
     />
   )
 }

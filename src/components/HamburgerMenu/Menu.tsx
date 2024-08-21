@@ -1,11 +1,13 @@
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import LogoutModalIcon from 'public/icons/linkShare.svg'
 import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
 import { ReactNode, useState } from 'react'
 import Modal from '../Modal'
+import { useDrawer } from './DrawerContext'
 
 const Profile = ({
   onClick,
@@ -29,10 +31,17 @@ const Profile = ({
 }
 
 const Main = () => {
+  const pathName = usePathname()
+  const { setClose } = useDrawer()
   return (
     <Link
       href="/"
       className="mb-[2px] mt-[27px] cursor-pointer pl-[30px] text-gray-950"
+      onClick={() => {
+        if (pathName === '/') {
+          setClose()
+        }
+      }}
     >
       <span className="text-lg font-bold">POLABO 메인</span>
     </Link>
@@ -97,6 +106,7 @@ const Logout = () => {
 
 const Menu = () => {
   const { status } = useSession()
+
   return (
     <div className="flex h-full flex-col pb-[53px] pt-[58px]">
       <Profile onClick={() => {}} />
