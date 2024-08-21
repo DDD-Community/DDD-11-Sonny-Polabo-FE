@@ -135,7 +135,7 @@ const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
 
 const ModalBodyContent = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="mt-2 w-40 whitespace-pre text-center text-xs leading-4 text-gray-700">
+    <div className="mt-2 min-w-40 max-w-full whitespace-pre px-10 text-center text-xs leading-4 text-gray-700">
       {children}
     </div>
   )
