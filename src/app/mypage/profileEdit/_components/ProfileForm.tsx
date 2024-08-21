@@ -49,9 +49,11 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
       />
       <form
         action={async () => {
-          if (validateBirthDt(newBirthDt!) === false) {
-            setModalOpen(true)
-            return
+          if (newBirthDt) {
+            if (validateBirthDt(newBirthDt) === false) {
+              setModalOpen(true)
+              return
+            }
           }
 
           const newProfile = {
@@ -59,6 +61,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
             birthDt: newBirthDt,
             gender: newGender,
           }
+
           if (session?.profile !== newProfile) {
             const serverRes = await updateProfile(newProfile)
 

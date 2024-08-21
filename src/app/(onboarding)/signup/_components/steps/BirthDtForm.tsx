@@ -18,9 +18,11 @@ const BirthDtForm = ({
   const [modalOpen, setModalOpen] = useState(false)
 
   const onSubmit = async () => {
-    if (validateBirthDt(newBirthDt!) === false) {
-      setModalOpen(true)
-      return
+    if (newBirthDt) {
+      if (validateBirthDt(newBirthDt) === false) {
+        setModalOpen(true)
+        return
+      }
     }
     await handleSubmit({
       nickName: newName,
