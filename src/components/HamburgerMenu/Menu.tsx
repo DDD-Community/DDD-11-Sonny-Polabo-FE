@@ -19,11 +19,15 @@ const Profile = ({
       className={`flex cursor-pointer items-center gap-[6px] pl-[27px] ${status === 'authenticated' ? 'text-gray-800' : 'text-gray-400'} `}
     >
       <PersonIcon />
-      <span className="text-sm font-semiBold">
-        {status === 'authenticated'
-          ? session.profile.nickName
-          : '로그인해주세요.'}
-      </span>
+      {status === 'authenticated' ? (
+        <span className="text-sm font-semiBold">
+          {session.profile.nickName}
+        </span>
+      ) : (
+        <Link className="text-sm font-semiBold" href="/login">
+          로그인해주세요.
+        </Link>
+      )}
     </div>
   )
 }
