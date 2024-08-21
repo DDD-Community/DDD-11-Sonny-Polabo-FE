@@ -5,36 +5,49 @@ import ArrowDownIcon from 'public/icons/arrow_down.svg'
 import CheckIcon from 'public/icons/check.svg'
 import { useState } from 'react'
 
-interface SelectOptionProps {
-  text: string
-  selected: boolean
-  onSelect: (value: string) => void
+export type SelectOptionType = {
+  value: unknown
+  label: string
 }
 
-const SelectOption = ({ text, selected, onSelect }: SelectOptionProps) => {
+interface SelectOptionProps<T extends SelectOptionType> {
+  option: T
+  selected: boolean
+  onSelect: (value: T) => void
+}
+
+const SelectOption = <T extends SelectOptionType>({
+  option,
+  selected,
+  onSelect,
+}: SelectOptionProps<T>) => {
   return (
     <button
       type="button"
-      onClick={() => onSelect(text)}
-      className="ml-1.5 grid grid-cols-[13px_minmax(0,1fr)] items-center justify-items-start gap-1 border-b-[0.5px] border-b-gray-200 py-1.5 text-sm active:bg-gray-100"
+      onClick={() => onSelect(option)}
+      className="ml-3 grid grid-cols-[13px_minmax(0,1fr)] items-center justify-items-start gap-2 border-b-[0.5px] border-b-gray-200 py-1.5 text-sm active:bg-gray-100"
     >
       {selected ? <CheckIcon /> : <div />}
-      {text}
+      {option.label}
     </button>
   )
 }
 
-interface SelectProps {
-  value: string
-  options: string[]
-  onSelect: (value: string) => void
+interface SelectProps<T extends SelectOptionType> {
+  selectedOption: T
+  options: T[]
+  onSelect: (value: T) => void
 }
 
-const Select = ({ value, options, onSelect }: SelectProps) => {
+const Select = <T extends SelectOptionType>({
+  selectedOption,
+  options,
+  onSelect,
+}: SelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const onSelectItem = (selectedValue: string) => {
-    onSelect(selectedValue)
+  const onSelectItem = (value: T) => {
+    onSelect(value)
     setIsOpen(false)
   }
 
@@ -45,16 +58,16 @@ const Select = ({ value, options, onSelect }: SelectProps) => {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span>{value}</span>
+        <span>{selectedOption.label}</span>
         {isOpen ? <ArrowDownIcon /> : <ArrowUpIcon />}
       </button>
       {isOpen && (
         <div className="absolute left-0 top-12 z-10 mt-1 flex w-full flex-col rounded-md border border-gray-400 bg-gray-0">
           {options.map((option) => (
-            <SelectOption
-              key={option}
-              text={option}
-              selected={value === option}
+            <SelectOption<T>
+              key={option.label}
+              option={option}
+              selected={selectedOption.value === option.value}
               onSelect={onSelectItem}
             />
           ))}
