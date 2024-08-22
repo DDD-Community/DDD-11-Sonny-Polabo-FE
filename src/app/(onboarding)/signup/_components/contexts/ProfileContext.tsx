@@ -18,7 +18,7 @@ interface ProfileContextProps {
   newGender: UserProfile['gender']
   setNewName: Dispatch<SetStateAction<UserProfile['nickName']>>
   setNewBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
-  setGender: Dispatch<SetStateAction<UserProfile['gender']>>
+  setNewGender: Dispatch<SetStateAction<UserProfile['gender']>>
 }
 
 const ProfileContext = createContext<ProfileContextProps | undefined>(undefined)
@@ -32,7 +32,7 @@ export const ProfileProvider = ({
   const [newName, setNewName] = useState<UserProfile['nickName']>('')
   const [newBirthDt, setNewBirthDt] =
     useState<UserProfile['birthDt']>(undefined)
-  const [newGender, setGender] = useState<UserProfile['gender']>('NONE')
+  const [newGender, setNewGender] = useState<UserProfile['gender']>('NONE')
 
   useEffect(() => {
     setNewName(session?.profile.nickName ?? '')
@@ -46,7 +46,7 @@ export const ProfileProvider = ({
       newGender,
       setNewName,
       setNewBirthDt,
-      setGender,
+      setNewGender,
     }),
     [newName, newBirthDt, newGender],
   )
