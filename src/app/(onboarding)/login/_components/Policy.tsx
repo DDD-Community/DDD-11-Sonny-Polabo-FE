@@ -10,7 +10,7 @@ const Policy = () => {
   return (
     <div className="text-center text-xxs text-gray-400">
       <div>
-        시작하기 버튼을 누르시면 POLABO의
+        시작하기 버튼을 누르시면 POLABO의{' '}
         <LinkTo
           text="서비스 이용약관"
           link="https://hwanheejung.notion.site/POLABO-292cb07b2fd74d7488aa4b684c67eb9a?pvs=74"
