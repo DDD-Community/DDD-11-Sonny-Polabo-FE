@@ -8,7 +8,7 @@ const SignUpPage = async () => {
   const session = await auth()
 
   if (session && !session.newUser) {
-    redirect('/board/create')
+    redirect('/')
   }
   return (
     <div className="flex h-dvh flex-col items-center justify-between">
