@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -25,6 +26,9 @@ const BirthDateInput = ({
   const [year, setYear] = useState('')
   const [month, setMonth] = useState('')
   const [day, setDay] = useState('')
+
+  const monthInputRef = useRef<HTMLInputElement>(null)
+  const dayInputRef = useRef<HTMLInputElement>(null)
 
   const { data: session } = useSession()
 
@@ -54,6 +58,9 @@ const BirthDateInput = ({
     const { value } = e.target
     if (/^\d{0,4}$/.test(value)) {
       setYear(value)
+      if (value.length === 4) {
+        monthInputRef.current?.focus()
+      }
     }
   }
 
@@ -61,6 +68,9 @@ const BirthDateInput = ({
     const { value } = e.target
     if (/^\d{0,2}$/.test(value) && +value <= 12) {
       setMonth(value)
+      if (value.length === 2) {
+        dayInputRef.current?.focus()
+      }
     }
   }
 
@@ -98,6 +108,7 @@ const BirthDateInput = ({
           className="w-full text-center focus:outline-none"
           maxLength={2}
           inputMode="numeric"
+          ref={monthInputRef}
         />
       </div>
       <span className="font-semibold text-xl text-gray-400">/</span>
@@ -110,6 +121,7 @@ const BirthDateInput = ({
           className="w-full text-center focus:outline-none"
           maxLength={2}
           inputMode="numeric"
+          ref={dayInputRef}
         />
       </div>
     </div>
