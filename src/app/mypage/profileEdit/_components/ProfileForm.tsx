@@ -30,6 +30,14 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
+    if (session?.profile) {
+      setNewName(session?.profile.nickName)
+      setNewBirthDt(session?.profile.birthDt)
+      setNewGender(session?.profile.gender)
+    }
+  }, [session])
+
+  useEffect(() => {
     if (
       session?.profile.nickName === newName &&
       session?.profile.birthDt === newBirthDt &&
@@ -86,6 +94,7 @@ const ProfileForm = ({ children }: { children: ReactNode }) => {
           <div className="mb-[26px]">
             <Title>생년월일</Title>
             <BirthDateInput
+              value={newBirthDt}
               setBirthDt={setNewBirthDt}
               setHasError={setBirthError}
               className="border-b border-gray-950"

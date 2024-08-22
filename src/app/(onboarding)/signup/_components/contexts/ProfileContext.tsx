@@ -9,6 +9,7 @@ import {
   useContext,
   useMemo,
   useState,
+  useEffect,
 } from 'react'
 
 interface ProfileContextProps {
@@ -16,7 +17,7 @@ interface ProfileContextProps {
   newBirthDt: UserProfile['birthDt']
   newGender: UserProfile['gender']
   setNewName: Dispatch<SetStateAction<UserProfile['nickName']>>
-  setBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
+  setNewBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
   setGender: Dispatch<SetStateAction<UserProfile['gender']>>
 }
 
@@ -28,11 +29,15 @@ export const ProfileProvider = ({
   children: React.ReactNode
 }) => {
   const { data: session } = useSession()
-  const [newName, setNewName] = useState<UserProfile['nickName']>(
-    session?.profile.nickName ?? '',
-  )
-  const [newBirthDt, setBirthDt] = useState<UserProfile['birthDt']>(undefined)
+  const [newName, setNewName] = useState<UserProfile['nickName']>('')
+  const [newBirthDt, setNewBirthDt] =
+    useState<UserProfile['birthDt']>(undefined)
   const [newGender, setGender] = useState<UserProfile['gender']>('NONE')
+
+  useEffect(() => {
+    setNewName(session?.profile.nickName ?? '')
+    setNewBirthDt(session?.profile.birthDt)
+  }, [session])
 
   const value = useMemo(
     () => ({
@@ -40,7 +45,7 @@ export const ProfileProvider = ({
       newBirthDt,
       newGender,
       setNewName,
-      setBirthDt,
+      setNewBirthDt,
       setGender,
     }),
     [newName, newBirthDt, newGender],
