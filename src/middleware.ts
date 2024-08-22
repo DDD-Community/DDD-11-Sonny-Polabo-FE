@@ -1,13 +1,13 @@
 import { auth } from '@/auth'
 import { NextRequest, NextResponse } from 'next/server'
-import { match } from 'path-to-regexp'
 
-// 경로 일치 확인
 function isMatch(pathname: string, urls: string[]) {
-  return urls.some((url) => !!match(url)(pathname))
+  return urls.some((url) => {
+    return pathname.startsWith(url)
+  })
 }
 
-const matchersForAuth = ['/mypage/*', '/board/create/*', '/signup']
+const matchersForAuth = ['/mypage', '/board/create', '/signup']
 
 const matchersForLogin = ['/login']
 
