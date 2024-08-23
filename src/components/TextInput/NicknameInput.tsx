@@ -8,7 +8,6 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useSession } from 'next-auth/react'
 import TextInput from '.'
 
 const MAX_NICKNAME_LENGTH = 10
@@ -28,14 +27,6 @@ const NicknameInput = ({
   ...rest
 }: NicknameInputProps) => {
   const [errorMessage, setErrorMessage] = useState('')
-
-  const { data: session } = useSession()
-
-  useEffect(() => {
-    if (session) {
-      setValue(session.profile.nickName)
-    }
-  }, [session])
 
   useEffect(() => {
     setHasError(errorMessage.length > 0)

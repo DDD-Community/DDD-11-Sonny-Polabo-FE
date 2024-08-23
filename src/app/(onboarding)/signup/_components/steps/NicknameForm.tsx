@@ -14,14 +14,12 @@ const NicknameForm = ({
   handleSubmit: (profile: UserProfile) => Promise<boolean>
 }) => {
   const { newName, setNewName, newBirthDt, newGender } = useProfile()
-  const [nickname, setNickname] = useState('')
   const [hasError, setHasError] = useState(false)
-  const isEmpty = nickname.length === 0
+  const isEmpty = newName.length === 0
 
   const { nextStep } = useStep()
 
   const createNickname = async () => {
-    setNewName(nickname)
     await handleSubmit({
       nickName: newName,
       birthDt: newBirthDt,
@@ -37,8 +35,8 @@ const NicknameForm = ({
       </div>
       <div className="mx-auto">
         <NicknameInput
-          value={nickname}
-          setValue={setNickname}
+          value={newName}
+          setValue={setNewName}
           setHasError={setHasError}
           icon={<SketchIcon />}
         />
