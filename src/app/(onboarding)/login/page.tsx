@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
-import ThreePolaroids from 'public/icons/threePolaroids.png'
+import LoginPolaroid from 'public/icons/login_polaroid.png'
 import PolaboLogo from 'public/images/polabo_logo.png'
 import KakaoLogin from './_components/KakaoLogin'
 import Policy from './_components/Policy'
@@ -16,7 +16,7 @@ const LoginPage = () => {
         <Image src={PolaboLogo} priority alt="logo" className="px-20 py-0.5" />
       </div>
       <Image
-        src={ThreePolaroids}
+        src={LoginPolaroid}
         priority
         alt="polaroids icon"
         className="object-contain px-20 pb-10"

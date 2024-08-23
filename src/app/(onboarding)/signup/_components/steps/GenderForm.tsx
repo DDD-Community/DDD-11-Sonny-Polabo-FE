@@ -54,7 +54,7 @@ const GenderForm = ({
         완료
       </Button>
       <Link
-        href="/"
+        href="/signup/complete"
         className="mb-6 text-center text-md font-semiBold text-gray-400"
       >
         다음에 할게요
