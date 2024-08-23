@@ -22,8 +22,8 @@ const LoginPage = () => {
         className="object-contain px-20 pb-10"
       />
       <div className="flex w-full flex-col items-center pb-[97px]">
-        <div className="pb-2 text-center text-sm">
-          지금 폴라보와 함께 추억을 담아보세요!
+        <div className="pb-2 text-center text-xs">
+          지금 폴라보와 함께 추억을 공유해보세요!
         </div>
         <KakaoLogin />
         <Policy />

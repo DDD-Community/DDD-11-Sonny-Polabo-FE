@@ -6,7 +6,7 @@ const Page = () => {
   const leaveCheckTitle = '탈퇴전 꼭 확인해주세요.'
   const leaveReasonTitle = '탈퇴하려는 이유를 알려주세요.'
   const leaveDescription =
-    '계정을 삭제하면 복구가 불가능하며, 같은 계정으로\n재가입이 어려워요. 회원정보 및 보드가 모두\n삭제되며, 삭제된 데이터는 복구가 불가능해요.'
+    '계정을 삭제하면 복구가 불가능하며\n회원정보 및 보드가 모두 삭제돼요. \n또한, 삭제된 데이터는 복구가 불가능해요.'
 
   return (
     <div className="flex h-dvh flex-col bg-gray-50">

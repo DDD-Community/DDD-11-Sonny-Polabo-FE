@@ -1,7 +1,6 @@
 'use client'
 
 import { UserProfile } from '@/types'
-import { useSession } from 'next-auth/react'
 import {
   ChangeEvent,
   Dispatch,
@@ -13,12 +12,14 @@ import {
 import { twMerge } from 'tailwind-merge'
 
 interface BirthDateInputProps {
+  value: UserProfile['birthDt']
   setBirthDt: Dispatch<SetStateAction<UserProfile['birthDt']>>
   setHasError: Dispatch<SetStateAction<boolean>>
   className?: React.ComponentProps<'div'>['className']
 }
 
 const BirthDateInput = ({
+  value,
   setBirthDt,
   setHasError,
   className = '',
@@ -30,16 +31,14 @@ const BirthDateInput = ({
   const monthInputRef = useRef<HTMLInputElement>(null)
   const dayInputRef = useRef<HTMLInputElement>(null)
 
-  const { data: session } = useSession()
-
   useEffect(() => {
-    if (!session || !session.profile.birthDt) return
+    if (!value) return
 
-    const [y, m, d] = session.profile.birthDt.split('-')
+    const [y, m, d] = value.split('-')
     setYear(y)
     setMonth(m)
     setDay(d)
-  }, [session])
+  }, [value])
 
   useEffect(() => {
     if (!year && !month && !day) {
@@ -55,31 +54,32 @@ const BirthDateInput = ({
   }, [year, month, day])
 
   const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    if (/^\d{0,4}$/.test(value)) {
-      setYear(value)
-      if (value.length === 4) {
+    const { value: inputValue } = e.target
+    if (/^\d{0,4}$/.test(inputValue)) {
+      setYear(inputValue)
+      if (inputValue.length === 4) {
         monthInputRef.current?.focus()
       }
     }
   }
 
   const handleMonthChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    if (/^\d{0,2}$/.test(value) && +value <= 12) {
-      setMonth(value)
-      if (value.length === 2) {
+    const { value: inputValue } = e.target
+    if (/^\d{0,2}$/.test(inputValue) && +inputValue <= 12) {
+      setMonth(inputValue)
+      if (inputValue.length === 2) {
         dayInputRef.current?.focus()
       }
     }
   }
 
   const handleDayChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    if (/^\d{0,2}$/.test(value) && +value <= 31) {
-      setDay(value)
+    const { value: inputValue } = e.target
+    if (/^\d{0,2}$/.test(inputValue) && +inputValue <= 31) {
+      setDay(inputValue)
     }
   }
+  
   return (
     <div
       className={twMerge(

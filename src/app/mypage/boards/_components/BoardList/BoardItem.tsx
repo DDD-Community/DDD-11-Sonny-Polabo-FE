@@ -1,7 +1,7 @@
 import EllipsisIcon from 'public/icons/ellipsis.svg'
-import BoardEditPopup from '@/app/mypage/boards/components/BoardEditPopup'
 import React, { useState } from 'react'
-import DeleteBoardModal from '@/app/mypage/boards/components/DeleteBoardModal'
+import DeleteBoardModal from './DeleteBoardModal'
+import BoardEditPopup from './BoardEditPopup'
 
 interface BoardListProps {
   title: string

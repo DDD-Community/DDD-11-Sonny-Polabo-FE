@@ -23,9 +23,7 @@ export const postBoard = async (
 
 export const getTotalBoards = async (): Promise<number> => {
   const res = await get('/api/v1/boards/total-count', {
-    next: {
-      revalidate: 60 * 60, // 1 hour
-    },
+    cache: 'no-cache',
   })
 
   return res.data

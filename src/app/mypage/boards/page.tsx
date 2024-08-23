@@ -1,7 +1,7 @@
 import Header from '@/components/Header'
 import { getMyBoards } from '@/lib/api/myBoard'
-import EmptyBoardList from './components/EmptyBoardList'
-import BoardList from './components/BoardList'
+import EmptyBoardList from './_components/EmptyBoardList'
+import BoardList from './_components/BoardList'
 
 const Page = async () => {
   const { pagination } = await getMyBoards()

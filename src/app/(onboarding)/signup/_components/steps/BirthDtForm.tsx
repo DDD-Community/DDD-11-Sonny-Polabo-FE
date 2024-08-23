@@ -12,18 +12,19 @@ const BirthDtForm = ({
 }: {
   handleSubmit: (profile: UserProfile) => Promise<boolean>
 }) => {
-  const { newName, newBirthDt, setBirthDt, newGender } = useProfile()
+  const { newName, newBirthDt, setNewBirthDt, newGender } = useProfile()
   const { nextStep } = useStep()
   const [hasError, setHasError] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 
   const onSubmit = async () => {
     if (newBirthDt) {
-      if (validateBirthDt(newBirthDt) === false) {
+      if (!validateBirthDt(newBirthDt)) {
         setModalOpen(true)
         return
       }
     }
+
     await handleSubmit({
       nickName: newName,
       birthDt: newBirthDt,
@@ -37,7 +38,7 @@ const BirthDtForm = ({
       <div className="flex flex-1 flex-col">
         <div className="mb-2 whitespace-pre-line text-2xl font-thin leading-10">
           <span className="font-regular">{newName}</span>
-          {'님의 \n 생일을 입력해주세요!'}
+          {'님의\n생일을 입력해주세요!'}
         </div>
         <p className="text-sm text-gray-400">
           추가 정보를 입력하시면 나에게 딱 맞는 보드 주제를 추천해드려요 :)
@@ -45,7 +46,8 @@ const BirthDtForm = ({
 
         <div className="mx-auto mt-14">
           <BirthDateInput
-            setBirthDt={setBirthDt}
+            value={newBirthDt}
+            setBirthDt={setNewBirthDt}
             setHasError={setHasError}
             className="w-[300px] text-xl"
           />
