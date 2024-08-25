@@ -116,6 +116,8 @@ const config: Config = {
         button: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
         signupGenderBtn: '2px 4px 0px 0px rgba(0, 0, 0, 0.30)',
         popup: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
+        myPageBox:
+          '0px 1px 1px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
       },
     },
   },
