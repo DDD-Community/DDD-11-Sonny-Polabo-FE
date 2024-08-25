@@ -11,45 +11,19 @@ import { useDrawer } from '../DrawerContext'
 import MainMenu from './MainMenu'
 import ServiceMenu from './Service'
 
-const Profile = ({
-  onClick,
-}: {
-  onClick: React.ComponentProps<'div'>['onClick']
-}) => {
+const Profile = () => {
   const { data: session, status } = useSession()
   return (
-    <div
-      onClick={onClick}
-      className={`flex cursor-pointer items-center gap-[6px] pl-[27px] ${status === 'authenticated' ? 'text-gray-800' : 'text-gray-400'} `}
+    <Link
+      className="flex items-center gap-[6px] text-gray-400"
+      href={status === 'authenticated' ? '/mypage' : '/login'}
     >
       <PersonIcon />
-      {status === 'authenticated' ? (
-        <span className="text-sm font-semiBold">
-          {session.profile.nickName}
-        </span>
-      ) : (
-        <Link className="text-sm font-semiBold" href="/login">
-          로그인해주세요.
-        </Link>
-      )}
-    </div>
-  )
-}
-
-const Main = () => {
-  const pathName = usePathname()
-  const { setClose } = useDrawer()
-  return (
-    <Link
-      href="/"
-      className="mb-[2px] mt-[27px] cursor-pointer pl-[30px] text-gray-950"
-      onClick={() => {
-        if (pathName === '/') {
-          setClose()
-        }
-      }}
-    >
-      <span className="text-lg font-bold">POLABO 메인</span>
+      <span className="text-sm font-semiBold">
+        {status === 'authenticated'
+          ? session?.profile.nickName
+          : '로그인해주세요.'}
+      </span>
     </Link>
   )
 }
@@ -85,26 +59,28 @@ const Logout = () => {
 
 const Menu = () => {
   const { status } = useSession()
+  const pathName = usePathname()
+  const { setClose } = useDrawer()
 
   return (
     <div className="flex h-full flex-col pb-[53px] pt-[58px]">
-      <Profile onClick={() => {}} />
-      <Main />
+      <div className="mt-5 flex flex-col gap-4 pl-[28px]">
+        <Profile />
+        <MainMenu
+          icon={<PolaroidIcon />}
+          text="POLABO 메인"
+          linkTo="/"
+          onClick={() => {
+            if (pathName === '/') {
+              setClose()
+            }
+          }}
+        />
+        {status === 'authenticated' && (
+          <MainMenu icon={<PinIcon />} text="마이페이지" linkTo="/mypage" />
+        )}
+      </div>
 
-      {status === 'authenticated' && (
-        <div className="mt-5 flex flex-col gap-3 pl-[28px]">
-          <MainMenu
-            icon={<PolaroidIcon />}
-            text="프로필 수정"
-            linkTo="/mypage/profileEdit"
-          />
-          <MainMenu
-            icon={<PinIcon />}
-            text="내 보드 목록"
-            linkTo="/mypage/boards"
-          />
-        </div>
-      )}
       <Divider />
       <ServiceMenu />
 
