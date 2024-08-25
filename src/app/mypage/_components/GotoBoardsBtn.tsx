@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
-
 import MyBoardIcon from 'public/icons/sketchIcons-4.svg'
 import JoinedBoardIcon from 'public/icons/sketchIcons-1.svg'
+import { getMyBoards } from '@/lib'
 
 interface GoToBoardsBtnProps {
   name: string
@@ -19,6 +19,7 @@ const GoToBoardsBtn = ({
   className = '',
 }: GoToBoardsBtnProps) => {
   return (
+    // TODO: JoinedBoard는 /mypage/boards 두번째 탭으로 이동
     <Link href="/mypage/boards">
       <div
         className={twMerge(
@@ -36,13 +37,16 @@ const GoToBoardsBtn = ({
   )
 }
 
-export const MyBoard = () => {
+export const MyBoard = async () => {
+  const {
+    pagination: { totalCount },
+  } = await getMyBoards()
   return (
     <div className="flex h-[108px] w-[120px] items-center justify-center">
       <GoToBoardsBtn
         name="내 보드"
         icon={<MyBoardIcon />}
-        number={3}
+        number={totalCount}
         className="-rotate-[5deg] transform"
       />
     </div>
