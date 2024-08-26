@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { isDevMode } from '@/lib/utils/env'
+import { isIOS, isAndroid } from 'react-device-detect'
 
 const useSnsShare = () => {
   useEffect(() => {
@@ -54,7 +55,18 @@ const useSnsShare = () => {
     })
   }
 
-  const shareToInsta = () => {}
+  const shareToInsta = () => {
+    if (isIOS) {
+      window.open('https://www.instagram.com/create/story')
+    } else if (isAndroid) {
+      window.open(
+        'intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end',
+      )
+    } else {
+      // desktop
+      window.open('https://www.instagram.com/')
+    }
+  }
 
   const shareToFacebook = () => {
     window.open(`https://www.facebook.com/sharer.php?u=${window.location.href}`)
