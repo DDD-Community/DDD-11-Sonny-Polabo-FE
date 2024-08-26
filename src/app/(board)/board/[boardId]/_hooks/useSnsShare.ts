@@ -56,9 +56,15 @@ const useSnsShare = () => {
 
   const shareToInsta = () => {}
 
-  const shareToFacebook = () => {}
+  const shareToFacebook = () => {
+    window.open(`https://www.facebook.com/sharer.php?u=${window.location.href}`)
+  }
 
-  const shareToX = () => {}
+  const shareToX = () => {
+    return window.open(
+      `https://twitter.com/intent/tweet?url=${window.location.href}`,
+    )
+  }
 
   return { shareToKakao, shareToInsta, shareToFacebook, shareToX }
 }
