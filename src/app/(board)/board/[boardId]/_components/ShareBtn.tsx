@@ -25,7 +25,7 @@ const ShareBtn = () => {
   }, [])
 
   const copyLink = () => {
-    navigator.clipboard.writeText(currentURL)
+    return navigator.clipboard.writeText(currentURL)
   }
 
   const { run, nextStep } = useTutorial()

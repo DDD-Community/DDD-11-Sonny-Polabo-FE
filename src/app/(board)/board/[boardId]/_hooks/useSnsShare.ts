@@ -26,7 +26,7 @@ const useSnsShare = () => {
       return
     }
 
-    if (!Kakao || !Kakao.isInitialized()) {
+    if (!Kakao.isInitialized()) {
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
     }
 
