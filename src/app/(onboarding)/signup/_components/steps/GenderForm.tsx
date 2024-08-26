@@ -11,7 +11,7 @@ const GenderForm = ({
 }: {
   handleSubmit: (profile: UserProfile) => Promise<boolean>
 }) => {
-  const { newName, newBirthDt, newGender, setGender } = useProfile()
+  const { newName, newBirthDt, newGender, setNewGender } = useProfile()
   const [hasError, setHasError] = useState(false)
   const router = useRouter()
 
@@ -41,8 +41,8 @@ const GenderForm = ({
       </p>
 
       <div className="mx-auto mb-6 flex flex-1 items-center gap-2">
-        <GenderBtn gender="M" onClick={() => setGender('M')} />
-        <GenderBtn gender="F" onClick={() => setGender('F')} />
+        <GenderBtn gender="M" onClick={() => setNewGender('M')} />
+        <GenderBtn gender="F" onClick={() => setNewGender('F')} />
       </div>
 
       <Button
