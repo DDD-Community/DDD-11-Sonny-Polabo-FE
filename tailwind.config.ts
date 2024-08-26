@@ -28,6 +28,7 @@ const config: Config = {
       positive: '#10b981',
       negative: '#ef4444',
       transparent: 'transparent',
+      kakao: '#FEE500',
     },
     fontSize: {
       xxs: '10px',
@@ -60,6 +61,9 @@ const config: Config = {
     },
     extend: {
       height: {
+        dvh: 'var(--dynamic-vh)',
+      },
+      minHeight: {
         dvh: 'var(--dynamic-vh)',
       },
       fontFamily: {
@@ -109,6 +113,9 @@ const config: Config = {
       },
       boxShadow: {
         header: '0px 1px 2px 0px rgba(0, 0, 0, 0.10)',
+        button: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
+        signupGenderBtn: '2px 4px 0px 0px rgba(0, 0, 0, 0.30)',
+        popup: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
       },
     },
   },

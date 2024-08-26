@@ -1,13 +1,15 @@
+import Image from 'next/image'
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
 import PolaboLogo from 'public/images/polabo_logo.png'
-import Image from 'next/image'
-import CreateBoardBtn from './components/CreateBoardBtn'
-import CopyLinkBtn from './components/CopyLinkBtn'
-import TotalCount from './components/TotalCount'
+import Hamburger from '@/components/HamburgerMenu'
+import CopyLinkBtn from './_components/CopyLinkBtn'
+import CreateBoardBtn from './_components/CreateBoardBtn'
+import TotalCount from './_components/TotalCount'
 
 const HomePage = () => {
   return (
     <div className="fixed left-0 right-0 mx-auto flex h-dvh max-w-md flex-col items-center justify-between bg-[url('/images/home.png')] bg-cover px-5">
+      <Hamburger className="absolute left-5 top-5" />
       <div className="overscroll-none pt-12">
         <PolaroidsIcon className="m-auto" />
         <span className="m-auto block pt-2 text-center font-jooree text-sm leading-4">

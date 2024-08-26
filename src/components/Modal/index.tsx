@@ -32,7 +32,7 @@ const ModalOverlay = ({
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center bg-gray-900/60 ${
+      className={`fixed inset-0 z-20 flex items-center justify-center bg-gray-900/60 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={handleClick}
@@ -135,7 +135,7 @@ const ModalBodyTitle = ({ children }: { children: ReactNode }) => {
 
 const ModalBodyContent = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="mt-2 w-40 whitespace-pre text-center text-xs leading-4 text-gray-700">
+    <div className="mt-2 min-w-40 max-w-full whitespace-pre px-10 text-center text-xs leading-4 text-gray-700">
       {children}
     </div>
   )

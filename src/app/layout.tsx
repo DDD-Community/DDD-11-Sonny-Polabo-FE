@@ -1,3 +1,5 @@
+import AuthSession from '@/components/AuthSession'
+import CheckNewUser from '@/components/CheckNewUser'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
@@ -56,9 +58,12 @@ export default function RootLayout({
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
       >
-        <main className="mx-auto max-w-md bg-gray-0 font-pretendard">
-          {children}
-        </main>
+        <AuthSession>
+          <CheckNewUser />
+          <main className="mx-auto max-w-md bg-gray-0 font-pretendard">
+            {children}
+          </main>
+        </AuthSession>
         <div className="fixed left-0 top-0 -z-10 h-dvh w-screen bg-gray-200" />
         <div className="font-pretendard" id="modal-root" />
       </body>
