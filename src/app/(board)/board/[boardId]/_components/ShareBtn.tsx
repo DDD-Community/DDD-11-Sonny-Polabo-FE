@@ -25,15 +25,21 @@ const ShareBtn = () => {
   }, [])
 
   const copyLink = () => {
-    return navigator.clipboard.writeText(currentURL)
+    navigator.clipboard.writeText(currentURL)
   }
 
   const { run, nextStep } = useTutorial()
+
   const handleClose = () => {
     setShowShareModal(false)
     if (run) {
       nextStep()
     }
+  }
+
+  const handleShare = (shareFn: () => void) => {
+    shareFn()
+    setShowShareModal(false)
   }
 
   return (
@@ -50,31 +56,31 @@ const ShareBtn = () => {
               icon={<CopyIcon className="-rotate-45" />}
               bg="bg-gray-900"
               desc="링크 복사"
-              onClick={copyLink}
+              onClick={() => handleShare(copyLink)}
             />
             <Section.Item
               icon={<KakaoIcon />}
               bg="bg-kakao"
               desc="카카오톡"
-              onClick={shareToKakao}
+              onClick={() => handleShare(shareToKakao)}
             />
             <Section.Item
               icon={<IGIcon />}
               bg="bg-[url('/icons/sns/sns-ig-bg.png')]"
               desc="인스타그램"
-              onClick={shareToInsta}
+              onClick={() => handleShare(shareToInsta)}
             />
             <Section.Item
               icon={<XIcon />}
               bg="bg-[#000]"
               desc="X"
-              onClick={shareToX}
+              onClick={() => handleShare(shareToX)}
             />
             <Section.Item
               icon={<FacebookIcon />}
               bg="bg-facebook"
               desc="페이스북"
-              onClick={shareToFacebook}
+              onClick={() => handleShare(shareToFacebook)}
             />
           </Section>
           <Section title="보드 이미지 저장">

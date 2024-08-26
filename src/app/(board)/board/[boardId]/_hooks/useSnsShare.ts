@@ -26,7 +26,7 @@ const useSnsShare = () => {
       return
     }
 
-    if (!Kakao.isInitialized()) {
+    if (!Kakao || !Kakao.isInitialized()) {
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
     }
 
@@ -56,16 +56,17 @@ const useSnsShare = () => {
   }
 
   const shareToInsta = () => {
+    let url
     if (isIOS) {
-      window.open('https://www.instagram.com/create/story')
+      url = 'https://www.instagram.com/create/story'
     } else if (isAndroid) {
-      window.open(
-        'intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end',
-      )
+      url =
+        'intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end'
     } else {
-      // desktop
-      window.open('https://www.instagram.com/')
+      url = 'https://www.instagram.com/'
     }
+
+    window.open(url)
   }
 
   const shareToFacebook = () => {
@@ -73,9 +74,7 @@ const useSnsShare = () => {
   }
 
   const shareToX = () => {
-    return window.open(
-      `https://twitter.com/intent/tweet?url=${window.location.href}`,
-    )
+    window.open(`https://twitter.com/intent/tweet?url=${window.location.href}`)
   }
 
   return { shareToKakao, shareToInsta, shareToFacebook, shareToX }
