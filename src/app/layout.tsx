@@ -4,6 +4,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import Script from 'next/script'
 
 const PretendVariable = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
@@ -44,6 +45,13 @@ export const metadata: Metadata = {
   },
 }
 
+declare global {
+  interface Window {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    Kakao: any
+  }
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,6 +62,12 @@ export default function RootLayout({
       <GoogleAnalytics />
       <head>
         <link rel="icon" href="/images/favicon.ico" sizes="any" />
+        <Script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+          integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}

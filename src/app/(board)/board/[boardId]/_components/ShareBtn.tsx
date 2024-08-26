@@ -10,6 +10,7 @@ import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
 import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
+import { handleKakaoShare } from '@/lib/utils/snsShare'
 import Section from './Share/Section'
 import { useTutorial } from './Tutorial/TutorialContext'
 
@@ -18,7 +19,14 @@ const ShareBtn = () => {
   const [currentURL, setCurrentURL] = useState<string>('')
 
   useEffect(() => {
-    setCurrentURL(window.location.href)
+    const { Kakao, location } = window
+
+    if (typeof window !== 'undefined') {
+      setCurrentURL(location.href)
+      if (!Kakao.isInitialized()) {
+        Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
+      }
+    }
   }, [])
 
   const copyLink = () => {
@@ -51,7 +59,12 @@ const ShareBtn = () => {
               desc="링크 복사"
               onClick={copyLink}
             />
-            <Section.Item icon={<KakaoIcon />} bg="bg-kakao" desc="카카오톡" />
+            <Section.Item
+              icon={<KakaoIcon />}
+              bg="bg-kakao"
+              desc="카카오톡"
+              onClick={handleKakaoShare}
+            />
             <Section.Item
               icon={<IGIcon />}
               bg="bg-[url('/icons/sns/sns-ig-bg.png')]"
