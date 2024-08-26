@@ -10,23 +10,18 @@ import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
 import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
-import { handleKakaoShare } from '@/lib/utils/snsShare'
 import Section from './Share/Section'
 import { useTutorial } from './Tutorial/TutorialContext'
+import useSnsShare from '../_hooks/useSnsShare'
 
 const ShareBtn = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const [currentURL, setCurrentURL] = useState<string>('')
+  const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
+    useSnsShare()
 
   useEffect(() => {
-    const { Kakao, location } = window
-
-    if (typeof window !== 'undefined') {
-      setCurrentURL(location.href)
-      if (!Kakao.isInitialized()) {
-        Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
-      }
-    }
+    setCurrentURL(window.location.href)
   }, [])
 
   const copyLink = () => {
@@ -63,18 +58,25 @@ const ShareBtn = () => {
               icon={<KakaoIcon />}
               bg="bg-kakao"
               desc="카카오톡"
-              onClick={handleKakaoShare}
+              onClick={shareToKakao}
             />
             <Section.Item
               icon={<IGIcon />}
               bg="bg-[url('/icons/sns/sns-ig-bg.png')]"
               desc="인스타그램"
+              onClick={shareToInsta}
             />
-            <Section.Item icon={<XIcon />} bg="bg-[#000]" desc="X" />
+            <Section.Item
+              icon={<XIcon />}
+              bg="bg-[#000]"
+              desc="X"
+              onClick={shareToX}
+            />
             <Section.Item
               icon={<FacebookIcon />}
               bg="bg-facebook"
               desc="페이스북"
+              onClick={shareToFacebook}
             />
           </Section>
           <Section title="보드 이미지 저장">
