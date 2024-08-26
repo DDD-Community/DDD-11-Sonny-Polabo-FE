@@ -44,9 +44,7 @@ const ShareBtn = () => {
         <Modal.BottomModal icon={<TwoPolaroidsIcon className="scale-[2]" />}>
           <Modal.Close />
           <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
-
           <div className="mt-[21px] h-px w-full bg-gray-200" />
-
           <Section title="링크 공유">
             <Section.Item
               icon={<CopyIcon className="-rotate-45" />}
