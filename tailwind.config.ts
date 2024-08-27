@@ -29,6 +29,7 @@ const config: Config = {
       negative: '#ef4444',
       transparent: 'transparent',
       kakao: '#FEE500',
+      facebook: '#337FFF',
     },
     fontSize: {
       xxs: '10px',
