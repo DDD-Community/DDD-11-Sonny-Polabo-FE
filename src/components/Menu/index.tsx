@@ -6,10 +6,10 @@ import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
 import { useState } from 'react'
-import Modal from '../../Modal'
-import { useDrawer } from '../DrawerContext'
-import MainMenu from './MainMenu'
-import ServiceMenu from './Service'
+import Modal from '../Modal'
+import { useDrawer } from '../HamburgerMenu/DrawerContext'
+import MenuLink from './MenuLink'
+import ExternalLinkContainer from './ExternalLinkContainer'
 
 const Profile = () => {
   const { data: session, status } = useSession()
@@ -66,23 +66,22 @@ const Menu = () => {
     <div className="flex h-full flex-col pb-[53px] pt-[58px]">
       <div className="mt-5 flex flex-col gap-4 pl-[28px]">
         <Profile />
-        <MainMenu
-          icon={<PolaroidIcon />}
-          text="POLABO 메인"
-          linkTo="/"
+        <div
           onClick={() => {
             if (pathName === '/') {
               setClose()
             }
           }}
-        />
+        >
+          <MenuLink icon={<PolaroidIcon />} text="POLABO 메인" linkTo="/" />
+        </div>
         {status === 'authenticated' && (
-          <MainMenu icon={<PinIcon />} text="마이페이지" linkTo="/mypage" />
+          <MenuLink icon={<PinIcon />} text="마이페이지" linkTo="/mypage" />
         )}
       </div>
 
       <Divider />
-      <ServiceMenu />
+      <ExternalLinkContainer />
 
       {status === 'authenticated' && <Logout />}
     </div>
