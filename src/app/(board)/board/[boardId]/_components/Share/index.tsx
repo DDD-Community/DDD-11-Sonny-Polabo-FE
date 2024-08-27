@@ -10,9 +10,9 @@ import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
 import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
-import Section from './Share/Section'
-import { useTutorial } from './Tutorial/TutorialContext'
-import useSnsShare from '../_hooks/useSnsShare'
+import Section from './Section'
+import { useTutorial } from '../Tutorial/TutorialContext'
+import useSnsShare from '../../_hooks/useSnsShare'
 
 const ShareBtn = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
