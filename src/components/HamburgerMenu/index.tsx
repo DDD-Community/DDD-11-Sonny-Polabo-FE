@@ -3,7 +3,7 @@
 import HamburgerIcon from 'public/icons/hamburger.svg'
 import { useState } from 'react'
 import Drawer from './Drawer'
-import Menu from './Menu'
+import Menu from '../Menu'
 import { DrawerProvider } from './DrawerContext'
 
 const Hamburger = ({

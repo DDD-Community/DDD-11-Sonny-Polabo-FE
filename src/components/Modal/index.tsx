@@ -106,10 +106,10 @@ const BottomModal = ({
   const { isVisible } = useContext(ModalContext)
   return (
     <div
-      className={`fixed bottom-0 flex w-full flex-col items-start justify-items-start rounded-t-[20px] bg-gray-0 shadow-lg ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
+      className={`fixed bottom-0 w-full max-w-md rounded-t-[20px] bg-gray-0 shadow-lg ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
     >
       {icon && (
-        <div className="mb-3 mt-5 flex w-full justify-center">{icon}</div>
+        <div className="mb-3 flex -translate-y-1/2 justify-center">{icon}</div>
       )}
       <div className="flex w-full flex-col items-center justify-center">
         {children}

@@ -44,6 +44,13 @@ export const metadata: Metadata = {
   },
 }
 
+declare global {
+  interface Window {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    Kakao: any
+  }
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
