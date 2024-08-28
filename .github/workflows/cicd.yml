@@ -24,6 +24,7 @@ jobs:
           echo "AUTH_KAKAO_SECRET=${{secrets.AUTH_KAKAO_SECRET}}" >> .env
           echo "AUTH_SECRET=${{secrets.AUTH_SECRET}}" >> .env
           echo "NEXTAUTH_URL=${{vars.NEXTAUTH_URL}}" >> .env
+          echo "NEXT_PUBLIC_KAKAO_API_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_API_KEY }}" >> .env
       - name: Build docker image
         run: docker build -t ${{ vars.DOCKER_IMAGE }} .
       - name: Login to DockerHub
