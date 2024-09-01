@@ -1,10 +1,10 @@
 'use client'
 
 import { PaginationProvider } from '@/components/Pagination'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { deleteMyBoard, getMyBoards } from '@/lib/api/myBoard'
 import { MyBoard, Pagination } from '@/types'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import BoardItem from './BoardItem'
 import BoardPagination from './BoardPagination'
 
@@ -45,7 +45,7 @@ const BoardList = () => {
 
   return (
     <div className="pb-5">
-      <ul className="mt-3 overflow-y-hidden pb-12">
+      <ul className="mt-3 overflow-y-hidden pb-20">
         {boards.map((board) => (
           <BoardItem
             key={board.id}

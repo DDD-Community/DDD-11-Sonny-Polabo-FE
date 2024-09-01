@@ -1,4 +1,4 @@
-import { deleteApi, get } from '@/lib/api/base'
+import { deleteApi, get, put } from '@/lib/api/base'
 import { MyBoardList } from '@/types'
 
 export const getMyBoards = async (
@@ -20,6 +20,12 @@ export const getMyBoards = async (
     },
     boards: res.data.data,
   }
+}
+
+export const changeMyBoardName = (id: string, title: string) => {
+  return put(`/api/v1/my/boards/${id}`, {
+    body: JSON.stringify({ title }),
+  })
 }
 
 export const deleteMyBoard = (id: string) => {
