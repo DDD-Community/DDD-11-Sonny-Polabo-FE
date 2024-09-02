@@ -10,7 +10,7 @@ export const getMyBoards = async (
     `/api/v1/my/boards?page=${page}&size=${size}&filter=${filter}`,
     {
       next: {
-        tags: ['myBoard', `myBoard:${page},${size}, ${filter}`],
+        tags: ['myBoard', `myBoard:${page},${size},${filter}`],
       },
     },
   )

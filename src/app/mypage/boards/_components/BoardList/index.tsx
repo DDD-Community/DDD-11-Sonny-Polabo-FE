@@ -3,7 +3,7 @@
 import { PaginationProvider } from '@/components/Pagination'
 import { deleteMyBoard, getMyBoards } from '@/lib/api/myBoard'
 import { MyBoard, Pagination } from '@/types'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import BoardItem from './BoardItem'
 import BoardPagination from './BoardPagination'
@@ -11,6 +11,8 @@ import FilterTabBar from './FilterTabBar'
 
 const BoardList = () => {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const isParticipant = searchParams.get('participant') === 'true'
   const [pagination, setPagination] = useState<Pagination>({
     totalPage: 0,
     totalCount: 0,
@@ -20,7 +22,9 @@ const BoardList = () => {
   const [boards, setBoards] = useState<MyBoard[]>([])
 
   const fetchBoards = async (page = 1, size = 10) => {
-    return getMyBoards(page, size).then((data) => {
+    const filter = isParticipant ? 'PARTICIPANT' : 'OWNER'
+
+    return getMyBoards(page, size, filter).then((data) => {
       setBoards(data.boards)
       setPagination(data.pagination)
     })
@@ -28,7 +32,7 @@ const BoardList = () => {
 
   useEffect(() => {
     fetchBoards()
-  }, [])
+  }, [searchParams])
 
   const paginate = async (page: number) => {
     return fetchBoards(page, pagination.size)

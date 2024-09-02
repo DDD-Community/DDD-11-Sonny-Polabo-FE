@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge'
 const FilterTabBar = () => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+
   const createQueryStringCallback = useCallback(
     (name: string, value: string) => {
       return createQueryString(searchParams, name, value)
