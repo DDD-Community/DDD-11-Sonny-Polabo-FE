@@ -1,10 +1,10 @@
 import { createQueryString } from '@/lib/utils/query'
-import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const FilterTabBar = () => {
+  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -21,24 +21,30 @@ const FilterTabBar = () => {
 
   return (
     <div className="mx-7 mt-3 flex">
-      <Link
-        href={pathname}
+      <button
+        type="button"
+        onClick={() => router.replace(pathname)}
         className={twMerge(
           'w-1/2 rounded-l-lg py-2.5 text-center text-sm',
           isParticipant ? unselectedStyle : selectedStyle,
         )}
       >
         내가 만든 보드
-      </Link>
-      <Link
-        href={`${pathname}?${createQueryStringCallback('participant', 'true')}`}
+      </button>
+      <button
+        type="button"
+        onClick={() =>
+          router.replace(
+            `${pathname}?${createQueryStringCallback('participant', 'true')}`,
+          )
+        }
         className={twMerge(
           'w-1/2 rounded-r-lg py-2.5 text-center text-sm',
           isParticipant ? selectedStyle : unselectedStyle,
         )}
       >
         내가 참여한 보드
-      </Link>
+      </button>
     </div>
   )
 }
