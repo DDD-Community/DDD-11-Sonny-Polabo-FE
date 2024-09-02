@@ -4,12 +4,16 @@ import { MyBoardList } from '@/types'
 export const getMyBoards = async (
   page = 1,
   size = 10,
+  filter: 'OWNER' | 'PARTICIPANT' = 'OWNER',
 ): Promise<MyBoardList> => {
-  const res = await get(`/api/v1/my/boards?page=${page}&size=${size}`, {
-    next: {
-      tags: ['myBoard', `myBoard:${page},${size}`],
+  const res = await get(
+    `/api/v1/my/boards?page=${page}&size=${size}&filter=${filter}`,
+    {
+      next: {
+        tags: ['myBoard', `myBoard:${page},${size}, ${filter}`],
+      },
     },
-  })
+  )
 
   return {
     pagination: {

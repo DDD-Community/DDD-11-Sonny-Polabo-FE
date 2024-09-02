@@ -9,11 +9,7 @@ const Page = async () => {
 
   return (
     <div className="relative min-h-dvh">
-      <Header
-        title="내 보드 목록"
-        description={`총 ${totalCount}개`}
-        leftButton={<Header.BackButton />}
-      />
+      <Header title="내 보드 목록" leftButton={<Header.BackButton />} />
       {totalCount === 0 ? <EmptyBoardList /> : <BoardList />}
     </div>
   )

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import BoardItem from './BoardItem'
 import BoardPagination from './BoardPagination'
+import FilterTabBar from './FilterTabBar'
 
 const BoardList = () => {
   const router = useRouter()
@@ -45,6 +46,10 @@ const BoardList = () => {
 
   return (
     <div className="pb-5">
+      <FilterTabBar />
+      <p className="mx-7 border-b border-b-gray-600 pb-3 pt-5 text-xs text-gray-600">
+        총 {pagination.totalCount}개
+      </p>
       <ul className="mt-3 overflow-y-hidden pb-20">
         {boards.map((board) => (
           <BoardItem
