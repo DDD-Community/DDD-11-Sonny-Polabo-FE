@@ -1,7 +1,6 @@
 import Modal from '@/components/Modal'
 import TextInput from '@/components/TextInput'
 import { changeMyBoardName } from '@/lib'
-import { useRouter } from 'next/navigation'
 import ClipIcon from 'public/icons/sketchIcons-paperclip.svg'
 import { useState } from 'react'
 
@@ -12,6 +11,7 @@ interface ChangeBoardNameModalProps {
   onClose: () => void
   oldName: string
   boardId: string
+  onRefresh: () => void
 }
 
 const ChangeBoardNameModal = ({
@@ -19,11 +19,11 @@ const ChangeBoardNameModal = ({
   onClose,
   oldName,
   boardId,
+  onRefresh,
 }: ChangeBoardNameModalProps) => {
-  const router = useRouter()
   const [title, setTitle] = useState(oldName)
   const [hasError, setHasError] = useState(false)
-  //   const isEmpty = title.length === 0
+  const isEmpty = title.length === 0
 
   const onInput = (value: string) => {
     setTitle(value)
@@ -36,8 +36,7 @@ const ChangeBoardNameModal = ({
 
   const changeBoardName = async (id: string) => {
     await changeMyBoardName(id, title)
-
-    router.refresh()
+    onRefresh()
   }
 
   return (
@@ -57,7 +56,7 @@ const ChangeBoardNameModal = ({
         </div>
         <Modal.CenterConfirm
           confirmText="확인"
-          //   disabled={hasError || isEmpty}
+          disabled={hasError || isEmpty}
           onConfirm={() => changeBoardName(boardId)}
         />
       </Modal.CenterModal>

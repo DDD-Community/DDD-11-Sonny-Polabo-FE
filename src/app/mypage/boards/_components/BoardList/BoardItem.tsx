@@ -10,6 +10,7 @@ interface BoardListProps {
   id: string
   onClickBoard: (boardId: string) => void
   onDeleteBoard: (boardId: string) => void
+  onRefresh: () => void
 }
 
 const BoardItem = ({
@@ -18,6 +19,7 @@ const BoardItem = ({
   id,
   onClickBoard,
   onDeleteBoard,
+  onRefresh,
 }: BoardListProps) => {
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -67,6 +69,7 @@ const BoardItem = ({
         onClose={closeChangeNameModal}
         oldName={title}
         boardId={id}
+        onRefresh={onRefresh}
       />
       <DeleteBoardModal
         isOpen={isDeleteModalOpen}

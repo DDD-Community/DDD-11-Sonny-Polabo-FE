@@ -144,9 +144,11 @@ const ModalBodyContent = ({ children }: { children: ReactNode }) => {
 const CenterModalConfirm = ({
   confirmText,
   onConfirm = () => {},
+  disabled = false,
 }: {
   confirmText: ReactNode
   onConfirm?: () => void
+  disabled?: boolean
 }) => {
   const { onClose } = useContext(ModalContext)
 
@@ -161,6 +163,7 @@ const CenterModalConfirm = ({
       size="md"
       className="my-4 flex items-center justify-center gap-1"
       onClick={clickHandler}
+      disabled={disabled}
     >
       {confirmText}
     </Button>

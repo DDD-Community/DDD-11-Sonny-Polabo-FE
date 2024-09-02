@@ -63,6 +63,7 @@ const BoardList = () => {
             date={board.createdAt}
             onClickBoard={() => goToBoard(board.id)}
             onDeleteBoard={() => deleteBoard(board.id)}
+            onRefresh={() => fetchBoards()}
           />
         ))}
       </ul>
