@@ -16,7 +16,7 @@ export const postPolaroid = async (
   boardId: string,
   body: CreatePolaroidPayload,
 ): Promise<number> => {
-  const result = await post(`/api/v1/boards/${boardId}/polaroids`, {
+  const result = await post(`/api/v2/boards/${boardId}/polaroids`, {
     body: JSON.stringify(body),
   })
 

@@ -7,7 +7,7 @@ export const getMyBoards = async (
   filter: 'OWNER' | 'PARTICIPANT' = 'OWNER',
 ): Promise<MyBoardList> => {
   const res = await get(
-    `/api/v1/my/boards?page=${page}&size=${size}&filter=${filter}`,
+    `/api/v2/my/boards?page=${page}&size=${size}&filter=${filter}`,
     {
       next: {
         tags: ['myBoard', `myBoard:${page},${size},${filter}`],
