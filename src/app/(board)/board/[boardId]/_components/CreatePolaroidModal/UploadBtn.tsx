@@ -1,21 +1,20 @@
 import Button from '@/components/Button'
 import { useState } from 'react'
-import { useFormStatus } from 'react-dom'
 import FinalModal from '../modals/FinalModal'
 
 interface UploadBtnProps {
-  formRef: React.RefObject<HTMLFormElement>
   btnDisabled: boolean
+  submitForm: () => Promise<void>
 }
 
-const UploadBtn = ({ formRef, btnDisabled }: UploadBtnProps) => {
+const UploadBtn = ({ submitForm, btnDisabled }: UploadBtnProps) => {
   const [showFinalModal, setShowFinalModal] = useState<boolean>(false)
-  const { pending } = useFormStatus()
+  const [isPending, setIsPending] = useState<boolean>(false)
 
-  const onSubmit = () => {
-    if (formRef.current) {
-      formRef.current.requestSubmit()
-    }
+  const onSubmit = async () => {
+    setIsPending(true)
+    await submitForm()
+    setIsPending(false)
   }
 
   return (
@@ -25,7 +24,7 @@ const UploadBtn = ({ formRef, btnDisabled }: UploadBtnProps) => {
           onClick={() => setShowFinalModal(true)}
           size="lg"
           className="w-full"
-          disabled={pending || btnDisabled}
+          disabled={isPending || btnDisabled}
         >
           업로드하기
         </Button>

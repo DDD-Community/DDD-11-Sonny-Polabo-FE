@@ -6,6 +6,7 @@ export const uploadAction = async (id: string, formData: FormData) => {
   try {
     const fileInput = formData.get('fileInput')
     const oneLineMessage = formData.get('oneLineMessage')
+    const nickname = formData.get('nickname')
 
     if (!fileInput || !(fileInput instanceof File)) {
       throw new Error('Invalid file input')
@@ -18,6 +19,7 @@ export const uploadAction = async (id: string, formData: FormData) => {
     const res = await postPolaroid(id, {
       imageKey,
       oneLineMessage: oneLineMessage as string,
+      nickname: nickname as string,
     })
     return res
   } catch (error) {

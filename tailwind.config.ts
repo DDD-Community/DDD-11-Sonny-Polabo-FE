@@ -119,6 +119,12 @@ const config: Config = {
         popup: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
         myPageBox:
           '0px 1px 1px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
+        polaroid:
+          '0px 0.597px 0.597px 0px rgba(0, 0, 0, 0.25), 0px 1.194px 2.389px 0px rgba(0, 0, 0, 0.25)',
+      },
+      aspectRatio: {
+        vertical: '10 / 13',
+        horizontal: '13 / 10',
       },
     },
   },
