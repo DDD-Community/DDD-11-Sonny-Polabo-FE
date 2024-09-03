@@ -12,7 +12,7 @@ export const getImageWidthHeight = (
     }
 
     img.onerror = () => {
-      reject(new Error(imageUrl))
+      reject(new Error('Image load failed'))
     }
   })
 }
