@@ -1,10 +1,10 @@
 import { auth } from '@/auth'
 import Hamburger from '@/components/HamburgerMenu'
 import Header from '@/components/Header'
-import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
 import PinIcon from 'public/icons/pinFilled.svg'
+import PolaroidList from '@/app/(board)/board/[boardId]/_components/PolaroidList'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
@@ -80,17 +80,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         {board.items.length === 0 ? (
           <Empty />
         ) : (
-          <div className="mx-auto flex-1 overflow-x-hidden overflow-y-scroll scrollbar-hide">
-            <div className="grid grid-cols-2 gap-3 p-[10px]">
-              {board.items.map((item) => (
-                <PolaroidCard
-                  key={item.id}
-                  imageUrl={item.imageUrl}
-                  oneLineMessage={item.oneLineMessage}
-                />
-              ))}
-            </div>
-          </div>
+          <PolaroidList polaroids={board.items} />
         )}
 
         <ModalProvider>

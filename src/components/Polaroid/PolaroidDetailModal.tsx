@@ -1,30 +1,25 @@
 import Modal from '@/components/Modal'
-import Base, { PolaroidImage } from '@/components/Polaroid/Base'
-import { PolaroidImageProps } from '@/types'
+import { Polaroid } from '@/types'
+import PolaroidCard from '@/components/PolaroidCard'
 
-interface PolaroidDetailModalProps extends PolaroidImageProps {
+interface PolaroidDetailModalProps {
   isOpen: boolean
   onClose: () => void
-  oneLineMessage: string
+  polaroid: Polaroid | null
 }
 
 const PolaroidDetailModal = ({
   isOpen,
   onClose,
-  imageUrl,
-  oneLineMessage,
-  filter,
+  polaroid,
 }: PolaroidDetailModalProps) => {
+  if (!polaroid) {
+    return null
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Base size="lg">
-        <Base.Top>
-          <PolaroidImage imageUrl={imageUrl} filter={filter} />
-        </Base.Top>
-        <Base.Bottom>
-          <p className="w-[204px] text-wrap">{oneLineMessage}</p>
-        </Base.Bottom>
-      </Base>
+      <PolaroidCard polaroid={polaroid} />
     </Modal>
   )
 }

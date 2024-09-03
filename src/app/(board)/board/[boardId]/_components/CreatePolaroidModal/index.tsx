@@ -1,7 +1,9 @@
 'use client'
 
-import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
-import { useRef, useState } from 'react'
+import PolaroidMaker from '@/components/PolaroidMaker'
+import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import { uploadAction } from '../../_actions/uploadAction'
 import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'
@@ -12,35 +14,49 @@ interface CreatePolaroidProps {
 }
 
 const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
-  const formRef = useRef<HTMLFormElement>(null)
-  const [btnDisabled, setBtnDisabled] = useState<boolean>(true)
+  const [isValid, setIsValid] = useState<boolean>(false)
+  const [image, setImage] = useState<File | null>(null)
+  const [nickname, setNickname] = useState<string>('')
+  const [message, setMessage] = useState<string>('')
   const { closeModal } = useModal()
-  const [compressedFile, setCompressedFile] = useState<File | null>(null)
+
+  useEffect(() => {
+    setIsValid(!!image)
+  }, [image])
+
+  const { data: session } = useSession()
+
+  const submit = async () => {
+    if (!isValid) {
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('fileInput', image!)
+    formData.append('oneLineMessage', message)
+    formData.append('nickname', getPolaroidNickname(nickname, session))
+
+    const res = await uploadAction(id, formData)
+
+    if (res) {
+      closeModal()
+    }
+  }
 
   return (
-    <div className="mx-auto flex h-dvh max-w-md flex-1 flex-col justify-between px-5 py-10">
+    <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col justify-between px-5 py-10">
       <ArrowBack />
-      <form
-        action={async (formData) => {
-          if (compressedFile) {
-            formData.set('fileInput', compressedFile)
-          }
-
-          const res = await uploadAction(id, formData)
-          if (res) {
-            closeModal()
-          }
-        }}
-        ref={formRef}
-      >
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-          <PolaroidMaker
-            setBtnDisabled={setBtnDisabled}
-            setCompressedFile={setCompressedFile}
-          />
-        </div>
-        <UploadBtn formRef={formRef} btnDisabled={btnDisabled} />
-      </form>
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+        <PolaroidMaker
+          image={image}
+          message={message}
+          nickname={nickname}
+          setImage={setImage}
+          setMessage={setMessage}
+          setNickname={setNickname}
+        />
+      </div>
+      <UploadBtn submitForm={submit} btnDisabled={!isValid} />
     </div>
   )
 }
