@@ -1,9 +1,9 @@
 'use client'
 
-import PolaroidMaker from '@/components/PolaroidMaker'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
+import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { uploadAction } from '../../_actions/uploadAction'
 import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'

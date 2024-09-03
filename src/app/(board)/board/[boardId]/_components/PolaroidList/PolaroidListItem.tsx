@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Polaroid } from '@/types'
-import PolaroidCard from '@/components/PolaroidCard'
+import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 
 interface PolaroidListItemProps {
   item: Polaroid

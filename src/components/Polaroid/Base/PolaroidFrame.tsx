@@ -8,7 +8,7 @@ const PolaroidFrame = ({
 }: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
-      className={`${twMerge('flex flex-col rounded-sm bg-[#f3f3f3] font-hesom shadow-polaroid', className)}`}
+      className={`${twMerge('rounded-sm bg-[#f3f3f3] font-hesom shadow-polaroid', className)}`}
       {...props}
     >
       {children}

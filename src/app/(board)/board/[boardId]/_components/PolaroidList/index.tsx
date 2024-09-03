@@ -2,7 +2,7 @@
 
 import { Polaroid } from '@/types'
 import { useState } from 'react'
-import PolaroidDetailModal from '@/components/PolaroidDetail'
+import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
 import PolaroidListItem from './PolaroidListItem'
 
 interface PolaroidListProps {

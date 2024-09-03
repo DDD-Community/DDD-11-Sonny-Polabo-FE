@@ -6,6 +6,8 @@ import {
   useState,
 } from 'react'
 import imageCompression from 'browser-image-compression'
+import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
+import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import PolaroidImageInput from './PolaroidImageInput'
 import PolaroidMessageInput from './PolaroidMessageInput'
 import PolaroidNicknameInput from './PolaroidNicknameInput'
@@ -76,20 +78,14 @@ const PolaroidMaker = ({
   }
 
   return (
-    <div className="mx-auto flex w-[272px] flex-col overflow-y-hidden rounded bg-[#f3f3f3] font-hesom">
+    <PolaroidFrame className="mx-auto flex w-[272px] flex-col overflow-y-hidden">
       <div className="mt-5 px-3">
         <PolaroidImageInput
           imageUrl={previewFile}
           changeImage={handleImageChange}
         />
       </div>
-      <div
-        className="mt-3 w-full bg-[#ececec] px-4 pb-3"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #EAEAEA',
-        }}
-      >
+      <PolaroidDescription>
         <PolaroidMessageInput
           message={message}
           maxLength={MAX_MESSAGE_LENGTH}
@@ -100,8 +96,8 @@ const PolaroidMaker = ({
           maxLength={MAX_FROM_LENGTH}
           changeNickname={handleNicknameChange}
         />
-      </div>
-    </div>
+      </PolaroidDescription>
+    </PolaroidFrame>
   )
 }
 
