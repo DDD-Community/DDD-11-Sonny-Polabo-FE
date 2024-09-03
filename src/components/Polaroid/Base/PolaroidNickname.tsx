@@ -15,7 +15,7 @@ const PolaroidNickname = ({
       className={`${twMerge('py-0.5 text-right text-gray-950', className)}`}
       {...props}
     >
-      From. {nickName}
+      {nickName ? `From. ${nickName}` : ''}
     </div>
   )
 }
