@@ -10,6 +10,7 @@ interface GoToBoardsBtnProps {
   icon: ReactNode
   number: number
   className?: React.ComponentProps<'a'>['className']
+  linkTo: string
 }
 
 const GoToBoardsBtn = ({
@@ -17,10 +18,10 @@ const GoToBoardsBtn = ({
   icon,
   number,
   className = '',
+  linkTo = '',
 }: GoToBoardsBtnProps) => {
   return (
-    // TODO: JoinedBoard는 /mypage/boards 두번째 탭으로 이동
-    <Link href="/mypage/boards">
+    <Link href={linkTo}>
       <div
         className={twMerge(
           'relative flex flex-col items-center gap-2 rounded-[4px] bg-gray-50 px-6 py-3 font-semiBold shadow-myPageBox',
@@ -48,19 +49,24 @@ export const MyBoard = async () => {
         icon={<MyBoardIcon />}
         number={totalCount}
         className="-rotate-[5deg] transform"
+        linkTo="/mypage/boards"
       />
     </div>
   )
 }
 
-export const JoinedBoard = () => {
+export const JoinedBoard = async () => {
+  const {
+    pagination: { totalCount },
+  } = await getMyBoards(undefined, undefined, 'PARTICIPANT')
   return (
     <div className="flex h-[108px] w-[140px] items-center justify-center">
       <GoToBoardsBtn
         name="참여한 보드"
         icon={<JoinedBoardIcon className="-rotate-90 transform" />}
-        number={23}
+        number={totalCount}
         className="rotate-[3deg] transform"
+        linkTo="/mypage/boards/?participant=true"
       />
     </div>
   )

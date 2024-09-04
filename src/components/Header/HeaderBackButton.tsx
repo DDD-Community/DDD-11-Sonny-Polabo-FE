@@ -1,7 +1,7 @@
 'use client'
 
-import BackIcon from 'public/icons/arrow_back_ios.svg'
 import { useRouter } from 'next/navigation'
+import BackIcon from 'public/icons/arrow_back_ios.svg'
 
 const HeaderBackButton = () => {
   const router = useRouter()

@@ -2,6 +2,7 @@ import EllipsisIcon from 'public/icons/ellipsis.svg'
 import React, { useState } from 'react'
 import DeleteBoardModal from './DeleteBoardModal'
 import BoardEditPopup from './BoardEditPopup'
+import ChangeBoardNameModal from './ChangeBoardNameModal'
 
 interface BoardListProps {
   title: string
@@ -9,6 +10,7 @@ interface BoardListProps {
   id: string
   onClickBoard: (boardId: string) => void
   onDeleteBoard: (boardId: string) => void
+  onRefresh: () => void
 }
 
 const BoardItem = ({
@@ -17,18 +19,27 @@ const BoardItem = ({
   id,
   onClickBoard,
   onDeleteBoard,
+  onRefresh,
 }: BoardListProps) => {
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isChangeNameModalOpen, setIsChangeNameModalOpen] = useState(false)
 
   const openBoardEditPopup = () => setIsEditPopupOpen(true)
   const closeBoardEditPopup = () => setIsEditPopupOpen(false)
 
+  const closeChangeNameModal = () => setIsChangeNameModalOpen(false)
   const closeDeleteModal = () => setIsDeleteModalOpen(false)
 
   const onClickDelete = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsEditPopupOpen(false)
     setIsDeleteModalOpen(true)
+    e.stopPropagation()
+  }
+
+  const onClickChangeName = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsEditPopupOpen(false)
+    setIsChangeNameModalOpen(true)
     e.stopPropagation()
   }
 
@@ -48,10 +59,18 @@ const BoardItem = ({
         <EllipsisIcon />
         <BoardEditPopup
           isOpen={isEditPopupOpen}
+          clickChangeName={onClickChangeName}
           clickDelete={onClickDelete}
           close={closeBoardEditPopup}
         />
       </div>
+      <ChangeBoardNameModal
+        isOpen={isChangeNameModalOpen}
+        onClose={closeChangeNameModal}
+        oldName={title}
+        boardId={id}
+        onRefresh={onRefresh}
+      />
       <DeleteBoardModal
         isOpen={isDeleteModalOpen}
         onClose={closeDeleteModal}

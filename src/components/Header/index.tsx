@@ -6,6 +6,7 @@ interface HeaderProps {
   description?: string
   leftButton?: ReactNode
   rightButton?: ReactNode
+  shadow?: boolean
 }
 
 const Header = ({
@@ -13,10 +14,13 @@ const Header = ({
   description = '',
   leftButton = null,
   rightButton = null,
+  shadow = true,
 }: HeaderProps) => {
   return (
     <>
-      <header className="fixed z-10 flex h-16 w-full max-w-md justify-between bg-gray-0 p-5 shadow-header">
+      <header
+        className={`fixed z-10 flex h-16 w-full max-w-md justify-between bg-gray-0 p-5 ${shadow && 'shadow-header'}`}
+      >
         <div className="w-6 cursor-pointer">{leftButton}</div>
         <div className="text-gray-700">
           <div className="text-center text-md font-semiBold leading-6">

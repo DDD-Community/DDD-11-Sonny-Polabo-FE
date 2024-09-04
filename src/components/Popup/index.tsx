@@ -37,7 +37,7 @@ const Popup = ({
   if (!isOpen) return null
 
   const className = twMerge(
-    'absolute z-5',
+    'absolute z-[5]',
     yPosition === 'top' ? 'top' : 'bottom',
     xPosition === 'left' ? 'left-0' : 'right-0',
   )
