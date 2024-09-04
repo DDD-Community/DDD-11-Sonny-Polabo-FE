@@ -34,10 +34,6 @@ const BoardList = () => {
     fetchBoards()
   }, [searchParams])
 
-  useEffect(() => {
-    console.log(boards)
-  }, [boards])
-
   const paginate = async (page: number) => {
     return fetchBoards(page, pagination.size)
   }
