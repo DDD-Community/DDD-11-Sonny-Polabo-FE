@@ -36,7 +36,7 @@ const PolaroidNicknameInput = ({
   const border = showBorder ? 'border-gray-900 border-b' : ''
 
   return (
-    <div className="flex h-6 w-full justify-end gap-1 text-lg">
+    <div className="flex w-full justify-end gap-1 text-lg">
       <span>From. </span>
       <div className={`${border} -px-3`}>
         <input
@@ -44,7 +44,7 @@ const PolaroidNicknameInput = ({
           value={nickname}
           onChange={changeNickname}
           onKeyDown={preventKeyboardSubmit}
-          className="bg-transparent text-center outline-none"
+          className="h-6 bg-transparent text-center outline-none"
           maxLength={maxLength}
           onFocus={() => setShowBorder(true)}
           onBlur={() => setShowBorder(!nickname)}
