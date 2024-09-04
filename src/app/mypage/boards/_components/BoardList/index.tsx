@@ -24,10 +24,6 @@ const BoardList = () => {
   const fetchBoards = async (page = 1, size = 10) => {
     const filter = isParticipant ? 'PARTICIPANT' : 'OWNER'
 
-    // 초기화
-    setBoards([])
-    setPagination({ totalPage: 0, totalCount: 0, currentPage: 1, size: 10 })
-
     return getMyBoards(page, size, filter).then((data) => {
       setBoards(data.boards)
       setPagination(data.pagination)
@@ -37,6 +33,10 @@ const BoardList = () => {
   useEffect(() => {
     fetchBoards()
   }, [searchParams])
+
+  useEffect(() => {
+    console.log(boards)
+  }, [boards])
 
   const paginate = async (page: number) => {
     return fetchBoards(page, pagination.size)
