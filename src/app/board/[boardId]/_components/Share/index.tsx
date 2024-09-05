@@ -10,6 +10,7 @@ import IGIcon from 'public/icons/sns/sns-ig.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
 import { useState } from 'react'
+import Toast from '@/components/Toast'
 import useSnsShare from '../../_hooks/useSnsShare'
 import { useTutorial } from '../Tutorial/TutorialContext'
 import Section from './Section'
@@ -33,15 +34,22 @@ const ShareBtn = () => {
     setShowShareModal(false)
   }
 
+  const [showToast, setShowToast] = useState(false)
   const copyLink = () => {
     const currentURL = window.location.href
-    return navigator.clipboard.writeText(currentURL)
+    return navigator.clipboard.writeText(currentURL).then(() => {
+      setShowToast(true)
+    })
   }
 
   return (
     <>
       <Share onClick={() => setShowShareModal(true)} className="w-6" />
-
+      <Toast
+        message="클립보드에 링크가 복사되었어요!"
+        isOpen={showToast}
+        setClose={() => setShowToast(false)}
+      />
       <Modal isOpen={showShareModal} onClose={onShareModalClose}>
         <Modal.BottomModal icon={<TwoPolaroidsIcon className="scale-[2]" />}>
           <Modal.Close />
@@ -69,7 +77,7 @@ const ShareBtn = () => {
             />
             <Section.Item
               icon={<XIcon />}
-              bg="bg-[#000]"
+              bg="bg-gray-1000"
               desc="X"
               onClick={() => handleShare(shareToX)}
             />
