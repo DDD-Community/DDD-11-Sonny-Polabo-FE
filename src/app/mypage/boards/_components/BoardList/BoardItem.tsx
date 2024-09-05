@@ -1,5 +1,6 @@
 import EllipsisIcon from 'public/icons/ellipsis.svg'
 import React, { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import DeleteBoardModal from './DeleteBoardModal'
 import BoardEditPopup from './BoardEditPopup'
 import ChangeBoardNameModal from './ChangeBoardNameModal'
@@ -47,6 +48,9 @@ const BoardItem = ({
     return targetDate.split('T')[0].replaceAll('-', '.')
   }
 
+  const searchParams = useSearchParams()
+  const isParticipant = searchParams.get('participant') === 'true'
+
   return (
     <li className="flex w-full cursor-pointer items-center justify-between border-b border-gray-100 pb-4 pl-7 pr-5 pt-5">
       <div className="w-full" onClick={() => onClickBoard(id)}>
@@ -55,27 +59,31 @@ const BoardItem = ({
           만든 날짜: {parseDate(date)}
         </div>
       </div>
-      <div className="relative" onClick={openBoardEditPopup}>
-        <EllipsisIcon />
-        <BoardEditPopup
-          isOpen={isEditPopupOpen}
-          clickChangeName={onClickChangeName}
-          clickDelete={onClickDelete}
-          close={closeBoardEditPopup}
-        />
-      </div>
-      <ChangeBoardNameModal
-        isOpen={isChangeNameModalOpen}
-        onClose={closeChangeNameModal}
-        oldName={title}
-        boardId={id}
-        onRefresh={onRefresh}
-      />
-      <DeleteBoardModal
-        isOpen={isDeleteModalOpen}
-        onClose={closeDeleteModal}
-        deleteBoard={() => onDeleteBoard(id)}
-      />
+      {!isParticipant && (
+        <>
+          <div className="relative" onClick={openBoardEditPopup}>
+            <EllipsisIcon />
+            <BoardEditPopup
+              isOpen={isEditPopupOpen}
+              clickChangeName={onClickChangeName}
+              clickDelete={onClickDelete}
+              close={closeBoardEditPopup}
+            />
+          </div>
+          <ChangeBoardNameModal
+            isOpen={isChangeNameModalOpen}
+            onClose={closeChangeNameModal}
+            oldName={title}
+            boardId={id}
+            onRefresh={onRefresh}
+          />
+          <DeleteBoardModal
+            isOpen={isDeleteModalOpen}
+            onClose={closeDeleteModal}
+            deleteBoard={() => onDeleteBoard(id)}
+          />
+        </>
+      )}
     </li>
   )
 }
