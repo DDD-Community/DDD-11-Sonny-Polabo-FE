@@ -1,6 +1,7 @@
 'use client'
 
 import Modal from '@/components/Modal'
+import Toast from '@/components/Toast'
 import CopyIcon from 'public/icons/copy.svg'
 import DownloadIcon from 'public/icons/download.svg'
 import Share from 'public/icons/ios_share.svg'
@@ -10,12 +11,11 @@ import IGIcon from 'public/icons/sns/sns-ig.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
 import { useState } from 'react'
-import Toast from '@/components/Toast'
 import useSnsShare from '../../_hooks/useSnsShare'
 import { useTutorial } from '../Tutorial/TutorialContext'
 import Section from './Section'
 
-const ShareBtn = () => {
+const ShareBtn = ({ boardName }: { boardName: string }) => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
@@ -32,6 +32,10 @@ const ShareBtn = () => {
   const handleShare = (shareFn: () => void) => {
     shareFn()
     setShowShareModal(false)
+  }
+
+  const handleKakaoShare = () => {
+    handleShare(() => shareToKakao(boardName))
   }
 
   const [showToast, setShowToast] = useState(false)
@@ -67,7 +71,7 @@ const ShareBtn = () => {
               icon={<KakaoIcon />}
               bg="bg-kakao"
               desc="카카오톡"
-              onClick={() => handleShare(shareToKakao)}
+              onClick={handleKakaoShare}
             />
             <Section.Item
               icon={<IGIcon />}
