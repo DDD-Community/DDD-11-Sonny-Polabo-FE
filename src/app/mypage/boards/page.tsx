@@ -11,8 +11,8 @@ const Page = async () => {
     <div className="relative min-h-dvh">
       <Header
         title="내 보드 목록"
-        description={`총 ${totalCount}개`}
         leftButton={<Header.BackButton />}
+        shadow={false}
       />
       {totalCount === 0 ? <EmptyBoardList /> : <BoardList />}
     </div>

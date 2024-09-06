@@ -1,15 +1,18 @@
 'use client'
 
 import { PaginationProvider } from '@/components/Pagination'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { deleteMyBoard, getMyBoards } from '@/lib/api/myBoard'
 import { MyBoard, Pagination } from '@/types'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import BoardItem from './BoardItem'
 import BoardPagination from './BoardPagination'
+import FilterTabBar from './FilterTabBar'
 
 const BoardList = () => {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const isParticipant = searchParams.get('participant') === 'true'
   const [pagination, setPagination] = useState<Pagination>({
     totalPage: 0,
     totalCount: 0,
@@ -19,7 +22,9 @@ const BoardList = () => {
   const [boards, setBoards] = useState<MyBoard[]>([])
 
   const fetchBoards = async (page = 1, size = 10) => {
-    return getMyBoards(page, size).then((data) => {
+    const filter = isParticipant ? 'PARTICIPANT' : 'OWNER'
+
+    return getMyBoards(page, size, filter).then((data) => {
       setBoards(data.boards)
       setPagination(data.pagination)
     })
@@ -27,7 +32,7 @@ const BoardList = () => {
 
   useEffect(() => {
     fetchBoards()
-  }, [])
+  }, [searchParams])
 
   const paginate = async (page: number) => {
     return fetchBoards(page, pagination.size)
@@ -45,7 +50,11 @@ const BoardList = () => {
 
   return (
     <div className="pb-5">
-      <ul className="mt-3 overflow-y-hidden pb-12">
+      <FilterTabBar />
+      <p className="mx-7 border-b border-b-gray-600 pb-3 pt-5 text-xs text-gray-600">
+        총 {pagination.totalCount}개
+      </p>
+      <ul className="overflow-y-hidden pb-20">
         {boards.map((board) => (
           <BoardItem
             key={board.id}
@@ -54,6 +63,7 @@ const BoardList = () => {
             date={board.createdAt}
             onClickBoard={() => goToBoard(board.id)}
             onDeleteBoard={() => deleteBoard(board.id)}
+            onRefresh={() => fetchBoards()}
           />
         ))}
       </ul>

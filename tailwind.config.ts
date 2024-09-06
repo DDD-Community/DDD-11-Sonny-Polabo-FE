@@ -21,6 +21,7 @@ const config: Config = {
         800: '#262626',
         900: '#171717',
         950: '#0a0a0a',
+        1000: '#000000',
       },
       neutral: {
         500: '#737373',
@@ -29,6 +30,7 @@ const config: Config = {
       negative: '#ef4444',
       transparent: 'transparent',
       kakao: '#FEE500',
+      facebook: '#337FFF',
     },
     fontSize: {
       xxs: '10px',
@@ -116,6 +118,14 @@ const config: Config = {
         button: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
         signupGenderBtn: '2px 4px 0px 0px rgba(0, 0, 0, 0.30)',
         popup: '0px 4px 8px 0px rgba(0, 0, 0, 0.15)',
+        myPageBox:
+          '0px 1px 1px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
+        polaroid:
+          '0px 0.597px 0.597px 0px rgba(0, 0, 0, 0.25), 0px 1.194px 2.389px 0px rgba(0, 0, 0, 0.25)',
+      },
+      aspectRatio: {
+        vertical: '10 / 13',
+        horizontal: '13 / 10',
       },
     },
   },
