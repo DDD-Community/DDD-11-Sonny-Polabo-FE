@@ -15,6 +15,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'polabo-contents.s3.ap-northeast-2.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'd3l8obr3u6wg96.cloudfront.net'
+      }
     ],
   },
   webpack: (config) => {
