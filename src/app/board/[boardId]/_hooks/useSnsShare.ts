@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { isDevMode } from '@/lib/utils/env'
-import { isIOS, isAndroid } from 'react-device-detect'
 import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
+import { isAndroid, isIOS } from 'react-device-detect'
 
 const useSnsShare = () => {
   const { data: session, status } = useSession()
@@ -21,8 +21,6 @@ const useSnsShare = () => {
       document.body.removeChild(script)
     }
   }, [])
-
-  const [imageUrl, setImageUrl] = useState('')
 
   const shareToKakao = async (boardName: string) => {
     const { Kakao, location } = window
@@ -44,11 +42,20 @@ const useSnsShare = () => {
     }
 
     try {
-      // upload image (로컬 사진은 사용할 수 없으므로 서버에 업로드 후 사용)
-      const res = await Kakao.Share.uploadImage({
-        file: OPTIONS.localImage,
+      // 이미지 파일을 Blob으로 처리하여 File 객체 생성
+      const response = await fetch(OPTIONS.localImage)
+      const blob = await response.blob()
+      const file = new File([blob], 'opengraph-image-v2.png', {
+        type: 'image/png',
       })
-      setImageUrl(res.infos.original.url)
+
+      // upload image (로컬 사진은 사용할 수 없으므로 서버에 업로드 후 사용)
+      const uploadRes = await Kakao.Share.uploadImage({
+        file: [file],
+      })
+
+      const imageUrl = uploadRes.infos.original.url
+
       Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
