@@ -19,7 +19,7 @@ const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
   const { isOpen, openModal, closeModal } = useModal()
 
   const renderModalContent = () => {
-    if (polaroidNum > 50) {
+    if (polaroidNum >= 30) {
       return <CannotUploadModal isOpen={isOpen} onClose={closeModal} />
     }
     return (

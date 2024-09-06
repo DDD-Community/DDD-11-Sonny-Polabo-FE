@@ -1,7 +1,7 @@
 import Modal from '@/components/Modal'
 import TextInput from '@/components/TextInput'
 import { changeMyBoardName } from '@/lib'
-import ClipIcon from 'public/icons/sketchIcons-paperclip.svg'
+import ClipIcon from 'public/icons/sketchIcons-clip-bg.svg'
 import { useState } from 'react'
 
 const MAX_BOARD_NAME_LENGTH = 15
@@ -41,7 +41,7 @@ const ChangeBoardNameModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Modal.CenterModal icon={<ClipIcon className="scale-[2.5]" />}>
+      <Modal.CenterModal icon={<ClipIcon className="translate-y-2" />}>
         <Modal.Close />
         <Modal.Title>보드 주제 수정</Modal.Title>
         <div className="mt-3">
