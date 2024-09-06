@@ -7,11 +7,12 @@ import PolaroidNickname from '@/components/Polaroid/Base/PolaroidNickname'
 
 interface PolaroidCardProps {
   polaroid: Polaroid
+  onClick?: () => void
 }
 
-function PolaroidCard({ polaroid }: PolaroidCardProps) {
+function PolaroidCard({ polaroid, onClick = () => {} }: PolaroidCardProps) {
   return (
-    <PolaroidFrame className="cursor-pointer">
+    <PolaroidFrame className="cursor-pointer" onClick={onClick}>
       <div className="p-2">
         <PolaroidImage imageUrl={polaroid.imageUrl} />
       </div>

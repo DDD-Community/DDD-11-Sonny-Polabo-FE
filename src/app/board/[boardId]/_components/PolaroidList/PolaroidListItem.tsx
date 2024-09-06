@@ -18,10 +18,9 @@ const PolaroidListItem = ({ item, onClick }: PolaroidListItemProps) => {
   return (
     <div
       className="flex flex-col justify-center"
-      onClick={onClick}
       style={{ rotate: `${rotate}deg` }}
     >
-      <PolaroidCard polaroid={item} />
+      <PolaroidCard polaroid={item} onClick={onClick} />
     </div>
   )
 }

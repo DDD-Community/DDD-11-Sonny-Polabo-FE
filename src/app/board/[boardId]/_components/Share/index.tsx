@@ -3,7 +3,6 @@
 import Modal from '@/components/Modal'
 import Toast from '@/components/Toast'
 import CopyIcon from 'public/icons/copy.svg'
-import DownloadIcon from 'public/icons/download.svg'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/linkShare.svg'
 import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
@@ -91,9 +90,6 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
               desc="페이스북"
               onClick={() => handleShare(shareToFacebook)}
             />
-          </Section>
-          <Section title="보드 이미지 저장">
-            <Section.Item icon={<DownloadIcon />} bg="bg-gray-200" />
           </Section>
         </Modal.BottomModal>
       </Modal>

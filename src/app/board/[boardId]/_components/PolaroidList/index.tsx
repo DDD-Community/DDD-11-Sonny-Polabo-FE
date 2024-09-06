@@ -21,7 +21,7 @@ const PolaroidList = ({ polaroids }: PolaroidListProps) => {
   }
 
   return (
-    <div className="mx-auto w-full flex-1 overflow-x-hidden overflow-y-scroll scrollbar-hide">
+    <div className="mx-auto w-full flex-1 overflow-x-hidden overflow-y-scroll pb-10 scrollbar-hide">
       <div className="grid grid-cols-2 gap-6 px-[20px] py-[10px]">
         {polaroids.map((item) => (
           <PolaroidListItem
