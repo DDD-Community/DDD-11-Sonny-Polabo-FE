@@ -42,7 +42,7 @@ const Toast = ({ isOpen, setClose, message, duration = 3000 }: ToastProps) => {
           className={`fixed bottom-10 left-1/2 -translate-x-1/2 transform rounded-3xl bg-gray-1000 bg-opacity-60 px-4 py-1 backdrop-blur-[2px] ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
           onTransitionEnd={handleTransitionEnd}
         >
-          <p className="font-jooree text-gray-0">{message}</p>
+          <p className="whitespace-nowrap font-jooree text-gray-0">{message}</p>
         </div>,
         document.getElementById('modal-root') as HTMLElement,
       )
