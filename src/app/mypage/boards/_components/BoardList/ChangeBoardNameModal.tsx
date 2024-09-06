@@ -40,7 +40,13 @@ const ChangeBoardNameModal = ({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        setTitle(oldName)
+        onClose()
+      }}
+    >
       <Modal.CenterModal icon={<ClipIcon className="translate-y-2" />}>
         <Modal.Close />
         <Modal.Title>보드 주제 수정</Modal.Title>
