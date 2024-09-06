@@ -5,7 +5,6 @@ import CopyIcon from 'public/icons/copy.svg'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/linkShare.svg'
 import { useEffect, useState } from 'react'
-import DownloadIcon from 'public/icons/download.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
@@ -82,9 +81,6 @@ const ShareBtn = () => {
               desc="페이스북"
               onClick={() => handleShare(shareToFacebook)}
             />
-          </Section>
-          <Section title="보드 이미지 저장">
-            <Section.Item icon={<DownloadIcon />} bg="bg-gray-200" />
           </Section>
         </Modal.BottomModal>
       </Modal>
