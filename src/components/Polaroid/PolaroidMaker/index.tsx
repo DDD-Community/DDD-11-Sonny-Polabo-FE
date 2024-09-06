@@ -78,7 +78,7 @@ const PolaroidMaker = ({
   }
 
   return (
-    <PolaroidFrame className="mx-auto flex w-[272px] flex-col overflow-y-hidden">
+    <PolaroidFrame className="mx-auto flex w-[272px] touch-pinch-zoom flex-col overflow-y-hidden">
       <div className="mt-5 px-3">
         <PolaroidImageInput
           imageUrl={previewFile}

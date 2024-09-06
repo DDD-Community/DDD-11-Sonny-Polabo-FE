@@ -23,7 +23,7 @@ const PolaroidDetailModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <PolaroidFrame className="mx-auto flex w-[272px] flex-col overflow-y-hidden">
+      <PolaroidFrame className="mx-auto flex w-[272px] touch-pinch-zoom flex-col overflow-y-hidden">
         <div className="mt-5 px-3">
           <PolaroidImage imageUrl={polaroid.imageUrl} />
         </div>
