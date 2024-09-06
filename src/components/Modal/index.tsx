@@ -32,7 +32,7 @@ const ModalOverlay = ({
 
   return (
     <div
-      className={`fixed inset-0 z-20 flex items-center justify-center bg-gray-900/60 ${
+      className={`fixed inset-0 z-20 flex touch-none items-center justify-center overflow-hidden bg-gray-900/60 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={handleClick}
