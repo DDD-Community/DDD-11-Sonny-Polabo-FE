@@ -11,7 +11,7 @@ const MyPage = async () => {
   const session = await auth()
 
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col pb-[100px]">
       <Header title="마이페이지" leftButton={<Header.BackButton />} />
       <div className="flex flex-col items-center pt-7">
         <ProfilePic />
@@ -25,7 +25,7 @@ const MyPage = async () => {
       </div>
       <div className="my-7 h-[6px] w-full bg-gray-100" />
       <div className="mx-4">
-        <div className="flex flex-col gap-3 pl-3">
+        <div className="flex flex-col gap-5 pl-3">
           <MenuLink
             icon={<ClipIcon />}
             text="프로필 수정"

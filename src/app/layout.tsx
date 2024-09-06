@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: '/images/opengraph-image.png',
+        url: '/images/opengraph-image-v2.png',
         alt: 'Polabo',
       },
     ],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     images: [
       {
-        url: '/images/opengraph-image.png',
+        url: '/images/opengraph-image-v2.png',
         alt: 'Polabo',
       },
     ],
@@ -71,7 +71,9 @@ export default function RootLayout({
             {children}
           </main>
         </AuthSession>
-        <div className="fixed left-0 top-0 -z-10 h-dvh w-screen bg-gray-200" />
+        <div className="fixed left-0 top-0 -z-10 h-dvh w-screen bg-gray-200">
+          <div className="mx-auto h-full max-w-md bg-gray-0" />
+        </div>
         <div className="font-pretendard" id="modal-root" />
       </body>
     </html>

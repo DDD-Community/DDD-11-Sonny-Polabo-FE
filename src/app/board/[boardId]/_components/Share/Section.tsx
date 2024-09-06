@@ -40,7 +40,7 @@ const Item = ({
       >
         {icon}
       </div>
-      {desc && <span className="text-xxs">{desc}</span>}
+      {desc && <span className="text-xs text-gray-700">{desc}</span>}
     </button>
   )
 }
