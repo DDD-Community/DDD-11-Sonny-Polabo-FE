@@ -37,7 +37,7 @@ const useSnsShare = () => {
         status === 'authenticated'
           ? `${session.profile.nickName}님이 회원님을 “${boardName}” 보드에 초대했어요!`
           : `“${boardName}” 보드를 꾸며보세요!`,
-      localImage: '/images/opengraph-image-v2.png',
+      localImage: '/images/opengraph-kakao.png',
       sender: status === 'authenticated' ? session.profile.nickName : '',
     }
 
@@ -45,7 +45,7 @@ const useSnsShare = () => {
       // 이미지 파일을 Blob으로 처리하여 File 객체 생성
       const response = await fetch(OPTIONS.localImage)
       const blob = await response.blob()
-      const file = new File([blob], 'opengraph-image-v2.png', {
+      const file = new File([blob], 'opengraph-kakao.png', {
         type: 'image/png',
       })
 
@@ -62,6 +62,8 @@ const useSnsShare = () => {
           title: OPTIONS.title,
           description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
           imageUrl,
+          imageWidth: 800,
+          imageHeight: 400,
           link: {
             mobileWebUrl: isDevMode
               ? 'https://dev.polabo.site'
