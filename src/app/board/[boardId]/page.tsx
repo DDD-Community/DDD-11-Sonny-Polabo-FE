@@ -26,7 +26,7 @@ export async function generateMetadata({
       description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
       images: [
         {
-          url: '/images/opengraph-image-v2.png',
+          url: '/images/opengraph-image-v3.png',
           alt: 'Polabo',
         },
       ],
@@ -36,7 +36,7 @@ export async function generateMetadata({
       description: '내 보드를 우리의 소중한 추억들로 꾸며줘!',
       images: [
         {
-          url: '/images/opengraph-image-v2.png',
+          url: '/images/opengraph-image-v3.png',
           alt: 'Polabo',
         },
       ],
