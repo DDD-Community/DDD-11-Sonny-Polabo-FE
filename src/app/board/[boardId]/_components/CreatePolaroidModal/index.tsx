@@ -6,7 +6,7 @@ import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import { uploadAction } from '../../_actions/uploadAction'
 import ArrowBack from './ArrowBack'
-import { useModal } from './ModalContext'
+import { usePolaroidModal } from './ModalContext'
 import UploadBtn from './UploadBtn'
 
 interface CreatePolaroidProps {
@@ -18,7 +18,7 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
   const [image, setImage] = useState<File | null>(null)
   const [nickname, setNickname] = useState<string>('')
   const [message, setMessage] = useState<string>('')
-  const { closeModal } = useModal()
+  const { closeModal } = usePolaroidModal()
 
   useEffect(() => {
     setIsValid(!!image)

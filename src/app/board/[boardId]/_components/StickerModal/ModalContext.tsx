@@ -10,11 +10,7 @@ interface ModalContextProps {
 
 const ModalContext = createContext<ModalContextProps | undefined>(undefined)
 
-export const PolaroidModalProvider = ({
-  children,
-}: {
-  children: ReactNode
-}) => {
+export const StickerModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => setIsOpen(true)
@@ -32,10 +28,10 @@ export const PolaroidModalProvider = ({
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }
 
-export const usePolaroidModal = () => {
+export const useStickerModal = () => {
   const context = useContext(ModalContext)
   if (context === undefined) {
-    throw new Error('Error at usePolaroidModal')
+    throw new Error('Error at useStickerModal')
   }
   return context
 }

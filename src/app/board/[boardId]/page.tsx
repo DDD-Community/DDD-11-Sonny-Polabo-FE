@@ -1,18 +1,21 @@
+import PolaroidList from '@/app/board/[boardId]/_components/PolaroidList'
 import { auth } from '@/auth'
 import Hamburger from '@/components/HamburgerMenu'
 import Header from '@/components/Header'
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
 import PinIcon from 'public/icons/pinFilled.svg'
-import PolaroidList from '@/app/board/[boardId]/_components/PolaroidList'
 import CreatePolaroid from './_components/CreatePolaroidModal'
-import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
+import { PolaroidModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
-import OpenModalBtn from './_components/OpenModalBtn'
+import OpenPolaroidModalBtn from './_components/OpenPolaroidModalBtn'
+import OpenStickerModalBtn from './_components/OpenStickerModalBtn'
 import ShareBtn from './_components/Share'
 import Tutorial from './_components/Tutorial'
 import { Step1Tooltip } from './_components/Tutorial/Tooltips'
 import { TutorialProvider } from './_components/Tutorial/TutorialContext'
+import { StickerModalProvider } from './_components/StickerModal/ModalContext'
+import CreateSticker from './_components/StickerModal'
 
 export async function generateMetadata({
   params,
@@ -83,11 +86,19 @@ const BoardPage = async ({ params }: BoardPageProps) => {
           <PolaroidList polaroids={board.items} />
         )}
 
-        <ModalProvider>
-          <OpenModalBtn polaroidNum={board.items.length}>
-            <CreatePolaroid id={boardId} />
-          </OpenModalBtn>
-        </ModalProvider>
+        <div className="absolute bottom-10 right-4">
+          <StickerModalProvider>
+            <OpenStickerModalBtn>
+              <CreateSticker />
+            </OpenStickerModalBtn>
+          </StickerModalProvider>
+
+          <PolaroidModalProvider>
+            <OpenPolaroidModalBtn polaroidNum={board.items.length}>
+              <CreatePolaroid id={boardId} />
+            </OpenPolaroidModalBtn>
+          </PolaroidModalProvider>
+        </div>
       </div>
     </TutorialProvider>
   )

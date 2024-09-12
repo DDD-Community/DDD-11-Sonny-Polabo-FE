@@ -3,11 +3,11 @@
 import CloseIcon from 'public/icons/close.svg'
 import { useState } from 'react'
 import AskBfCloseModal from '../modals/AskBfCloseModal'
-import { useModal } from './ModalContext'
+import { usePolaroidModal } from './ModalContext'
 
 const ArrowBack = () => {
   const [showAskBfCloseModal, setShowAskBfCloseModal] = useState<boolean>(false)
-  const { closeModal } = useModal()
+  const { closeModal } = usePolaroidModal()
   return (
     <>
       <CloseIcon

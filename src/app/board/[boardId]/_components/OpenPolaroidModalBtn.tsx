@@ -4,7 +4,7 @@ import Modal from '@/components/Modal'
 import { useSession } from 'next-auth/react'
 import AddPolaroid from 'public/icons/add_polaroid.svg'
 import { ReactNode } from 'react'
-import { useModal } from './CreatePolaroidModal/ModalContext'
+import { usePolaroidModal } from './CreatePolaroidModal/ModalContext'
 import CannotUploadModal from './modals/CannotUploadModal'
 import Tutorial from './Tutorial'
 import { Step2Tooltip } from './Tutorial/Tooltips'
@@ -14,9 +14,9 @@ interface OpenModalBtnProps {
   children: ReactNode
 }
 
-const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
+const OpenPolaroidModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
   const { data: session } = useSession()
-  const { isOpen, openModal, closeModal } = useModal()
+  const { isOpen, openModal, closeModal } = usePolaroidModal()
 
   const renderModalContent = () => {
     if (polaroidNum >= 30) {
@@ -32,17 +32,16 @@ const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
   return (
     <div>
       {isOpen && renderModalContent()}
-      <div className="absolute bottom-10 right-4">
-        <Tutorial
-          step={session ? 2 : 1}
-          tooltip={<Step2Tooltip />}
-          hasNext={false}
-        >
-          <AddPolaroid onClick={openModal} />
-        </Tutorial>
-      </div>
+
+      <Tutorial
+        step={session ? 2 : 1}
+        tooltip={<Step2Tooltip />}
+        hasNext={false}
+      >
+        <AddPolaroid onClick={openModal} className="cursor-pointer" />
+      </Tutorial>
     </div>
   )
 }
 
-export default OpenModalBtn
+export default OpenPolaroidModalBtn
