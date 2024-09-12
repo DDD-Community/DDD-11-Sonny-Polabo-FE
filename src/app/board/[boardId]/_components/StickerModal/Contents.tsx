@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { getStickerFile } from '../../utils/staticFile'
+import { useStickerModal } from './ModalContext'
 import { useSticker } from './StickerContext'
 
 const Contents = () => {
-  const { selectedMenu } = useSticker()
+  const { selectedMenu, setSelectedSticker } = useSticker()
+  const { closeModal } = useStickerModal()
   const [stickerFiles, setStickerFiles] = useState<string[]>([])
 
   useEffect(() => {
@@ -21,10 +23,19 @@ const Contents = () => {
     }
   }, [selectedMenu])
 
+  const handleClickSticker = (file: string) => {
+    closeModal()
+    setSelectedSticker(file)
+  }
+
   return (
     <div className="m-5 grid grid-cols-3 gap-[6px] overflow-y-scroll scrollbar-hide">
       {stickerFiles.map((file) => (
-        <div className="flex h-[90px] items-center justify-center" key={file}>
+        <div
+          className="flex h-[90px] cursor-pointer items-center justify-center"
+          key={file}
+          onClick={() => handleClickSticker(file)}
+        >
           <div className="flex items-center justify-center">
             <Image
               src={`/stickers/${parseInt(file.split('-')[0], 10)}/${file}`}

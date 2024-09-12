@@ -1,8 +1,9 @@
 'use client'
 
+import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
 import { Polaroid } from '@/types'
 import { useState } from 'react'
-import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
+import StickerCanvas from '../StickerCanvas'
 import PolaroidListItem from './PolaroidListItem'
 
 interface PolaroidListProps {
@@ -36,6 +37,7 @@ const PolaroidList = ({ polaroids }: PolaroidListProps) => {
         onClose={() => setIsModalOpen(false)}
         polaroid={selectedPolaroid}
       />
+      <StickerCanvas />
     </div>
   )
 }

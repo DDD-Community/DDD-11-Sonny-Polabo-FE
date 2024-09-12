@@ -1,11 +1,10 @@
 'use client'
 
-import Image from 'next/image'
 import { StickerMenu } from '@/types'
+import Image from 'next/image'
+import Contents from './Contents'
 import Header from './Header'
 import Menu from './Menu'
-import { StickerProvider } from './StickerContext'
-import Contents from './Contents'
 
 interface StickerIconProps {
   num: StickerMenu
@@ -24,21 +23,21 @@ const StickerIcon = ({ num }: StickerIconProps) => {
 
 const CreateSticker = () => {
   const MENU: StickerMenu[] = [0, 1, 2, 3]
+
   return (
     <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col bg-gray-1000/70 py-10 backdrop-blur-md">
       <Header />
-      <StickerProvider>
-        <Menu>
-          {MENU.map((sticker) => (
-            <Menu.Item
-              icon={<StickerIcon num={sticker} />}
-              menuNum={sticker}
-              key={sticker}
-            />
-          ))}
-        </Menu>
-        <Contents />
-      </StickerProvider>
+
+      <Menu>
+        {MENU.map((sticker) => (
+          <Menu.Item
+            icon={<StickerIcon num={sticker} />}
+            menuNum={sticker}
+            key={sticker}
+          />
+        ))}
+      </Menu>
+      <Contents />
     </div>
   )
 }
