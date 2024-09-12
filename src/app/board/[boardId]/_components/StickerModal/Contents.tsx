@@ -13,7 +13,12 @@ const Contents = () => {
       setStickerFiles(files)
     }
 
-    fetchStickers()
+    if (selectedMenu === 0) {
+      // TODO: selectedMenu 0일 때는 서버에서 최근 사용한 스티커 가져옴
+      setStickerFiles([])
+    } else {
+      fetchStickers()
+    }
   }, [selectedMenu])
 
   return (
