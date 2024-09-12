@@ -1,15 +1,15 @@
+'use client'
+
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { StickerMenu } from '@/types'
 import { useSticker } from './StickerContext'
 
-const Menu = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="flex items-center gap-4 overflow-x-scroll pl-[23px] scrollbar-hide">
-      {children}
-    </div>
-  )
-}
+const Menu = ({ children }: { children: ReactNode }) => (
+  <div className="flex items-center gap-4 overflow-x-scroll pl-[23px] scrollbar-hide">
+    {children}
+  </div>
+)
 
 const Item = ({ icon, menuNum }: { icon: ReactNode; menuNum: StickerMenu }) => {
   const { selectedMenu, setSelectedMenu } = useSticker()

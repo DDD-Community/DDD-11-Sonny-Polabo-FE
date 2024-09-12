@@ -5,6 +5,7 @@ import { StickerMenu } from '@/types'
 import Header from './Header'
 import Menu from './Menu'
 import { StickerProvider } from './StickerContext'
+import Contents from './Contents'
 
 interface StickerIconProps {
   num: StickerMenu
@@ -22,13 +23,13 @@ const StickerIcon = ({ num }: StickerIconProps) => {
 }
 
 const CreateSticker = () => {
-  const stickers: StickerMenu[] = [0, 1, 2, 3]
+  const MENU: StickerMenu[] = [0, 1, 2, 3]
   return (
     <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col bg-gray-1000/70 py-10 backdrop-blur-md">
       <Header />
       <StickerProvider>
         <Menu>
-          {stickers.map((sticker) => (
+          {MENU.map((sticker) => (
             <Menu.Item
               icon={<StickerIcon num={sticker} />}
               menuNum={sticker}
@@ -36,6 +37,7 @@ const CreateSticker = () => {
             />
           ))}
         </Menu>
+        <Contents />
       </StickerProvider>
     </div>
   )

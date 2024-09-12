@@ -1,3 +1,5 @@
+'use client'
+
 import { StickerMenu } from '@/types'
 import {
   Dispatch,
