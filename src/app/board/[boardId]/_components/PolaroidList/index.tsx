@@ -22,8 +22,8 @@ const PolaroidList = ({ polaroids }: PolaroidListProps) => {
   }
 
   return (
-    <div className="mx-auto w-full flex-1 overflow-x-hidden overflow-y-scroll pb-10 scrollbar-hide">
-      <div className="grid grid-cols-2 gap-6 px-[20px] py-[10px]">
+    <div className="mx-auto w-full flex-1 overflow-x-hidden overflow-y-scroll scrollbar-hide">
+      <div className="relative grid grid-cols-2 gap-6 px-[20px] py-[10px] pb-10">
         {polaroids.map((item) => (
           <PolaroidListItem
             key={item.id}
@@ -31,13 +31,13 @@ const PolaroidList = ({ polaroids }: PolaroidListProps) => {
             onClick={() => openDetailModal(item)}
           />
         ))}
+        <StickerCanvas />
       </div>
       <PolaroidDetailModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         polaroid={selectedPolaroid}
       />
-      <StickerCanvas />
     </div>
   )
 }
