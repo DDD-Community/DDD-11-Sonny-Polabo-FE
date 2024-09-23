@@ -25,3 +25,18 @@ export interface FontType {
   title: string
   className: string
 }
+
+export type ThemaKeyType =
+  | 'F-0'
+  | 'F-1'
+  | 'F-2'
+  | 'F-3'
+  | 'F-4'
+  | 'F-5'
+  | 'F-6'
+  | 'F-7'
+  | 'F-8'
+
+export interface ThemaType {
+  color: string
+}

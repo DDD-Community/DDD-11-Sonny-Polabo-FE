@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import TagButton from '@/components/TagButton'
-import { FontKeyType } from '@/types'
+import { FontKeyType, ThemaKeyType } from '@/types'
 import { twMerge } from 'tailwind-merge'
 import FontSelect from './FontSelect'
 import { uploadAction } from '../../_actions/uploadAction'
@@ -22,8 +22,10 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
   const [image, setImage] = useState<File | null>(null)
   const [nickname, setNickname] = useState<string>('')
   const [message, setMessage] = useState<string>('')
-  const [fontKey, setFontKey] = useState<FontKeyType>('HESOM')
+  const [selectedFontKey, setSelectedFontKey] = useState<FontKeyType>('HESOM')
   const [showFontSelect, setShowFontSelect] = useState<boolean>(false)
+  const [selectedThemaKey] = useState<ThemaKeyType>('F-0')
+  const [, setShowThemaSelect] = useState<boolean>(false)
   const { closeModal } = useModal()
 
   const fontSelectRef = useRef<HTMLDivElement>(null)
@@ -49,7 +51,8 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
     formData.append('fileInput', image!)
     formData.append('oneLineMessage', message)
     formData.append('nickname', getPolaroidNickname(nickname, session))
-    formData.append('font', fontKey)
+    formData.append('font', selectedFontKey)
+    formData.append('thema', selectedThemaKey)
 
     const res = await uploadAction(id, formData)
 
@@ -65,7 +68,7 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
         <div className="mx-auto w-[272px]">
           <PolaroidMaker
             image={image}
-            fontKey={fontKey}
+            fontKey={selectedFontKey}
             message={message}
             nickname={nickname}
             setImage={setImage}
@@ -82,7 +85,10 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
             >
               폰트 고르기
             </TagButton>
-            <TagButton className="py-2.5 text-sm leading-4">
+            <TagButton
+              className="py-2.5 text-sm leading-4"
+              onClick={() => setShowThemaSelect((prev) => !prev)}
+            >
               프레임 고르기
             </TagButton>
           </div>
@@ -90,8 +96,8 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
         {showFontSelect && (
           <FontSelect
             ref={fontSelectRef}
-            selectedFont={fontKey}
-            onSelect={setFontKey}
+            selectedFont={selectedFontKey}
+            onSelect={setSelectedFontKey}
           />
         )}
       </div>
