@@ -1,10 +1,11 @@
-import { FILTERS } from '../lib/constants/polaroidConfig'
-
 export interface Polaroid {
   id: number
   imageUrl: string
   oneLineMessage: string
   nickname: string
+  options: {
+    FONT: string
+  }
 }
 
 export interface CreatePolaroidPayload {
@@ -13,7 +14,9 @@ export interface CreatePolaroidPayload {
   nickname: string
 }
 
-export interface PolaroidImageProps {
-  imageUrl: string
-  filter?: keyof typeof FILTERS
+export type FontKeyType = 'HESOM' | 'EUNYOUNG' | 'TTAEROM' | 'HIPI'
+
+export interface FontType {
+  title: string
+  className: string
 }

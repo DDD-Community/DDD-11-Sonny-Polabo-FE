@@ -1,9 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
+import TagButton from '@/components/TagButton'
+import FontSelectCarousel from '@/app/board/[boardId]/_components/CreatePolaroidModal/FontSelectCarousel'
+import { FontKeyType } from '@/types'
 import { uploadAction } from '../../_actions/uploadAction'
 import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'
@@ -18,11 +21,21 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
   const [image, setImage] = useState<File | null>(null)
   const [nickname, setNickname] = useState<string>('')
   const [message, setMessage] = useState<string>('')
+  const [fontKey, setFontKey] = useState<FontKeyType>('HESOM')
+  const [showFontSelect, setShowFontSelect] = useState<boolean>(false)
   const { closeModal } = useModal()
+
+  const fontSelectRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsValid(!!image)
   }, [image])
+
+  useEffect(() => {
+    if (fontSelectRef.current) {
+      fontSelectRef.current.scrollIntoView()
+    }
+  }, [fontSelectRef, showFontSelect])
 
   const { data: session } = useSession()
 
@@ -35,6 +48,7 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
     formData.append('fileInput', image!)
     formData.append('oneLineMessage', message)
     formData.append('nickname', getPolaroidNickname(nickname, session))
+    formData.append('font', fontKey)
 
     const res = await uploadAction(id, formData)
 
@@ -44,19 +58,42 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
   }
 
   return (
-    <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col justify-between px-5 py-10">
+    <div className="flex h-dvh w-full max-w-md flex-col items-center justify-between gap-5">
       <ArrowBack />
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        <PolaroidMaker
-          image={image}
-          message={message}
-          nickname={nickname}
-          setImage={setImage}
-          setMessage={setMessage}
-          setNickname={setNickname}
-        />
+      <div className="overflow-y-scroll pt-20 scrollbar-hide">
+        <div className="mx-auto w-[272px]">
+          <PolaroidMaker
+            image={image}
+            fontKey={fontKey}
+            message={message}
+            nickname={nickname}
+            setImage={setImage}
+            setMessage={setMessage}
+            setNickname={setNickname}
+          />
+          <div className="flex gap-5 py-5">
+            <TagButton
+              className="font-hesom text-md leading-5"
+              onClick={() => setShowFontSelect((prev) => !prev)}
+            >
+              폰트 고르기
+            </TagButton>
+            <TagButton className="py-2.5 text-sm leading-4">
+              프레임 고르기
+            </TagButton>
+          </div>
+        </div>
+        {showFontSelect && (
+          <FontSelectCarousel
+            ref={fontSelectRef}
+            selectedFont={fontKey}
+            onSelect={setFontKey}
+          />
+        )}
       </div>
-      <UploadBtn submitForm={submit} btnDisabled={!isValid} />
+      <div className="flex w-full justify-center pb-10">
+        <UploadBtn submitForm={submit} btnDisabled={!isValid} />
+      </div>
     </div>
   )
 }
