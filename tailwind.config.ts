@@ -72,6 +72,9 @@ const config: Config = {
         pretendard: ['var(--font-pretendard-variable)'],
         jooree: ['var(--font-jooree)'],
         hesom: ['var(--font-hesom)'],
+        eunyoung: ['var(--font-eunyoung)'],
+        ttaerom: ['var(--font-ttaerom)'],
+        hipi: ['var(--font-hipi)'],
       },
       keyframes: {
         'slide-left': {

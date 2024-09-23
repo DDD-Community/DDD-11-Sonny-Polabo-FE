@@ -21,6 +21,21 @@ const Hesom = localFont({
   variable: '--font-hesom',
 })
 
+const Eunyoung = localFont({
+  src: '../../public/fonts/eunyoung.woff2',
+  variable: '--font-eunyoung',
+})
+
+const Ttaerom = localFont({
+  src: '../../public/fonts/ttaerom.ttf',
+  variable: '--font-ttaerom',
+})
+
+const Hipi = localFont({
+  src: '../../public/fonts/hipi.ttf',
+  variable: '--font-hipi',
+})
+
 export const metadata: Metadata = {
   title: 'POLABO | 함께 꾸미는 폴라로이드 보드, 폴라보',
   description:
@@ -63,7 +78,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable}`}
+        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable} ${Eunyoung.variable} ${Ttaerom.variable} ${Hipi.variable}`}
       >
         <AuthSession>
           <CheckNewUser />
