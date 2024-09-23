@@ -7,6 +7,7 @@ export const uploadAction = async (id: string, formData: FormData) => {
     const fileInput = formData.get('fileInput')
     const oneLineMessage = formData.get('oneLineMessage')
     const nickname = formData.get('nickname')
+    const font = formData.get('font')
 
     if (!fileInput || !(fileInput instanceof File)) {
       throw new Error('Invalid file input')
@@ -20,6 +21,9 @@ export const uploadAction = async (id: string, formData: FormData) => {
       imageKey,
       oneLineMessage: oneLineMessage as string,
       nickname: nickname as string,
+      options: {
+        FONT: font as string,
+      },
     })
     return res
   } catch (error) {
