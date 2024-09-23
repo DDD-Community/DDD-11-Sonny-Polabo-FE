@@ -8,6 +8,9 @@ import {
 import imageCompression from 'browser-image-compression'
 import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
 import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
+import { twJoin } from 'tailwind-merge'
+import { FontKeyType } from '@/types'
+import { FONTS } from '@/lib'
 import PolaroidImageInput from './PolaroidImageInput'
 import PolaroidMessageInput from './PolaroidMessageInput'
 import PolaroidNicknameInput from './PolaroidNicknameInput'
@@ -25,6 +28,7 @@ interface PolaroidMakerProps {
   setImage: Dispatch<SetStateAction<File | null>>
   setMessage: Dispatch<SetStateAction<string>>
   setNickname: Dispatch<SetStateAction<string>>
+  fontKey: FontKeyType
 }
 
 const MAX_MESSAGE_LENGTH = 20
@@ -37,6 +41,7 @@ const PolaroidMaker = ({
   setImage,
   setMessage,
   setNickname,
+  fontKey,
 }: PolaroidMakerProps) => {
   const [previewFile, setPreviewFile] = useState<string | null>(null)
 
@@ -78,7 +83,12 @@ const PolaroidMaker = ({
   }
 
   return (
-    <PolaroidFrame className="mx-auto flex w-[272px] touch-pinch-zoom flex-col overflow-y-hidden">
+    <PolaroidFrame
+      className={twJoin(
+        'mx-auto flex flex-col overflow-y-hidden',
+        FONTS[fontKey].className,
+      )}
+    >
       <div className="mt-5 px-3">
         <PolaroidImageInput
           imageUrl={previewFile}

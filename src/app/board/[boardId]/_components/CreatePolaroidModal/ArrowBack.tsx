@@ -11,7 +11,7 @@ const ArrowBack = () => {
   return (
     <>
       <CloseIcon
-        className="cursor-pointer text-gray-0"
+        className="absolute left-5 top-10 cursor-pointer text-gray-0"
         onClick={() => setShowAskBfCloseModal(true)}
       />
       <AskBfCloseModal
