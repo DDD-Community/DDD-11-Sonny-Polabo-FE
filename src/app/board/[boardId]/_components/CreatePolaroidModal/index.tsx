@@ -5,8 +5,9 @@ import { useSession } from 'next-auth/react'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
 import TagButton from '@/components/TagButton'
-import FontSelectCarousel from '@/app/board/[boardId]/_components/CreatePolaroidModal/FontSelectCarousel'
 import { FontKeyType } from '@/types'
+import { twMerge } from 'tailwind-merge'
+import FontSelect from './FontSelect'
 import { uploadAction } from '../../_actions/uploadAction'
 import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'
@@ -73,7 +74,10 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
           />
           <div className="flex gap-5 py-5">
             <TagButton
-              className="font-hesom text-md leading-5"
+              className={twMerge(
+                'font-hesom text-md leading-5',
+                showFontSelect ? 'border-gray-0 bg-gray-800 text-gray-0' : '',
+              )}
               onClick={() => setShowFontSelect((prev) => !prev)}
             >
               폰트 고르기
@@ -84,7 +88,7 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
           </div>
         </div>
         {showFontSelect && (
-          <FontSelectCarousel
+          <FontSelect
             ref={fontSelectRef}
             selectedFont={fontKey}
             onSelect={setFontKey}
