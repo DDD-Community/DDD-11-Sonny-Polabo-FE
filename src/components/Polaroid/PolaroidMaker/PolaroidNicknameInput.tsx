@@ -27,6 +27,26 @@ const PolaroidNicknameInput = ({
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
+    const element = ref.current
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (element) {
+        setWidth(element.offsetWidth)
+      }
+    })
+
+    if (element) {
+      resizeObserver.observe(element)
+    }
+
+    return () => {
+      if (element) {
+        resizeObserver.unobserve(element)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (!ref.current) {
       return
     }
