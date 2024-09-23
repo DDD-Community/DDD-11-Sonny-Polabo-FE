@@ -1,4 +1,4 @@
-import { FontType } from '@/types'
+import { FontKeyType, FontType, ThemaKeyType, ThemaType } from '@/types'
 
 export const FILTERS = {
   NORMAL: 'none',
@@ -7,7 +7,7 @@ export const FILTERS = {
     'sepia(0.4) contrast(1.1) brightness(0.9) saturate(0.8) hue-rotate(-20deg) blur(0.6px)',
 } as const
 
-export const FRAME = {
+export const THEMAS: Record<ThemaKeyType, ThemaType> = {
   'F-0': {
     color: '#eaeaea',
   },
@@ -37,7 +37,7 @@ export const FRAME = {
   },
 } as const
 
-export const FONTS: Record<string, FontType> = {
+export const FONTS: Record<FontKeyType, FontType> = {
   HESOM: {
     title: '해솜체',
     className: 'font-hesom',
