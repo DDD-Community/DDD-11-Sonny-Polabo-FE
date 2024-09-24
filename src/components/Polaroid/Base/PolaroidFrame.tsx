@@ -1,14 +1,23 @@
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { FontKeyType, ThemaKeyType } from '@/types'
+import { FONTS, THEMAS } from '@/lib'
+
+interface PolaroidFrameProps extends HTMLAttributes<HTMLDivElement> {
+  themaKey: ThemaKeyType
+  fontKey: FontKeyType
+}
 
 const PolaroidFrame = ({
   children,
   className,
+  themaKey,
+  fontKey,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => {
+}: PolaroidFrameProps) => {
   return (
     <div
-      className={`${twMerge('rounded-sm bg-[#f3f3f3] shadow-polaroid', className)}`}
+      className={`${twMerge('rounded-sm shadow-polaroid', className, FONTS[fontKey].className, THEMAS[themaKey].className)}`}
       {...props}
     >
       {children}

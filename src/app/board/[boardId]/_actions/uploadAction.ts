@@ -1,6 +1,7 @@
 'use server'
 
 import { getPreSignedUrl, postPolaroid, uploadImage } from '@/lib'
+import { FontKeyType, ThemaKeyType } from '@/types'
 
 export const uploadAction = async (id: string, formData: FormData) => {
   try {
@@ -23,8 +24,8 @@ export const uploadAction = async (id: string, formData: FormData) => {
       oneLineMessage: oneLineMessage as string,
       nickname: nickname as string,
       options: {
-        FONT: font as string,
-        THEMA: thema as string,
+        FONT: font as FontKeyType,
+        THEMA: thema as ThemaKeyType,
       },
     })
     return res

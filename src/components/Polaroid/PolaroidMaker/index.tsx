@@ -9,8 +9,7 @@ import imageCompression from 'browser-image-compression'
 import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
 import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import { twJoin } from 'tailwind-merge'
-import { FontKeyType } from '@/types'
-import { FONTS } from '@/lib'
+import { FontKeyType, ThemaKeyType } from '@/types'
 import PolaroidImageInput from './PolaroidImageInput'
 import PolaroidMessageInput from './PolaroidMessageInput'
 import PolaroidNicknameInput from './PolaroidNicknameInput'
@@ -29,12 +28,14 @@ interface PolaroidMakerProps {
   setMessage: Dispatch<SetStateAction<string>>
   setNickname: Dispatch<SetStateAction<string>>
   fontKey: FontKeyType
+  themaKey: ThemaKeyType
 }
 
 const MAX_MESSAGE_LENGTH = 20
 const MAX_FROM_LENGTH = 10
 
 const PolaroidMaker = ({
+  themaKey,
   image,
   message,
   nickname,
@@ -84,10 +85,9 @@ const PolaroidMaker = ({
 
   return (
     <PolaroidFrame
-      className={twJoin(
-        'mx-auto flex flex-col overflow-y-hidden',
-        FONTS[fontKey].className,
-      )}
+      className={twJoin('mx-auto flex flex-col overflow-y-hidden')}
+      fontKey={fontKey}
+      themaKey={themaKey}
     >
       <div className="mt-5 px-3">
         <PolaroidImageInput
@@ -95,7 +95,7 @@ const PolaroidMaker = ({
           changeImage={handleImageChange}
         />
       </div>
-      <PolaroidDescription>
+      <PolaroidDescription themaKey={themaKey}>
         <PolaroidMessageInput
           message={message}
           maxLength={MAX_MESSAGE_LENGTH}
