@@ -58,7 +58,7 @@ const ThemaSelect = ({
   }
 
   return (
-    <div className="flex h-dvh w-full max-w-md touch-pan-y flex-col items-center justify-between">
+    <div className="relative flex h-dvh w-full max-w-md touch-pan-y flex-col items-center justify-between">
       <div className="absolute left-5 top-10">
         <ArrowBackIcon
           className="h-6 w-6 text-gray-0"
