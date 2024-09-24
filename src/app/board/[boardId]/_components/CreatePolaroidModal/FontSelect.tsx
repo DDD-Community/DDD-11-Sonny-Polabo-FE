@@ -15,7 +15,7 @@ const FontSelect = forwardRef<HTMLDivElement, FontSelectProps>(
     const fontClass = 'text-neutral-500 bg-gray-300 border border-gray-500 '
     return (
       <div className="overflow-x-scroll scrollbar-hide" ref={ref}>
-        <div className="ml-10 mr-10 inline-flex items-center gap-2">
+        <div className="mx-[calc((100%-272px)/2)] inline-flex items-center gap-2">
           {Object.entries(FONTS).map(([key, font]) => (
             <TagButton
               className={twMerge(
