@@ -55,7 +55,7 @@ const CreatePolaroid = ({
   }, [fontSelectRef, showFontSelect])
 
   return (
-    <div className="flex h-dvh w-full max-w-md touch-pan-y flex-col items-center justify-between">
+    <div className="relative flex h-dvh w-full max-w-md touch-pan-y flex-col items-center justify-between">
       <ArrowBack />
       <div className="w-full overflow-y-scroll pb-5 pt-16 scrollbar-hide">
         <div className="mx-auto w-[272px]">
