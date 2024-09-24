@@ -42,10 +42,6 @@ const PolaroidDetailModal = ({
     }
   }, [selectedIdx, isOpen])
 
-  const handleBeforeChange = (nextSlide: number) => {
-    setCurrentSlide(nextSlide)
-  }
-
   const onDelete = () => {
     deletePolaroid(polaroids[currentSlide - 1].id, boardId)
   }
@@ -89,7 +85,7 @@ const PolaroidDetailModal = ({
             containerClass="-mx-28"
             itemClass="my-auto"
             beforeChange={(nextSlide) => {
-              handleBeforeChange(nextSlide)
+              setCurrentSlide(nextSlide)
             }}
           >
             <div />
@@ -98,17 +94,21 @@ const PolaroidDetailModal = ({
             ))}
           </Carousel>
           <div className="mt-4 text-center text-gray-400">
-            <span className="text-gray-100">
-              {currentSlide === 0 ? 1 : currentSlide}
+            <span>
+              <span className="text-gray-100">
+                {currentSlide === 0 ? 1 : currentSlide}
+              </span>
+              {` / ${polaroids.length}`}
             </span>
-            <span className="px-1">/</span>
-            <span>{polaroids.length}</span>
           </div>
         </div>
 
         {isBoardOwner && (
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
-            <PolaroidDeleteBtn detailModalClose={onClose} onDelete={onDelete} />
+            <PolaroidDeleteBtn
+              onDetailModalClose={onClose}
+              onDelete={onDelete}
+            />
           </div>
         )}
       </div>

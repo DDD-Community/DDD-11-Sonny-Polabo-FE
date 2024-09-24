@@ -6,12 +6,12 @@ import TrashIcon from 'public/icons/trash.svg'
 import { useState } from 'react'
 
 interface PolaroidDeleteBtnProps {
-  detailModalClose: () => void
+  onDetailModalClose: () => void
   onDelete: () => void
 }
 
 const PolaroidDeleteBtn = ({
-  detailModalClose,
+  onDetailModalClose,
   onDelete,
 }: PolaroidDeleteBtnProps) => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
@@ -19,7 +19,7 @@ const PolaroidDeleteBtn = ({
   const handleDelete = () => {
     onDelete() // delete polaroid
     setShowDeleteModal(false) // close delete modal
-    detailModalClose() // close polaroid detail modal
+    onDetailModalClose() // close polaroid detail modal
   }
 
   return (
