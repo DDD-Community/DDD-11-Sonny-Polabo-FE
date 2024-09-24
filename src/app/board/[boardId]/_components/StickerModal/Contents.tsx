@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { getStickerFile } from '../../utils/staticFile'
+import { getStickerFile } from '../../_utils/staticFile'
 import { useStickerModal } from './ModalContext'
 import { useSticker } from './StickerContext'
 
