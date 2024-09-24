@@ -5,6 +5,7 @@ export interface Polaroid {
   imageUrl: string
   oneLineMessage: string
   nickname: string
+  mine: boolean
 }
 
 export interface CreatePolaroidPayload {
