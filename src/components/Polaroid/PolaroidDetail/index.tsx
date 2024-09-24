@@ -69,13 +69,13 @@ const PolaroidDetailModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOutsideClick={false}>
-      <div className="mx-auto flex h-dvh max-w-md flex-1 flex-col justify-between py-10">
+      <div className="relative mx-auto flex h-dvh max-w-md flex-1 flex-col justify-center overflow-x-hidden py-10">
         <CloseIcon
-          className="ml-5 cursor-pointer text-gray-0"
+          className="absolute left-5 top-5 cursor-pointer text-gray-0"
           onClick={onClose}
         />
 
-        <div className="w-full overflow-x-hidden">
+        <div className="overflow-x-hidden">
           <Carousel
             ref={carouselRef}
             swipeable
@@ -86,7 +86,7 @@ const PolaroidDetailModal = ({
             responsive={responsive}
             customTransition="all .5"
             centerMode
-            containerClass="-mx-20"
+            containerClass="-mx-28"
             itemClass="my-auto"
             beforeChange={(nextSlide) => {
               handleBeforeChange(nextSlide)
@@ -106,10 +106,10 @@ const PolaroidDetailModal = ({
           </div>
         </div>
 
-        {isBoardOwner ? (
-          <PolaroidDeleteBtn detailModalClose={onClose} onDelete={onDelete} />
-        ) : (
-          <div className="h-5" />
+        {isBoardOwner && (
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
+            <PolaroidDeleteBtn detailModalClose={onClose} onDelete={onDelete} />
+          </div>
         )}
       </div>
     </Modal>
