@@ -22,6 +22,7 @@ interface PolaroidDetailModalProps {
   selectedIdx: number
   polaroids: Polaroid[]
   boardId: string
+  isBoardOwner: boolean
 }
 
 const PolaroidDetailModal = ({
@@ -30,6 +31,7 @@ const PolaroidDetailModal = ({
   selectedIdx,
   polaroids,
   boardId,
+  isBoardOwner,
 }: PolaroidDetailModalProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const carouselRef = useRef<Carousel | null>(null)
@@ -48,7 +50,22 @@ const PolaroidDetailModal = ({
     deletePolaroid(polaroids[currentSlide - 1].id, boardId)
   }
 
-  // TODO: 내가 만든 보드인지 확인하고, 보드 생성자에게만 삭제 버튼 렌더
+  // 모달 뒤쪽 보드에 스크롤 방지
+  useEffect(() => {
+    const preventDefault = (e: Event) => e.preventDefault()
+
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      document.addEventListener('touchmove', preventDefault, { passive: false })
+      document.addEventListener('wheel', preventDefault, { passive: false })
+    }
+
+    return () => {
+      document.body.style.overflow = ''
+      document.removeEventListener('touchmove', preventDefault)
+      document.removeEventListener('wheel', preventDefault)
+    }
+  }, [isOpen])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOutsideClick={false}>
@@ -89,7 +106,11 @@ const PolaroidDetailModal = ({
           </div>
         </div>
 
-        <PolaroidDeleteBtn detailModalClose={onClose} onDelete={onDelete} />
+        {isBoardOwner ? (
+          <PolaroidDeleteBtn detailModalClose={onClose} onDelete={onDelete} />
+        ) : (
+          <div className="h-5" />
+        )}
       </div>
     </Modal>
   )

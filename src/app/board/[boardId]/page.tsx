@@ -80,7 +80,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         {board.items.length === 0 ? (
           <Empty />
         ) : (
-          <PolaroidList polaroids={board.items} boardId={boardId} />
+          <PolaroidList board={board} boardId={boardId} />
         )}
 
         <ModalProvider>
