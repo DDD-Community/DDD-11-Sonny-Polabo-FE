@@ -8,6 +8,8 @@ export const getBoard = async (id: string): Promise<Board> => {
     },
   })
 
+  // console.log(res.data[0])
+
   return res.data[0]
 }
 

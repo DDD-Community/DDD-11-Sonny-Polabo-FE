@@ -4,8 +4,8 @@ export interface Polaroid {
   oneLineMessage: string
   nickname: string
   options: {
-    FONT: string
-    THEMA: string
+    FONT: FontKeyType
+    THEMA: ThemaKeyType
   }
 }
 
@@ -14,8 +14,8 @@ export interface CreatePolaroidPayload {
   oneLineMessage: string
   nickname: string
   options: {
-    FONT: string
-    THEMA: string
+    FONT: FontKeyType
+    THEMA: ThemaKeyType
   }
 }
 
@@ -38,5 +38,6 @@ export type ThemaKeyType =
   | 'F-8'
 
 export interface ThemaType {
-  color: string
+  className: string
+  descriptionStyle: string
 }

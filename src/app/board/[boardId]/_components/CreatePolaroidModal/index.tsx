@@ -1,44 +1,28 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
-import PolaroidMaker from '@/components/Polaroid/PolaroidMaker'
-import TagButton from '@/components/TagButton'
 import { FontKeyType, ThemaKeyType } from '@/types'
-import { twMerge } from 'tailwind-merge'
-import FontSelect from './FontSelect'
+import ThemaSelect from '@/app/board/[boardId]/_components/CreatePolaroidModal/ThemaSelect'
+import CreatePolaroid from '@/app/board/[boardId]/_components/CreatePolaroidModal/CreatePolaroid'
 import { uploadAction } from '../../_actions/uploadAction'
-import ArrowBack from './ArrowBack'
 import { useModal } from './ModalContext'
-import UploadBtn from './UploadBtn'
 
 interface CreatePolaroidProps {
   id: string
 }
 
-const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
+const CreatePolaroidModal = ({ id }: CreatePolaroidProps) => {
   const [isValid, setIsValid] = useState<boolean>(false)
   const [image, setImage] = useState<File | null>(null)
   const [nickname, setNickname] = useState<string>('')
   const [message, setMessage] = useState<string>('')
   const [selectedFontKey, setSelectedFontKey] = useState<FontKeyType>('HESOM')
   const [showFontSelect, setShowFontSelect] = useState<boolean>(false)
-  const [selectedThemaKey] = useState<ThemaKeyType>('F-0')
-  const [, setShowThemaSelect] = useState<boolean>(false)
+  const [selectedThemaKey, setSelectedThemaKey] = useState<ThemaKeyType>('F-0')
+  const [showThemaSelect, setShowThemaSelect] = useState<boolean>(false)
   const { closeModal } = useModal()
-
-  const fontSelectRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    setIsValid(!!image)
-  }, [image])
-
-  useEffect(() => {
-    if (fontSelectRef.current) {
-      fontSelectRef.current.scrollIntoView()
-    }
-  }, [fontSelectRef, showFontSelect])
 
   const { data: session } = useSession()
 
@@ -61,51 +45,35 @@ const CreatePolaroid = ({ id }: CreatePolaroidProps) => {
     }
   }
 
+  if (showThemaSelect) {
+    return (
+      <ThemaSelect
+        selectedThema={selectedThemaKey}
+        setSelectedThema={setSelectedThemaKey}
+        setShowThemaSelect={setShowThemaSelect}
+      />
+    )
+  }
+
   return (
-    <div className="flex h-dvh w-full max-w-md flex-col items-center justify-between gap-5">
-      <ArrowBack />
-      <div className="overflow-y-scroll pt-20 scrollbar-hide">
-        <div className="mx-auto w-[272px]">
-          <PolaroidMaker
-            image={image}
-            fontKey={selectedFontKey}
-            message={message}
-            nickname={nickname}
-            setImage={setImage}
-            setMessage={setMessage}
-            setNickname={setNickname}
-          />
-          <div className="flex gap-5 py-5">
-            <TagButton
-              className={twMerge(
-                'font-hesom text-md leading-5',
-                showFontSelect ? 'border-gray-0 bg-gray-800 text-gray-0' : '',
-              )}
-              onClick={() => setShowFontSelect((prev) => !prev)}
-            >
-              폰트 고르기
-            </TagButton>
-            <TagButton
-              className="py-2.5 text-sm leading-4"
-              onClick={() => setShowThemaSelect((prev) => !prev)}
-            >
-              프레임 고르기
-            </TagButton>
-          </div>
-        </div>
-        {showFontSelect && (
-          <FontSelect
-            ref={fontSelectRef}
-            selectedFont={selectedFontKey}
-            onSelect={setSelectedFontKey}
-          />
-        )}
-      </div>
-      <div className="flex w-full justify-center pb-10">
-        <UploadBtn submitForm={submit} btnDisabled={!isValid} />
-      </div>
-    </div>
+    <CreatePolaroid
+      image={image}
+      selectedFontKey={selectedFontKey}
+      selectedThemaKey={selectedThemaKey}
+      message={message}
+      nickname={nickname}
+      showFontSelect={showFontSelect}
+      isValid={isValid}
+      submit={submit}
+      setImage={setImage}
+      setMessage={setMessage}
+      setNickname={setNickname}
+      setShowFontSelect={setShowFontSelect}
+      setSelectedFontKey={setSelectedFontKey}
+      setShowThemaSelect={setShowThemaSelect}
+      setIsValid={setIsValid}
+    />
   )
 }
 
-export default CreatePolaroid
+export default CreatePolaroidModal

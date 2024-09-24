@@ -9,31 +9,49 @@ export const FILTERS = {
 
 export const THEMAS: Record<ThemaKeyType, ThemaType> = {
   'F-0': {
-    color: '#eaeaea',
+    className: 'bg-[#eaeaea]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #eaeaea',
   },
   'F-1': {
-    color: '#ede2d8',
+    className: 'bg-[#ede2d8]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #ede2d8',
   },
   'F-2': {
-    color: '#ffd7e0',
+    className: 'bg-[#ffd7e0]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #ffd7e0',
   },
   'F-3': {
-    color: '#ffdbfb',
+    className: 'bg-[#ffdbfb]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #ffdbfb',
   },
   'F-4': {
-    color: '#fff7db',
+    className: 'bg-[#fff7db]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #fff7db',
   },
   'F-5': {
-    color: '#e5ffdc',
+    className: 'bg-[#e5ffdc]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #e5ffdc',
   },
   'F-6': {
-    color: '#c4f0e6',
+    className: 'bg-[#c4f0e6]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #c4f0e6',
   },
   'F-7': {
-    color: '#dbf2ff',
+    className: 'bg-[#dbf2ff]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #dbf2ff',
   },
   'F-8': {
-    color: '#e6daff',
+    className: 'bg-[#e6daff]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #e6daff',
   },
 } as const
 
