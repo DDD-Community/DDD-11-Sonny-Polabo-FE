@@ -26,6 +26,8 @@ export const postPolaroid = async (
   return result.data
 }
 
-export const deletePolaroid = (polaroidId: number) => {
-  return deleteApi(`/api/v1/polaroids/${polaroidId}`)
+export const deletePolaroid = async (polaroidId: number, boardId: string) => {
+  await deleteApi(`/api/v1/polaroids/${polaroidId}`)
+
+  revalidateTag(`board:${boardId}`)
 }

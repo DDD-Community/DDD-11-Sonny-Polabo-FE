@@ -7,34 +7,35 @@ import PolaroidListItem from './PolaroidListItem'
 
 interface PolaroidListProps {
   polaroids: Polaroid[]
+  boardId: string
 }
 
-const PolaroidList = ({ polaroids }: PolaroidListProps) => {
+const PolaroidList = ({ polaroids, boardId }: PolaroidListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedPolaroid, setSelectedPolaroid] = useState<Polaroid | null>(
-    null,
-  )
+  const [selectedIdx, setSelectedIdx] = useState<number>(0)
 
-  const openDetailModal = (polaroid: Polaroid) => {
-    setSelectedPolaroid(polaroid)
+  const openDetailModal = (idx: number) => {
+    setSelectedIdx(idx)
     setIsModalOpen(true)
   }
 
   return (
     <div className="mx-auto w-full flex-1 overflow-x-hidden overflow-y-scroll pb-10 scrollbar-hide">
       <div className="grid grid-cols-2 gap-6 px-[20px] py-[10px]">
-        {polaroids.map((item) => (
+        {polaroids.map((item, idx) => (
           <PolaroidListItem
             key={item.id}
             item={item}
-            onClick={() => openDetailModal(item)}
+            onClick={() => openDetailModal(idx)}
           />
         ))}
       </div>
       <PolaroidDetailModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        polaroid={selectedPolaroid}
+        selectedIdx={selectedIdx}
+        polaroids={polaroids}
+        boardId={boardId}
       />
     </div>
   )
