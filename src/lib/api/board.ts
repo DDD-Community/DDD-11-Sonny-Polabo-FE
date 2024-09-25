@@ -36,3 +36,10 @@ export const getBoardAvailableCount = async (): Promise<number> => {
 
   return res.data
 }
+
+export const getBoardNameRecommendations = async (): Promise<string[]> => {
+  const res = await get('/api/v1/boards/recommend-title')
+
+  console.log(res.data)
+  return res.data
+}
