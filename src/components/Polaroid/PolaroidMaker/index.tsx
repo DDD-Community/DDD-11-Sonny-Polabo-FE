@@ -8,7 +8,6 @@ import {
 import imageCompression from 'browser-image-compression'
 import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
 import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
-import { twJoin } from 'tailwind-merge'
 import { FontKeyType, ThemaKeyType } from '@/types'
 import PolaroidImageInput from './PolaroidImageInput'
 import PolaroidMessageInput from './PolaroidMessageInput'
@@ -85,7 +84,7 @@ const PolaroidMaker = ({
 
   return (
     <PolaroidFrame
-      className={twJoin('mx-auto flex flex-col overflow-y-hidden')}
+      className="mx-auto flex flex-col overflow-y-hidden"
       fontKey={fontKey}
       themaKey={themaKey}
     >
