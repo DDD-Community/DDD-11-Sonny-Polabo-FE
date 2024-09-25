@@ -5,7 +5,6 @@ import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 import BoardAvailabilityCheckModal from './_components/BoardAvailabilityCheckModal'
 import BoardNameForm from './_components/BoardNameForm'
-import BoardNameRecommendations from './_components/BoardNameRecommendations'
 
 const CreateBoardPage = () => {
   const createBoard = async (title: string) => {
@@ -27,9 +26,7 @@ const CreateBoardPage = () => {
         className="object-contain px-20 pt-6"
       />
       <BoardAvailabilityCheckModal />
-      <BoardNameForm createBoard={createBoard}>
-        <BoardNameRecommendations />
-      </BoardNameForm>
+      <BoardNameForm createBoard={createBoard} />
     </div>
   )
 }
