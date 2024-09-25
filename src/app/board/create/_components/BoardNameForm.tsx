@@ -2,16 +2,16 @@
 
 import Button from '@/components/Button'
 import TextInput from '@/components/TextInput'
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
+import BoardNameRecommendations from '@/app/board/create/_components/BoardNameRecommendations'
 
 const MAX_BOARD_NAME_LENGTH = 15
 
 interface BoardNameFormProps {
-  children: ReactNode
   createBoard: (title: string) => void
 }
 
-const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
+const BoardNameForm = ({ createBoard }: BoardNameFormProps) => {
   const [title, setTitle] = useState('')
   const [hasError, setHasError] = useState(false)
   const isEmpty = title.length === 0
@@ -39,7 +39,7 @@ const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
           setValue={onInput}
         />
       </div>
-      {children}
+      <BoardNameRecommendations setBoardName={setTitle} />
       <Button
         type="submit"
         size="lg"
