@@ -1,12 +1,15 @@
 'use server'
 
 import { getPreSignedUrl, postPolaroid, uploadImage } from '@/lib'
+import { FontKeyType, ThemaKeyType } from '@/types'
 
 export const uploadAction = async (id: string, formData: FormData) => {
   try {
     const fileInput = formData.get('fileInput')
     const oneLineMessage = formData.get('oneLineMessage')
     const nickname = formData.get('nickname')
+    const font = formData.get('font')
+    const thema = formData.get('thema')
 
     if (!fileInput || !(fileInput instanceof File)) {
       throw new Error('Invalid file input')
@@ -20,6 +23,10 @@ export const uploadAction = async (id: string, formData: FormData) => {
       imageKey,
       oneLineMessage: oneLineMessage as string,
       nickname: nickname as string,
+      options: {
+        FONT: font as FontKeyType,
+        THEMA: thema as ThemaKeyType,
+      },
     })
     return res
   } catch (error) {

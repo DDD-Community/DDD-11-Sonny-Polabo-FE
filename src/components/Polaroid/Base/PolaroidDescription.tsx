@@ -1,17 +1,23 @@
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { ThemaKeyType } from '@/types'
+import { THEMAS } from '@/lib'
+
+interface PolaroidDescriptionProps extends HTMLAttributes<HTMLDivElement> {
+  themaKey: ThemaKeyType
+}
 
 const PolaroidDescription = ({
   children,
   className,
+  themaKey,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => {
+}: PolaroidDescriptionProps) => {
   return (
     <div
       className={`${twMerge('flex flex-col gap-0.5 px-4 pb-2', className)}`}
       style={{
-        background:
-          'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #EAEAEA',
+        background: THEMAS[themaKey].descriptionStyle,
       }}
       {...props}
     >
