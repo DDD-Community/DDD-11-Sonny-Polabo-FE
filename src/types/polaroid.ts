@@ -3,6 +3,7 @@ export interface Polaroid {
   imageUrl: string
   oneLineMessage: string
   nickname: string
+  mine: boolean
   options: {
     FONT: FontKeyType
     THEMA: ThemaKeyType
