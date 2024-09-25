@@ -11,11 +11,15 @@ interface PolaroidItemProps {
 
 const PolaroidItem = ({ polaroid }: PolaroidItemProps) => {
   return (
-    <PolaroidFrame className="mx-auto flex w-[272px] touch-pinch-zoom flex-col overflow-y-hidden">
+    <PolaroidFrame
+      className="mx-auto flex w-[272px] touch-pinch-zoom flex-col overflow-y-hidden"
+      themaKey={polaroid.options.THEMA}
+      fontKey={polaroid.options.FONT}
+    >
       <div className="mt-5 px-3">
         <PolaroidImage imageUrl={polaroid.imageUrl} />
       </div>
-      <PolaroidDescription>
+      <PolaroidDescription themaKey={polaroid.options.THEMA}>
         <PolaroidMessage
           className="min-h-6 text-xl"
           message={polaroid.oneLineMessage}
