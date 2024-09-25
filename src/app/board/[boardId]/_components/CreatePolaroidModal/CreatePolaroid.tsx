@@ -6,6 +6,7 @@ import FontSelect from '@/app/board/[boardId]/_components/CreatePolaroidModal/Fo
 import UploadBtn from '@/app/board/[boardId]/_components/CreatePolaroidModal/UploadBtn'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FontKeyType, ThemaKeyType } from '@/types'
+import PolaroidIcon from 'public/icons/polaroid.svg'
 
 interface CreatePolaroidProps {
   image: File | null
@@ -80,9 +81,10 @@ const CreatePolaroid = ({
               폰트 고르기
             </TagButton>
             <TagButton
-              className="py-2.5 text-sm leading-4"
+              className="flex gap-2 p-2.5 text-sm leading-4"
               onClick={() => setShowThemaSelect((prev) => !prev)}
             >
+              <PolaroidIcon />
               프레임 고르기
             </TagButton>
           </div>
