@@ -81,12 +81,12 @@ const BoardNameRecommendations = ({
       </div>
       <div className="mb-20 flex flex-col gap-3">
         <RecommendationBtns
-          recommendations={recommendations}
+          recommendations={recommendations.slice(0, 8)}
           setBoardName={setBoardName}
           direction="left"
         />
         <RecommendationBtns
-          recommendations={recommendations}
+          recommendations={recommendations.slice(8)}
           setBoardName={setBoardName}
           direction="right"
         />
