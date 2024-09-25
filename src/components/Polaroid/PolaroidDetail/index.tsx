@@ -46,26 +46,9 @@ const PolaroidDetailModal = ({
     deletePolaroid(polaroids[currentSlide - 1].id, boardId)
   }
 
-  // 모달 뒤쪽 보드에 스크롤 방지
-  useEffect(() => {
-    const preventDefault = (e: Event) => e.preventDefault()
-
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-      document.addEventListener('touchmove', preventDefault, { passive: false })
-      document.addEventListener('wheel', preventDefault, { passive: false })
-    }
-
-    return () => {
-      document.body.style.overflow = ''
-      document.removeEventListener('touchmove', preventDefault)
-      document.removeEventListener('wheel', preventDefault)
-    }
-  }, [isOpen])
-
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOutsideClick={false}>
-      <div className="relative mx-auto flex h-dvh max-w-md flex-1 flex-col justify-center overflow-x-hidden py-10">
+      <div className="relative mx-auto flex h-dvh max-w-md flex-1 touch-pan-x flex-col justify-center overflow-x-hidden py-10">
         <CloseIcon
           className="absolute left-5 top-5 cursor-pointer text-gray-0"
           onClick={onClose}
