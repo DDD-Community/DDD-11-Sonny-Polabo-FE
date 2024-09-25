@@ -31,7 +31,7 @@ const PolaroidNicknameInput = ({
 
     const resizeObserver = new ResizeObserver(() => {
       if (element) {
-        setWidth(element.offsetWidth)
+        setWidth(Math.max(50, element.offsetWidth) + 10)
       }
     })
 
@@ -45,14 +45,6 @@ const PolaroidNicknameInput = ({
       }
     }
   }, [])
-
-  useEffect(() => {
-    if (!ref.current) {
-      return
-    }
-
-    setWidth(Math.max(50, ref.current.offsetWidth) + 10)
-  }, [nickname, placeholder])
 
   const onFocus = () => {
     setShowBorder(true)
@@ -82,6 +74,7 @@ const PolaroidNicknameInput = ({
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
+          autoComplete="off"
           name="oneLineMessage"
           style={{
             width: `${width}px`,
