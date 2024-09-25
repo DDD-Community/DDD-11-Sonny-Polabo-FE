@@ -65,7 +65,7 @@ const ThemaSelect = ({
           onClick={() => setShowThemaSelect(false)}
         />
       </div>
-      <div className="mx-12 overflow-y-scroll pb-5 pt-10 scrollbar-hide">
+      <div className="mx-12 overflow-y-scroll overscroll-none pb-5 pt-10 scrollbar-hide">
         <div className="grid grid-cols-2 gap-3">
           {Object.entries(THEMAS).map(([key]) => (
             <ThemaSelectItem
