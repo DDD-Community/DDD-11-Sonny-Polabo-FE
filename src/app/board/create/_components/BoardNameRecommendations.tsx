@@ -74,6 +74,10 @@ const BoardNameRecommendations = ({
     })
   }, [])
 
+  if (!recommendations.length) {
+    return null
+  }
+
   return (
     <div>
       <div className="my-5 text-center text-sm leading-4 text-gray-400">
