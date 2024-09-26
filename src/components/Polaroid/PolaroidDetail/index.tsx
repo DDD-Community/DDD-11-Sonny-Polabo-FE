@@ -54,7 +54,7 @@ const PolaroidDetailModal = ({
           onClick={onClose}
         />
 
-        <div className="overflow-x-hidden">
+        <div className="touch-pan-x overflow-x-hidden">
           <Carousel
             ref={carouselRef}
             swipeable
