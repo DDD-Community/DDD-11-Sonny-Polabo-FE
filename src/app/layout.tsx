@@ -78,7 +78,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable} ${Eunyoung.variable} ${Ttaerom.variable} ${Hipi.variable}`}
+        className={`${PretendVariable.variable} ${Jooree.variable} ${Hesom.variable} ${Eunyoung.variable} ${Ttaerom.variable} ${Hipi.variable} overscroll-none`}
       >
         <AuthSession>
           <CheckNewUser />
