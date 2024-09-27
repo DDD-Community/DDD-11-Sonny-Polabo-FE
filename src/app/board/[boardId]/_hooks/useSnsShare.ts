@@ -94,12 +94,12 @@ const useSnsShare = () => {
 
     let url
     if (isIOS) {
-      url = 'https://www.instagram.com/direct'
+      url = 'https://www.instagram.com/direct/inbox'
     } else if (isAndroid) {
       url =
         'intent://instagram.com/direct/inbox/#Intent;scheme=https;package=com.instagram.android;end'
     } else {
-      url = 'https://www.instagram.com/'
+      url = 'https://www.instagram.com/direct/inbox/'
     }
 
     window.open(url)
