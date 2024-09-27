@@ -5,6 +5,7 @@ import { THEMAS } from '@/lib'
 import { useEffect, useState } from 'react'
 import Button from '@/components/Button'
 import ArrowBackIcon from 'public/icons/arrow_back_ios.svg'
+import CheckIcon from 'public/icons/check.svg'
 
 interface ThemaSelectItemProps {
   themaType: ThemaKeyType
@@ -20,10 +21,14 @@ const ThemaSelectItem = ({
   return (
     <div
       className={twMerge(
-        'flex items-center justify-center rounded-lg border-2 bg-gray-700 px-7 py-[22px]',
+        'relative flex items-center justify-center rounded-lg border-2 bg-gray-700 px-7 py-[22px]',
         isCurrentThema ? 'border-gray-100' : 'border-gray-700',
       )}
     >
+      {isCurrentThema && (
+        <CheckIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+10px)] scale-[3] text-gray-0" />
+      )}
+
       <Image
         src={`/images/polaroidThemas/${themaType}.png`}
         alt="polabo"
@@ -58,7 +63,7 @@ const ThemaSelect = ({
   }
 
   return (
-    <div className="relative flex h-dvh w-full max-w-md touch-pan-y flex-col items-center justify-between">
+    <div className="relative flex h-dvh w-full max-w-md touch-pan-y flex-col items-center justify-between bg-gray-900/50">
       <div className="absolute left-5 top-10">
         <ArrowBackIcon
           className="h-6 w-6 text-gray-0"

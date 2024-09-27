@@ -5,6 +5,8 @@ import CloseIcon from 'public/icons/close.svg'
 import { useEffect, useRef, useState } from 'react'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import RightBtn from 'public/icons/carousel-arrow-right.svg'
+import LeftBtn from 'public/icons/carousel-arrow-left.svg'
 import PolaroidDeleteBtn from './PolaroidDeleteBtn'
 import PolaroidItem from './PolaroidItem'
 
@@ -46,6 +48,17 @@ const PolaroidDetailModal = ({
     deletePolaroid(polaroids[currentSlide - 1].id, boardId)
   }
 
+  const onRightClick = () => {
+    if (carouselRef.current) {
+      carouselRef.current.goToSlide(currentSlide + 1)
+    }
+  }
+  const onLeftClick = () => {
+    if (carouselRef.current) {
+      carouselRef.current.goToSlide(currentSlide - 1)
+    }
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOutsideClick={false}>
       <div className="relative mx-auto flex h-dvh max-w-md flex-1 touch-pan-x flex-col justify-center overflow-x-hidden py-10">
@@ -54,7 +67,7 @@ const PolaroidDetailModal = ({
           onClick={onClose}
         />
 
-        <div className="overflow-x-hidden">
+        <div className="relative touch-pan-x overflow-x-hidden">
           <Carousel
             ref={carouselRef}
             swipeable
@@ -84,6 +97,19 @@ const PolaroidDetailModal = ({
               {` / ${polaroids.length}`}
             </span>
           </div>
+
+          {currentSlide > 1 && (
+            <LeftBtn
+              className="absolute left-2 top-1/2 hidden -translate-y-1/2 transform cursor-pointer md:block"
+              onClick={onLeftClick}
+            />
+          )}
+          {currentSlide < polaroids.length && (
+            <RightBtn
+              className="absolute right-2 top-1/2 hidden -translate-y-1/2 transform cursor-pointer md:block"
+              onClick={onRightClick}
+            />
+          )}
         </div>
 
         {isBoardOwner && (
