@@ -94,10 +94,10 @@ const useSnsShare = () => {
 
     let url
     if (isIOS) {
-      url = 'https://www.instagram.com/create/story'
+      url = 'https://www.instagram.com/direct'
     } else if (isAndroid) {
       url =
-        'intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end'
+        'intent://instagram.com/direct/inbox/#Intent;scheme=https;package=com.instagram.android;end'
     } else {
       url = 'https://www.instagram.com/'
     }
