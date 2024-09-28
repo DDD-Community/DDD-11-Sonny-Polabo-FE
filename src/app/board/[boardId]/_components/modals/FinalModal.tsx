@@ -11,10 +11,10 @@ const FinalModal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Modal.CenterModal icon={<SurprisedIcon />}>
-        <Modal.Title>
-          {'업로드 후에는\n 수정 및 삭제가 불가합니다.'}
-        </Modal.Title>
-        <Modal.Content>폴라로이드를 업로드 할까요?</Modal.Content>
+        <Modal.Title>폴라로이드를 업로드 할까요?</Modal.Title>
+        <Modal.Content>
+          {'업로드 후에는 수정 및 삭제가 \n 불가합니다.'}
+        </Modal.Content>
 
         <Modal.BottomConfirmCancel
           cancelText="아니요"

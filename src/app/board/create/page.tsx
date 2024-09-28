@@ -3,9 +3,9 @@ import PolaboLogo from 'public/images/polabo_logo.png'
 import { postBoard } from '@/lib'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
+import BoardNameRecommendations from '@/app/board/create/_components/BoardNameRecommendations'
 import BoardAvailabilityCheckModal from './_components/BoardAvailabilityCheckModal'
 import BoardNameForm from './_components/BoardNameForm'
-import BoardNameRecommendations from './_components/BoardNameRecommendations'
 
 const CreateBoardPage = () => {
   const createBoard = async (title: string) => {

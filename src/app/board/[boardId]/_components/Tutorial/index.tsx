@@ -49,7 +49,6 @@ const Tutorial = ({
         zIndex: 10,
         boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
         pointerEvents: 'none',
-        // border: '2px dotted red',
       })
 
       setTopBox({

@@ -18,23 +18,20 @@ const UploadBtn = ({ submitForm, btnDisabled }: UploadBtnProps) => {
   }
 
   return (
-    <div>
-      <div className="px-5">
-        <Button
-          onClick={() => setShowFinalModal(true)}
-          size="lg"
-          className="w-full"
-          disabled={isPending || btnDisabled}
-        >
-          업로드하기
-        </Button>
-      </div>
+    <>
+      <Button
+        onClick={() => setShowFinalModal(true)}
+        size="lg"
+        disabled={isPending || btnDisabled}
+      >
+        업로드하기
+      </Button>
       <FinalModal
         isOpen={showFinalModal}
         onClose={() => setShowFinalModal(false)}
         onConfirm={onSubmit}
       />
-    </div>
+    </>
   )
 }
 

@@ -2,7 +2,7 @@
 
 import { revalidateTag } from 'next/cache'
 import { CreatePolaroidPayload, Polaroid } from '@/types'
-import { get, post } from './base'
+import { deleteApi, get, post } from './base'
 
 export const getPolaroid = (id: string): Promise<Polaroid> => {
   return get(`/api/v1/polaroids/${id}`, {
@@ -24,4 +24,10 @@ export const postPolaroid = async (
   revalidateTag('myBoard')
 
   return result.data
+}
+
+export const deletePolaroid = async (polaroidId: number, boardId: string) => {
+  await deleteApi(`/api/v1/polaroids/${polaroidId}`)
+
+  revalidateTag(`board:${boardId}`)
 }

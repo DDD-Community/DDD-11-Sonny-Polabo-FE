@@ -12,11 +12,16 @@ interface PolaroidCardProps {
 
 function PolaroidCard({ polaroid, onClick = () => {} }: PolaroidCardProps) {
   return (
-    <PolaroidFrame className="cursor-pointer" onClick={onClick}>
+    <PolaroidFrame
+      className="cursor-pointer"
+      onClick={onClick}
+      themaKey={polaroid.options.THEMA}
+      fontKey={polaroid.options.FONT}
+    >
       <div className="p-2">
         <PolaroidImage imageUrl={polaroid.imageUrl} />
       </div>
-      <PolaroidDescription>
+      <PolaroidDescription themaKey={polaroid.options.THEMA}>
         <PolaroidMessage
           className="h-6 text-sm leading-5"
           message={polaroid.oneLineMessage}

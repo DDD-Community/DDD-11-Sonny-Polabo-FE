@@ -2,7 +2,7 @@
 
 import Button from '@/components/Button'
 import TextInput from '@/components/TextInput'
-import { ReactNode, useState } from 'react'
+import { useState, ReactNode } from 'react'
 
 const MAX_BOARD_NAME_LENGTH = 15
 
