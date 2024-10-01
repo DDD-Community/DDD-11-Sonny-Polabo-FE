@@ -8,15 +8,15 @@ import GoToLoginModal from './GoToLoginModal'
 
 const CreateBoardBtn = () => {
   const router = useRouter()
-  const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   const { status } = useSession()
 
-  const handleClick = () => {
+  const handleCreateButtonClick = () => {
     if (status === 'authenticated') {
       router.push('/board/create')
     } else {
-      setLoginModalOpen(true)
+      setIsLoginModalOpen(true)
     }
   }
 
@@ -25,13 +25,13 @@ const CreateBoardBtn = () => {
       <Button
         size="lg"
         className="mb-3 shadow-[0px_0px_20px_0px_rgba(255,255,255,0.6)]"
-        onClick={handleClick}
+        onClick={handleCreateButtonClick}
       >
         보드 만들기
       </Button>
       <GoToLoginModal
-        isOpen={loginModalOpen}
-        onClose={() => setLoginModalOpen(false)}
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
       />
     </>
   )

@@ -1,20 +1,19 @@
 'use client'
 
 import LinkIcon from 'public/icons/linkcopy.svg'
-import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
-import Modal from '@/components/Modal'
 import { useState } from 'react'
+import LinkCopiedModal from '@/app/(home)/_components/LinkCopiedModal'
+import { copyToClipboard } from '@/lib/utils'
 
 const CopyLinkBtn = () => {
-  const [showLinkCopyModal, setShowLinkCopyModal] = useState(false)
+  const [isLinkCopiedModalOpen, setIsLinkCopiedModalOpen] = useState(false)
 
-  const closeModal = () => setShowLinkCopyModal(false)
+  const openLinkCopiedModal = () => setIsLinkCopiedModalOpen(true)
+  const closeLinkCopiedModal = () => setIsLinkCopiedModalOpen(false)
 
-  const copyLink = () => {
+  const copyCurrentUrl = () => {
     const currentURL = window.location.href
-    return navigator.clipboard.writeText(currentURL).then(() => {
-      setShowLinkCopyModal(true)
-    })
+    return copyToClipboard(currentURL).then(openLinkCopiedModal)
   }
 
   return (
@@ -26,17 +25,14 @@ const CopyLinkBtn = () => {
         type="button"
         className="rounded-[30px] bg-gray-100 p-3 shadow-[0_4px_8px_0_rgba(0,0,0,0.15)]"
         aria-label="copy link"
-        onClick={copyLink}
+        onClick={copyCurrentUrl}
       >
         <LinkIcon />
       </button>
-      <Modal isOpen={showLinkCopyModal} onClose={closeModal}>
-        <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
-          <Modal.Title>링크가 복사되었습니다!</Modal.Title>
-          <Modal.Content>{'POLABO를\n 지인들에게도 알려주세요!'}</Modal.Content>
-          <Modal.CenterConfirm confirmText="확인" />
-        </Modal.CenterModal>
-      </Modal>
+      <LinkCopiedModal
+        isOpen={isLinkCopiedModalOpen}
+        onClose={closeLinkCopiedModal}
+      />
     </>
   )
 }
