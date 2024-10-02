@@ -7,7 +7,7 @@ export type Validation<T> = {
 
 export const useInputValidation = <T>(
   initialValue: T,
-  validations: Validation<T>[],
+  validations: Validation<T>[] = [],
 ) => {
   const [value, setValue] = useState<T>(initialValue)
   const [isDirty, setIsDirty] = useState(false)
