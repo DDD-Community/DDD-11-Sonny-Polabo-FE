@@ -42,7 +42,7 @@ const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
         disabled={isInvalid}
         onClick={() => createBoard(boardName)}
       >
-        완료
+        다음
       </Button>
     </>
   )
