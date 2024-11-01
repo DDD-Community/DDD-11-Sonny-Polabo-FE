@@ -1,4 +1,5 @@
 import { Polaroid } from '@/types'
+import { getPolaroidStyle } from '@/lib/utils/polaroid'
 import PolaroidDescription from '../Base/PolaroidDescription'
 import PolaroidFrame from '../Base/PolaroidFrame'
 import PolaroidImage from '../Base/PolaroidImage'
@@ -16,7 +17,10 @@ const PolaroidItem = ({ polaroid }: PolaroidItemProps) => {
       themaKey={polaroid.options.THEMA}
       fontKey={polaroid.options.FONT}
     >
-      <div className="mt-5 px-3">
+      <div
+        className="px-3 pb-3 pt-5"
+        style={getPolaroidStyle(polaroid.options.THEMA)}
+      >
         <PolaroidImage imageUrl={polaroid.imageUrl} />
       </div>
       <PolaroidDescription themaKey={polaroid.options.THEMA}>

@@ -9,6 +9,7 @@ import imageCompression from 'browser-image-compression'
 import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
 import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import { FontKeyType, ThemaKeyType } from '@/types'
+import { getPolaroidStyle } from '@/lib/utils/polaroid'
 import PolaroidImageInput from './PolaroidImageInput'
 import PolaroidMessageInput from './PolaroidMessageInput'
 import PolaroidNicknameInput from './PolaroidNicknameInput'
@@ -88,7 +89,7 @@ const PolaroidMaker = ({
       fontKey={fontKey}
       themaKey={themaKey}
     >
-      <div className="mt-5 px-3">
+      <div className="px-3 pb-3 pt-5" style={getPolaroidStyle(themaKey)}>
         <PolaroidImageInput
           imageUrl={previewFile}
           changeImage={handleImageChange}

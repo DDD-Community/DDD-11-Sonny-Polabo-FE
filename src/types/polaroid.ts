@@ -37,6 +37,9 @@ export type ThemaKeyType =
   | 'F-6'
   | 'F-7'
   | 'F-8'
+  | 'F-9'
+  | 'F-10'
+  | 'F-11'
 
 export interface ThemaType {
   className: string

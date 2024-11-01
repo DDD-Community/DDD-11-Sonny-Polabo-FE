@@ -4,6 +4,7 @@ import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
 import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import PolaroidMessage from '@/components/Polaroid/Base/PolaroidMessage'
 import PolaroidNickname from '@/components/Polaroid/Base/PolaroidNickname'
+import { getPolaroidStyle } from '@/lib/utils/polaroid'
 
 interface PolaroidCardProps {
   polaroid: Polaroid
@@ -18,7 +19,7 @@ function PolaroidCard({ polaroid, onClick = () => {} }: PolaroidCardProps) {
       themaKey={polaroid.options.THEMA}
       fontKey={polaroid.options.FONT}
     >
-      <div className="p-2">
+      <div className="p-2" style={getPolaroidStyle(polaroid.options.THEMA)}>
         <PolaroidImage imageUrl={polaroid.imageUrl} />
       </div>
       <PolaroidDescription themaKey={polaroid.options.THEMA}>
