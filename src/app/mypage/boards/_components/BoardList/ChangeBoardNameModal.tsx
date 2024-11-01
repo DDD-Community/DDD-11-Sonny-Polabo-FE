@@ -49,7 +49,7 @@ const ChangeBoardNameModal = ({
     >
       <Modal.CenterModal icon={<ClipIcon className="translate-y-2" />}>
         <Modal.Close />
-        <Modal.Title>보드 주제 수정</Modal.Title>
+        <Modal.Title>보드 이름 수정</Modal.Title>
         <div className="mt-3">
           <TextInput
             errorMessage={`${MAX_BOARD_NAME_LENGTH}자 이내로 입력 가능해요`}

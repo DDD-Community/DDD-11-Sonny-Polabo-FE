@@ -4,6 +4,7 @@ import { postBoard } from '@/lib'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 import BoardNameRecommendations from '@/app/board/create/_components/BoardNameRecommendations'
+import BackButton from '@/app/board/create/_components/BackButton'
 import BoardAvailabilityCheckModal from './_components/BoardAvailabilityCheckModal'
 import BoardNameForm from './_components/BoardNameForm'
 
@@ -20,7 +21,8 @@ const CreateBoardPage = () => {
     redirect(`/board/${boardId}`)
   }
   return (
-    <div className="flex h-dvh flex-col items-center justify-between px-5">
+    <div className="relative flex h-dvh flex-col items-center justify-between px-5">
+      <BackButton />
       <Image
         src={PolaboLogo}
         alt="logo"

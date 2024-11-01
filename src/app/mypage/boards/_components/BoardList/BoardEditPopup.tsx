@@ -21,7 +21,7 @@ const BoardEditPopup = ({
           className="border-b border-b-gray-300 py-2 pl-[22px] text-sm text-gray-950"
           onClick={clickChangeName}
         >
-          <span>보드 주제 수정하기</span>
+          <span>보드 이름 수정하기</span>
         </div>
         <div
           className="py-2 pl-[22px] text-sm text-negative"

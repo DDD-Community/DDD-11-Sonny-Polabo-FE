@@ -24,7 +24,7 @@ const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
     <>
       <div>
         <div className="py-9 text-center text-xl font-thin leading-8 text-gray-900">
-          보드 주제를 정해주세요!
+          보드 이름을 정해주세요!
         </div>
         <TextInput
           errorMessage={errorMessage}
@@ -42,7 +42,7 @@ const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
         disabled={isInvalid}
         onClick={() => createBoard(boardName)}
       >
-        완료
+        다음
       </Button>
     </>
   )
