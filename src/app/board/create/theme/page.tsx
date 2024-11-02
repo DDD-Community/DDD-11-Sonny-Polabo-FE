@@ -1,7 +1,9 @@
 import Header from '@/components/Header'
-// import { postBoard } from '@/lib'
-// import { revalidateTag } from 'next/cache'
-// import { redirect } from 'next/navigation'
+import { postBoard } from '@/lib'
+import { revalidateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { BoardThemaKeyType } from '@/types'
+import ThemaSelect from './_components/ThemaSelect'
 
 interface PageProps {
   searchParams: {
@@ -12,26 +14,33 @@ interface PageProps {
 const CreateBoardThemePage = ({ searchParams }: PageProps) => {
   const { title } = searchParams
 
-  //   const createBoard = async () => {
-  //     'use server'
+  const createBoard = async (
+    boardName: string,
+    boardThema: BoardThemaKeyType,
+  ) => {
+    'use server'
 
-  //     const boardId = await postBoard({
-  //       title,
-  //       userId: null,
-  //     })
+    const boardId = await postBoard({
+      title: boardName,
+      userId: null,
+      options: {
+        THEMA: boardThema,
+      },
+    })
 
-  //     revalidateTag('myBoard')
+    revalidateTag('myBoard')
 
-  //     redirect(`/board/${boardId}`)
-  //   }
+    redirect(`/board/${boardId}`)
+  }
 
   return (
-    <div>
+    <div className="h-dvh">
       <Header
         title="보드 테마를 선택해주세요!"
         leftButton={<Header.BackButton />}
+        shadow={false}
       />
-      <div>{title}</div>
+      <ThemaSelect createBoard={createBoard} boardName={title} />
     </div>
   )
 }
