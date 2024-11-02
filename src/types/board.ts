@@ -4,6 +4,9 @@ export interface Board {
   title: string
   items: Polaroid[]
   mine: boolean
+  options: {
+    THEMA: BoardThemaKeyType
+  }
 }
 
 export interface CreateBoardPayload {

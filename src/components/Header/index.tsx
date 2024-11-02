@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import HeaderBackButton from '@/components/Header/HeaderBackButton'
+import { twMerge } from 'tailwind-merge'
 
 interface HeaderProps {
   title?: ReactNode
@@ -7,6 +8,7 @@ interface HeaderProps {
   leftButton?: ReactNode
   rightButton?: ReactNode
   shadow?: boolean
+  className?: string
 }
 
 const Header = ({
@@ -15,14 +17,18 @@ const Header = ({
   leftButton = null,
   rightButton = null,
   shadow = true,
+  className = '',
 }: HeaderProps) => {
   return (
     <>
       <header
-        className={`fixed z-10 flex h-16 w-full max-w-md justify-between bg-gray-0 p-5 ${shadow && 'shadow-header'}`}
+        className={twMerge(
+          `fixed z-10 flex h-16 w-full max-w-md justify-between bg-gray-0 p-5 ${shadow && 'shadow-header'}`,
+          className,
+        )}
       >
         <div className="w-6 cursor-pointer">{leftButton}</div>
-        <div className="text-gray-700">
+        <div className="text-gray-900">
           <div className="text-center text-md font-semiBold leading-6">
             {title}
           </div>

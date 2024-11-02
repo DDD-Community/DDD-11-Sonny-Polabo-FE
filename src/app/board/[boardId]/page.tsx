@@ -56,9 +56,14 @@ const BoardPage = async ({ params }: BoardPageProps) => {
 
   const session = await auth()
 
+  const background = `/images/boardThemas/${board.options.THEMA}.png`
+
   return (
     <TutorialProvider>
-      <div className="relative flex h-dvh flex-col bg-gray-50">
+      <div
+        className="relative flex h-dvh flex-col bg-cover"
+        style={{ backgroundImage: `url(${background})` }}
+      >
         <Header
           title={
             <div className="flex items-center justify-center gap-[3px] text-center">
@@ -76,6 +81,8 @@ const BoardPage = async ({ params }: BoardPageProps) => {
               <ShareBtn boardName={board.title} />
             )
           }
+          className="bg-transparent"
+          shadow={false}
         />
         {board.items.length === 0 ? (
           <Empty />
