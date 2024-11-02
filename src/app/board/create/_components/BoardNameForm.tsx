@@ -4,13 +4,13 @@ import Button from '@/components/Button'
 import TextInput from '@/components/TextInput'
 import { ReactNode } from 'react'
 import { useBoardName } from '@/hooks/useBoardName'
+import { useRouter } from 'next/navigation'
 
 interface BoardNameFormProps {
   children: ReactNode
-  createBoard: (title: string) => void
 }
 
-const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
+const BoardNameForm = ({ children }: BoardNameFormProps) => {
   const {
     boardName,
     setBoardName,
@@ -19,6 +19,8 @@ const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
     errorMessage,
     description,
   } = useBoardName()
+
+  const router = useRouter()
 
   return (
     <>
@@ -40,7 +42,7 @@ const BoardNameForm = ({ children, createBoard }: BoardNameFormProps) => {
         size="lg"
         className="mb-12"
         disabled={isInvalid}
-        onClick={() => createBoard(boardName)}
+        onClick={() => router.push(`/board/create/theme?title=${boardName}`)}
       >
         다음
       </Button>
