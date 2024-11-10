@@ -25,7 +25,7 @@ const PolaroidItem = ({ polaroid }: PolaroidItemProps) => {
       </div>
       <PolaroidDescription themaKey={polaroid.options.THEMA}>
         <PolaroidMessage
-          className="min-h-6 text-xl"
+          className="max-h-[52px] min-h-[25px] whitespace-normal text-xl leading-6"
           message={polaroid.oneLineMessage}
         />
         <PolaroidNickname
