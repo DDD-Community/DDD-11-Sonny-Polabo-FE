@@ -64,7 +64,7 @@ const ThemaSelect = ({ createBoard, boardName }: ThemaSelectProps) => {
 
   return (
     <div className="flex h-[calc(100%-64px)] flex-col">
-      <div className="grid h-full auto-rows-min grid-cols-2 gap-2.5 overflow-y-scroll px-4 pt-3">
+      <div className="grid h-full auto-rows-min grid-cols-2 gap-2.5 overflow-y-scroll px-4 pt-3 scrollbar-hide">
         {Object.entries(BOARDTHEMAS).map(([key]) => (
           <ThemaSelectItem
             key={key}
