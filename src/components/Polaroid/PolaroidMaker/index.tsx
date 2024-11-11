@@ -31,7 +31,7 @@ interface PolaroidMakerProps {
   themaKey: ThemaKeyType
 }
 
-const MAX_MESSAGE_LENGTH = 20
+const MAX_MESSAGE_LENGTH = 30
 const MAX_FROM_LENGTH = 10
 
 const PolaroidMaker = ({
@@ -69,7 +69,7 @@ const PolaroidMaker = ({
     }
   }
 
-  const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > MAX_MESSAGE_LENGTH) {
       e.target.value = e.target.value.slice(0, MAX_MESSAGE_LENGTH)
     }
