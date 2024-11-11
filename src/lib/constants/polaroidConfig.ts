@@ -53,6 +53,21 @@ export const THEMAS: Record<ThemaKeyType, ThemaType> = {
     descriptionStyle:
       'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), #e6daff',
   },
+  'F-9': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #FAF0FE 0%, #F1CFFF 100%)',
+  },
+  'F-10': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #FFF9EA 0%, #FFDE83 100%)',
+  },
+  'F-11': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #FFE7F0 0%, #FFAECD 100%)',
+  },
 } as const
 
 export const FONTS: Record<FontKeyType, FontType> = {

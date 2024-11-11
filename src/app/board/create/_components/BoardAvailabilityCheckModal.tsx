@@ -1,20 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { getBoardAvailableCount } from '@/lib'
 import Modal from '@/components/Modal'
 import TwoPolaroidsIcon from 'public/icons/twopolaroids.svg'
 import { useRouter } from 'next/navigation'
+import { useBoardAvailability } from '@/hooks'
 
 const BoardAvailabilityCheckModal = () => {
-  const [showModal, setShowModal] = useState<boolean>(false)
   const router = useRouter()
-
-  useEffect(() => {
-    getBoardAvailableCount().then((availableBoardCount) => {
-      setShowModal(availableBoardCount === 0)
-    })
-  }, [])
+  const isBoardAvailable = useBoardAvailability()
 
   const redirectToHome = () => {
     router.replace('/')
@@ -23,8 +16,8 @@ const BoardAvailabilityCheckModal = () => {
   return (
     <Modal
       closeOnOutsideClick={false}
-      isOpen={showModal}
-      onClose={() => setShowModal(false)}
+      isOpen={!isBoardAvailable}
+      onClose={() => {}}
     >
       <Modal.CenterModal icon={<TwoPolaroidsIcon />}>
         <Modal.Title>

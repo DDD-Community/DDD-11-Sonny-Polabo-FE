@@ -41,7 +41,7 @@ const BirthDtForm = ({
           {'님의\n생일을 입력해주세요!'}
         </div>
         <p className="text-sm text-gray-400">
-          추가 정보를 입력하시면 나에게 딱 맞는 보드 주제를 추천해드려요 :)
+          추가 정보를 입력하시면 나에게 딱 맞는 보드 이름을 추천해드려요 :)
         </p>
 
         <div className="mx-auto mt-14">

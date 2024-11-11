@@ -33,7 +33,7 @@ export const Step2Tooltip = () => {
         trianglePos="-bottom-[0%] translate-y-[20%]"
       >
         <Tooltip.Content className="pl-[58px] text-left">
-          <span className="font-semiBold">보드 주제와 맞는 사진</span>
+          <span className="font-semiBold">보드 이름과 맞는 사진</span>
           {`을 올려 \n 보드를 꾸며주세요!`}
         </Tooltip.Content>
         <Tooltip.NextBtn hasNext={false} />
