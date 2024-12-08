@@ -13,6 +13,7 @@ import PolaroidIcon from 'public/icons/polaroid.svg'
 import { useState } from 'react'
 import Button from '@/components/Button'
 import Separator from '@/components/Separator'
+import { usePathname, useRouter } from 'next/navigation'
 import useSnsShare from '../../_hooks/useSnsShare'
 import { useTutorial } from '../Tutorial/TutorialContext'
 import Section from './Section'
@@ -21,6 +22,11 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
+
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const boardId = pathname.split('/board/')[1]
 
   const { run, nextStep } = useTutorial()
 
@@ -95,7 +101,12 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
           </Section>
           <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">
             <Separator />
-            <Button className="w-full">
+            <Button
+              className="w-full"
+              onClick={() => {
+                router.push(`/board/select?boardId=${boardId}`)
+              }}
+            >
               <div className="flex items-center justify-center gap-1">
                 내 보드 꾸미고 저장하기 <PolaroidIcon />
               </div>
