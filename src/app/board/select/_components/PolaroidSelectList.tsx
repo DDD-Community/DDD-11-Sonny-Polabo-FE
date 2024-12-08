@@ -29,9 +29,9 @@ const PolaroidSelectList = ({ board }: PolaroidSelectListProps) => {
     const { id } = board.items[idx]
 
     if (selectedIds.includes(id)) {
-      return 'border border-negative'
+      return 'border-2 border-negative'
     }
-    return 'border'
+    return 'border-2'
   }
 
   const onSelectComplete = () => {
