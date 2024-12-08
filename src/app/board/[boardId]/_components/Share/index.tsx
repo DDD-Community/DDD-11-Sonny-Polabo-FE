@@ -9,7 +9,10 @@ import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
+import PolaroidIcon from 'public/icons/polaroid.svg'
 import { useState } from 'react'
+import Button from '@/components/Button'
+import Separator from '@/components/Separator'
 import useSnsShare from '../../_hooks/useSnsShare'
 import { useTutorial } from '../Tutorial/TutorialContext'
 import Section from './Section'
@@ -57,8 +60,7 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
         <Modal.BottomModal icon={<TwoPolaroidsIcon className="scale-[2]" />}>
           <Modal.Close />
           <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
-          <div className="mt-[21px] h-px w-full bg-gray-200" />
-          <Section title="링크 공유">
+          <Section>
             <Section.Item
               icon={<CopyIcon className="-rotate-45 scale-150" />}
               bg="bg-gray-900"
@@ -91,6 +93,14 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
               onClick={() => handleShare(shareToFacebook)}
             />
           </Section>
+          <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">
+            <Separator />
+            <Button className="w-full">
+              <div className="flex items-center justify-center gap-1">
+                내 보드 꾸미고 저장하기 <PolaroidIcon />
+              </div>
+            </Button>
+          </div>
         </Modal.BottomModal>
       </Modal>
     </>
