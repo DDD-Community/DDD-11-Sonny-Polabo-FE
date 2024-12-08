@@ -1,7 +1,7 @@
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
-import PolaroidList from '@/components/PolaroidList'
 import BoardHeader from '@/app/board/[boardId]/_components/BoardHeader'
+import PolaroidDetailList from '@/app/board/[boardId]/_components/PolaroidDetailList'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
@@ -60,7 +60,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         {board.items.length === 0 ? (
           <Empty />
         ) : (
-          <PolaroidList board={board} boardId={boardId} />
+          <PolaroidDetailList board={board} boardId={boardId} />
         )}
 
         <ModalProvider>
