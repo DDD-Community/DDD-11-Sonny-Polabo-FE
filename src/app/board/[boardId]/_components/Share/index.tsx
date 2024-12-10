@@ -1,7 +1,6 @@
 'use client'
 
 import Modal from '@/components/Modal'
-import Toast from '@/components/Toast'
 import CopyIcon from 'public/icons/copy.svg'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/linkShare.svg'
@@ -14,11 +13,18 @@ import { useState } from 'react'
 import Button from '@/components/Button'
 import Separator from '@/components/Separator'
 import { usePathname, useRouter } from 'next/navigation'
+import CopyCompleteToast from '@/app/board/[boardId]/_components/Share/CopyCompleteToast'
+import NoPolaroidToSelectToast from '@/app/board/[boardId]/_components/Share/NoPolaroidToSelectToast'
 import useSnsShare from '../../_hooks/useSnsShare'
 import { useTutorial } from '../Tutorial/TutorialContext'
 import Section from './Section'
 
-const ShareBtn = ({ boardName }: { boardName: string }) => {
+interface ShareBtnProps {
+  boardName: string
+  polaroidCount: number
+}
+
+const ShareBtn = ({ boardName, polaroidCount }: ShareBtnProps) => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
@@ -46,21 +52,38 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
     handleShare(() => shareToKakao(boardName))
   }
 
-  const [showToast, setShowToast] = useState(false)
+  const [showCopyCompleteToast, setShowCopyCompleteToast] = useState(false)
+  const [showNoPolaroidToast, setShowNoPolaroidToast] = useState(false)
+
+  const closeCopyCompleteToast = () => setShowCopyCompleteToast(false)
+  const closeNoPolaroidToast = () => setShowNoPolaroidToast(false)
+
   const copyLink = () => {
     const currentURL = window.location.href
     return navigator.clipboard.writeText(currentURL).then(() => {
-      setShowToast(true)
+      setShowCopyCompleteToast(true)
     })
+  }
+
+  const routeToSelectPage = () => {
+    setShowShareModal(false)
+    if (polaroidCount > 0) {
+      router.push(`/board/select?boardId=${boardId}`)
+    } else {
+      setShowNoPolaroidToast(true)
+    }
   }
 
   return (
     <>
       <Share onClick={() => setShowShareModal(true)} className="w-6" />
-      <Toast
-        message="클립보드에 링크가 복사되었어요!"
-        isOpen={showToast}
-        setClose={() => setShowToast(false)}
+      <CopyCompleteToast
+        show={showCopyCompleteToast}
+        close={closeCopyCompleteToast}
+      />
+      <NoPolaroidToSelectToast
+        show={showNoPolaroidToast}
+        close={closeNoPolaroidToast}
       />
       <Modal isOpen={showShareModal} onClose={onShareModalClose}>
         <Modal.BottomModal icon={<TwoPolaroidsIcon className="scale-[2]" />}>
@@ -101,12 +124,7 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
           </Section>
           <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">
             <Separator />
-            <Button
-              className="w-full"
-              onClick={() => {
-                router.push(`/board/select?boardId=${boardId}`)
-              }}
-            >
+            <Button className="w-full" onClick={routeToSelectPage}>
               <div className="flex items-center justify-center gap-1">
                 내 보드 꾸미고 저장하기 <PolaroidIcon />
               </div>
