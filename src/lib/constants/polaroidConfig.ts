@@ -68,6 +68,36 @@ export const THEMAS: Record<ThemaKeyType, ThemaType> = {
     descriptionStyle:
       'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #FFE7F0 0%, #FFAECD 100%)',
   },
+  'F-12': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.50) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #E0E0E0 0%, #58957E 100%)',
+  },
+  'F-13': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.06) 10.71%, rgba(255, 255, 255, 0.15) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #E0E0E0 0%, #FF71B1 100%)',
+  },
+  'F-14': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.06) 10.71%, rgba(255, 255, 255, 0.15) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #A90400 0%, #A90400 100%)',
+  },
+  'F-15': {
+    className: 'bg-[#000000]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.06) 10.71%, rgba(255, 255, 255, 0.15) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #A90400 0%, #A90400 100%)',
+  },
+  'F-16': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.06) 10.71%, rgba(255, 255, 255, 0.15) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #AF0301 0%, #AF0301 100%)',
+  },
+  'F-17': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.06) 10.71%, rgba(255, 255, 255, 0.15) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #AF0301 0%, #AF0301 100%)',
+  },
 } as const
 
 export const FONTS: Record<FontKeyType, FontType> = {
