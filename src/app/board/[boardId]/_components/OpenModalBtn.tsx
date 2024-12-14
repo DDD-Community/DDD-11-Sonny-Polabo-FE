@@ -4,7 +4,8 @@ import Modal from '@/components/Modal'
 import { useSession } from 'next-auth/react'
 import AddPolaroid from 'public/icons/add_polaroid.svg'
 import { ReactNode } from 'react'
-import { useBoardContext } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import { useModal } from './CreatePolaroidModal/ModalContext'
 import CannotUploadModal from './modals/CannotUploadModal'
 import Tutorial from './Tutorial'
@@ -17,7 +18,8 @@ interface OpenModalBtnProps {
 const OpenModalBtn = ({ children }: OpenModalBtnProps) => {
   const { data: session } = useSession()
   const { isOpen, openModal, closeModal } = useModal()
-  const { board } = useBoardContext()
+  const { board } = useBoard()
+  const { isSelectMode } = useSelect()
 
   const renderModalContent = () => {
     if (board?.items.length >= 30) {
@@ -28,6 +30,10 @@ const OpenModalBtn = ({ children }: OpenModalBtnProps) => {
         {children}
       </Modal>
     )
+  }
+
+  if (isSelectMode) {
+    return null
   }
 
   return (

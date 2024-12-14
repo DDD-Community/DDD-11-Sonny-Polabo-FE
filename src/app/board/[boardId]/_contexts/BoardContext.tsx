@@ -42,6 +42,6 @@ export const BoardContextProvider = ({
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>
 }
 
-export const useBoardContext = () => {
+export const useBoard = () => {
   return useContext(BoardContext)
 }

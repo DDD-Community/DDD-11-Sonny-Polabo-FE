@@ -1,8 +1,9 @@
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
-import BoardHeader from '@/app/board/[boardId]/_components/BoardHeader'
-import PolaroidDetailList from '@/app/board/[boardId]/_components/PolaroidDetailList'
+import BoardPolaroidList from '@/app/board/[boardId]/_components/BoardPolaroidList'
 import { BoardContextProvider } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { SelectContextProvider } from '@/app/board/[boardId]/_contexts/SelectModeContext'
+import Header from '@/app/board/[boardId]/_components/Header'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
@@ -52,23 +53,25 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   const background = `/images/boardThemas/${board.options.THEMA}.png`
 
   return (
-    <BoardContextProvider boardId={boardId} board={board}>
-      <TutorialProvider>
-        <div
-          className="relative flex h-dvh flex-col bg-cover"
-          style={{ backgroundImage: `url(${background})` }}
-        >
-          <BoardHeader title={board.title} />
-          {board.items.length === 0 ? <Empty /> : <PolaroidDetailList />}
+    <SelectContextProvider>
+      <BoardContextProvider boardId={boardId} board={board}>
+        <TutorialProvider>
+          <div
+            className="relative flex h-dvh flex-col bg-cover"
+            style={{ backgroundImage: `url(${background})` }}
+          >
+            <Header />
+            {board.items.length === 0 ? <Empty /> : <BoardPolaroidList />}
 
-          <ModalProvider>
-            <OpenModalBtn>
-              <CreatePolaroid />
-            </OpenModalBtn>
-          </ModalProvider>
-        </div>
-      </TutorialProvider>
-    </BoardContextProvider>
+            <ModalProvider>
+              <OpenModalBtn>
+                <CreatePolaroid />
+              </OpenModalBtn>
+            </ModalProvider>
+          </div>
+        </TutorialProvider>
+      </BoardContextProvider>
+    </SelectContextProvider>
   )
 }
 

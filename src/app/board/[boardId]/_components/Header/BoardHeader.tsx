@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Header from '@/components/Header'
 import PinIcon from 'public/icons/pinFilled.svg'
@@ -5,17 +7,19 @@ import Hamburger from '@/components/HamburgerMenu'
 import Tutorial from '@/app/board/[boardId]/_components/Tutorial'
 import { Step1Tooltip } from '@/app/board/[boardId]/_components/Tutorial/Tooltips'
 import ShareBtn from '@/app/board/[boardId]/_components/Share'
-import { auth } from '@/auth'
+import { useSession } from 'next-auth/react'
+import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 
-const BoardHeader = async ({ title }: { title: string }) => {
-  const session = await auth()
+const BoardHeader = () => {
+  const { data: session } = useSession()
+  const { board } = useBoard()
 
   return (
     <Header
       title={
         <div className="flex items-center justify-center gap-[3px] text-center">
           <PinIcon />
-          <h1 className="text-md font-semiBold leading-6">{title}</h1>
+          <h1 className="text-md font-semiBold leading-6">{board.title}</h1>
         </div>
       }
       leftButton={<Hamburger />}

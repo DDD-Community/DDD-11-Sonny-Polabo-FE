@@ -1,3 +1,5 @@
+'use client'
+
 import { FILTERS } from '@/lib'
 import { useEffect, useState } from 'react'
 import { getImageWidthHeight } from '@/lib/utils/image'

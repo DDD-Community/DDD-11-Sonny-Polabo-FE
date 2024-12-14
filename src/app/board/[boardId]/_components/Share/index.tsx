@@ -15,18 +15,17 @@ import Separator from '@/components/Separator'
 import CopyCompleteToast from '@/app/board/[boardId]/_components/Share/CopyCompleteToast'
 import NoPolaroidToSelectToast from '@/app/board/[boardId]/_components/Share/NoPolaroidToSelectToast'
 import { useTutorial } from '@/app/board/[boardId]/_contexts/TutorialContext'
-import { useBoardContext } from '@/app/board/[boardId]/_contexts/BoardContext'
-import { useRouter } from 'next/navigation'
+import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import useSnsShare from '../../_hooks/useSnsShare'
 import Section from './Section'
 
 const ShareBtn = () => {
-  const { boardId, board } = useBoardContext()
+  const { board } = useBoard()
+  const { setIsSelectMode } = useSelect()
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
-
-  const router = useRouter()
 
   const { run, nextStep } = useTutorial()
 
@@ -62,7 +61,7 @@ const ShareBtn = () => {
   const onClickDecorateBoard = () => {
     setShowShareModal(false)
     if (board && board.items.length > 0) {
-      router.push(`/board/select?boardId=${boardId}`)
+      setIsSelectMode(true)
     } else {
       setShowNoPolaroidToast(true)
     }

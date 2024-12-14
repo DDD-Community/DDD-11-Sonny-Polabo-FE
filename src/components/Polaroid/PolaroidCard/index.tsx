@@ -1,3 +1,5 @@
+'use client'
+
 import { Polaroid } from '@/types'
 import PolaroidImage from '@/components/Polaroid/Base/PolaroidImage'
 import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'

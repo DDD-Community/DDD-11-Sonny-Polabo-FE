@@ -1,3 +1,5 @@
+'use client'
+
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { FontKeyType, ThemaKeyType } from '@/types'
