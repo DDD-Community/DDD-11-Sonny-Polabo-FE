@@ -5,14 +5,9 @@ import Hamburger from '@/components/HamburgerMenu'
 import Tutorial from '@/app/board/[boardId]/_components/Tutorial'
 import { Step1Tooltip } from '@/app/board/[boardId]/_components/Tutorial/Tooltips'
 import ShareBtn from '@/app/board/[boardId]/_components/Share'
-import { Board } from '@/types'
 import { auth } from '@/auth'
 
-interface BoardHeaderInterface {
-  board: Board
-}
-
-const BoardHeader = async ({ board }: BoardHeaderInterface) => {
+const BoardHeader = async ({ title }: { title: string }) => {
   const session = await auth()
 
   return (
@@ -20,17 +15,17 @@ const BoardHeader = async ({ board }: BoardHeaderInterface) => {
       title={
         <div className="flex items-center justify-center gap-[3px] text-center">
           <PinIcon />
-          <h1 className="text-md font-semiBold leading-6">{board.title}</h1>
+          <h1 className="text-md font-semiBold leading-6">{title}</h1>
         </div>
       }
       leftButton={<Hamburger />}
       rightButton={
         session ? (
           <Tutorial step={1} tooltip={<Step1Tooltip />} hasNext>
-            <ShareBtn boardName={board.title} />
+            <ShareBtn />
           </Tutorial>
         ) : (
-          <ShareBtn boardName={board.title} />
+          <ShareBtn />
         )
       }
       className="bg-transparent"

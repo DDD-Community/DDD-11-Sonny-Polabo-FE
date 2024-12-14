@@ -12,27 +12,21 @@ import PolaroidIcon from 'public/icons/polaroid.svg'
 import { useState } from 'react'
 import Button from '@/components/Button'
 import Separator from '@/components/Separator'
-import { usePathname, useRouter } from 'next/navigation'
 import CopyCompleteToast from '@/app/board/[boardId]/_components/Share/CopyCompleteToast'
 import NoPolaroidToSelectToast from '@/app/board/[boardId]/_components/Share/NoPolaroidToSelectToast'
+import { useTutorial } from '@/app/board/[boardId]/_contexts/TutorialContext'
+import { useBoardContext } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { useRouter } from 'next/navigation'
 import useSnsShare from '../../_hooks/useSnsShare'
-import { useTutorial } from '../Tutorial/TutorialContext'
 import Section from './Section'
 
-interface ShareBtnProps {
-  boardName: string
-  polaroidCount: number
-}
-
-const ShareBtn = ({ boardName, polaroidCount }: ShareBtnProps) => {
+const ShareBtn = () => {
+  const { boardId, board } = useBoardContext()
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
 
   const router = useRouter()
-  const pathname = usePathname()
-
-  const boardId = pathname.split('/board/')[1]
 
   const { run, nextStep } = useTutorial()
 
@@ -49,7 +43,7 @@ const ShareBtn = ({ boardName, polaroidCount }: ShareBtnProps) => {
   }
 
   const handleKakaoShare = () => {
-    handleShare(() => shareToKakao(boardName))
+    handleShare(() => shareToKakao(board.title))
   }
 
   const [showCopyCompleteToast, setShowCopyCompleteToast] = useState(false)
@@ -65,9 +59,9 @@ const ShareBtn = ({ boardName, polaroidCount }: ShareBtnProps) => {
     })
   }
 
-  const routeToSelectPage = () => {
+  const onClickDecorateBoard = () => {
     setShowShareModal(false)
-    if (polaroidCount > 0) {
+    if (board && board.items.length > 0) {
       router.push(`/board/select?boardId=${boardId}`)
     } else {
       setShowNoPolaroidToast(true)
@@ -124,7 +118,7 @@ const ShareBtn = ({ boardName, polaroidCount }: ShareBtnProps) => {
           </Section>
           <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">
             <Separator />
-            <Button className="w-full" onClick={routeToSelectPage}>
+            <Button className="w-full" onClick={onClickDecorateBoard}>
               <div className="flex items-center justify-center gap-1">
                 내 보드 꾸미고 저장하기 <PolaroidIcon />
               </div>

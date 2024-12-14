@@ -6,14 +6,12 @@ import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import { FontKeyType, ThemaKeyType } from '@/types'
 import ThemaSelect from '@/app/board/[boardId]/_components/CreatePolaroidModal/ThemaSelect'
 import CreatePolaroid from '@/app/board/[boardId]/_components/CreatePolaroidModal/CreatePolaroid'
+import { useBoardContext } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { uploadAction } from '../../_actions/uploadAction'
 import { useModal } from './ModalContext'
 
-interface CreatePolaroidProps {
-  id: string
-}
-
-const CreatePolaroidModal = ({ id }: CreatePolaroidProps) => {
+const CreatePolaroidModal = () => {
+  const { boardId: id } = useBoardContext()
   const [isValid, setIsValid] = useState<boolean>(false)
   const [image, setImage] = useState<File | null>(null)
   const [nickname, setNickname] = useState<string>('')

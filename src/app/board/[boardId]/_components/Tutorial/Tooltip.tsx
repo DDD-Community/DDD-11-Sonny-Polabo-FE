@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { useTutorial } from './TutorialContext'
+import { useTutorial } from '@/app/board/[boardId]/_contexts/TutorialContext'
 
 const Tooltip = ({
   children,

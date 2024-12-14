@@ -2,15 +2,11 @@
 
 import React, { useState } from 'react'
 import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
-import { Board } from '@/types'
 import PolaroidList from '@/components/PolaroidList'
+import { useBoardContext } from '@/app/board/[boardId]/_contexts/BoardContext'
 
-interface PolaroidDetailListProps {
-  board: Board
-  boardId: string
-}
-
-const PolaroidDetailList = ({ board, boardId }: PolaroidDetailListProps) => {
+const PolaroidDetailList = () => {
+  const { board, boardId } = useBoardContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedIdx, setSelectedIdx] = useState<number>(0)
 
