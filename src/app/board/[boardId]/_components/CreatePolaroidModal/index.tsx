@@ -6,6 +6,7 @@ import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import { FontKeyType, ThemaKeyType } from '@/types'
 import ThemaSelect from '@/app/board/[boardId]/_components/CreatePolaroidModal/ThemaSelect'
 import CreatePolaroid from '@/app/board/[boardId]/_components/CreatePolaroidModal/CreatePolaroid'
+import { THEMAS } from '@/lib'
 import { uploadAction } from '../../_actions/uploadAction'
 import { useModal } from './ModalContext'
 
@@ -20,7 +21,9 @@ const CreatePolaroidModal = ({ id }: CreatePolaroidProps) => {
   const [message, setMessage] = useState<string>('')
   const [selectedFontKey, setSelectedFontKey] = useState<FontKeyType>('HESOM')
   const [showFontSelect, setShowFontSelect] = useState<boolean>(false)
-  const [selectedThemaKey, setSelectedThemaKey] = useState<ThemaKeyType>('F-0')
+  const [selectedThemaKey, setSelectedThemaKey] = useState<ThemaKeyType>(
+    Object.keys(THEMAS)[0] as ThemaKeyType,
+  )
   const [showThemaSelect, setShowThemaSelect] = useState<boolean>(false)
   const { closeModal } = useModal()
 
