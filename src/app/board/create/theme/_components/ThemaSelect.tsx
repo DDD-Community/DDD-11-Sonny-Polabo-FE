@@ -30,7 +30,7 @@ const ThemaSelectItem = ({
 
     <div
       className={twMerge(
-        'h-[178px] w-[140px] max-w-full overflow-hidden rounded-lg border-2',
+        'flex h-[178px] w-[140px] max-w-full items-center overflow-hidden rounded-lg border-2',
         isCurrentThema ? 'border-gray-950' : 'border-gray-300',
       )}
     >
@@ -60,7 +60,9 @@ interface ThemaSelectProps {
 }
 
 const ThemaSelect = ({ createBoard, boardName }: ThemaSelectProps) => {
-  const [currentThema, setCurrentThema] = useState<BoardThemaKeyType>('B-0')
+  const [currentThema, setCurrentThema] = useState<BoardThemaKeyType>(
+    Object.keys(BOARDTHEMAS)[0] as BoardThemaKeyType,
+  )
 
   return (
     <div className="flex h-[calc(100%-64px)] flex-col">

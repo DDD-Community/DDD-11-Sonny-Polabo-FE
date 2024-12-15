@@ -32,7 +32,7 @@ const OpenModalBtn = ({ polaroidNum, children }: OpenModalBtnProps) => {
   return (
     <div>
       {isOpen && renderModalContent()}
-      <div className="absolute bottom-10 right-4">
+      <div className="absolute bottom-10 right-4 cursor-pointer">
         <Tutorial
           step={session ? 2 : 1}
           tooltip={<Step2Tooltip />}
