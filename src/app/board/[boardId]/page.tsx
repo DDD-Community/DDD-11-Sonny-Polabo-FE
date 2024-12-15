@@ -63,7 +63,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   return (
     <TutorialProvider>
       <div
-        className="relative flex h-dvh flex-col bg-cover"
+        className="relative flex h-dvh flex-col bg-cover bg-bottom"
         style={{ backgroundImage: `url(${background})` }}
       >
         <Header
