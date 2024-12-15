@@ -30,7 +30,7 @@ const ThemaSelectItem = ({
 
     <div
       className={twMerge(
-        'flex h-[178px] w-[140px] max-w-full items-end overflow-hidden rounded-lg border-2',
+        'h-[178px] w-[140px] max-w-full overflow-hidden rounded-lg border-2',
         isCurrentThema ? 'border-gray-950' : 'border-gray-300',
       )}
     >
@@ -40,7 +40,7 @@ const ThemaSelectItem = ({
         width={140}
         height={178}
         onClick={() => setCurrentThema(themaType)}
-        objectFit="contain"
+        className="object-contain"
       />
     </div>
     <span

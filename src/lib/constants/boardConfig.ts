@@ -9,12 +9,8 @@ export const BOARDTHEMAS: Record<BoardThemaKeyType, BoardThemaType> = {
     title: '크리스마스 트리 테마',
     theme: 'DARK',
   },
-  'B-8': {
-    title: '눈송이 테마',
-    theme: 'LIGHT',
-  },
   'B-7': {
-    title: '퇴진 테마',
+    title: '눈송이 테마',
     theme: 'LIGHT',
   },
   'B-3': {
