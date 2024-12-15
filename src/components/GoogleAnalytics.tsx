@@ -1,5 +1,8 @@
-import Script from 'next/script'
 import { isDevMode } from '@/lib/utils/env'
+import {
+  GoogleAnalytics as GA,
+  GoogleTagManager as GTM,
+} from '@next/third-parties/google'
 
 const GoogleAnalytics = () => {
   if (isDevMode) {
@@ -8,21 +11,8 @@ const GoogleAnalytics = () => {
 
   return (
     <>
-      <Script
-        strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-      />
-
-      <Script id="google-analytics" strategy="lazyOnload">
-        {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-            page_path: window.location.pathname,
-            });
-        `}
-      </Script>
+      <GA gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      <GTM gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
     </>
   )
 }

@@ -5,6 +5,7 @@ import { getBoard } from '@/lib'
 import { Metadata } from 'next'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidList from '@/app/board/[boardId]/_components/PolaroidList'
+import { BOARDTHEMAS } from '@/lib/constants/boardConfig'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
@@ -57,11 +58,12 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   const session = await auth()
 
   const background = `/images/boardThemas/${board.options.THEMA}.png`
+  const boardTheme = BOARDTHEMAS[board.options.THEMA].theme
 
   return (
     <TutorialProvider>
       <div
-        className="relative flex h-dvh flex-col bg-cover"
+        className="relative flex h-dvh flex-col bg-cover bg-bottom"
         style={{ backgroundImage: `url(${background})` }}
       >
         <Header
@@ -81,7 +83,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
               <ShareBtn boardName={board.title} />
             )
           }
-          className="bg-transparent"
+          className={`bg-transparent ${boardTheme === 'LIGHT' ? 'text-gray-900' : 'text-gray-0'}`}
           shadow={false}
         />
         {board.items.length === 0 ? (

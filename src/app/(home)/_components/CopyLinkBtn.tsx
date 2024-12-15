@@ -18,7 +18,7 @@ const CopyLinkBtn = () => {
 
   return (
     <>
-      <div className="mb-1 text-center text-xxs leading-3 text-gray-700">
+      <div className="mb-1 text-center text-xxs leading-3 text-gray-0">
         copy link!
       </div>
       <button
