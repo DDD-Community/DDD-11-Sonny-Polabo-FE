@@ -7,6 +7,7 @@ import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
+import { takeScreenshot } from '@/lib/utils/screenshot'
 
 const BoardPolaroidList = () => {
   const { board, boardId } = useBoard()
@@ -37,12 +38,19 @@ const BoardPolaroidList = () => {
     return ''
   }
 
-  const onSelectComplete = () => {
+  const onSelectComplete = async () => {
     const polaroidIdsSearchParam = selectedIds
       .map((id) => `polaroidIds=${id}`)
       .join('&')
 
-    router.push(`/board/${boardId}/decorate?${polaroidIdsSearchParam}`)
+    const body = JSON.stringify({
+      url: `/board/${boardId}/screenshot?${polaroidIdsSearchParam}`,
+      targetElementSelector: 'div#screenshot_target',
+    })
+
+    const imageUrl = await takeScreenshot(body)
+
+    router.push(`/board/${boardId}/decorate?imageUrl=${imageUrl}`)
   }
 
   return (

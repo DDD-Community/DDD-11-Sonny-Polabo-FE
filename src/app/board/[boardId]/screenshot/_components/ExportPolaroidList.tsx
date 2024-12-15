@@ -6,64 +6,15 @@ import PolaroidImage from '@/components/Polaroid/Base/PolaroidImage'
 import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import PolaroidMessage from '@/components/Polaroid/Base/PolaroidMessage'
 import PolaroidNickname from '@/components/Polaroid/Base/PolaroidNickname'
+import {
+  getFromClass,
+  getMessageClass,
+  getPaddingClass,
+  getWidthClass,
+  groupPolaroidsByLength,
+} from '@/app/board/[boardId]/screenshot/_components/utils'
 
-const getWidthClass = (length: number) => {
-  if (length > 6) {
-    return 'w-[280px]'
-  }
-  return 'w-[304px]'
-}
-
-const getPaddingClass = (length: number) => {
-  if (length > 6) {
-    return 'px-[12px] pb-[12px] pt-[20px]'
-  }
-
-  return 'px-[14px] pb-[14px] pt-[22px]'
-}
-
-const getMessageClass = (length: number) => {
-  if (length > 6) {
-    return 'h-[25px] text-[24px] leading-[26px]'
-  }
-
-  return 'h-[35px] text-[28px] leading-5'
-}
-
-const getFromClass = (length: number) => {
-  if (length > 6) {
-    return 'h-5 text-[20px] leading-[20px]'
-  }
-
-  return 'h-6 text-[23px] leading-4'
-}
-
-const groupPolaroidsByLength = (polaroids: Polaroid[]) => {
-  const { length } = polaroids
-
-  if (length < 1 || length > 9) {
-    return [[]]
-  }
-
-  const result = []
-  let groupSize
-
-  if (length >= 2 && length < 7) {
-    groupSize = 2
-  } else if (length >= 6 && length < 10) {
-    groupSize = 3
-  } else {
-    return [polaroids]
-  }
-
-  for (let i = 0; i < length; i += groupSize) {
-    result.push(polaroids.slice(i, i + groupSize))
-  }
-
-  return result
-}
-
-interface PolaroidItemProps {
+interface ExportPolaroidItemProps {
   polaroid: Polaroid
   widthClass: string
   paddingClass: string
@@ -71,13 +22,13 @@ interface PolaroidItemProps {
   fromClass: string
 }
 
-const PolaroidItem = ({
+const ExportPolaroidItem = ({
   polaroid,
   widthClass,
   fromClass,
   paddingClass,
   messageClass,
-}: PolaroidItemProps) => {
+}: ExportPolaroidItemProps) => {
   const randomRotate =
     Math.random() > 0.5 ? Math.random() + 1 : Math.random() * -1 - 1
 
@@ -112,7 +63,7 @@ const PolaroidItem = ({
   )
 }
 
-const PolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
+const ExportPolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
   const { length } = polaroids
   const groupedPolaroids = groupPolaroidsByLength(polaroids)
 
@@ -125,7 +76,7 @@ const PolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
             className="flex items-center justify-center gap-8"
           >
             {rows.map((polaroid: Polaroid) => (
-              <PolaroidItem
+              <ExportPolaroidItem
                 polaroid={polaroid}
                 key={polaroid.id}
                 widthClass={getWidthClass(length)}
@@ -141,4 +92,4 @@ const PolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
   )
 }
 
-export default PolaroidList
+export default ExportPolaroidList
