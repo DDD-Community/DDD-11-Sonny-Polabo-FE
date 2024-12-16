@@ -1,7 +1,7 @@
 import React from 'react'
 import { getBoard } from '@/lib'
 import PinIcon from 'public/icons/PinIcon.svg'
-import PolaboLogo from 'public/images/polabo_logo.png'
+import PolaboLogo from 'public/images/polabo-logo.png'
 import Image from 'next/image'
 import { ensureArray } from '@/lib/utils/array'
 import ExportPolaroidList from '@/app/board/[boardId]/screenshot/_components/ExportPolaroidList'
