@@ -2,16 +2,16 @@
 
 import React from 'react'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
-import BoardHeader from '@/app/board/[boardId]/_components/Header/BoardHeader'
-import SelectHeader from '@/app/board/[boardId]/_components/Header/SelectHeader'
+import DefaultHeader from '@/app/board/[boardId]/_components/Header/DefaultHeader'
+import SelectModeHeader from '@/app/board/[boardId]/_components/Header/SelectModeHeader'
 
 const Header = () => {
   const { isSelectMode } = useSelect()
 
   if (isSelectMode) {
-    return <SelectHeader />
+    return <SelectModeHeader />
   }
-  return <BoardHeader />
+  return <DefaultHeader />
 }
 
 export default Header

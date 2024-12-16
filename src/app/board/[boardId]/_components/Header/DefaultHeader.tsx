@@ -11,7 +11,7 @@ import { useSession } from 'next-auth/react'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { BOARDTHEMAS } from '@/lib/constants/boardConfig'
 
-const BoardHeader = () => {
+const DefaultHeader = () => {
   const { data: session } = useSession()
   const { board } = useBoard()
   const boardTheme = BOARDTHEMAS[board.options.THEMA].theme
@@ -40,4 +40,4 @@ const BoardHeader = () => {
   )
 }
 
-export default BoardHeader
+export default DefaultHeader

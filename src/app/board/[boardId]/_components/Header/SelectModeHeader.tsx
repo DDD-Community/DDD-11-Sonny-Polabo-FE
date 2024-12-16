@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 
-const SelectHeader = () => {
+const SelectModeHeader = () => {
   const { selectedIds, MAX_SELECT_COUNT } = useSelect()
   const { board } = useBoard()
   const maxLength = Math.min(board.items.length, MAX_SELECT_COUNT)
@@ -26,4 +26,4 @@ const SelectHeader = () => {
   )
 }
 
-export default SelectHeader
+export default SelectModeHeader
