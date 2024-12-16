@@ -1,34 +1,21 @@
 import { Polaroid } from '@/types'
 
-export const getWidthClass = (length: number) => {
+export const getClassesByLength = (length: number) => {
   if (length > 6) {
-    return 'w-[280px]'
-  }
-  return 'w-[304px]'
-}
-
-export const getPaddingClass = (length: number) => {
-  if (length > 6) {
-    return 'px-[12px] pb-[12px] pt-[20px]'
+    return {
+      width: 'w-[280px]',
+      padding: 'px-[12px] pb-[12px] pt-[20px]',
+      message: 'h-[25px] text-[24px] leading-[26px]',
+      from: 'h-5 text-[20px] leading-[20px]',
+    }
   }
 
-  return 'px-[14px] pb-[14px] pt-[22px]'
-}
-
-export const getMessageClass = (length: number) => {
-  if (length > 6) {
-    return 'h-[25px] text-[24px] leading-[26px]'
+  return {
+    width: 'w-[304px]',
+    padding: 'px-[14px] pb-[14px] pt-[22px]',
+    message: 'h-[35px] text-[28px] leading-5',
+    from: 'h-6 text-[23px] leading-4',
   }
-
-  return 'h-[35px] text-[28px] leading-5'
-}
-
-export const getFromClass = (length: number) => {
-  if (length > 6) {
-    return 'h-5 text-[20px] leading-[20px]'
-  }
-
-  return 'h-6 text-[23px] leading-4'
 }
 
 export const groupPolaroidsByLength = (polaroids: Polaroid[]) => {

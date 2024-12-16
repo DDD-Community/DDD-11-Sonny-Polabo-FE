@@ -7,30 +7,20 @@ import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import PolaroidMessage from '@/components/Polaroid/Base/PolaroidMessage'
 import PolaroidNickname from '@/components/Polaroid/Base/PolaroidNickname'
 import {
-  getFromClass,
-  getMessageClass,
-  getPaddingClass,
-  getWidthClass,
+  getClassesByLength,
   groupPolaroidsByLength,
 } from '@/app/board/[boardId]/screenshot/_components/utils'
 
-interface ExportPolaroidItemProps {
+interface PolaroidItemProps {
   polaroid: Polaroid
-  widthClass: string
-  paddingClass: string
-  messageClass: string
-  fromClass: string
+  length: number
 }
 
-const ExportPolaroidItem = ({
-  polaroid,
-  widthClass,
-  fromClass,
-  paddingClass,
-  messageClass,
-}: ExportPolaroidItemProps) => {
+const PolaroidItem = ({ polaroid, length }: PolaroidItemProps) => {
   const randomRotate =
     Math.random() > 0.5 ? Math.random() + 1 : Math.random() * -1 - 1
+
+  const classes = getClassesByLength(length)
 
   return (
     <div
@@ -38,23 +28,23 @@ const ExportPolaroidItem = ({
       style={{ rotate: `${randomRotate}deg` }}
     >
       <PolaroidFrame
-        className={widthClass}
+        className={classes.width}
         themaKey={polaroid.options.THEMA}
         fontKey={polaroid.options.FONT}
       >
         <div
-          className={paddingClass}
+          className={classes.padding}
           style={getPolaroidStyle(polaroid.options.THEMA)}
         >
           <PolaroidImage imageUrl={polaroid.imageUrl} />
         </div>
         <PolaroidDescription themaKey={polaroid.options.THEMA}>
           <PolaroidMessage
-            className={messageClass}
+            className={classes.message}
             message={polaroid.oneLineMessage}
           />
           <PolaroidNickname
-            className={fromClass}
+            className={classes.from}
             nickName={polaroid.nickname}
           />
         </PolaroidDescription>
@@ -63,7 +53,7 @@ const ExportPolaroidItem = ({
   )
 }
 
-const ExportPolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
+const PolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
   const { length } = polaroids
   const groupedPolaroids = groupPolaroidsByLength(polaroids)
 
@@ -76,13 +66,10 @@ const ExportPolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
             className="flex items-center justify-center gap-8"
           >
             {rows.map((polaroid: Polaroid) => (
-              <ExportPolaroidItem
+              <PolaroidItem
                 polaroid={polaroid}
                 key={polaroid.id}
-                widthClass={getWidthClass(length)}
-                paddingClass={getPaddingClass(length)}
-                messageClass={getMessageClass(length)}
-                fromClass={getFromClass(length)}
+                length={length}
               />
             ))}
           </div>
@@ -92,4 +79,4 @@ const ExportPolaroidList = ({ polaroids }: { polaroids: Polaroid[] }) => {
   )
 }
 
-export default ExportPolaroidList
+export default PolaroidList

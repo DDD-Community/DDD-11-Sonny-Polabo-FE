@@ -4,7 +4,7 @@ import PinIcon from 'public/icons/PinIcon.svg'
 import PolaboLogo from 'public/images/polabo-logo.png'
 import Image from 'next/image'
 import { ensureArray } from '@/lib/utils/array'
-import ExportPolaroidList from '@/app/board/[boardId]/screenshot/_components/ExportPolaroidList'
+import PolaroidList from '@/app/board/[boardId]/screenshot/_components/PolaroidList'
 
 interface BoardScreenshotPageProps {
   params: {
@@ -41,7 +41,7 @@ const BoardScreenshotPage = async ({
           {board.title}
         </span>
       </div>
-      <ExportPolaroidList polaroids={selectedPolaroids} />
+      <PolaroidList polaroids={selectedPolaroids} />
       <div className="flex w-full items-center justify-center">
         <Image
           src={PolaboLogo}
