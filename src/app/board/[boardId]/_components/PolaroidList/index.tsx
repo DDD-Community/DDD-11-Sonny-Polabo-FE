@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react'
 import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
-import PolaroidList from '@/components/PolaroidList'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import { takeScreenshot } from '@/lib/utils/screenshot'
+import PolaroidListItem from '@/app/board/[boardId]/_components/PolaroidList/PolaroidListItem'
 
-const BoardPolaroidList = () => {
+const PolaroidList = () => {
   const { board, boardId } = useBoard()
   const { isSelectMode, selectedIds, toggleSelectedId } = useSelect()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -55,11 +55,18 @@ const BoardPolaroidList = () => {
 
   return (
     <>
-      <PolaroidList
-        board={board}
-        getPolaroidClassName={getPolaroidClassName}
-        onSelectPolaroid={onSelectPolaroid}
-      />
+      <div className="mx-auto w-full flex-1 overflow-x-hidden overflow-y-scroll pb-10 scrollbar-hide">
+        <div className="grid grid-cols-2 gap-6 px-[20px] py-[10px]">
+          {board.items.map((item, idx) => (
+            <PolaroidListItem
+              PolaroidCardClassName={getPolaroidClassName(idx)}
+              key={item.id}
+              item={item}
+              onClick={() => onSelectPolaroid(idx)}
+            />
+          ))}
+        </div>
+      </div>
       {isSelectMode ? (
         <div className="absolute bottom-10 mx-10 flex w-[calc(100%-80px)] justify-center">
           <Button
@@ -85,4 +92,4 @@ const BoardPolaroidList = () => {
   )
 }
 
-export default BoardPolaroidList
+export default PolaroidList

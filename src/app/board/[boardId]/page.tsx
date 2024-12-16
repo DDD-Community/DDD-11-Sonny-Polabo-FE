@@ -1,6 +1,6 @@
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
-import BoardPolaroidList from '@/app/board/[boardId]/_components/BoardPolaroidList'
+import PolaroidList from '@/app/board/[boardId]/_components/PolaroidList'
 import { BoardContextProvider } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { SelectContextProvider } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import Header from '@/app/board/[boardId]/_components/Header'
@@ -61,7 +61,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
             style={{ backgroundImage: `url(${background})` }}
           >
             <Header />
-            {board.items.length === 0 ? <Empty /> : <BoardPolaroidList />}
+            {board.items.length === 0 ? <Empty /> : <PolaroidList />}
 
             <ModalProvider>
               <OpenModalBtn>
