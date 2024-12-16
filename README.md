@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/images/polabo_logo.png" height="100" />   
+  <img src="./public/images/polabo-logo-christmas.png" height="100" />   
   <br />
   <strong>함께 꾸미는 폴라로이드 보드</strong>
 </div>

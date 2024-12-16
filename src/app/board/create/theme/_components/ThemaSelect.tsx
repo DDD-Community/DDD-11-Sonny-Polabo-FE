@@ -1,7 +1,7 @@
 'use client'
 
 import Button from '@/components/Button'
-import { BOARDTHEMAS } from '@/lib/constants/boardConfig'
+import { BOARDTHEMAS, ORDERED_BOARDTHEMAS } from '@/lib/constants/boardConfig'
 import { BoardThemaKeyType } from '@/types'
 import Image from 'next/image'
 import CheckIcon from 'public/icons/check.svg'
@@ -40,7 +40,7 @@ const ThemaSelectItem = ({
         width={140}
         height={178}
         onClick={() => setCurrentThema(themaType)}
-        objectFit="contain"
+        className="object-contain"
       />
     </div>
     <span
@@ -60,15 +60,17 @@ interface ThemaSelectProps {
 }
 
 const ThemaSelect = ({ createBoard, boardName }: ThemaSelectProps) => {
-  const [currentThema, setCurrentThema] = useState<BoardThemaKeyType>('B-0')
+  const [currentThema, setCurrentThema] = useState<BoardThemaKeyType>(
+    ORDERED_BOARDTHEMAS[0],
+  )
 
   return (
     <div className="flex h-[calc(100%-64px)] flex-col">
       <div className="grid h-full auto-rows-min grid-cols-2 gap-2.5 overflow-y-scroll px-4 pt-3 scrollbar-hide">
-        {Object.entries(BOARDTHEMAS).map(([key]) => (
+        {ORDERED_BOARDTHEMAS.map((key) => (
           <ThemaSelectItem
             key={key}
-            themaType={key as BoardThemaKeyType}
+            themaType={key}
             isCurrentThema={currentThema === key}
             setCurrentThema={setCurrentThema}
           />
