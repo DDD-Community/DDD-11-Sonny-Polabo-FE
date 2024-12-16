@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { useSession } from 'next-auth/react'
+import CreatePolaroid from '@/app/board/[boardId]/_components/CreatePolaroidModal/CreatePolaroid'
+import ThemaSelect from '@/app/board/[boardId]/_components/CreatePolaroidModal/ThemaSelect'
+import { ORDERED_THEMAS } from '@/lib'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import { FontKeyType, ThemaKeyType } from '@/types'
-import ThemaSelect from '@/app/board/[boardId]/_components/CreatePolaroidModal/ThemaSelect'
-import CreatePolaroid from '@/app/board/[boardId]/_components/CreatePolaroidModal/CreatePolaroid'
+import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { uploadAction } from '../../_actions/uploadAction'
 import { useModal } from './ModalContext'
@@ -18,7 +19,9 @@ const CreatePolaroidModal = () => {
   const [message, setMessage] = useState<string>('')
   const [selectedFontKey, setSelectedFontKey] = useState<FontKeyType>('HESOM')
   const [showFontSelect, setShowFontSelect] = useState<boolean>(false)
-  const [selectedThemaKey, setSelectedThemaKey] = useState<ThemaKeyType>('F-0')
+  const [selectedThemaKey, setSelectedThemaKey] = useState<ThemaKeyType>(
+    ORDERED_THEMAS[0],
+  )
   const [showThemaSelect, setShowThemaSelect] = useState<boolean>(false)
   const { closeModal } = useModal()
 
