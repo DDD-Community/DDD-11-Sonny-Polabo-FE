@@ -2,10 +2,14 @@ import { NextResponse } from 'next/server'
 import puppeteer from 'puppeteer'
 
 export async function POST(request: Request) {
-  const body: { url: string; targetElementSelector: string } =
+  const { boardId, polaroids }: { boardId: string; polaroids: string[] } =
     await request.json()
 
-  const url = `${process.env.URL}/${body.url}`
+  const polaroidIdsSearchParam = polaroids
+    .map((id) => `polaroidIds=${id}`)
+    .join('&')
+
+  const url = `${process.env.URL}/board/${boardId}/screenshot?${polaroidIdsSearchParam}`
 
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
@@ -17,7 +21,7 @@ export async function POST(request: Request) {
   try {
     await page.goto(url, { waitUntil: 'networkidle2' })
 
-    const element = await page.$(body.targetElementSelector)
+    const element = await page.$('div#screenshot_target')
     const screenshotBuffer = await element?.screenshot()
     await browser.close()
 

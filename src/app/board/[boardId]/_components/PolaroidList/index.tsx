@@ -6,7 +6,6 @@ import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
-import { takeScreenshot } from '@/lib/utils/screenshot'
 import PolaroidListItem from '@/app/board/[boardId]/_components/PolaroidList/PolaroidListItem'
 
 const PolaroidList = () => {
@@ -14,6 +13,7 @@ const PolaroidList = () => {
   const { isSelectMode, selectedIds, toggleSelectedId } = useSelect()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedIdx, setSelectedIdx] = useState<number>(0)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const openDetailModal = (idx: number) => {
@@ -39,16 +39,22 @@ const PolaroidList = () => {
   }
 
   const onSelectComplete = async () => {
-    const polaroidIdsSearchParam = selectedIds
-      .map((id) => `polaroidIds=${id}`)
-      .join('&')
-
-    const body = JSON.stringify({
-      url: `/board/${boardId}/screenshot?${polaroidIdsSearchParam}`,
-      targetElementSelector: 'div#screenshot_target',
+    setIsLoading(true)
+    const res = await fetch(`/board/api/screenshot`, {
+      method: 'POST',
+      body: JSON.stringify({
+        polaroids: selectedIds,
+        boardId,
+      }),
     })
 
-    const imageUrl = await takeScreenshot(body)
+    if (!res.ok) {
+      throw new Error('Failed to take screenshot')
+    }
+
+    const blob = await res.blob()
+    const imageUrl = URL.createObjectURL(blob)
+    setIsLoading(false)
 
     router.push(`/board/${boardId}/decorate?imageUrl=${imageUrl}`)
   }
@@ -72,7 +78,7 @@ const PolaroidList = () => {
           <Button
             size="lg"
             className="w-full"
-            disabled={selectedIds.length === 0}
+            disabled={selectedIds.length === 0 || isLoading}
             onClick={onSelectComplete}
           >
             선택 완료
