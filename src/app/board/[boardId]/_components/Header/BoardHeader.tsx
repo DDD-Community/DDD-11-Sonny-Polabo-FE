@@ -9,10 +9,12 @@ import { Step1Tooltip } from '@/app/board/[boardId]/_components/Tutorial/Tooltip
 import ShareBtn from '@/app/board/[boardId]/_components/Share'
 import { useSession } from 'next-auth/react'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { BOARDTHEMAS } from '@/lib/constants/boardConfig'
 
 const BoardHeader = () => {
   const { data: session } = useSession()
   const { board } = useBoard()
+  const boardTheme = BOARDTHEMAS[board.options.THEMA].theme
 
   return (
     <Header
@@ -32,7 +34,7 @@ const BoardHeader = () => {
           <ShareBtn />
         )
       }
-      className="bg-transparent"
+      className={`bg-transparent ${boardTheme === 'LIGHT' ? 'text-gray-900' : 'text-gray-0'}`}
       shadow={false}
     />
   )
