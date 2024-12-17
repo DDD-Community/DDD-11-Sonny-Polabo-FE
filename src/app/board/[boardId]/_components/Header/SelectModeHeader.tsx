@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '@/components/Header'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { twMerge } from 'tailwind-merge'
 
-const SelectModeHeader = () => {
+const SelectModeHeader = ({ className }: { className: string }) => {
   const { selectedIds, MAX_SELECT_COUNT } = useSelect()
   const { board } = useBoard()
   const maxLength = Math.min(board.items.length, MAX_SELECT_COUNT)
@@ -20,7 +21,7 @@ const SelectModeHeader = () => {
           </h2>
         </div>
       }
-      className="bg-transparent"
+      className={twMerge('bg-transparent', className)}
       shadow={false}
     />
   )
