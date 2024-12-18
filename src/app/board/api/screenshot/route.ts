@@ -32,8 +32,12 @@ export async function POST(request: Request) {
       },
     })
   } catch (error) {
-    console.log(error)
     await browser.close()
-    return new NextResponse('Error taking screenshot', { status: 500 })
+    return new NextResponse(
+      `Error taking screenshot: ${error?.message || error}`,
+      {
+        status: 500,
+      },
+    )
   }
 }
