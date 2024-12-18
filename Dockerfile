@@ -1,12 +1,18 @@
 FROM node:20-alpine3.19 as builder
 
-# Update package list and install Chromium
-RUN apt-get update && apt-get install -y \
-    chromium-browser \
-    --no-install-recommends
+# Install Chromium and necessary dependencies
+RUN apk add --no-cache \
+    chromium \
+    harfbuzz \
+    nss \
+    freetype \
+    ttf-freefont \
+    mesa \
+    dbus
 
-# Clean up to reduce image size
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Set environment variable for Chromium
+ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV CHROME_PATH=/usr/lib/chromium/
 
 # Verify installation
 RUN chromium-browser --version
