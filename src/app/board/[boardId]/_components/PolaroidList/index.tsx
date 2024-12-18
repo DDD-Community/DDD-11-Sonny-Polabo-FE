@@ -49,7 +49,8 @@ const PolaroidList = () => {
     })
 
     if (!res.ok) {
-      throw new Error('Failed to take screenshot')
+      console.log(res)
+      throw new Error(`Failed to take screenshot ${res.body}`)
     }
 
     const blob = await res.blob()
