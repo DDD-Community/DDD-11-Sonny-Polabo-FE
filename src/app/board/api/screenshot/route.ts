@@ -37,6 +37,7 @@ export async function POST(request: Request) {
 
     return new NextResponse(`Error taking screenshot: ${errorObj.message}`, {
       status: 500,
+      statusText: errorObj.message,
     })
   }
 }
