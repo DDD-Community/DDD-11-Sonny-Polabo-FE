@@ -8,7 +8,7 @@ const TotalCount = async () => {
   return (
     <div className="mb-2.5 text-center">
       지금까지
-      <span className="font-semiBold">{sharedCount.toLocaleString()}개</span>의
+      <span className="font-semiBold"> {sharedCount.toLocaleString()}개</span>의
       보드가 만들어졌어요!
     </div>
   )

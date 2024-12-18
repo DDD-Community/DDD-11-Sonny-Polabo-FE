@@ -33,7 +33,7 @@ const NicknameForm = ({
       <div className="mb-20 text-2xl font-thin leading-10">
         닉네임을 정해주세요!
       </div>
-      <div className="">
+      <div className="flex justify-center">
         <NicknameInput
           value={newName}
           setValue={setNewName}
