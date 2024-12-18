@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
 
 export async function POST(request: Request) {
   const { boardId, polaroids }: { boardId: string; polaroids: string[] } =
@@ -33,11 +33,7 @@ export async function POST(request: Request) {
     })
   } catch (error) {
     await browser.close()
-    const errorObj = error as Error
 
-    return new NextResponse(`Error taking screenshot: ${errorObj.message}`, {
-      status: 500,
-      statusText: errorObj.message,
-    })
+    return new NextResponse('Error taking screenshot', { status: 500 })
   }
 }

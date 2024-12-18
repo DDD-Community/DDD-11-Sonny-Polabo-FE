@@ -21,6 +21,9 @@ const nextConfig = {
       }
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ['puppeteer-core'],
+  },
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src')
     config.resolve.alias['public'] = path.resolve(__dirname, 'public')
