@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import puppeteer from 'puppeteer-core'
+import puppeteer from 'puppeteer'
 
 export async function POST(request: Request) {
   const { boardId, polaroids }: { boardId: string; polaroids: string[] } =
