@@ -33,11 +33,10 @@ export async function POST(request: Request) {
     })
   } catch (error) {
     await browser.close()
-    return new NextResponse(
-      `Error taking screenshot: ${error?.message || error}`,
-      {
-        status: 500,
-      },
-    )
+    const errorObj = error as Error
+
+    return new NextResponse(`Error taking screenshot: ${errorObj.message}`, {
+      status: 500,
+    })
   }
 }
