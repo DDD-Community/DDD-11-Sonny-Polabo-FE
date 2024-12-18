@@ -7,14 +7,12 @@ import { getPolaroidNickname } from '@/lib/utils/polaroid'
 import { FontKeyType, ThemaKeyType } from '@/types'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
+import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { uploadAction } from '../../_actions/uploadAction'
 import { useModal } from './ModalContext'
 
-interface CreatePolaroidProps {
-  id: string
-}
-
-const CreatePolaroidModal = ({ id }: CreatePolaroidProps) => {
+const CreatePolaroidModal = () => {
+  const { boardId: id } = useBoard()
   const [isValid, setIsValid] = useState<boolean>(false)
   const [image, setImage] = useState<File | null>(null)
   const [nickname, setNickname] = useState<string>('')

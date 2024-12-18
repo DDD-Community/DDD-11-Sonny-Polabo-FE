@@ -4,10 +4,15 @@ import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 
 interface PolaroidListItemProps {
   item: Polaroid
+  PolaroidCardClassName?: string
   onClick: () => void
 }
 
-const PolaroidListItem = ({ item, onClick }: PolaroidListItemProps) => {
+const PolaroidListItem = ({
+  item,
+  onClick,
+  PolaroidCardClassName = '',
+}: PolaroidListItemProps) => {
   const [rotate, setRotate] = useState<number>(0)
   useEffect(() => {
     const randomRotate =
@@ -20,7 +25,11 @@ const PolaroidListItem = ({ item, onClick }: PolaroidListItemProps) => {
       className="flex flex-col justify-center"
       style={{ rotate: `${rotate}deg` }}
     >
-      <PolaroidCard polaroid={item} onClick={onClick} />
+      <PolaroidCard
+        className={PolaroidCardClassName}
+        polaroid={item}
+        onClick={onClick}
+      />
     </div>
   )
 }

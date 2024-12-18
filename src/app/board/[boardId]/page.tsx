@@ -1,19 +1,14 @@
-import { auth } from '@/auth'
-import Hamburger from '@/components/HamburgerMenu'
-import Header from '@/components/Header'
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
-import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidList from '@/app/board/[boardId]/_components/PolaroidList'
-import { BOARDTHEMAS } from '@/lib/constants/boardConfig'
+import { BoardContextProvider } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { SelectContextProvider } from '@/app/board/[boardId]/_contexts/SelectModeContext'
+import Header from '@/app/board/[boardId]/_components/Header'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
 import OpenModalBtn from './_components/OpenModalBtn'
-import ShareBtn from './_components/Share'
-import Tutorial from './_components/Tutorial'
-import { Step1Tooltip } from './_components/Tutorial/Tooltips'
-import { TutorialProvider } from './_components/Tutorial/TutorialContext'
+import { TutorialProvider } from './_contexts/TutorialContext'
 
 export async function generateMetadata({
   params,
@@ -55,50 +50,28 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   const { boardId } = params
   const board = await getBoard(boardId)
 
-  const session = await auth()
-
   const background = `/images/boardThemas/${board.options.THEMA}.png`
-  const boardTheme = BOARDTHEMAS[board.options.THEMA].theme
 
   return (
-    <TutorialProvider>
-      <div
-        className="relative flex h-dvh flex-col bg-cover bg-bottom"
-        style={{ backgroundImage: `url(${background})` }}
-      >
-        <Header
-          title={
-            <div className="flex items-center justify-center gap-[3px] text-center">
-              <PinIcon />
-              <h1 className="text-md font-semiBold leading-6">{board.title}</h1>
-            </div>
-          }
-          leftButton={<Hamburger />}
-          rightButton={
-            session ? (
-              <Tutorial step={1} tooltip={<Step1Tooltip />} hasNext>
-                <ShareBtn boardName={board.title} />
-              </Tutorial>
-            ) : (
-              <ShareBtn boardName={board.title} />
-            )
-          }
-          className={`bg-transparent ${boardTheme === 'LIGHT' ? 'text-gray-900' : 'text-gray-0'}`}
-          shadow={false}
-        />
-        {board.items.length === 0 ? (
-          <Empty />
-        ) : (
-          <PolaroidList board={board} boardId={boardId} />
-        )}
+    <SelectContextProvider>
+      <BoardContextProvider boardId={boardId} board={board}>
+        <TutorialProvider>
+          <div
+            className="relative flex h-dvh flex-col bg-cover bg-bottom"
+            style={{ backgroundImage: `url(${background})` }}
+          >
+            <Header />
+            {board.items.length === 0 ? <Empty /> : <PolaroidList />}
 
-        <ModalProvider>
-          <OpenModalBtn polaroidNum={board.items.length}>
-            <CreatePolaroid id={boardId} />
-          </OpenModalBtn>
-        </ModalProvider>
-      </div>
-    </TutorialProvider>
+            <ModalProvider>
+              <OpenModalBtn>
+                <CreatePolaroid />
+              </OpenModalBtn>
+            </ModalProvider>
+          </div>
+        </TutorialProvider>
+      </BoardContextProvider>
+    </SelectContextProvider>
   )
 }
 

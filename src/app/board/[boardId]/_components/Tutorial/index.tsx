@@ -1,7 +1,7 @@
 'use client'
 
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react'
-import { useTutorial } from './TutorialContext'
+import { useTutorial } from '@/app/board/[boardId]/_contexts/TutorialContext'
 
 interface TutorialProps {
   children: ReactNode

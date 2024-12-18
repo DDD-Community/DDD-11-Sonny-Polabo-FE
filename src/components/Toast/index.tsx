@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 
 interface ToastProps {
   isOpen: boolean
   setClose: () => void
-  message: string
+  children: ReactNode
   duration?: number
 }
 
-const Toast = ({ isOpen, setClose, message, duration = 3000 }: ToastProps) => {
+const Toast = ({ isOpen, setClose, children, duration = 3000 }: ToastProps) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -42,9 +42,11 @@ const Toast = ({ isOpen, setClose, message, duration = 3000 }: ToastProps) => {
           className={`fixed bottom-10 left-1/2 -translate-x-1/2 transform rounded-3xl bg-gray-1000 bg-opacity-60 px-4 py-1 backdrop-blur-[2px] ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
           onTransitionEnd={handleTransitionEnd}
         >
-          <p className="whitespace-nowrap font-jooree text-gray-0">{message}</p>
+          <div className="whitespace-nowrap font-jooree text-gray-0">
+            {children}
+          </div>
         </div>,
-        document.getElementById('modal-root') as HTMLElement,
+        document.getElementById('toast-root') as HTMLElement,
       )
     : null
 }

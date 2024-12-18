@@ -90,6 +90,7 @@ export default function RootLayout({
           <div className="mx-auto h-full max-w-md bg-gray-0" />
         </div>
         <div className="font-pretendard" id="modal-root" />
+        <div className="font-pretendard" id="toast-root" />
       </body>
     </html>
   )
