@@ -4,8 +4,9 @@ import TextArea from '@/components/TextArea'
 import Button from '@/components/Button'
 import { useEffect, useState } from 'react'
 import Select, { SelectOptionType } from '@/components/Select'
-import { withdraw } from '@/lib'
+import { GTM_EVENT, withdraw } from '@/lib'
 import { signOut } from 'next-auth/react'
+import { sendGTMEvent } from '@next/third-parties/google'
 import LeaveConfirmModal from './LeaveConfirmModal'
 
 type WithdrawOptionType = SelectOptionType & {
@@ -61,15 +62,14 @@ const LeaveForm = () => {
   }, [withdrawType, customReason])
 
   const submit = async () => {
-    if (!isFormValid) {
-      return
-    }
+    if (!isFormValid) return
 
     await withdraw({
       type: withdrawType.value,
       reason: customReason,
     })
 
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_WITHDRAW })
     setIsLeaveConfirmModalOpen(true)
   }
 
