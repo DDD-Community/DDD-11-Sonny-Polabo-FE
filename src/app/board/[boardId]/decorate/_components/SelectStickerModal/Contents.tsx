@@ -5,7 +5,7 @@ import { useStickerModal } from '../../_contexts/ModalContext'
 import { getStickerFile } from '../../_utils/getStickerFile'
 
 const Contents = () => {
-  const { selectedMenu, setSelectedSticker } = useSticker()
+  const { selectedMenu, addSticker } = useSticker()
   const { closeModal } = useStickerModal()
   const [stickerFiles, setStickerFiles] = useState<string[]>([])
 
@@ -25,7 +25,7 @@ const Contents = () => {
 
   const handleClickSticker = (file: string) => {
     closeModal()
-    setSelectedSticker(file)
+    addSticker(file)
   }
 
   return (

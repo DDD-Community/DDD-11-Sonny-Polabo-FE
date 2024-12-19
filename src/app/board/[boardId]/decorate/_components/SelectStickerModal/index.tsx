@@ -22,7 +22,7 @@ const StickerIcon = ({ num }: StickerIconProps) => {
   )
 }
 
-const CreateSticker = () => {
+const SelectSticker = () => {
   return (
     <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col bg-gray-1000/70 py-10 backdrop-blur-md">
       <Header />
@@ -40,4 +40,4 @@ const CreateSticker = () => {
   )
 }
 
-export default CreateSticker
+export default SelectSticker

@@ -13,15 +13,17 @@ import {
 interface StickerContextProps {
   selectedMenu: StickerMenu
   setSelectedMenu: Dispatch<SetStateAction<StickerMenu>>
-  selectedSticker: string
-  setSelectedSticker: Dispatch<SetStateAction<string>>
+  selectedStickers: string[]
+  addSticker: (sticker: string) => void
+  deleteSticker: (sticker: string) => void
 }
 
 const StickerContext = createContext<StickerContextProps>({
   selectedMenu: 0,
   setSelectedMenu: () => {},
-  selectedSticker: '',
-  setSelectedSticker: () => {},
+  selectedStickers: [],
+  addSticker: () => {},
+  deleteSticker: () => {},
 })
 
 export const StickerProvider = ({
@@ -30,16 +32,27 @@ export const StickerProvider = ({
   children: React.ReactNode
 }) => {
   const [selectedMenu, setSelectedMenu] = useState<StickerMenu>(0)
-  const [selectedSticker, setSelectedSticker] = useState<string>('')
+  const [selectedStickers, setSelectedStickers] = useState<string[]>([])
+
+  const addSticker = (sticker: string) => {
+    setSelectedStickers((prev) =>
+      prev.includes(sticker) ? prev : [...prev, sticker],
+    )
+  }
+
+  const deleteSticker = (sticker: string) => {
+    setSelectedStickers((prev) => prev.filter((item) => item !== sticker))
+  }
 
   const value = useMemo(
     () => ({
       selectedMenu,
       setSelectedMenu,
-      selectedSticker,
-      setSelectedSticker,
+      selectedStickers,
+      addSticker,
+      deleteSticker,
     }),
-    [selectedMenu, selectedSticker],
+    [selectedMenu, selectedStickers],
   )
 
   return (
