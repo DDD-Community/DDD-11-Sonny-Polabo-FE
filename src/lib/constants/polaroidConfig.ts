@@ -123,17 +123,21 @@ export const FONTS: Record<FontKeyType, FontType> = {
   HESOM: {
     title: '해솜체',
     className: 'font-hesom',
+    gtm: 'hesom',
   },
   EUNYOUNG: {
     title: '은영체',
     className: 'font-eunyoung',
+    gtm: 'eunyoung',
   },
   TTAEROM: {
     title: '때롬체',
     className: 'font-ttaerom',
+    gtm: 'ttaerom',
   },
   HIPI: {
     title: '바른히피체',
     className: 'font-hipi',
+    gtm: 'bareunhippie',
   },
 }

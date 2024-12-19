@@ -1,6 +1,7 @@
-import { BoardThemaKeyType, SnsKeyType } from '@/types'
+import { BoardThemaKeyType, FontKeyType, SnsKeyType } from '@/types'
 import { BOARDTHEMAS } from './boardConfig'
 import { SNS } from './snsConfig'
+import { FONTS } from './polaroidConfig'
 
 export const GTM_EVENT = Object.freeze({
   CLICK_BTN_NEWBOARD: 'click_btn_newboard',
@@ -14,4 +15,10 @@ export const GTM_EVENT = Object.freeze({
   CLICK_BTN_SHARE_SNS: (snsType: SnsKeyType) =>
     `click_btn_share_${SNS[snsType].gtm}`,
   CLICK_BTN_COPYLINK_BOARD: 'click_btn_copylink_board',
+  CLICK_INPUT_MESSAGE: 'click_input_message',
+  CLICK_INPUT_NICKNAME: 'click_input_nickname',
+  CLICK_BTN_FONT: 'click_btn_font',
+  CLICK_BTN_FRAME: 'click_btn_frame',
+  CLICK_BTN_UPLOAD: 'click_btn_upload',
+  CLICK_FONT: (font: FontKeyType) => `click_font_${FONTS[font].gtm}`,
 })
