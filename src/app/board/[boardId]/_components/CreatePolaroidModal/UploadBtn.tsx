@@ -14,6 +14,7 @@ const UploadBtn = ({ submitForm, btnDisabled }: UploadBtnProps) => {
   const [isPending, setIsPending] = useState<boolean>(false)
 
   const onSubmit = async () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_UPLOAD })
     setIsPending(true)
     await submitForm()
     setIsPending(false)
@@ -22,10 +23,7 @@ const UploadBtn = ({ submitForm, btnDisabled }: UploadBtnProps) => {
   return (
     <>
       <Button
-        onClick={() => {
-          sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_UPLOAD })
-          setShowFinalModal(true)
-        }}
+        onClick={() => setShowFinalModal(true)}
         size="lg"
         disabled={isPending || btnDisabled}
       >

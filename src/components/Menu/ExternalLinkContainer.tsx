@@ -1,8 +1,26 @@
+'use client'
+
+import { GTM_EVENT } from '@/lib'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 
-const ExternalLink = ({ text, linkTo }: { text: string; linkTo: string }) => (
-  <Link className="cursor-pointer text-sm text-gray-700" href={linkTo}>
+interface ExternalLinkProps {
+  text: string
+  linkTo: string
+  onClick?: () => void
+}
+
+const ExternalLink = ({
+  text,
+  linkTo,
+  onClick = () => {},
+}: ExternalLinkProps) => (
+  <Link
+    className="cursor-pointer text-sm text-gray-700"
+    href={linkTo}
+    onClick={onClick}
+  >
     {text}
   </Link>
 )
@@ -16,6 +34,7 @@ const ExternalLinkContainer = ({
     <ExternalLink
       text="POLABO 소개"
       linkTo="https://hwanheejung.notion.site/POLABO-39ac5a850dcb46bd83168043acea5bbc?pvs=74"
+      onClick={() => sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_INTRODUCTION })}
     />
     <ExternalLink
       text="서비스 이용약관"
