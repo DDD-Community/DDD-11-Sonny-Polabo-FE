@@ -5,7 +5,7 @@ import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import DefaultHeader from '@/app/board/[boardId]/_components/Header/DefaultHeader'
 import SelectModeHeader from '@/app/board/[boardId]/_components/Header/SelectModeHeader'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
-import { BOARDTHEMAS } from '@/lib/constants/boardConfig'
+import { BOARDTHEMAS } from '@/lib/constants'
 
 const Header = () => {
   const { isSelectMode } = useSelect()
