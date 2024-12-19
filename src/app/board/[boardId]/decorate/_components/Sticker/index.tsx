@@ -13,16 +13,16 @@ const Sticker = () => {
   const moveableRef = useRef<Moveable>(null)
   const selectoRef = useRef<Selecto>(null)
   const { selectedStickers, deleteSticker } = useSticker()
-  const [targetedSticker, setTargetedSticker] = useState<string | undefined>(
-    undefined,
-  )
+  const [targetedStickerId, setTargetedStickerId] = useState<
+    string | undefined
+  >(undefined)
 
   useEffect(() => {
     if (targets.length > 0 && targets[0]) {
       const { file } = targets[0].dataset
-      setTargetedSticker(file)
+      setTargetedStickerId(file)
     } else {
-      setTargetedSticker(undefined)
+      setTargetedStickerId(undefined)
     }
   }, [targets])
 
@@ -49,7 +49,7 @@ const Sticker = () => {
         ables={[DeleteBtn]}
         props={{
           editable: true,
-          file: targetedSticker,
+          file: targetedStickerId,
           deleteSticker,
         }}
         draggable
@@ -89,13 +89,8 @@ const Sticker = () => {
         }}
       />
       <div className="absolute left-0 top-0 z-10">
-        {selectedStickers.map((file) => (
-          <div
-            key={file}
-            className="sticker absolute h-24 w-24"
-            data-file={file}
-            onClick={(e) => e.stopPropagation()}
-          >
+        {selectedStickers.map(({ id, file }) => (
+          <div key={id} className="sticker absolute h-24 w-24" data-file={id}>
             <Image
               src={`/icons/stickers/${parseInt(file.split('-')[0], 10)}/${file}`}
               alt="Sticker"

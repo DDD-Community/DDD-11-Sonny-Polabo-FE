@@ -9,13 +9,19 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+
+interface Sticker {
+  id: string
+  file: string
+}
 
 interface StickerContextProps {
   selectedMenu: StickerMenu
   setSelectedMenu: Dispatch<SetStateAction<StickerMenu>>
-  selectedStickers: string[]
+  selectedStickers: Sticker[]
   addSticker: (sticker: string) => void
-  deleteSticker: (sticker: string) => void
+  deleteSticker: (stickerIdx: string) => void
 }
 
 const StickerContext = createContext<StickerContextProps>({
@@ -32,16 +38,15 @@ export const StickerProvider = ({
   children: React.ReactNode
 }) => {
   const [selectedMenu, setSelectedMenu] = useState<StickerMenu>(0)
-  const [selectedStickers, setSelectedStickers] = useState<string[]>([])
+  const [selectedStickers, setSelectedStickers] = useState<Sticker[]>([])
 
-  const addSticker = (sticker: string) => {
-    setSelectedStickers((prev) =>
-      prev.includes(sticker) ? prev : [...prev, sticker],
-    )
+  const addSticker = (file: string) => {
+    const newSticker = { id: uuidv4(), file }
+    setSelectedStickers((prev) => [...prev, newSticker])
   }
 
-  const deleteSticker = (sticker: string) => {
-    setSelectedStickers((prev) => prev.filter((item) => item !== sticker))
+  const deleteSticker = (stickerId: string) => {
+    setSelectedStickers((prev) => prev.filter(({ id }) => id !== stickerId))
   }
 
   const value = useMemo(
