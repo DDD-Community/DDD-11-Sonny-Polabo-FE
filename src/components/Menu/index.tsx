@@ -6,6 +6,8 @@ import PersonIcon from 'public/icons/person.svg'
 import PinIcon from 'public/icons/pinFilled.svg'
 import PolaroidIcon from 'public/icons/polaroid.svg'
 import { useState } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 import Modal from '../Modal'
 import { useDrawer } from '../HamburgerMenu/DrawerContext'
 import MenuLink from './MenuLink'
@@ -68,15 +70,18 @@ const Menu = () => {
         <Profile />
         <div
           onClick={() => {
-            if (pathName === '/') {
-              setClose()
-            }
+            if (pathName === '/') setClose()
           }}
         >
           <MenuLink icon={<PolaroidIcon />} text="POLABO 메인" linkTo="/" />
         </div>
         {status === 'authenticated' && (
-          <MenuLink icon={<PinIcon />} text="마이페이지" linkTo="/mypage" />
+          <MenuLink
+            icon={<PinIcon />}
+            text="마이페이지"
+            linkTo="/mypage"
+            onClick={() => sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_MYPAGE })}
+          />
         )}
       </div>
 

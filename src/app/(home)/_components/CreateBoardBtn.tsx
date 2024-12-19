@@ -4,6 +4,8 @@ import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib/constants'
 import GoToLoginModal from './GoToLoginModal'
 
 const CreateBoardBtn = () => {
@@ -13,6 +15,7 @@ const CreateBoardBtn = () => {
   const { status } = useSession()
 
   const handleCreateButtonClick = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_NEWBOARD })
     if (status === 'authenticated') {
       router.push('/board/create')
     } else {

@@ -1,6 +1,7 @@
 import Button from '@/components/Button'
-import { ORDERED_THEMAS } from '@/lib'
+import { GTM_EVENT, ORDERED_THEMAS } from '@/lib'
 import { ThemaKeyType } from '@/types'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Image from 'next/image'
 import ArrowBackIcon from 'public/icons/arrow_back_ios.svg'
 import CheckIcon from 'public/icons/check.svg'
@@ -34,7 +35,10 @@ const ThemaSelectItem = ({
         alt="polabo"
         width={100}
         height={100}
-        onClick={() => setCurrentThema(themaType)}
+        onClick={() => {
+          sendGTMEvent({ event: GTM_EVENT.CLICK_FRAME(themaType) })
+          setCurrentThema(themaType)
+        }}
       />
     </div>
   )

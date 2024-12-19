@@ -1,6 +1,8 @@
 'use client'
 
 import Modal from '@/components/Modal'
+import { GTM_EVENT } from '@/lib'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Icon from 'public/icons/polaroid_fire.svg'
 import TrashIcon from 'public/icons/trash.svg'
 import { useState } from 'react'
@@ -17,6 +19,7 @@ const PolaroidDeleteBtn = ({
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
 
   const handleDelete = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_DELETE_POLAROID })
     onDelete() // delete polaroid
     setShowDeleteModal(false) // close delete modal
     onDetailModalClose() // close polaroid detail modal

@@ -7,6 +7,8 @@ import UploadBtn from '@/app/board/[boardId]/_components/CreatePolaroidModal/Upl
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FontKeyType, ThemaKeyType } from '@/types'
 import PolaroidIcon from 'public/icons/polaroid.svg'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 
 interface CreatePolaroidProps {
   image: File | null
@@ -76,13 +78,19 @@ const CreatePolaroid = ({
                 'font-hesom text-md leading-5',
                 showFontSelect ? 'border-gray-0 bg-gray-800 text-gray-0' : '',
               )}
-              onClick={() => setShowFontSelect((prev) => !prev)}
+              onClick={() => {
+                sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_FONT })
+                setShowFontSelect((prev) => !prev)
+              }}
             >
               폰트 고르기
             </TagButton>
             <TagButton
               className="flex gap-2 p-2.5 text-sm leading-4"
-              onClick={() => setShowThemaSelect((prev) => !prev)}
+              onClick={() => {
+                sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_FRAME })
+                setShowThemaSelect((prev) => !prev)
+              }}
             >
               <PolaroidIcon />
               프레임 고르기

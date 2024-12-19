@@ -1,4 +1,6 @@
+import { GTM_EVENT } from '@/lib'
 import { preventKeyboardSubmit } from '@/lib/utils/keyboard'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { useEffect, useRef } from 'react'
 
 interface PolaroidMessageInputProps {
@@ -19,7 +21,7 @@ const PolaroidMessageInput = ({
       return
     }
 
-    ref.current.style.height = 'auto' // 높이를 초기화하여 기존 높이를 제거
+    ref.current.style.height = 'auto'
     ref.current.style.height = `${ref.current.scrollHeight}px`
   }, [message])
 
@@ -35,6 +37,7 @@ const PolaroidMessageInput = ({
         placeholder="눌러서 한줄 문구를 입력하세요"
         name="oneLineMessage"
         rows={1}
+        onClick={() => sendGTMEvent({ event: GTM_EVENT.CLICK_INPUT_MESSAGE })}
       />
       <p className="text-right text-sm text-gray-400">
         {message.length}/{maxLength}자

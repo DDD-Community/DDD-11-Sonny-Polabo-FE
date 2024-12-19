@@ -25,6 +25,7 @@ export type FontKeyType = 'HESOM' | 'EUNYOUNG' | 'TTAEROM' | 'HIPI'
 export interface FontType {
   title: string
   className: string
+  gtm: string
 }
 
 export type ThemaKeyType =
@@ -50,4 +51,5 @@ export type ThemaKeyType =
 export interface ThemaType {
   className: string
   descriptionStyle: string
+  gtm: string
 }
