@@ -1,7 +1,12 @@
-import { BoardThemaKeyType, FontKeyType, SnsKeyType } from '@/types'
+import {
+  BoardThemaKeyType,
+  FontKeyType,
+  SnsKeyType,
+  ThemaKeyType,
+} from '@/types'
 import { BOARDTHEMAS } from './boardConfig'
 import { SNS } from './snsConfig'
-import { FONTS } from './polaroidConfig'
+import { FONTS, THEMAS } from './polaroidConfig'
 
 export const GTM_EVENT = Object.freeze({
   CLICK_BTN_NEWBOARD: 'click_btn_newboard',
@@ -21,4 +26,5 @@ export const GTM_EVENT = Object.freeze({
   CLICK_BTN_FRAME: 'click_btn_frame',
   CLICK_BTN_UPLOAD: 'click_btn_upload',
   CLICK_FONT: (font: FontKeyType) => `click_font_${FONTS[font].gtm}`,
+  CLICK_FRAME: (thema: ThemaKeyType) => `click_frame_${THEMAS[thema].gtm}`,
 })

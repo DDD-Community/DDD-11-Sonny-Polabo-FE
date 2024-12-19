@@ -51,4 +51,5 @@ export type ThemaKeyType =
 export interface ThemaType {
   className: string
   descriptionStyle: string
+  gtm: string
 }
