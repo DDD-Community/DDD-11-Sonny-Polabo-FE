@@ -1,8 +1,9 @@
 import { FontKeyType } from '@/types'
-import { FONTS } from '@/lib'
+import { FONTS, GTM_EVENT } from '@/lib'
 import { twMerge } from 'tailwind-merge'
 import TagButton from '@/components/TagButton'
 import { forwardRef } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
 
 interface FontSelectProps {
   selectedFont: FontKeyType
@@ -26,7 +27,12 @@ const FontSelect = forwardRef<HTMLDivElement, FontSelectProps>(
                 font.className,
               )}
               key={key}
-              onClick={() => onSelect(key as FontKeyType)}
+              onClick={() => {
+                sendGTMEvent({
+                  event: GTM_EVENT.CLICK_FONT(key as FontKeyType),
+                })
+                onSelect(key as FontKeyType)
+              }}
             >
               {font.title}
             </TagButton>

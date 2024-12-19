@@ -1,5 +1,7 @@
 import Button from '@/components/Button'
 import { useState } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 import FinalModal from '../modals/FinalModal'
 
 interface UploadBtnProps {
@@ -20,7 +22,10 @@ const UploadBtn = ({ submitForm, btnDisabled }: UploadBtnProps) => {
   return (
     <>
       <Button
-        onClick={() => setShowFinalModal(true)}
+        onClick={() => {
+          sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_UPLOAD })
+          setShowFinalModal(true)
+        }}
         size="lg"
         disabled={isPending || btnDisabled}
       >
