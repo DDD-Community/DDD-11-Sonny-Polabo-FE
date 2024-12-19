@@ -25,7 +25,7 @@ interface StickerContextProps {
 }
 
 const StickerContext = createContext<StickerContextProps>({
-  selectedMenu: 0,
+  selectedMenu: 1,
   setSelectedMenu: () => {},
   selectedStickers: [],
   addSticker: () => {},
@@ -37,7 +37,7 @@ export const StickerProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [selectedMenu, setSelectedMenu] = useState<StickerMenu>(0)
+  const [selectedMenu, setSelectedMenu] = useState<StickerMenu>(1)
   const [selectedStickers, setSelectedStickers] = useState<Sticker[]>([])
 
   const addSticker = (file: string) => {
