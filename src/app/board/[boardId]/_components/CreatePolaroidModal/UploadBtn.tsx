@@ -1,5 +1,7 @@
 import Button from '@/components/Button'
 import { useState } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 import FinalModal from '../modals/FinalModal'
 
 interface UploadBtnProps {
@@ -12,6 +14,7 @@ const UploadBtn = ({ submitForm, btnDisabled }: UploadBtnProps) => {
   const [isPending, setIsPending] = useState<boolean>(false)
 
   const onSubmit = async () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_UPLOAD })
     setIsPending(true)
     await submitForm()
     setIsPending(false)

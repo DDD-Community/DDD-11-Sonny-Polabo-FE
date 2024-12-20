@@ -1,11 +1,12 @@
-import Image from 'next/image'
-import { twMerge } from 'tailwind-merge'
-import { ThemaKeyType } from '@/types'
-import { THEMAS } from '@/lib'
-import { useEffect, useState } from 'react'
 import Button from '@/components/Button'
+import { GTM_EVENT, ORDERED_THEMAS } from '@/lib'
+import { ThemaKeyType } from '@/types'
+import { sendGTMEvent } from '@next/third-parties/google'
+import Image from 'next/image'
 import ArrowBackIcon from 'public/icons/arrow_back_ios.svg'
 import CheckIcon from 'public/icons/check.svg'
+import { useEffect, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface ThemaSelectItemProps {
   themaType: ThemaKeyType
@@ -34,7 +35,10 @@ const ThemaSelectItem = ({
         alt="polabo"
         width={100}
         height={100}
-        onClick={() => setCurrentThema(themaType)}
+        onClick={() => {
+          sendGTMEvent({ event: GTM_EVENT.CLICK_FRAME(themaType) })
+          setCurrentThema(themaType)
+        }}
       />
     </div>
   )
@@ -72,10 +76,10 @@ const ThemaSelect = ({
       </div>
       <div className="mx-12 overflow-y-scroll overscroll-none pb-5 pt-10 scrollbar-hide">
         <div className="grid grid-cols-2 gap-3">
-          {Object.entries(THEMAS).map(([key]) => (
+          {ORDERED_THEMAS.map((key) => (
             <ThemaSelectItem
               key={key}
-              themaType={key as ThemaKeyType}
+              themaType={key}
               isCurrentThema={currentThema === key}
               setCurrentThema={setCurrentThema}
             />

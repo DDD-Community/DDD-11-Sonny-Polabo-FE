@@ -1,6 +1,8 @@
 import EllipsisIcon from 'public/icons/ellipsis.svg'
 import React, { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 import DeleteBoardModal from './DeleteBoardModal'
 import BoardEditPopup from './BoardEditPopup'
 import ChangeBoardNameModal from './ChangeBoardNameModal'
@@ -33,12 +35,14 @@ const BoardItem = ({
   const closeDeleteModal = () => setIsDeleteModalOpen(false)
 
   const onClickDelete = (e: React.MouseEvent<HTMLDivElement>) => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_DELETE_BOARD })
     setIsEditPopupOpen(false)
     setIsDeleteModalOpen(true)
     e.stopPropagation()
   }
 
   const onClickChangeName = (e: React.MouseEvent<HTMLDivElement>) => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_EDIT_BOARDNAME })
     setIsEditPopupOpen(false)
     setIsChangeNameModalOpen(true)
     e.stopPropagation()

@@ -25,6 +25,7 @@ export type FontKeyType = 'HESOM' | 'EUNYOUNG' | 'TTAEROM' | 'HIPI'
 export interface FontType {
   title: string
   className: string
+  gtm: string
 }
 
 export type ThemaKeyType =
@@ -40,8 +41,15 @@ export type ThemaKeyType =
   | 'F-9'
   | 'F-10'
   | 'F-11'
+  | 'F-12'
+  | 'F-13'
+  | 'F-14'
+  | 'F-15'
+  | 'F-16'
+  | 'F-17'
 
 export interface ThemaType {
   className: string
   descriptionStyle: string
+  gtm: string
 }

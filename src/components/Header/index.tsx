@@ -28,7 +28,7 @@ const Header = ({
         )}
       >
         <div className="w-6 cursor-pointer">{leftButton}</div>
-        <div className="text-gray-900">
+        <div>
           <div className="text-center text-md font-semiBold leading-6">
             {title}
           </div>

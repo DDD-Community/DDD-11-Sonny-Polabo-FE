@@ -7,7 +7,17 @@ export const getPolaroidNickname = (
 ) => nickname || session?.profile?.nickName || '익명'
 
 const isPolaroidWithFrame = (themaKey: ThemaKeyType) => {
-  const polaroidWithFrame: ThemaKeyType[] = ['F-9', 'F-10', 'F-11']
+  const polaroidWithFrame: ThemaKeyType[] = [
+    'F-9',
+    'F-10',
+    'F-11',
+    'F-12',
+    'F-13',
+    'F-14',
+    'F-15',
+    'F-16',
+    'F-17',
+  ]
 
   return polaroidWithFrame.includes(themaKey)
 }
