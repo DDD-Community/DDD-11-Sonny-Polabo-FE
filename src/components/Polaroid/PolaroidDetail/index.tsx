@@ -63,6 +63,10 @@ const PolaroidDetailModal = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="relative mx-auto flex h-dvh max-w-md flex-1 touch-pan-x flex-col justify-center overflow-x-hidden py-10">
         <CloseIcon className="absolute left-5 top-5 cursor-pointer text-gray-0" />
+        <div
+          className="absolute left-0 top-0 h-full w-full"
+          onClick={onClose}
+        />
         <div className="relative touch-pan-x overflow-x-hidden">
           <Carousel
             ref={carouselRef}
@@ -116,10 +120,6 @@ const PolaroidDetailModal = ({
             />
           </div>
         )}
-        <div
-          className="absolute left-0 top-0 h-full w-full"
-          onClick={onClose}
-        />
       </div>
     </Modal>
   )
