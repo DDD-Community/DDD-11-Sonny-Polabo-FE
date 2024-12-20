@@ -1,15 +1,14 @@
 'use client'
 
-import React from 'react'
-import Header from '@/components/Header'
-import PinIcon from 'public/icons/pinFilled.svg'
 import Hamburger from '@/components/HamburgerMenu'
-import Tutorial from '@/app/board/[boardId]/_components/Tutorial'
-import { Step1Tooltip } from '@/app/board/[boardId]/_components/Tutorial/Tooltips'
-import ShareBtn from '@/app/board/[boardId]/_components/Share'
+import Header from '@/components/Header'
+import { BoardTutorial } from '@/components/Tutorial'
 import { useSession } from 'next-auth/react'
-import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import PinIcon from 'public/icons/pinFilled.svg'
 import { twMerge } from 'tailwind-merge'
+import { useBoard } from '../../_contexts/BoardContext'
+import ShareBtn from '../Share'
+import { Step1Tooltip } from '../Tooltips'
 
 const DefaultHeader = ({ className }: { className: string }) => {
   const { data: session } = useSession()
@@ -26,9 +25,9 @@ const DefaultHeader = ({ className }: { className: string }) => {
       leftButton={<Hamburger />}
       rightButton={
         session ? (
-          <Tutorial step={1} tooltip={<Step1Tooltip />} hasNext>
+          <BoardTutorial step={1} tooltip={<Step1Tooltip />} hasNext>
             <ShareBtn />
-          </Tutorial>
+          </BoardTutorial>
         ) : (
           <ShareBtn />
         )

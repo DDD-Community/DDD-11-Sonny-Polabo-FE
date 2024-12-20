@@ -26,6 +26,7 @@
     "@next/third-parties": "^15.1.0",
     "@storybook/preview-api": "^8.1.11",
     "@svgr/webpack": "^8.1.0",
+    "@types/uuid": "^10.0.0",
     "browser-image-compression": "^2.0.2",
     "eslint-import-resolver-typescript": "^3.6.1",
     "next": "14.2.4",
@@ -35,7 +36,9 @@
     "react": "^18",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18",
+    "react-moveable": "^0.56.0",
     "react-multi-carousel": "^2.8.5",
+    "react-selecto": "^1.26.3",
     "tailwind-merge": "^2.3.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   },

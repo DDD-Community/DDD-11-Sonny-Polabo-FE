@@ -44,15 +44,11 @@
       2,
       { "namedComponents": ["arrow-function", "function-declaration"] }
     ],
-    "react/jsx-props-no-spreading": [
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": [
       "error",
       {
-        "html": "ignore"
-      }
-    ],
-    "react/require-default-props": [
-      "error", {
-        "functions" : "defaultArguments"
+        "functions": "defaultArguments"
       }
     ]
   }

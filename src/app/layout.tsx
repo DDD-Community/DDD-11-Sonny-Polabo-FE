@@ -1,6 +1,6 @@
 import AuthSession from '@/components/AuthSession'
-import CheckNewUser from '@/components/CheckNewUser'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { CheckNewUser } from '@/components/Tutorial'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'

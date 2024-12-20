@@ -1,14 +1,14 @@
-import { getBoard } from '@/lib'
-import { Metadata } from 'next'
+import Header from '@/app/board/[boardId]/_components/Header'
 import PolaroidList from '@/app/board/[boardId]/_components/PolaroidList'
 import { BoardContextProvider } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { SelectContextProvider } from '@/app/board/[boardId]/_contexts/SelectModeContext'
-import Header from '@/app/board/[boardId]/_components/Header'
+import { BoardTutorialProvider } from '@/components/Tutorial'
+import { getBoard } from '@/lib'
+import { Metadata } from 'next'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
 import OpenModalBtn from './_components/OpenModalBtn'
-import { TutorialProvider } from './_contexts/TutorialContext'
 
 export async function generateMetadata({
   params,
@@ -55,7 +55,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
   return (
     <SelectContextProvider>
       <BoardContextProvider boardId={boardId} board={board}>
-        <TutorialProvider>
+        <BoardTutorialProvider>
           <div
             className="relative flex h-dvh flex-col bg-cover bg-bottom"
             style={{ backgroundImage: `url(${background})` }}
@@ -69,7 +69,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
               </OpenModalBtn>
             </ModalProvider>
           </div>
-        </TutorialProvider>
+        </BoardTutorialProvider>
       </BoardContextProvider>
     </SelectContextProvider>
   )
