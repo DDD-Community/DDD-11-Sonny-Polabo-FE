@@ -1,22 +1,21 @@
 'use client'
 
+import CopyCompleteToast from '@/app/board/[boardId]/_components/Share/CopyCompleteToast'
+import NoPolaroidToSelectToast from '@/app/board/[boardId]/_components/Share/NoPolaroidToSelectToast'
+import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
+import Button from '@/components/Button'
 import Modal from '@/components/Modal'
+import { useBoardTutorial } from '@/components/Tutorial'
 import CopyIcon from 'public/icons/copy.svg'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/linkShare.svg'
+import PolaroidIcon from 'public/icons/polaroid.svg'
 import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
-import PolaroidIcon from 'public/icons/polaroid.svg'
 import { useState } from 'react'
-import Button from '@/components/Button'
-import Separator from '@/components/Separator'
-import CopyCompleteToast from '@/app/board/[boardId]/_components/Share/CopyCompleteToast'
-import NoPolaroidToSelectToast from '@/app/board/[boardId]/_components/Share/NoPolaroidToSelectToast'
-import { useTutorial } from '@/app/board/[boardId]/_contexts/TutorialContext'
-import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
-import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import useSnsShare from '../../_hooks/useSnsShare'
 import Section from './Section'
 
@@ -27,13 +26,11 @@ const ShareBtn = () => {
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
 
-  const { run, nextStep } = useTutorial()
+  const { run, nextStep } = useBoardTutorial()
 
   const onShareModalClose = () => {
     setShowShareModal(false)
-    if (run) {
-      nextStep()
-    }
+    if (run) nextStep()
   }
 
   const handleShare = (shareFn: () => void) => {
@@ -116,7 +113,7 @@ const ShareBtn = () => {
             />
           </Section>
           <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">
-            <Separator />
+            <div className="h-px bg-gray-300" />
             <Button className="w-full" onClick={onClickDecorateBoard}>
               <div className="flex items-center justify-center gap-1">
                 내 보드 꾸미고 저장하기 <PolaroidIcon />

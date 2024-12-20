@@ -2,7 +2,8 @@
 
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { useTutorial } from '@/app/board/[boardId]/_contexts/TutorialContext'
+import Triangle from 'public/icons/tooltip-triangle.svg'
+import { UseTutorial } from './TutorialContext'
 
 const Tooltip = ({
   children,
@@ -11,28 +12,25 @@ const Tooltip = ({
   children: ReactNode
   className?: React.ComponentProps<'div'>['className']
 }) => {
-  return <div className={twMerge(`relative`, className)}>{children}</div>
+  return <div className={twMerge(`absolute`, className)}>{children}</div>
 }
 
-const Triangle = ({
-  className = '',
-}: {
-  className?: React.ComponentProps<'div'>['className']
-}) => (
-  <div className={twMerge('absolute right-3 -z-10', className)}>
-    <div className="h-8 w-8 rotate-[30deg] skew-y-[30deg] scale-x-[0.866] transform rounded-lg bg-gray-950" />
-  </div>
-)
+type TrianglePos = 'tl' | 'tr' | 'bl' | 'br'
 
-const Box = ({
-  children,
-  className = '',
-  trianglePos = '',
-}: {
+interface BoxProps {
   children: ReactNode
   className?: React.ComponentProps<'div'>['className']
-  trianglePos?: React.ComponentProps<'div'>['className']
-}) => {
+  trianglePos: TrianglePos
+}
+
+const Box = ({ children, className = '', trianglePos }: BoxProps) => {
+  const TRIANGLE_POSITION: Record<TrianglePos, string> = {
+    tr: 'bottom-full right-3',
+    tl: 'bottom-full left-3',
+    bl: 'top-full left-3 rotate-180',
+    br: 'top-full right-3 rotate-180',
+  }
+
   return (
     <div
       className={twMerge(
@@ -40,7 +38,9 @@ const Box = ({
         className,
       )}
     >
-      <Triangle className={trianglePos} />
+      <Triangle
+        className={twMerge('absolute -z-10', TRIANGLE_POSITION[trianglePos])}
+      />
       {children}
     </div>
   )
@@ -56,7 +56,7 @@ const Content = ({
   return (
     <div
       className={twMerge(
-        'mb-[3px] whitespace-pre-line text-center text-md',
+        'mb-[6px] whitespace-pre-line text-center text-md',
         className,
       )}
     >
@@ -65,19 +65,17 @@ const Content = ({
   )
 }
 
-const Icon = ({
-  icon,
-  sendToBack = false,
-  className = '',
-}: {
+interface IconProps {
   icon: ReactNode
   sendToBack?: boolean
   className?: React.ComponentProps<'div'>['className']
-}) => {
+}
+
+const Icon = ({ icon, sendToBack = false, className = '' }: IconProps) => {
   return (
     <div
       className={twMerge(
-        `absolute -top-[0%] left-0 -translate-x-1/2 -translate-y-1/2 ${sendToBack ? 'z-10' : 'z-40'}`,
+        `absolute -top-[0%] left-0 -translate-x-1/2 -translate-y-1/2 ${sendToBack ? 'z-20' : 'z-40'}`,
         className,
       )}
     >
@@ -86,7 +84,13 @@ const Icon = ({
   )
 }
 
-const NextBtn = ({ hasNext }: { hasNext: boolean }) => {
+const NextBtn = ({
+  hasNext,
+  useTutorial,
+}: {
+  hasNext: boolean
+  useTutorial: UseTutorial
+}) => {
   const { nextStep, endTutorial } = useTutorial()
   return (
     <div
