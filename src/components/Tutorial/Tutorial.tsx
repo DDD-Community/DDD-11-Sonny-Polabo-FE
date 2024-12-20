@@ -10,6 +10,7 @@ export interface TutorialProps {
   hasNext?: boolean
   useTutorial: UseTutorial
   targetStyle?: 'ROUND' | 'FIT'
+  targetStyleProperites?: CSSProperties
 }
 
 const TargetBorder = () => (
@@ -29,6 +30,7 @@ const Tutorial = ({
   children,
   useTutorial,
   targetStyle = 'ROUND',
+  targetStyleProperites = {},
 }: TutorialProps) => {
   const targetRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -69,7 +71,7 @@ const Tutorial = ({
               left: targetRect.left,
               width: targetRect.width,
               height: targetRect.height,
-              borderRadius: '12px',
+              ...targetStyleProperites,
             }
           default:
             throw new Error('Unexpected targetStyle')
@@ -101,9 +103,7 @@ const Tutorial = ({
 
   const handleTargetClick = () => {
     setIsOpen(false)
-    if (!hasNext) {
-      endTutorial()
-    }
+    if (!hasNext) endTutorial()
   }
 
   return (

@@ -12,6 +12,7 @@ const SubmitBtn = () => {
         hasNext={false}
         tooltip={<Step2Tooltip />}
         targetStyle="FIT"
+        targetStyleProperites={{ borderRadius: '12px' }}
       >
         <Button size="lg" variant="secondary" className="w-full">
           꾸미기 완료

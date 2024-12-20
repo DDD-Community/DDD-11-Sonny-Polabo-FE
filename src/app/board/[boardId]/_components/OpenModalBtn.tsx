@@ -6,7 +6,7 @@ import Modal from '@/components/Modal'
 import { useSession } from 'next-auth/react'
 import AddPolaroid from 'public/icons/add_polaroid.svg'
 import { ReactNode } from 'react'
-import { BoardTutorial } from '@/components/Tutorial'
+import { BoardTutorial, useBoardTutorial } from '@/components/Tutorial'
 import { useModal } from './CreatePolaroidModal/ModalContext'
 import { Step2Tooltip } from './Tooltips'
 import CannotUploadModal from './modals/CannotUploadModal'
@@ -20,6 +20,7 @@ const OpenModalBtn = ({ children }: OpenModalBtnProps) => {
   const { isOpen, openModal, closeModal } = useModal()
   const { board } = useBoard()
   const { isSelectMode } = useSelect()
+  const { run, nextStep } = useBoardTutorial()
 
   const renderModalContent = () => {
     if (board?.items.length >= 30) {
@@ -32,6 +33,11 @@ const OpenModalBtn = ({ children }: OpenModalBtnProps) => {
     )
   }
 
+  const handleOpenModal = () => {
+    if (run) nextStep()
+    openModal()
+  }
+
   if (isSelectMode) {
     return null
   }
@@ -40,12 +46,8 @@ const OpenModalBtn = ({ children }: OpenModalBtnProps) => {
     <div>
       {isOpen && renderModalContent()}
       <div className="absolute bottom-10 right-4 cursor-pointer">
-        <BoardTutorial
-          step={session ? 2 : 1}
-          tooltip={<Step2Tooltip />}
-          hasNext={false}
-        >
-          <AddPolaroid onClick={openModal} />
+        <BoardTutorial step={session ? 2 : 1} tooltip={<Step2Tooltip />}>
+          <AddPolaroid onClick={handleOpenModal} />
         </BoardTutorial>
       </div>
     </div>

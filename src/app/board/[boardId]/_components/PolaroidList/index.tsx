@@ -1,12 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
-import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
+import PolaroidListItem from '@/app/board/[boardId]/_components/PolaroidList/PolaroidListItem'
 import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
 import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
 import Button from '@/components/Button'
+import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
 import { useRouter } from 'next/navigation'
-import PolaroidListItem from '@/app/board/[boardId]/_components/PolaroidList/PolaroidListItem'
+import { useState } from 'react'
 
 const PolaroidList = () => {
   const { board, boardId } = useBoard()
@@ -65,8 +65,9 @@ const PolaroidList = () => {
         <div className="grid grid-cols-2 gap-6 px-[20px] py-[10px]">
           {board.items.map((item, idx) => (
             <PolaroidListItem
-              PolaroidCardClassName={getPolaroidClassName(idx)}
+              isFirstItem={idx === 0}
               key={item.id}
+              PolaroidCardClassName={getPolaroidClassName(idx)}
               item={item}
               onClick={() => onSelectPolaroid(idx)}
             />
