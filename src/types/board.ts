@@ -30,4 +30,5 @@ export type BoardThemaKeyType =
 export interface BoardThemaType {
   title: string
   theme: 'LIGHT' | 'DARK'
+  gtm: string
 }

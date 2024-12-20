@@ -2,6 +2,8 @@ import { preventKeyboardSubmit } from '@/lib/utils/keyboard'
 import { useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { getPolaroidNickname } from '@/lib/utils/polaroid'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 
 interface PolaroidNicknameInputProps {
   nickname: string
@@ -79,6 +81,9 @@ const PolaroidNicknameInput = ({
           style={{
             width: `${width}px`,
           }}
+          onClick={() =>
+            sendGTMEvent({ event: GTM_EVENT.CLICK_INPUT_NICKNAME })
+          }
         />
       </div>
       {showLengthCount && (

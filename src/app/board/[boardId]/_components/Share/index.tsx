@@ -16,6 +16,10 @@ import IGIcon from 'public/icons/sns/sns-ig.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
 import XIcon from 'public/icons/sns/sns-x.svg'
 import { useState } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
+import { SnsKeyType } from '@/types'
+import { SNS } from '@/lib/constants/snsConfig'
 import useSnsShare from '../../_hooks/useSnsShare'
 import Section from './Section'
 
@@ -33,13 +37,27 @@ const ShareBtn = () => {
     if (run) nextStep()
   }
 
-  const handleShare = (shareFn: () => void) => {
-    shareFn()
-    setShowShareModal(false)
-  }
+  const handleShare = (snsType: SnsKeyType) => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_SHARE_SNS(snsType) })
 
-  const handleKakaoShare = () => {
-    handleShare(() => shareToKakao(board.title))
+    switch (snsType) {
+      case 'KAKAO':
+        shareToKakao(board.title)
+        break
+      case 'INSTAGRAM':
+        shareToInsta()
+        break
+      case 'X':
+        shareToX()
+        break
+      case 'FACEBOOK':
+        shareToFacebook()
+        break
+      default:
+        break
+    }
+
+    setShowShareModal(false)
   }
 
   const [showCopyCompleteToast, setShowCopyCompleteToast] = useState(false)
@@ -49,6 +67,8 @@ const ShareBtn = () => {
   const closeNoPolaroidToast = () => setShowNoPolaroidToast(false)
 
   const copyLink = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_COPYLINK_BOARD })
+    setShowShareModal(false)
     const currentURL = window.location.href
     return navigator.clipboard.writeText(currentURL).then(() => {
       setShowCopyCompleteToast(true)
@@ -66,7 +86,13 @@ const ShareBtn = () => {
 
   return (
     <>
-      <Share onClick={() => setShowShareModal(true)} className="w-6" />
+      <Share
+        onClick={() => {
+          sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_SHARE })
+          setShowShareModal(true)
+        }}
+        className="w-6"
+      />
       <CopyCompleteToast
         show={showCopyCompleteToast}
         close={closeCopyCompleteToast}
@@ -84,32 +110,31 @@ const ShareBtn = () => {
               icon={<CopyIcon className="-rotate-45 scale-150" />}
               bg="bg-gray-900"
               desc="링크 복사"
-              onClick={() => handleShare(copyLink)}
+              onClick={copyLink}
             />
-
             <Section.Item
               icon={<KakaoIcon />}
-              bg="bg-kakao"
-              desc="카카오톡"
-              onClick={handleKakaoShare}
+              bg={SNS.KAKAO.bg}
+              desc={SNS.KAKAO.name}
+              onClick={() => handleShare('KAKAO')}
             />
             <Section.Item
               icon={<IGIcon />}
-              bg="bg-[url('/icons/sns/sns-ig-bg.png')]"
-              desc="인스타그램"
-              onClick={() => handleShare(shareToInsta)}
+              bg={SNS.INSTAGRAM.bg}
+              desc={SNS.INSTAGRAM.name}
+              onClick={() => handleShare('INSTAGRAM')}
             />
             <Section.Item
               icon={<XIcon />}
-              bg="bg-gray-1000"
-              desc="X"
-              onClick={() => handleShare(shareToX)}
+              bg={SNS.X.bg}
+              desc={SNS.X.name}
+              onClick={() => handleShare('X')}
             />
             <Section.Item
               icon={<FacebookIcon />}
-              bg="bg-facebook"
-              desc="페이스북"
-              onClick={() => handleShare(shareToFacebook)}
+              bg={SNS.FACEBOOK.bg}
+              desc={SNS.FACEBOOK.name}
+              onClick={() => handleShare('FACEBOOK')}
             />
           </Section>
           <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">

@@ -5,6 +5,8 @@ import TextInput from '@/components/TextInput'
 import { ReactNode } from 'react'
 import { useBoardName } from '@/hooks/useBoardName'
 import { useRouter } from 'next/navigation'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib/constants'
 
 interface BoardNameFormProps {
   children: ReactNode
@@ -21,6 +23,11 @@ const BoardNameForm = ({ children }: BoardNameFormProps) => {
   } = useBoardName()
 
   const router = useRouter()
+
+  const handleNext = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_NEXT })
+    router.push(`/board/create/theme?title=${boardName}`)
+  }
 
   return (
     <>
@@ -42,7 +49,7 @@ const BoardNameForm = ({ children }: BoardNameFormProps) => {
         size="lg"
         className="mb-12"
         disabled={isInvalid}
-        onClick={() => router.push(`/board/create/theme?title=${boardName}`)}
+        onClick={handleNext}
       >
         다음
       </Button>
