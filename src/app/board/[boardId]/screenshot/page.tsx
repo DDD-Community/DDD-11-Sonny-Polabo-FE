@@ -14,6 +14,7 @@ interface BoardScreenshotPageProps {
   }
   searchParams: {
     polaroidIds: string | string[]
+    stickers: string | string[]
   }
 }
 
@@ -27,6 +28,20 @@ const BoardScreenshotPage = async ({
   const selectedPolaroids = board.items.filter((item) =>
     polaroidIds.includes(String(item.id)),
   )
+  const stickers = ensureArray(searchParams.stickers)
+
+  const parsedStickers = stickers.map((sticker) => {
+    const stickerStyle = sticker.split(',')
+    return {
+      width: stickerStyle[0],
+      height: stickerStyle[1],
+      x: stickerStyle[2],
+      y: stickerStyle[3],
+      angle: stickerStyle[4],
+      file: stickerStyle[5],
+    }
+  })
+
   const { titleClassName, backgroundImage } = getBoardStyle(board)
 
   if (selectedPolaroids.length === 0) {
@@ -49,6 +64,28 @@ const BoardScreenshotPage = async ({
         <span className="font-jooree text-[68px] font-semiBold">
           {board.title}
         </span>
+      </div>
+      <div className="absolute top-0 z-10">
+        {parsedStickers.map((sticker) => (
+          <div
+            key={sticker.file}
+            className="absolute"
+            style={{
+              width: `${sticker.width}px`,
+              height: `${sticker.height}px`,
+              top: `${sticker.y}px`,
+              left: `${sticker.x}px`,
+              transform: `rotate(${sticker.angle}deg)`,
+            }}
+          >
+            <Image
+              src={`/icons/stickers/${parseInt(sticker.file.split('-')[0], 10)}/${sticker.file}`}
+              alt="Sticker"
+              width={Number(sticker.width)}
+              height={Number(sticker.height)}
+            />
+          </div>
+        ))}
       </div>
       <PolaroidList polaroids={selectedPolaroids} />
       <div className="flex w-full items-center justify-center">

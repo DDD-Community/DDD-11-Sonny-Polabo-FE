@@ -7,6 +7,7 @@ import Button from '@/components/Button'
 import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { createPolaroidSearchParams } from '@/lib/utils/query'
 
 const PolaroidList = () => {
   const { board, boardId } = useBoard()
@@ -56,7 +57,11 @@ const PolaroidList = () => {
     const imageUrl = URL.createObjectURL(blob)
     setIsLoading(false)
 
-    router.push(`/board/${boardId}/decorate?imageUrl=${imageUrl}`)
+    const polaroidIdsSearchParam = createPolaroidSearchParams(selectedIds)
+
+    router.push(
+      `/board/${boardId}/decorate?imageUrl=${imageUrl}&boardId=${boardId}&${polaroidIdsSearchParam}`,
+    )
   }
 
   return (
