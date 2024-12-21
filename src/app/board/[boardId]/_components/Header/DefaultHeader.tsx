@@ -6,13 +6,15 @@ import { BoardTutorial } from '@/components/Tutorial'
 import { useSession } from 'next-auth/react'
 import PinIcon from 'public/icons/pinFilled.svg'
 import { twMerge } from 'tailwind-merge'
+import { getBoardStyle } from '@/lib/utils/board'
 import { useBoard } from '../../_contexts/BoardContext'
 import ShareBtn from '../Share'
 import { Step1Tooltip } from '../Tooltips'
 
-const DefaultHeader = ({ className }: { className: string }) => {
+const DefaultHeader = () => {
   const { data: session } = useSession()
   const { board } = useBoard()
+  const { titleClassName } = getBoardStyle(board)
 
   return (
     <Header
@@ -32,7 +34,7 @@ const DefaultHeader = ({ className }: { className: string }) => {
           <ShareBtn />
         )
       }
-      className={twMerge('bg-transparent', className)}
+      className={twMerge('bg-transparent', titleClassName)}
       shadow={false}
     />
   )

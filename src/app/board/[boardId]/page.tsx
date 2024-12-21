@@ -5,6 +5,7 @@ import { SelectContextProvider } from '@/app/board/[boardId]/_contexts/SelectMod
 import { BoardTutorialProvider } from '@/components/Tutorial'
 import { getBoard } from '@/lib'
 import { Metadata } from 'next'
+import { getBoardStyle } from '@/lib/utils/board'
 import CreatePolaroid from './_components/CreatePolaroidModal'
 import { ModalProvider } from './_components/CreatePolaroidModal/ModalContext'
 import Empty from './_components/Empty'
@@ -49,8 +50,7 @@ interface BoardPageProps {
 const BoardPage = async ({ params }: BoardPageProps) => {
   const { boardId } = params
   const board = await getBoard(boardId)
-
-  const background = `/images/boardThemas/${board.options.THEMA}.png`
+  const { backgroundImage } = getBoardStyle(board)
 
   return (
     <SelectContextProvider>
@@ -58,7 +58,7 @@ const BoardPage = async ({ params }: BoardPageProps) => {
         <BoardTutorialProvider>
           <div
             className="relative flex h-dvh flex-col bg-cover bg-bottom"
-            style={{ backgroundImage: `url(${background})` }}
+            style={{ backgroundImage: `url(${backgroundImage})` }}
           >
             <Header />
             {board.items.length === 0 ? <Empty /> : <PolaroidList />}
