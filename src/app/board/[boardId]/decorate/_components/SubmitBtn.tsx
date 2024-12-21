@@ -4,7 +4,7 @@ import Button from '@/components/Button'
 import { DecorateTutorial } from '@/components/Tutorial'
 import { Step2Tooltip } from './Tooltips'
 
-const SubmitBtn = () => {
+const SubmitBtn = ({ onClick }: { onClick: () => void }) => {
   return (
     <div className="mb-10 mt-5">
       <DecorateTutorial
@@ -14,7 +14,12 @@ const SubmitBtn = () => {
         targetStyle="FIT"
         targetStyleProperites={{ borderRadius: '12px' }}
       >
-        <Button size="lg" variant="secondary" className="w-full">
+        <Button
+          size="lg"
+          variant="secondary"
+          className="w-full"
+          onClick={onClick}
+        >
           꾸미기 완료
         </Button>
       </DecorateTutorial>

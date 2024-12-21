@@ -28,13 +28,17 @@ const BoardDecoratePage = async ({ searchParams }: BoardDecoratePageProps) => {
                 <SelectSticker />
               </OpenStickerModalBtn>
             </StickerModalProvider>
-            <div className="relative h-full overflow-hidden">
+            <div
+              id="parent"
+              className="relative mx-6 overflow-hidden shadow-screenshot"
+            >
               <Sticker />
               <Image
                 src={imageUrl}
                 alt="screenshot"
+                width={1080}
+                height={1920}
                 className="object-contain"
-                fill
               />
             </div>
           </div>

@@ -19,7 +19,7 @@ const Sticker = () => {
 
   useEffect(() => {
     const firstTarget = targets[0]
-    setTargetedStickerId(firstTarget?.dataset.file ?? undefined)
+    setTargetedStickerId(firstTarget?.dataset.id ?? undefined)
   }, [targets])
 
   useEffect(() => {
@@ -80,7 +80,12 @@ const Sticker = () => {
       />
       <div className="absolute left-1/2 top-0 z-10">
         {selectedStickers.map(({ id, file }) => (
-          <div key={id} className="sticker absolute h-24 w-24" data-file={id}>
+          <div
+            key={id}
+            className="sticker absolute h-24 w-24"
+            data-id={id}
+            data-file={file}
+          >
             <Image
               src={`/icons/stickers/${parseInt(file.split('-')[0], 10)}/${file}`}
               alt="Sticker"
