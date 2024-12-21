@@ -3,5 +3,9 @@ export const ensureArray = <T>(value: T | T[]) => {
     return value
   }
 
+  if (value === null || value === undefined) {
+    return []
+  }
+
   return [value]
 }
