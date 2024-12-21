@@ -1,10 +1,12 @@
 import React from 'react'
 import { getBoard } from '@/lib'
-import PinIcon from 'public/icons/PinIcon.svg'
+import BigPinIcon from 'public/icons/BigPinIcon.svg'
 import PolaboLogo from 'public/images/polabo-logo.png'
 import Image from 'next/image'
 import { ensureArray } from '@/lib/utils/array'
 import PolaroidList from '@/app/board/[boardId]/screenshot/_components/PolaroidList'
+import { twMerge } from 'tailwind-merge'
+import { getBoardStyle } from '@/lib/utils/board'
 
 interface BoardScreenshotPageProps {
   params: {
@@ -25,6 +27,7 @@ const BoardScreenshotPage = async ({
   const selectedPolaroids = board.items.filter((item) =>
     polaroidIds.includes(String(item.id)),
   )
+  const { titleClassName, backgroundImage } = getBoardStyle(board)
 
   if (selectedPolaroids.length === 0) {
     throw new Error('No polaroids found')
@@ -34,9 +37,15 @@ const BoardScreenshotPage = async ({
     <div
       id="screenshot_target"
       className="relative flex h-[1920px] w-[1080px] flex-col justify-between bg-gray-0"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="flex items-center justify-center py-11">
-        <PinIcon />
+      <div
+        className={twMerge(
+          'flex items-center justify-center gap-2 py-11',
+          titleClassName,
+        )}
+      >
+        <BigPinIcon />
         <span className="font-jooree text-[68px] font-semiBold">
           {board.title}
         </span>
