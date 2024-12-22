@@ -16,3 +16,13 @@ export const getImageWidthHeight = (
     }
   })
 }
+
+export const downloadImage = (imageUrl: string, imageName = 'file') => {
+  const a = document.createElement('a')
+  a.href = imageUrl
+  a.download = `${imageName}.png`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(imageUrl)
+}
