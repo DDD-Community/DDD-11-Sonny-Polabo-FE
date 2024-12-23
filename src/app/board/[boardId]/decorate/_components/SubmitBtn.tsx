@@ -2,9 +2,18 @@
 
 import Button from '@/components/Button'
 import { DecorateTutorial } from '@/components/Tutorial'
+import { ReactNode } from 'react'
 import { Step2Tooltip } from './Tooltips'
 
-const SubmitBtn = ({ onClick }: { onClick: () => void }) => {
+const SubmitBtn = ({
+  onClick,
+  children,
+  disabled,
+}: {
+  onClick: () => void
+  children: ReactNode
+  disabled: boolean
+}) => {
   return (
     <div className="mx-5">
       <DecorateTutorial
@@ -18,9 +27,10 @@ const SubmitBtn = ({ onClick }: { onClick: () => void }) => {
           size="lg"
           variant="secondary"
           className="w-full"
+          disabled={disabled}
           onClick={onClick}
         >
-          꾸미기 완료
+          {children}
         </Button>
       </DecorateTutorial>
     </div>

@@ -7,10 +7,12 @@ import SubmitBtn from '@/app/board/[boardId]/decorate/_components/SubmitBtn'
 import { ensureArray } from '@/lib/utils/array'
 import { getStickerStyles } from '@/app/board/[boardId]/decorate/_utils/getStickerStyles'
 import { downloadImage } from '@/lib/utils/image'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { getBoard } from '@/lib'
 import OpenStickerModalBtn from '@/app/board/[boardId]/decorate/_components/OpenStickerModalBtn'
 import SelectSticker from '@/app/board/[boardId]/decorate/_components/SelectStickerModal'
+import ScreenshotLoading from 'public/images/screenshot_loading.png'
+import Button from '@/components/Button'
 
 const DecorateScreenshot = () => {
   const { boardId } = useParams<{ boardId: string }>()
@@ -18,6 +20,10 @@ const DecorateScreenshot = () => {
   const polaroidIds = searchParams.getAll('polaroidIds')
   const [boardName, setBoardName] = useState('')
   const [previewUrl, setPreviewUrl] = useState('')
+  const [isLoadingPreview, setIsLoadingPreview] = useState(true)
+  const [isLoadingDownload, setIsLoadingDownload] = useState(false)
+  const [isDownloaded, setIsDownloaded] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     getBoard(boardId).then((board) => {
@@ -42,12 +48,14 @@ const DecorateScreenshot = () => {
       const blob = await res.blob()
       const previewURl = URL.createObjectURL(blob)
       setPreviewUrl(previewURl)
+      setIsLoadingPreview(false)
     }
 
     takePreview()
   }, [])
 
   const takeScreenshot = () => {
+    setIsLoadingDownload(true)
     fetch(`/board/api/screenshot`, {
       method: 'POST',
       body: JSON.stringify({
@@ -60,7 +68,21 @@ const DecorateScreenshot = () => {
       .then((blob) => {
         const screenshotUrl = URL.createObjectURL(blob)
         downloadImage(screenshotUrl, boardName)
+        setIsLoadingDownload(false)
+        setIsDownloaded(true)
       })
+  }
+
+  const routeToHome = () => {
+    router.push('/')
+  }
+
+  if (isLoadingPreview) {
+    return (
+      <div className="flex h-dvh items-center justify-center">
+        <Image src={ScreenshotLoading} alt="loading" className="w-[80%]" />
+      </div>
+    )
   }
 
   return (
@@ -75,7 +97,7 @@ const DecorateScreenshot = () => {
       {previewUrl && (
         <div
           id="preview"
-          className="relative w-auto overflow-hidden shadow-screenshot"
+          className="relative aspect-[9/16] w-auto overflow-hidden shadow-screenshot"
         >
           <OpenStickerModalBtn>
             <SelectSticker />
@@ -86,12 +108,25 @@ const DecorateScreenshot = () => {
             alt="screenshot"
             width={1080}
             height={1920}
-            className="max-h-full w-auto object-contain"
+            className="aspect-[9/16] max-h-full w-auto object-contain"
           />
         </div>
       )}
       <div className="mb-5 w-full">
-        <SubmitBtn onClick={takeScreenshot} />
+        {isDownloaded ? (
+          <Button
+            size="lg"
+            variant="primary"
+            className="mx-5"
+            onClick={routeToHome}
+          >
+            메인으로 가기
+          </Button>
+        ) : (
+          <SubmitBtn disabled={isLoadingDownload} onClick={takeScreenshot}>
+            {isLoadingDownload ? '다운로드 중...' : '꾸미기 완료'}
+          </SubmitBtn>
+        )}
       </div>
     </div>
   )
