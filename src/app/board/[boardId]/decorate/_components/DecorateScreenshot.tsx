@@ -16,14 +16,36 @@ const DecorateScreenshot = () => {
   const { boardId } = useParams<{ boardId: string }>()
   const searchParams = useSearchParams()
   const polaroidIds = searchParams.getAll('polaroidIds')
-  const imageUrl = searchParams.get('imageUrl')!
   const [boardName, setBoardName] = useState('')
+  const [previewUrl, setPreviewUrl] = useState('')
 
   useEffect(() => {
     getBoard(boardId).then((board) => {
       setBoardName(board.title)
     })
   })
+
+  useEffect(() => {
+    const takePreview = async () => {
+      const res = await fetch(`/board/api/screenshot`, {
+        method: 'POST',
+        body: JSON.stringify({
+          polaroids: polaroidIds,
+          boardId,
+        }),
+      })
+
+      if (!res.ok) {
+        throw new Error('Failed to take screenshot')
+      }
+
+      const blob = await res.blob()
+      const previewURl = URL.createObjectURL(blob)
+      setPreviewUrl(previewURl)
+    }
+
+    takePreview()
+  }, [])
 
   const takeScreenshot = () => {
     fetch(`/board/api/screenshot`, {
@@ -50,22 +72,24 @@ const DecorateScreenshot = () => {
           </div>
         </div>
       </header>
-      <div
-        id="preview"
-        className="relative w-auto overflow-hidden shadow-screenshot"
-      >
-        <OpenStickerModalBtn>
-          <SelectSticker />
-        </OpenStickerModalBtn>
-        <Sticker />
-        <Image
-          src={imageUrl}
-          alt="screenshot"
-          width={1080}
-          height={1920}
-          className="max-h-full w-auto object-contain"
-        />
-      </div>
+      {previewUrl && (
+        <div
+          id="preview"
+          className="relative w-auto overflow-hidden shadow-screenshot"
+        >
+          <OpenStickerModalBtn>
+            <SelectSticker />
+          </OpenStickerModalBtn>
+          <Sticker />
+          <Image
+            src={previewUrl}
+            alt="screenshot"
+            width={1080}
+            height={1920}
+            className="max-h-full w-auto object-contain"
+          />
+        </div>
+      )}
       <div className="mb-5 w-full">
         <SubmitBtn onClick={takeScreenshot} />
       </div>

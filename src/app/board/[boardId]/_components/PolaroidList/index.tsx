@@ -14,7 +14,6 @@ const PolaroidList = () => {
   const { isSelectMode, selectedIds, toggleSelectedId } = useSelect()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedIdx, setSelectedIdx] = useState<number>(0)
-  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const openDetailModal = (idx: number) => {
@@ -39,29 +38,9 @@ const PolaroidList = () => {
     return ''
   }
 
-  const onSelectComplete = async () => {
-    setIsLoading(true)
-    const res = await fetch(`/board/api/screenshot`, {
-      method: 'POST',
-      body: JSON.stringify({
-        polaroids: selectedIds,
-        boardId,
-      }),
-    })
-
-    if (!res.ok) {
-      throw new Error('Failed to take screenshot')
-    }
-
-    const blob = await res.blob()
-    const imageUrl = URL.createObjectURL(blob)
-    setIsLoading(false)
-
+  const onSelectComplete = () => {
     const polaroidIdsSearchParam = createPolaroidSearchParams(selectedIds)
-
-    router.push(
-      `/board/${boardId}/decorate?imageUrl=${imageUrl}&boardId=${boardId}&${polaroidIdsSearchParam}`,
-    )
+    router.push(`/board/${boardId}/decorate?${polaroidIdsSearchParam}`)
   }
 
   return (
@@ -84,7 +63,7 @@ const PolaroidList = () => {
           <Button
             size="lg"
             className="w-full"
-            disabled={selectedIds.length === 0 || isLoading}
+            disabled={selectedIds.length === 0}
             onClick={onSelectComplete}
           >
             선택 완료
