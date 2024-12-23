@@ -8,8 +8,10 @@ import {
   useContext,
   useMemo,
   useState,
+  useEffect,
 } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { useSession } from 'next-auth/react'
 
 interface Sticker {
   id: string
@@ -37,8 +39,15 @@ export const StickerProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const { status } = useSession()
   const [selectedMenu, setSelectedMenu] = useState<StickerMenu>(1)
   const [selectedStickers, setSelectedStickers] = useState<Sticker[]>([])
+
+  useEffect(() => {
+    if (status !== 'authenticated' && selectedMenu === 0) {
+      setSelectedMenu(1)
+    }
+  }, [status])
 
   const addSticker = (file: string) => {
     const newSticker = { id: uuidv4(), file }

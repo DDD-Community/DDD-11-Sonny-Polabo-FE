@@ -6,7 +6,7 @@ import { Step2Tooltip } from './Tooltips'
 
 const SubmitBtn = ({ onClick }: { onClick: () => void }) => {
   return (
-    <div className="mb-10 mt-5">
+    <div className="mx-5">
       <DecorateTutorial
         step={2}
         hasNext={false}
