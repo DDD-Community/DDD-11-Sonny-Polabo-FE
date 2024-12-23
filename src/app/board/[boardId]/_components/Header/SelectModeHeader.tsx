@@ -23,7 +23,7 @@ const SelectModeHeader = () => {
           </h2>
         </div>
       }
-      className={twMerge('bg-transparent', titleClassName)}
+      className={twMerge('h-20 bg-transparent p-3', titleClassName)}
       shadow={false}
     />
   )
