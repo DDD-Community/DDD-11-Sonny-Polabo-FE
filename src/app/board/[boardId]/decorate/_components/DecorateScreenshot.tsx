@@ -9,6 +9,8 @@ import { getStickerStyles } from '@/app/board/[boardId]/decorate/_utils/getStick
 import { downloadImage } from '@/lib/utils/image'
 import { useParams, useSearchParams } from 'next/navigation'
 import { getBoard } from '@/lib'
+import OpenStickerModalBtn from '@/app/board/[boardId]/decorate/_components/OpenStickerModalBtn'
+import SelectSticker from '@/app/board/[boardId]/decorate/_components/SelectStickerModal'
 
 const DecorateScreenshot = () => {
   const { boardId } = useParams<{ boardId: string }>()
@@ -40,21 +42,31 @@ const DecorateScreenshot = () => {
   }
 
   return (
-    <div className="relative h-full">
+    <div className="relative flex h-full touch-none flex-col items-center justify-between gap-5">
+      <header className="my-5 w-full bg-gray-0 bg-transparent">
+        <div>
+          <div className="text-center text-md font-semiBold leading-6">
+            보드 꾸미기
+          </div>
+        </div>
+      </header>
       <div
         id="preview"
-        className="relative mx-6 overflow-hidden shadow-screenshot"
+        className="relative w-auto overflow-hidden shadow-screenshot"
       >
+        <OpenStickerModalBtn>
+          <SelectSticker />
+        </OpenStickerModalBtn>
         <Sticker />
         <Image
           src={imageUrl}
           alt="screenshot"
           width={1080}
           height={1920}
-          className="object-contain"
+          className="max-h-full w-auto object-contain"
         />
       </div>
-      <div className="absolute bottom-0 mb-10 w-full">
+      <div className="mb-5 w-full">
         <SubmitBtn onClick={takeScreenshot} />
       </div>
     </div>
