@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
   const url = `${process.env.URL}/board/${boardId}/screenshot?${polaroidIdsSearchParam}`
 
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
   const page = await browser.newPage()
   await page.setViewport({
     width: 1080,
