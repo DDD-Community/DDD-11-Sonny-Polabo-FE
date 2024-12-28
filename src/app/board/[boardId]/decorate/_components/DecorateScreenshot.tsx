@@ -13,6 +13,8 @@ import OpenStickerModalBtn from '@/app/board/[boardId]/decorate/_components/Open
 import SelectSticker from '@/app/board/[boardId]/decorate/_components/SelectStickerModal'
 import ScreenshotLoading from 'public/images/screenshot_loading.png'
 import Button from '@/components/Button'
+import { useSticker } from '@/app/board/[boardId]/decorate/_contexts/StickerContext'
+import DownloadIcon from 'public/icons/download.svg'
 
 const DecorateScreenshot = () => {
   const { boardId } = useParams<{ boardId: string }>()
@@ -23,6 +25,7 @@ const DecorateScreenshot = () => {
   const [isLoadingPreview, setIsLoadingPreview] = useState(true)
   const [isLoadingDownload, setIsLoadingDownload] = useState(false)
   const [isDownloaded, setIsDownloaded] = useState(false)
+  const { isDecorating, setIsDecorating } = useSticker()
   const router = useRouter()
 
   useEffect(() => {
@@ -90,7 +93,7 @@ const DecorateScreenshot = () => {
       <header className="my-5 w-full bg-gray-0 bg-transparent">
         <div>
           <div className="text-center text-md font-semiBold leading-6">
-            보드 꾸미기
+            {isDownloaded ? '앨범에 저장되었습니다!' : '보드 꾸미기'}
           </div>
         </div>
       </header>
@@ -113,7 +116,7 @@ const DecorateScreenshot = () => {
         </div>
       )}
       <div className="mb-5 w-full">
-        {isDownloaded ? (
+        {isDownloaded && (
           <Button
             size="lg"
             variant="primary"
@@ -122,9 +125,24 @@ const DecorateScreenshot = () => {
           >
             메인으로 가기
           </Button>
-        ) : (
+        )}
+        {!isDownloaded && isDecorating && (
+          <Button
+            size="lg"
+            variant="secondary"
+            className="mx-5"
+            onClick={() => {
+              setIsDecorating(false)
+            }}
+          >
+            꾸미기 완료
+          </Button>
+        )}
+        {!isDownloaded && !isDecorating && (
           <SubmitBtn disabled={isLoadingDownload} onClick={takeScreenshot}>
-            {isLoadingDownload ? '다운로드 중...' : '꾸미기 완료'}
+            <span className="flex items-center justify-center gap-2">
+              내 보드 이미지 저장 <DownloadIcon />
+            </span>
           </SubmitBtn>
         )}
       </div>

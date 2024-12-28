@@ -24,6 +24,8 @@ interface StickerContextProps {
   selectedStickers: Sticker[]
   addSticker: (sticker: string) => void
   deleteSticker: (stickerIdx: string) => void
+  isDecorating: boolean
+  setIsDecorating: Dispatch<SetStateAction<boolean>>
 }
 
 const StickerContext = createContext<StickerContextProps>({
@@ -32,6 +34,8 @@ const StickerContext = createContext<StickerContextProps>({
   selectedStickers: [],
   addSticker: () => {},
   deleteSticker: () => {},
+  isDecorating: false,
+  setIsDecorating: () => {},
 })
 
 export const StickerProvider = ({
@@ -42,6 +46,7 @@ export const StickerProvider = ({
   const { status } = useSession()
   const [selectedMenu, setSelectedMenu] = useState<StickerMenu>(1)
   const [selectedStickers, setSelectedStickers] = useState<Sticker[]>([])
+  const [isDecorating, setIsDecorating] = useState<boolean>(false)
 
   useEffect(() => {
     if (status !== 'authenticated' && selectedMenu === 0) {
@@ -52,6 +57,7 @@ export const StickerProvider = ({
   const addSticker = (file: string) => {
     const newSticker = { id: uuidv4(), file }
     setSelectedStickers((prev) => [...prev, newSticker])
+    setIsDecorating(true)
   }
 
   const deleteSticker = (stickerId: string) => {
@@ -65,8 +71,10 @@ export const StickerProvider = ({
       selectedStickers,
       addSticker,
       deleteSticker,
+      isDecorating,
+      setIsDecorating,
     }),
-    [selectedMenu, selectedStickers],
+    [selectedMenu, selectedStickers, isDecorating],
   )
 
   return (
