@@ -51,7 +51,7 @@ const BoardScreenshotPage = async ({
   return (
     <div
       id="screenshot_target"
-      className="relative flex h-[1920px] w-[1080px] flex-col justify-between bg-gray-0"
+      className="bg relative flex h-[1920px] w-[1080px] flex-col justify-between bg-gray-0 bg-cover"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div
