@@ -32,7 +32,7 @@ const DecorateScreenshot = () => {
     getBoard(boardId).then((board) => {
       setBoardName(board.title)
     })
-  })
+  }, [])
 
   useEffect(() => {
     const takePreview = async () => {
