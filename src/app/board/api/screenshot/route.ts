@@ -16,7 +16,7 @@ const initializeBrowser = async () => {
   const browser = await puppeteer.launch({
     protocolTimeout: 360000,
     timeout: 60000,
-    args: ['--no-first-run', '--no-sandbox', '--single-process'],
+    args: ['--no-first-run', '--no-sandbox'],
   })
   const page = await browser.newPage()
   await page.setViewport({
