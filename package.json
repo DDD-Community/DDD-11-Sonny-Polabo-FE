@@ -39,6 +39,7 @@
     "react-moveable": "^0.56.0",
     "react-multi-carousel": "^2.8.5",
     "react-selecto": "^1.26.3",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^2.3.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
