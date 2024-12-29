@@ -32,7 +32,7 @@ const DecorateScreenshot = () => {
     getBoard(boardId).then((board) => {
       setBoardName(board.title)
     })
-  }, [boardId])
+  }, [])
 
   useEffect(() => {
     const takePreview = async () => {
@@ -55,7 +55,7 @@ const DecorateScreenshot = () => {
     }
 
     takePreview()
-  }, [boardId, polaroidIds])
+  }, [])
 
   const takeScreenshot = () => {
     setIsLoadingDownload(true)
