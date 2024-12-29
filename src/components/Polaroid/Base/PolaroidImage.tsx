@@ -1,9 +1,9 @@
 'use client'
 
 import { FILTERS } from '@/lib'
-import { useEffect, useState } from 'react'
 import { getImageWidthHeight } from '@/lib/utils/image'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface PolaroidImageProps {
   imageUrl: string
@@ -40,9 +40,10 @@ const PolaroidImage = ({ imageUrl }: PolaroidImageProps) => {
       <Image
         src={imageUrl}
         alt="폴라로이드 이미지"
-        width={1000}
-        height={1000}
+        width={500}
+        height={500}
         quality={100}
+        priority
         className={`${aspectRatio} object-cover`}
         style={{
           filter: FILTERS.POLAROID,
