@@ -14,26 +14,31 @@ const PretendVariable = localFont({
 const Jooree = localFont({
   src: '../../public/fonts/Jooree.ttf',
   variable: '--font-jooree',
+  display: 'swap',
 })
 
 const Hesom = localFont({
   src: '../../public/fonts/Hesom.ttf',
   variable: '--font-hesom',
+  display: 'swap',
 })
 
 const Eunyoung = localFont({
   src: '../../public/fonts/eunyoung.woff2',
   variable: '--font-eunyoung',
+  display: 'swap',
 })
 
 const Ttaerom = localFont({
   src: '../../public/fonts/ttaerom.ttf',
   variable: '--font-ttaerom',
+  display: 'swap',
 })
 
 const Hipi = localFont({
   src: '../../public/fonts/hipi.ttf',
   variable: '--font-hipi',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {

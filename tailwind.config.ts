@@ -66,11 +66,11 @@ const config: Config = {
       },
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],
-        jooree: ['var(--font-jooree)'],
-        hesom: ['var(--font-hesom)'],
-        eunyoung: ['var(--font-eunyoung)'],
-        ttaerom: ['var(--font-ttaerom)'],
-        hipi: ['var(--font-hipi)'],
+        jooree: ['var(--font-jooree)', 'var(--font-pretendard-variable)'],
+        hesom: ['var(--font-hesom)', 'var(--font-pretendard-variable)'],
+        eunyoung: ['var(--font-eunyoung)', 'var(--font-pretendard-variable)'],
+        ttaerom: ['var(--font-ttaerom)', 'var(--font-pretendard-variable)'],
+        hipi: ['var(--font-hipi)', 'var(--font-pretendard-variable)'],
       },
       keyframes: {
         'slide-left': {
