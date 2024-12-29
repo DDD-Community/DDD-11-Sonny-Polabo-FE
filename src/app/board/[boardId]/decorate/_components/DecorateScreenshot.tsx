@@ -11,7 +11,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { getBoard } from '@/lib'
 import OpenStickerModalBtn from '@/app/board/[boardId]/decorate/_components/OpenStickerModalBtn'
 import SelectSticker from '@/app/board/[boardId]/decorate/_components/SelectStickerModal'
-import ScreenshotLoading from 'public/images/screenshot_loading.png'
+import ScreenshotLoading from 'public/images/screenshot_loading.gif'
 import Button from '@/components/Button'
 import { useSticker } from '@/app/board/[boardId]/decorate/_contexts/StickerContext'
 import DownloadIcon from 'public/icons/download.svg'
@@ -32,7 +32,7 @@ const DecorateScreenshot = () => {
     getBoard(boardId).then((board) => {
       setBoardName(board.title)
     })
-  }, [])
+  }, [boardId])
 
   useEffect(() => {
     const takePreview = async () => {
@@ -55,7 +55,7 @@ const DecorateScreenshot = () => {
     }
 
     takePreview()
-  }, [])
+  }, [boardId, polaroidIds])
 
   const takeScreenshot = () => {
     setIsLoadingDownload(true)
@@ -82,7 +82,7 @@ const DecorateScreenshot = () => {
 
   if (isLoadingPreview) {
     return (
-      <div className="flex h-dvh items-center justify-center">
+      <div className="flex h-dvh items-center justify-center bg-gray-0">
         <Image src={ScreenshotLoading} alt="loading" className="w-[80%]" />
       </div>
     )
