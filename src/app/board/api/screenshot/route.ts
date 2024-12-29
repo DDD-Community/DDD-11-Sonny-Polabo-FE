@@ -14,6 +14,8 @@ type RequestBodyType = {
 
 const initializeBrowser = async () => {
   const browser = await puppeteer.launch({
+    protocolTimeout: 360000,
+    timeout: 60000,
     args: [
       '--disable-gpu',
       '--disable-dev-shm-usage',
