@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { getRecentStickers, postStickers } from '@/lib/api/sticker'
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useSticker } from '../../_contexts/StickerContext'
 import { useStickerModal } from '../../_contexts/ModalContext'
 import { getStickerFile } from '../../_utils/getStickerFile'
@@ -11,6 +12,7 @@ const Contents = () => {
   const { closeModal } = useStickerModal()
   const [stickerFiles, setStickerFiles] = useState<string[]>([])
   const { boardId } = useParams<{ boardId: string }>()
+  const { status } = useSession()
 
   useEffect(() => {
     const fetchStickers = async () => {
@@ -25,8 +27,10 @@ const Contents = () => {
     fetchStickers()
   }, [selectedMenu])
 
-  const handleClickSticker = async (file: string) => {
-    await postStickers({ stickerIds: [file], boardId })
+  const handleClickSticker = (file: string) => {
+    if (status === 'authenticated') {
+      postStickers({ stickerIds: [file], boardId })
+    }
     addSticker(file)
     closeModal()
   }

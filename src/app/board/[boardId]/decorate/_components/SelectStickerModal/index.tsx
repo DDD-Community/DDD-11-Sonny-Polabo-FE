@@ -1,8 +1,9 @@
 'use client'
 
-import { STICKER_MENU } from '@/lib/constants/stickerConfig'
+import { GUEST_STICKER_MENU, STICKER_MENU } from '@/lib/constants/stickerConfig'
 import { StickerMenu } from '@/types'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import Contents from './Contents'
 import Header from './Header'
 import Menu from './Menu'
@@ -23,11 +24,14 @@ const StickerIcon = ({ num }: StickerIconProps) => {
 }
 
 const SelectSticker = () => {
+  const { status } = useSession()
+  const stickerMenus = status ? STICKER_MENU : GUEST_STICKER_MENU
+
   return (
     <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col bg-gray-1000/70 py-10 backdrop-blur-md">
       <Header />
       <Menu>
-        {STICKER_MENU.map((sticker) => (
+        {stickerMenus.map((sticker) => (
           <Menu.Item
             icon={<StickerIcon num={sticker} />}
             menuNum={sticker}
