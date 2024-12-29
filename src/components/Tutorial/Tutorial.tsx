@@ -53,52 +53,65 @@ const Tutorial = ({
 
   useEffect(() => {
     if (isOpen && targetRef.current) {
-      const targetRect = targetRef.current.getBoundingClientRect()
+      const target = targetRef.current
+      const updateOverlayStyle = () => {
+        const targetRect = target.getBoundingClientRect()
 
-      const getOverlayStyle = () => {
-        switch (targetStyle) {
-          case 'ROUND':
-            return {
-              top: targetRect.top - 2,
-              left: targetRect.left - 3,
-              width: targetRect.width + 6,
-              height: targetRect.height + 7,
-              borderRadius: '50%',
-            }
-          case 'FIT':
-            return {
-              top: targetRect.top,
-              left: targetRect.left,
-              width: targetRect.width,
-              height: targetRect.height,
-              ...targetStyleProperites,
-            }
-          default:
-            throw new Error('Unexpected targetStyle')
+        const getOverlayStyle = () => {
+          switch (targetStyle) {
+            case 'ROUND':
+              return {
+                top: targetRect.top - 2,
+                left: targetRect.left - 3,
+                width: targetRect.width + 6,
+                height: targetRect.height + 7,
+                borderRadius: '50%',
+              }
+            case 'FIT':
+              return {
+                top: targetRect.top,
+                left: targetRect.left,
+                width: targetRect.width,
+                height: targetRect.height,
+                ...targetStyleProperites,
+              }
+            default:
+              return {}
+          }
         }
+
+        setOverlayStyle({
+          position: 'fixed',
+          zIndex: 10,
+          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
+          pointerEvents: 'none',
+          ...getOverlayStyle(),
+        })
+
+        setTopBox({
+          bottom: `calc(100% - ${targetRect.top}px + 2px)`,
+        })
+        setBottomBox({
+          top: targetRect.bottom + 5,
+        })
+        setLeftBox({
+          right: `calc(100% - ${targetRect.left}px + 3px)`,
+        })
+        setRightBox({
+          left: targetRect.right + 3,
+        })
       }
 
-      setOverlayStyle({
-        position: 'fixed',
-        zIndex: 10,
-        boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.6)',
-        pointerEvents: 'none',
-        ...getOverlayStyle(),
-      })
+      const observer = new ResizeObserver(updateOverlayStyle)
+      observer.observe(target)
 
-      setTopBox({
-        bottom: `calc(100% - ${targetRect.top}px + 2px)`,
-      })
-      setBottomBox({
-        top: targetRect.bottom + 5,
-      })
-      setLeftBox({
-        right: `calc(100% - ${targetRect.left}px + 3px)`,
-      })
-      setRightBox({
-        left: targetRect.right + 3,
-      })
+      updateOverlayStyle()
+
+      return () => {
+        observer.disconnect()
+      }
     }
+    return undefined
   }, [isOpen])
 
   const handleTargetClick = () => {

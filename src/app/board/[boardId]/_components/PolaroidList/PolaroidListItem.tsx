@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Polaroid } from '@/types'
 import PolaroidCard from '@/components/Polaroid/PolaroidCard'
 import { BoardTutorial } from '@/components/Tutorial'
@@ -20,6 +20,26 @@ const PolaroidListItem = ({
 }: PolaroidListItemProps) => {
   const [rotate, setRotate] = useState<number>(0)
   const { data: session } = useSession()
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.05 },
+    )
+
+    if (ref.current) observer.observe(ref.current)
+
+    return () => {
+      if (ref.current) observer.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     const randomRotate =
@@ -40,18 +60,26 @@ const PolaroidListItem = ({
     </div>
   )
 
-  return isFirstItem ? (
-    <BoardTutorial
-      step={session ? 3 : 2}
-      tooltip={<Step3Tooltip />}
-      hasNext={false}
-      targetStyle="FIT"
-      targetStyleProperites={{ rotate: `${rotate}deg`, borderRadius: '2px' }}
-    >
-      {renderItem}
-    </BoardTutorial>
-  ) : (
-    renderItem
+  return (
+    <div ref={ref}>
+      {isVisible &&
+        (isFirstItem ? (
+          <BoardTutorial
+            step={session ? 3 : 2}
+            tooltip={<Step3Tooltip />}
+            hasNext={false}
+            targetStyle="FIT"
+            targetStyleProperites={{
+              rotate: `${rotate}deg`,
+              borderRadius: '2px',
+            }}
+          >
+            {renderItem}
+          </BoardTutorial>
+        ) : (
+          renderItem
+        ))}
+    </div>
   )
 }
 

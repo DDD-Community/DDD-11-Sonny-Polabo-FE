@@ -15,7 +15,15 @@ const HomePage = () => {
         <span className="m-auto block pt-2 text-center font-jooree text-sm leading-4">
           함께 꾸미는 폴라로이드 보드
         </span>
-        <Image src={PolaboLogo} priority alt="logo" className="px-20 py-0.5" />
+        <div className="px-20 py-0.5">
+          <Image
+            src={PolaboLogo}
+            priority
+            alt="logo"
+            width={248}
+            height={100}
+          />
+        </div>
       </div>
       <div className="mb-[30px] flex w-full flex-col items-center">
         <TotalCount />
