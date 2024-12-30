@@ -13,7 +13,17 @@ type RequestBodyType = {
 }
 
 const initializeBrowser = async () => {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-gpu',
+      '--no-zygote',
+      '--no-first-run',
+      '--disable-default-apps',
+    ],
+    defaultViewport: null,
+  })
   const page = await browser.newPage()
   await page.setViewport({
     width: 1080,

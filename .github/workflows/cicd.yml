@@ -46,4 +46,4 @@ jobs:
       - name: Delete existing container
         run: docker rm -f polabo-fe || true
       - name: Run container
-        run: docker run -d -p 3000:3000 --name polabo-fe ${{ vars.DOCKER_IMAGE }}
+        run: docker run -d -p 3000:3000 --shm-size=1g --name polabo-fe ${{ vars.DOCKER_IMAGE }}
