@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import puppeteer, { Browser } from 'puppeteer'
+import puppeteer, { Browser, Page } from 'puppeteer'
 import { StickerStyle } from '@/types'
 import {
   createPolaroidSearchParams,
@@ -12,19 +12,37 @@ type RequestBodyType = {
   stickers: StickerStyle[]
 }
 
+let browser: Browser | null = null
+
 const initializeBrowser = async () => {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
-  const page = await browser.newPage()
+  browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-gpu',
+      '--no-zygote',
+      '--no-first-run',
+      '--disable-default-apps',
+    ],
+    defaultViewport: null,
+  })
+}
+
+const openPage = async () => {
+  if (browser === null) {
+    await initializeBrowser()
+  }
+
+  const page = await browser!.newPage()
   await page.setViewport({
     width: 1080,
     height: 1920,
   })
-  return { browser, page }
+  return page
 }
 
 export async function POST(request: Request) {
-  let browser: Browser | null = null
-
+  let page: Page | null = null
   try {
     const {
       boardId,
@@ -38,9 +56,7 @@ export async function POST(request: Request) {
       boardId,
     )}/screenshot?${polaroidParams}&${stickerParams}`
 
-    const { browser: initializedBrowser, page } = await initializeBrowser()
-    browser = initializedBrowser
-
+    page = await openPage()
     await page.goto(url, { waitUntil: 'networkidle2' })
 
     const element = await page.$('div#screenshot_target')
@@ -61,7 +77,7 @@ export async function POST(request: Request) {
     return new NextResponse('Error taking screenshot', { status: 500 })
   } finally {
     if (browser) {
-      await browser.close()
+      await page?.close()
     }
   }
 }
