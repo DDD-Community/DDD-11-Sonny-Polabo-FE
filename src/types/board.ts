@@ -26,6 +26,8 @@ export type BoardThemaKeyType =
   | 'B-5'
   | 'B-6'
   | 'B-7'
+  | 'B-8'
+  | 'B-9'
 
 export interface BoardThemaType {
   title: string
