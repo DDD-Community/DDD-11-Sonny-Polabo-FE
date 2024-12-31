@@ -1,6 +1,8 @@
 import { BoardThemaKeyType, BoardThemaType } from '@/types'
 
 export const ORDERED_BOARDTHEMAS: BoardThemaKeyType[] = [
+  'B-8',
+  'B-9',
   'B-4',
   'B-5',
   'B-7',
@@ -49,6 +51,16 @@ export const BOARDTHEMAS: Record<BoardThemaKeyType, BoardThemaType> = {
   },
   'B-7': {
     title: '눈송이 테마',
+    theme: 'LIGHT',
+    gtm: 'snow',
+  },
+  'B-8': {
+    title: '새해 폭죽',
+    theme: 'LIGHT',
+    gtm: 'snow',
+  },
+  'B-9': {
+    title: '새해 부적',
     theme: 'LIGHT',
     gtm: 'snow',
   },
