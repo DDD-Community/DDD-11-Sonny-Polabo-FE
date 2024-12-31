@@ -15,7 +15,7 @@ const PolaroidDescription = ({
 }: PolaroidDescriptionProps) => {
   return (
     <div
-      className={`${twMerge('flex flex-col gap-0.5 px-4 pb-2', className)}`}
+      className={`${twMerge('flex flex-col gap-0.5 px-4 py-2', className)}`}
       style={{
         background: THEMAS[themaKey].descriptionStyle,
       }}

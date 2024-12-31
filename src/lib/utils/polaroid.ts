@@ -17,6 +17,9 @@ const isPolaroidWithFrame = (themaKey: ThemaKeyType) => {
     'F-15',
     'F-16',
     'F-17',
+    'F-20',
+    'F-21',
+    'F-22',
   ]
 
   return polaroidWithFrame.includes(themaKey)

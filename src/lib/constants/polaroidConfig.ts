@@ -8,6 +8,10 @@ export const FILTERS = {
 } as const
 
 export const ORDERED_THEMAS: ThemaKeyType[] = [
+  'F-19',
+  'F-20',
+  'F-21',
+  'F-22',
   'F-0',
   'F-12',
   'F-13',
@@ -133,6 +137,28 @@ export const THEMAS: Record<ThemaKeyType, ThemaType> = {
   'F-17': {
     className: 'bg-[#FFFEF2]',
     descriptionStyle: 'linear-gradient(180deg, #C7EEDB 0%, #83DCAF 100%)',
+    gtm: 'greenargyle',
+  },
+  'F-19': {
+    className:
+      'bg-[linear-gradient(180deg,_#FFA032_0.14%,_#FE9329_25.69%,_#F75A22_70.88%)]',
+    descriptionStyle:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 10.71%, rgba(255, 255, 255, 0.10) 57.96%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(180deg, #FFE731 0%, #FF7827 100%)',
+    gtm: 'greenargyle',
+  },
+  'F-20': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle: 'linear-gradient(180deg, #DBFFD3 0%, #A4FF65 100%)',
+    gtm: 'greenargyle',
+  },
+  'F-21': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle: '#CBCBCB',
+    gtm: 'greenargyle',
+  },
+  'F-22': {
+    className: 'bg-[#FFFEF2]',
+    descriptionStyle: '#CBCBCB',
     gtm: 'greenargyle',
   },
 } as const

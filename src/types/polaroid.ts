@@ -47,6 +47,10 @@ export type ThemaKeyType =
   | 'F-15'
   | 'F-16'
   | 'F-17'
+  | 'F-19'
+  | 'F-20'
+  | 'F-21'
+  | 'F-22'
 
 export interface ThemaType {
   className: string
