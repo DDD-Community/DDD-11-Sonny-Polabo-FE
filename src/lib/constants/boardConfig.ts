@@ -57,11 +57,11 @@ export const BOARDTHEMAS: Record<BoardThemaKeyType, BoardThemaType> = {
   'B-8': {
     title: '새해 폭죽',
     theme: 'LIGHT',
-    gtm: 'snow',
+    gtm: 'newyear1',
   },
   'B-9': {
     title: '새해 부적',
     theme: 'LIGHT',
-    gtm: 'snow',
+    gtm: 'newyear2',
   },
 } as const
