@@ -8,11 +8,11 @@ export const FILTERS = {
 } as const
 
 export const ORDERED_THEMAS: ThemaKeyType[] = [
+  'F-0',
   'F-19',
   'F-20',
   'F-21',
   'F-22',
-  'F-0',
   'F-12',
   'F-13',
   'F-14',

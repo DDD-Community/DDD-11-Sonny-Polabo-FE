@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/images/polabo-logo-christmas.png" height="100" />   
+  <img src="./public/images/polabo-logo.png" height="100" />
   <br />
   <strong>함께 꾸미는 폴라로이드 보드</strong>
 </div>
@@ -37,7 +37,7 @@ $ npm run dev
 
 **3. 커밋 메세지**
 
-> #{이슈번호} {type}: [작업한 내용]  
+> #{이슈번호} {type}: [작업한 내용]
 > ex) #300 feat: 어쩌구저쩌구
 
 **5. Issue 제목**
