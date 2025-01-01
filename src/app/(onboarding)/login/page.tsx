@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import PolaroidsIcon from 'public/icons/home_polaroids.svg'
 import LoginPolaroid from 'public/icons/login_polaroid.png'
-import PolaboLogo from 'public/images/polabo-logo-christmas.png'
+import PolaboLogo from 'public/images/polabo-logo.png'
 import KakaoLogin from './_components/KakaoLogin'
 import Policy from './_components/Policy'
 
