@@ -98,22 +98,24 @@ const DecorateScreenshot = () => {
         </div>
       </header>
       {previewUrl && (
-        <div
-          id="preview"
-          className="relative aspect-[9/16] w-auto overflow-hidden shadow-screenshot"
-        >
+        <>
           <OpenStickerModalBtn>
             <SelectSticker />
           </OpenStickerModalBtn>
-          <Sticker />
-          <Image
-            src={previewUrl}
-            alt="screenshot"
-            width={1080}
-            height={1920}
-            className="aspect-[9/16] max-h-full w-auto object-contain"
-          />
-        </div>
+          <div
+            id="preview"
+            className="relative aspect-[9/16] w-auto overflow-hidden shadow-screenshot"
+          >
+            <Sticker />
+            <Image
+              src={previewUrl}
+              alt="screenshot"
+              width={1080}
+              height={1920}
+              className="aspect-[9/16] max-h-full w-auto object-contain"
+            />
+          </div>
+        </>
       )}
       <div className="mb-5 w-full">
         {isDownloaded && (

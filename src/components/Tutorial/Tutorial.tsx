@@ -107,9 +107,7 @@ const Tutorial = ({
 
       updateOverlayStyle()
 
-      return () => {
-        observer.disconnect()
-      }
+      return () => observer.disconnect()
     }
     return undefined
   }, [isOpen])
