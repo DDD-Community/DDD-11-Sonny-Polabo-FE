@@ -45,6 +45,7 @@ const DeleteBtn = {
           type="button"
           className="h-6 w-6 rounded-full bg-gray-1000"
           onClick={() => deleteSticker(file)}
+          onTouchEnd={() => deleteSticker(file)}
           aria-label="Delete sticker"
         >
           <CloseIcon className="text-gray-0" />

@@ -22,7 +22,7 @@ const OpenStickerModalBtn = ({ children }: OpenModalBtnProps) => {
   }
 
   return (
-    <div className="absolute right-0 z-10">
+    <div className="absolute right-7 top-14 z-10">
       <DecorateTutorial step={1} tooltip={<Step1Tooltip />} hasNext>
         <StickerIcon onClick={openStickerModal} className="cursor-pointer" />
       </DecorateTutorial>
