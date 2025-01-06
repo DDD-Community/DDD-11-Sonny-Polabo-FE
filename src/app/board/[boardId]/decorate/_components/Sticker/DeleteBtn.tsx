@@ -29,7 +29,7 @@ const DeleteBtn = {
               position: absolute;
               left: -12px;
               top: -12px;  
-              z-index: 1000;
+              z-index: 100;
           }
         `,
     )
