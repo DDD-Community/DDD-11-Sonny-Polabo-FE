@@ -106,7 +106,7 @@ const DecorateScreenshot = () => {
             id="preview"
             className="relative aspect-[9/16] w-auto overflow-hidden shadow-screenshot"
           >
-            <Sticker />
+            <Sticker isDecorating={isDecorating} />
             <Image
               src={previewUrl}
               alt="screenshot"

@@ -8,7 +8,11 @@ import Selecto from 'react-selecto'
 import { useSticker } from '../../_contexts/StickerContext'
 import DeleteBtn from './DeleteBtn'
 
-const Sticker = () => {
+interface StickerProps {
+  isDecorating: boolean
+}
+
+const Sticker = ({ isDecorating }: StickerProps) => {
   const [targets, setTargets] = useState<Array<SVGElement | HTMLElement>>([])
   const moveableRef = useRef<Moveable>(null)
   const selectoRef = useRef<Selecto>(null)
@@ -36,48 +40,53 @@ const Sticker = () => {
 
   return (
     <div>
-      <Moveable
-        ref={moveableRef}
-        ables={[DeleteBtn]}
-        props={{
-          editable: true,
-          file: targetedStickerId,
-          deleteSticker,
-        }}
-        draggable
-        target={targets}
-        rotatable={{
-          renderDirections: ['se'],
-        }}
-        resolveAblesWithRotatable={{
-          resizable: ['se'],
-        }}
-        resizable={{
-          renderDirections: false,
-        }}
-        rotateAroundControls
-        onRender={(e) => {
-          e.target.style.cssText += e.cssText
-        }}
-      />
-      <Selecto
-        ref={selectoRef}
-        selectableTargets={['.sticker']}
-        hitRate={100}
-        selectByClick
-        selectFromInside={false}
-        ratio={0}
-        onSelectEnd={(e) => {
-          const moveable = moveableRef.current!
-          if (e.isDragStart) {
-            e.inputEvent.preventDefault()
-            moveable
-              .waitToChangeTarget()
-              .then(() => moveable.dragStart(e.inputEvent))
-          }
-          setTargets(e.selected)
-        }}
-      />
+      {isDecorating && (
+        <>
+          <Moveable
+            ref={moveableRef}
+            ables={[DeleteBtn]}
+            props={{
+              editable: true,
+              file: targetedStickerId,
+              deleteSticker,
+            }}
+            draggable
+            target={targets}
+            rotatable={{
+              renderDirections: ['se'],
+            }}
+            resolveAblesWithRotatable={{
+              resizable: ['se'],
+            }}
+            resizable={{
+              renderDirections: false,
+            }}
+            rotateAroundControls
+            onRender={(e) => {
+              e.target.style.cssText += e.cssText
+            }}
+          />
+          <Selecto
+            ref={selectoRef}
+            selectableTargets={['.sticker']}
+            hitRate={100}
+            selectByClick
+            selectFromInside={false}
+            ratio={0}
+            onSelectEnd={(e) => {
+              const moveable = moveableRef.current!
+              if (e.isDragStart) {
+                e.inputEvent.preventDefault()
+                moveable
+                  .waitToChangeTarget()
+                  .then(() => moveable.dragStart(e.inputEvent))
+              }
+              setTargets(e.selected)
+            }}
+          />
+        </>
+      )}
+
       <div className="absolute left-1/2 top-0 z-10">
         {selectedStickers.map(({ id, file }) => (
           <div
