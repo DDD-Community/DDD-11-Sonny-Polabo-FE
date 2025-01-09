@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/images/polabo-logo-christmas.png" height="100" />   
+  <img src="./public/images/polabo-logo.png" height="100" />   
   <br />
   <strong>함께 꾸미는 폴라로이드 보드</strong>
 </div>
@@ -12,6 +12,26 @@
 $ npm install
 $ npm run dev
 ```
+
+<br/>
+
+## 📱 FE Tech Stack
+
+| 기술         | 설명           |
+| ------------ | -------------- |
+| Next.js      | Web Framework  |
+| TypeScript   |                |
+| Tailwind     | 스타일링       |
+| Jest         | 테스트         |
+| AWS EC2       | 배포 환경        |
+
+<br/>
+
+## 📷 주요 기능
+
+![image](https://github.com/user-attachments/assets/5f922ca5-782d-4700-b982-fe1e8772faab)
+![image](https://github.com/user-attachments/assets/271ab611-f45e-411f-8406-1a7f93daf041)
+![image](https://github.com/user-attachments/assets/294c04e2-43c9-4d83-9cc9-95ea448dc87e)
 
 <br/>
 
@@ -50,23 +70,6 @@ $ npm run dev
 
 <br/>
 
-## 📷 주요 기능
-
-<br/>
-
-## 📱 FE Tech Stack
-
-| 기술         | 설명           |
-| ------------ | -------------- |
-| Next.js      | Web Framework  |
-| TypeScript   |                |
-| Zustand?     | 상태관리       |
-| React-query? | 서버 상태 관리 |
-| Tailwind     | 스타일링       |
-| Jest         | 테스트         |
-| Vercel       | 배포           |
-
-<br/>
 
 ## 👏 Team Member
 
