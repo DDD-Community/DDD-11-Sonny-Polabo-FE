@@ -99,9 +99,11 @@ const DecorateScreenshot = () => {
       </header>
       {previewUrl && (
         <>
-          <OpenStickerModalBtn>
-            <SelectSticker />
-          </OpenStickerModalBtn>
+          {!isDownloaded && (
+            <OpenStickerModalBtn>
+              <SelectSticker />
+            </OpenStickerModalBtn>
+          )}
           <div
             id="preview"
             className="relative aspect-[9/16] w-auto overflow-hidden shadow-screenshot"
