@@ -1,20 +1,23 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import Sticker from '@/app/board/[boardId]/decorate/_components/Sticker'
-import Image from 'next/image'
-import SubmitBtn from '@/app/board/[boardId]/decorate/_components/SubmitBtn'
-import { ensureArray } from '@/lib/utils/array'
-import { getStickerStyles } from '@/app/board/[boardId]/decorate/_utils/getStickerStyles'
-import { downloadImage } from '@/lib/utils/image'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { getBoard } from '@/lib'
 import OpenStickerModalBtn from '@/app/board/[boardId]/decorate/_components/OpenStickerModalBtn'
 import SelectSticker from '@/app/board/[boardId]/decorate/_components/SelectStickerModal'
-import ScreenshotLoading from 'public/images/screenshot_loading.gif'
-import Button from '@/components/Button'
+import Sticker from '@/app/board/[boardId]/decorate/_components/Sticker'
+import SubmitBtn from '@/app/board/[boardId]/decorate/_components/SubmitBtn'
 import { useSticker } from '@/app/board/[boardId]/decorate/_contexts/StickerContext'
+import { getStickerStyles } from '@/app/board/[boardId]/decorate/_utils/getStickerStyles'
+import Button from '@/components/Button'
+import Header from '@/components/Header'
+import { getBoard } from '@/lib'
+import { ensureArray } from '@/lib/utils/array'
+import { downloadImage } from '@/lib/utils/image'
+import Image from 'next/image'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import BackIcon from 'public/icons/arrow_back_ios.svg'
 import DownloadIcon from 'public/icons/download.svg'
+import ScreenshotLoading from 'public/images/screenshot_loading.gif'
+import { useEffect, useState } from 'react'
+import GoBackModal from './GoBackModal'
 
 const DecorateScreenshot = () => {
   const { boardId } = useParams<{ boardId: string }>()
@@ -26,6 +29,7 @@ const DecorateScreenshot = () => {
   const [isLoadingDownload, setIsLoadingDownload] = useState(false)
   const [isDownloaded, setIsDownloaded] = useState(false)
   const { isDecorating, setIsDecorating } = useSticker()
+  const [isGoBackModalOpen, setIsGoBackModalOpen] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -90,13 +94,17 @@ const DecorateScreenshot = () => {
 
   return (
     <div className="relative flex h-full touch-none flex-col items-center justify-between gap-5">
-      <header className="my-5 w-full bg-gray-0 bg-transparent">
-        <div>
-          <div className="text-center text-md font-semiBold leading-6">
-            {isDownloaded ? '앨범에 저장되었습니다!' : '보드 꾸미기'}
-          </div>
-        </div>
-      </header>
+      <Header
+        title={isDownloaded ? '앨범에 저장되었습니다!' : '보드 꾸미기'}
+        leftButton={<BackIcon onClick={() => setIsGoBackModalOpen(true)} />}
+        shadow={false}
+        className="bg-transparent"
+      />
+      <GoBackModal
+        isOpen={isGoBackModalOpen}
+        onClose={() => setIsGoBackModalOpen(false)}
+        goBack={() => router.back()}
+      />
       {previewUrl && (
         <>
           {!isDownloaded && (

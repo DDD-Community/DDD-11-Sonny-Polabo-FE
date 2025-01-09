@@ -202,24 +202,31 @@ const CenterConfirmCancel = ({
   cancelText,
   confirmText,
   onConfirm = () => {},
+  onCancel = () => {},
 }: {
   cancelText: string
   confirmText: string
   onConfirm?: () => void
+  onCancel?: () => void
 }) => {
   const { onClose } = useContext(ModalContext)
 
-  const clickHandler = () => {
+  const confirmHandler = () => {
     onClose()
     onConfirm()
   }
 
+  const cancelHandler = () => {
+    onClose()
+    onCancel()
+  }
+
   return (
     <div className="my-4 flex gap-1.5">
-      <Button variant="secondary" size="sm" onClick={onClose}>
+      <Button variant="secondary" size="sm" onClick={cancelHandler}>
         {cancelText}
       </Button>
-      <Button variant="primary" size="sm" onClick={clickHandler}>
+      <Button variant="primary" size="sm" onClick={confirmHandler}>
         {confirmText}
       </Button>
     </div>
