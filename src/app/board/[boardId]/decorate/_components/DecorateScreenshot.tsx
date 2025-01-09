@@ -8,7 +8,7 @@ import { useSticker } from '@/app/board/[boardId]/decorate/_contexts/StickerCont
 import { getStickerStyles } from '@/app/board/[boardId]/decorate/_utils/getStickerStyles'
 import Button from '@/components/Button'
 import Header from '@/components/Header'
-import { getBoard } from '@/lib'
+import { GTM_EVENT, getBoard } from '@/lib'
 import { ensureArray } from '@/lib/utils/array'
 import { downloadImage } from '@/lib/utils/image'
 import Image from 'next/image'
@@ -17,6 +17,7 @@ import BackIcon from 'public/icons/arrow_back_ios.svg'
 import DownloadIcon from 'public/icons/download.svg'
 import ScreenshotLoading from 'public/images/screenshot_loading.gif'
 import { useEffect, useState } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
 import GoBackModal from './GoBackModal'
 
 const DecorateScreenshot = () => {
@@ -62,6 +63,7 @@ const DecorateScreenshot = () => {
   }, [])
 
   const takeScreenshot = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_SAVE })
     setIsLoadingDownload(true)
     fetch(`/board/api/screenshot`, {
       method: 'POST',
@@ -81,6 +83,7 @@ const DecorateScreenshot = () => {
   }
 
   const routeToHome = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_GOTOMAIN })
     router.push('/')
   }
 

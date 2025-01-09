@@ -76,6 +76,7 @@ const ShareBtn = () => {
   }
 
   const onClickDecorateBoard = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_DECORATE_BOARD })
     setShowShareModal(false)
     if (board && board.items.length > 0) {
       setIsSelectMode(true)
