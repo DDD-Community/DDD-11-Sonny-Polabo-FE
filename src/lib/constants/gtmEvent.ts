@@ -2,11 +2,13 @@ import {
   BoardThemaKeyType,
   FontKeyType,
   SnsKeyType,
+  StickerMenu,
   ThemaKeyType,
 } from '@/types'
 import { BOARDTHEMAS } from './boardConfig'
 import { SNS } from './snsConfig'
 import { FONTS, THEMAS } from './polaroidConfig'
+import { STICKERS } from './stickerConfig'
 
 export const GTM_EVENT = Object.freeze({
   CLICK_BTN_NEWBOARD: 'click_btn_newboard',
@@ -36,4 +38,10 @@ export const GTM_EVENT = Object.freeze({
   CLICK_BTN_EDIT_BOARDNAME: 'click_btn_editboardname',
   CLICK_BTN_DELETE_BOARD: 'click_btn_deleteboard',
   CLICK_BTN_INTRODUCTION: 'click_btn_introduction',
+  CLICK_BTN_DECORATE_BOARD: 'click_btn_decorateboard',
+  CLICK_BTN_CHOOSE_POLAROID: 'click_btn_choosepolaroid',
+  CLICK_STICKER: (sticker: StickerMenu) =>
+    `click_sticker_${STICKERS[sticker].gtm}`,
+  CLICK_BTN_SAVE: 'click_btn_save',
+  CLICK_BTN_GOTOMAIN: 'click_btn_gotomain',
 })

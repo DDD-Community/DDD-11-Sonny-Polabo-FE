@@ -31,7 +31,7 @@ const PolaroidListItem = ({
           observer.disconnect()
         }
       },
-      { threshold: 0.05 },
+      { threshold: 0.1 },
     )
 
     if (ref.current) observer.observe(ref.current)
@@ -49,7 +49,7 @@ const PolaroidListItem = ({
 
   const renderItem = (
     <div
-      className="flex flex-col justify-center"
+      className="PolaroidCard flex flex-col justify-center"
       style={{ rotate: `${rotate}deg` }}
     >
       <PolaroidCard
@@ -61,7 +61,7 @@ const PolaroidListItem = ({
   )
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="min-h-64">
       {isVisible &&
         (isFirstItem ? (
           <BoardTutorial
