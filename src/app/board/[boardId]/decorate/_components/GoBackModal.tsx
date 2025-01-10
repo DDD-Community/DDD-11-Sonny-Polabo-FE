@@ -18,9 +18,9 @@ const GoBackModal = ({ isOpen, onClose, goBack }: GoBackModalProps) => (
         }
       </Modal.Content>
       <Modal.CenterConfirmCancel
-        confirmText="계속 꾸미기"
-        cancelText="뒤로 가기"
-        onCancel={goBack}
+        confirmText="뒤로 가기"
+        cancelText="계속 꾸미기"
+        onConfirm={goBack}
       />
     </Modal.CenterModal>
   </Modal>
