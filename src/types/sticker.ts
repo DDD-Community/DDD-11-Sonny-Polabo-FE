@@ -13,3 +13,7 @@ export interface StickerStyle {
   angle: string
   file: string
 }
+
+export interface StickerType {
+  gtm: string
+}

@@ -8,6 +8,8 @@ import PolaroidDetailModal from '@/components/Polaroid/PolaroidDetail'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { createPolaroidSearchParams } from '@/lib/utils/query'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { GTM_EVENT } from '@/lib'
 
 const PolaroidList = () => {
   const { board, boardId } = useBoard()
@@ -39,6 +41,7 @@ const PolaroidList = () => {
   }
 
   const onSelectComplete = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_CHOOSE_POLAROID })
     const polaroidIdsSearchParam = createPolaroidSearchParams(selectedIds)
     router.push(`/board/${boardId}/decorate?${polaroidIdsSearchParam}`)
   }
