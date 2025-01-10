@@ -18,6 +18,7 @@ import DownloadIcon from 'public/icons/download.svg'
 import ScreenshotLoading from 'public/images/screenshot_loading.gif'
 import { useEffect, useState } from 'react'
 import { sendGTMEvent } from '@next/third-parties/google'
+import Toast from '@/components/Toast'
 import GoBackModal from './GoBackModal'
 
 const DecorateScreenshot = () => {
@@ -31,6 +32,8 @@ const DecorateScreenshot = () => {
   const [isDownloaded, setIsDownloaded] = useState(false)
   const { isDecorating, setIsDecorating } = useSticker()
   const [isGoBackModalOpen, setIsGoBackModalOpen] = useState(false)
+  const [showDownloadCompleteToast, setShowDownloadCompleteToast] =
+    useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -76,7 +79,9 @@ const DecorateScreenshot = () => {
       .then((res) => res.blob())
       .then((blob) => {
         const screenshotUrl = URL.createObjectURL(blob)
-        downloadImage(screenshotUrl, boardName)
+        downloadImage(screenshotUrl, boardName).then(() => {
+          setShowDownloadCompleteToast(true)
+        })
         setIsLoadingDownload(false)
         setIsDownloaded(true)
       })
@@ -168,6 +173,15 @@ const DecorateScreenshot = () => {
             </span>
           </SubmitBtn>
         )}
+        <Toast
+          className="bottom-1/2"
+          isOpen={showDownloadCompleteToast}
+          setClose={() => {
+            setShowDownloadCompleteToast(false)
+          }}
+        >
+          파일에 저장되었습니다!
+        </Toast>
       </div>
     </div>
   )
