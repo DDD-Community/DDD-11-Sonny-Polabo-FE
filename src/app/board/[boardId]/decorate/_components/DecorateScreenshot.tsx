@@ -15,6 +15,7 @@ import ScreenshotLoading from 'public/images/screenshot_loading.gif'
 import Button from '@/components/Button'
 import { useSticker } from '@/app/board/[boardId]/decorate/_contexts/StickerContext'
 import DownloadIcon from 'public/icons/download.svg'
+import Toast from '@/components/Toast'
 
 const DecorateScreenshot = () => {
   const { boardId } = useParams<{ boardId: string }>()
@@ -26,6 +27,8 @@ const DecorateScreenshot = () => {
   const [isLoadingDownload, setIsLoadingDownload] = useState(false)
   const [isDownloaded, setIsDownloaded] = useState(false)
   const { isDecorating, setIsDecorating } = useSticker()
+  const [showDownloadCompleteToast, setShowDownloadCompleteToast] =
+    useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -70,7 +73,9 @@ const DecorateScreenshot = () => {
       .then((res) => res.blob())
       .then((blob) => {
         const screenshotUrl = URL.createObjectURL(blob)
-        downloadImage(screenshotUrl, boardName)
+        downloadImage(screenshotUrl, boardName).then(() => {
+          setShowDownloadCompleteToast(true)
+        })
         setIsLoadingDownload(false)
         setIsDownloaded(true)
       })
@@ -147,6 +152,15 @@ const DecorateScreenshot = () => {
             </span>
           </SubmitBtn>
         )}
+        <Toast
+          className="bottom-1/2"
+          isOpen={showDownloadCompleteToast}
+          setClose={() => {
+            setShowDownloadCompleteToast(false)
+          }}
+        >
+          파일에 저장되었습니다!
+        </Toast>
       </div>
     </div>
   )

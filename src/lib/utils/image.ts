@@ -18,11 +18,24 @@ export const getImageWidthHeight = (
 }
 
 export const downloadImage = (imageUrl: string, imageName = 'file') => {
-  const a = document.createElement('a')
-  a.href = imageUrl
-  a.download = `${imageName}.png`
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  URL.revokeObjectURL(imageUrl)
+  return new Promise<void>((resolve, reject) => {
+    try {
+      const a = document.createElement('a')
+      a.href = imageUrl
+      a.download = `${imageName}.png`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(imageUrl)
+      window.addEventListener(
+        'focus',
+        () => {
+          resolve()
+        },
+        { once: true },
+      )
+    } catch (e) {
+      reject(e)
+    }
+  })
 }
