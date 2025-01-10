@@ -25,7 +25,8 @@ const StickerIcon = ({ num }: StickerIconProps) => {
 
 const SelectSticker = () => {
   const { status } = useSession()
-  const stickerMenus = status ? STICKER_MENU : GUEST_STICKER_MENU
+  const stickerMenus =
+    status === 'authenticated' ? STICKER_MENU : GUEST_STICKER_MENU
 
   return (
     <div className="w-md mx-auto flex h-dvh max-w-md flex-1 flex-col bg-gray-1000/70 py-10 backdrop-blur-md">
