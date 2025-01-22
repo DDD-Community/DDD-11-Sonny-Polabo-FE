@@ -106,7 +106,7 @@ const DecorateScreenshot = () => {
   return (
     <div className="relative flex h-full touch-none flex-col items-center justify-between gap-5">
       <Header
-        title={isDownloaded ? '앨범에 저장되었습니다!' : '보드 꾸미기'}
+        title={isDownloaded ? '저장 완료!' : '보드 꾸미기'}
         leftButton={<BackIcon onClick={goBackHandler} />}
         shadow={false}
         className="bg-transparent"
