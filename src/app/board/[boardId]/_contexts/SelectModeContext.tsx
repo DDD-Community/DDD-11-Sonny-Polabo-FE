@@ -1,6 +1,7 @@
 'use client'
 
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
+import { createContext, ReactNode, useContext, useMemo } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface SelectContextProps {
   isSelectMode: boolean
@@ -23,18 +24,30 @@ export const SelectContextProvider = ({
 }: {
   children: ReactNode
 }) => {
-  const [isSelectMode, setIsSelectMode] = useState(false)
-  const [selectedIds, setSelectedIds] = useState<number[]>([])
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+  const isSelectMode = searchParams.get('isSelectMode') === 'true'
+  const setIsSelectMode = (mode: boolean) => {
+    router.push(`${pathname}?isSelectMode=${mode}`)
+  }
+
+  const selectedIds = searchParams.getAll('selectedId').map((id) => Number(id))
 
   const addSelectedId = (id: number) => {
     if (selectedIds.length === 9) {
       return
     }
-    setSelectedIds((prev) => [...prev, id])
+
+    const params = new URLSearchParams(searchParams.toString())
+    params.append('selectedId', id.toString())
+    router.push(`${pathname}?${params}`)
   }
 
   const removeSelectedId = (id: number) => {
-    setSelectedIds((prev) => prev.filter((selectedId) => selectedId !== id))
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('selectedId', id.toString())
+    router.push(`${pathname}?${params}`)
   }
 
   const toggleSelectedId = (id: number) => {
