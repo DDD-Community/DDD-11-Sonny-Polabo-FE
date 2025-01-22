@@ -8,7 +8,6 @@ interface SelectContextProps {
   selectedIds: number[]
   setIsSelectMode: (isSelectMode: boolean) => void
   toggleSelectedId: (id: number) => void
-  resetSelectedIds: () => void
   MAX_SELECT_COUNT: number
 }
 
@@ -17,7 +16,6 @@ const SelectContext = createContext<SelectContextProps>({
   selectedIds: [],
   setIsSelectMode: () => {},
   toggleSelectedId: () => {},
-  resetSelectedIds: () => {},
   MAX_SELECT_COUNT: 0,
 })
 
@@ -60,10 +58,6 @@ export const SelectContextProvider = ({
     }
   }
 
-  const resetSelectedIds = () => {
-    setSelectedIds([])
-  }
-
   const value = useMemo(
     () => ({
       isSelectMode,
@@ -71,7 +65,6 @@ export const SelectContextProvider = ({
       selectedIds,
       toggleSelectedId,
       MAX_SELECT_COUNT: 9,
-      resetSelectedIds,
     }),
     [isSelectMode, selectedIds],
   )
