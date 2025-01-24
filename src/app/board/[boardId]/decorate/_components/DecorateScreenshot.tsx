@@ -94,7 +94,8 @@ const DecorateScreenshot = () => {
 
   const goBackHandler = () => {
     if (isDownloaded) {
-      router.back()
+      setIsDecorating(true)
+      setIsDownloaded(false)
       return
     }
     setIsGoBackModalOpen(true)
