@@ -1,6 +1,6 @@
 import AuthSession from '@/components/AuthSession'
-import CheckNewUser from '@/components/CheckNewUser'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { CheckNewUser } from '@/components/Tutorial'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
@@ -14,26 +14,31 @@ const PretendVariable = localFont({
 const Jooree = localFont({
   src: '../../public/fonts/Jooree.ttf',
   variable: '--font-jooree',
+  display: 'swap',
 })
 
 const Hesom = localFont({
   src: '../../public/fonts/Hesom.ttf',
   variable: '--font-hesom',
+  display: 'swap',
 })
 
 const Eunyoung = localFont({
   src: '../../public/fonts/eunyoung.woff2',
   variable: '--font-eunyoung',
+  display: 'swap',
 })
 
 const Ttaerom = localFont({
   src: '../../public/fonts/ttaerom.ttf',
   variable: '--font-ttaerom',
+  display: 'swap',
 })
 
 const Hipi = localFont({
   src: '../../public/fonts/hipi.ttf',
   variable: '--font-hipi',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -90,6 +95,7 @@ export default function RootLayout({
           <div className="mx-auto h-full max-w-md bg-gray-0" />
         </div>
         <div className="font-pretendard" id="modal-root" />
+        <div className="font-pretendard" id="toast-root" />
       </body>
     </html>
   )

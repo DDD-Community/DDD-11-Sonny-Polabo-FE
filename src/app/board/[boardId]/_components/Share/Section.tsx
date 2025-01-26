@@ -2,16 +2,12 @@ import { ComponentProps, MouseEventHandler, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface SectionProps {
-  title: string
   children: ReactNode
 }
 
-const Section = ({ title, children }: SectionProps) => (
-  <div className="flex w-full flex-col border-b-[1px] border-gray-200 pb-6 pt-5">
-    <h2 className="pb-5 pl-5 text-sm">{title}</h2>
-    <div className="flex gap-4 overflow-x-scroll px-5 scrollbar-hide">
-      {children}
-    </div>
+const Section = ({ children }: SectionProps) => (
+  <div className="flex w-full flex-row justify-evenly pb-6 pt-5">
+    {children}
   </div>
 )
 

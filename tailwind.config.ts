@@ -66,11 +66,11 @@ const config: Config = {
       },
       fontFamily: {
         pretendard: ['var(--font-pretendard-variable)'],
-        jooree: ['var(--font-jooree)'],
-        hesom: ['var(--font-hesom)'],
-        eunyoung: ['var(--font-eunyoung)'],
-        ttaerom: ['var(--font-ttaerom)'],
-        hipi: ['var(--font-hipi)'],
+        jooree: ['var(--font-jooree)', 'var(--font-pretendard-variable)'],
+        hesom: ['var(--font-hesom)', 'var(--font-pretendard-variable)'],
+        eunyoung: ['var(--font-eunyoung)', 'var(--font-pretendard-variable)'],
+        ttaerom: ['var(--font-ttaerom)', 'var(--font-pretendard-variable)'],
+        hipi: ['var(--font-hipi)', 'var(--font-pretendard-variable)'],
       },
       keyframes: {
         'slide-left': {
@@ -121,6 +121,7 @@ const config: Config = {
           '0px 1px 1px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
         polaroid:
           '0px 0.597px 0.597px 0px rgba(0, 0, 0, 0.25), 0px 1.194px 2.389px 0px rgba(0, 0, 0, 0.25)',
+        screenshot: '0px 2.143px 12.857px 0px rgba(0, 0, 0, 0.16);',
       },
       aspectRatio: {
         vertical: '10 / 13',

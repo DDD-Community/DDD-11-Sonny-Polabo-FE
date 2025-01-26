@@ -1,3 +1,5 @@
+'use client'
+
 import { Polaroid } from '@/types'
 import PolaroidImage from '@/components/Polaroid/Base/PolaroidImage'
 import PolaroidFrame from '@/components/Polaroid/Base/PolaroidFrame'
@@ -5,16 +7,22 @@ import PolaroidDescription from '@/components/Polaroid/Base/PolaroidDescription'
 import PolaroidMessage from '@/components/Polaroid/Base/PolaroidMessage'
 import PolaroidNickname from '@/components/Polaroid/Base/PolaroidNickname'
 import { getPolaroidStyle } from '@/lib/utils/polaroid'
+import { twMerge } from 'tailwind-merge'
 
 interface PolaroidCardProps {
   polaroid: Polaroid
+  className?: string
   onClick?: () => void
 }
 
-function PolaroidCard({ polaroid, onClick = () => {} }: PolaroidCardProps) {
+function PolaroidCard({
+  polaroid,
+  className = '',
+  onClick = () => {},
+}: PolaroidCardProps) {
   return (
     <PolaroidFrame
-      className="cursor-pointer"
+      className={twMerge('cursor-pointer', className)}
       onClick={onClick}
       themaKey={polaroid.options.THEMA}
       fontKey={polaroid.options.FONT}

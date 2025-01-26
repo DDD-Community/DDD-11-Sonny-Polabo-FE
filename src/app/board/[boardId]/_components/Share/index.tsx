@@ -1,9 +1,16 @@
 'use client'
 
+import CopyCompleteToast from '@/app/board/[boardId]/_components/Share/CopyCompleteToast'
+import NoPolaroidToSelectToast from '@/app/board/[boardId]/_components/Share/NoPolaroidToSelectToast'
+import { useBoard } from '@/app/board/[boardId]/_contexts/BoardContext'
+import { useSelect } from '@/app/board/[boardId]/_contexts/SelectModeContext'
+import Button from '@/components/Button'
 import Modal from '@/components/Modal'
+import { useBoardTutorial } from '@/components/Tutorial'
 import CopyIcon from 'public/icons/copy.svg'
 import Share from 'public/icons/ios_share.svg'
 import TwoPolaroidsIcon from 'public/icons/linkShare.svg'
+import PolaroidIcon from 'public/icons/polaroid.svg'
 import FacebookIcon from 'public/icons/sns/sns-facebook.svg'
 import IGIcon from 'public/icons/sns/sns-ig.svg'
 import KakaoIcon from 'public/icons/sns/sns-kakao.svg'
@@ -13,17 +20,17 @@ import { sendGTMEvent } from '@next/third-parties/google'
 import { GTM_EVENT } from '@/lib'
 import { SnsKeyType } from '@/types'
 import { SNS } from '@/lib/constants/snsConfig'
-import Toast from '@/components/Toast'
-import { useTutorial } from '../Tutorial/TutorialContext'
-import Section from './Section'
 import useSnsShare from '../../_hooks/useSnsShare'
+import Section from './Section'
 
-const ShareBtn = ({ boardName }: { boardName: string }) => {
+const ShareBtn = () => {
+  const { board } = useBoard()
+  const { setIsSelectMode } = useSelect()
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
   const { shareToKakao, shareToInsta, shareToFacebook, shareToX } =
     useSnsShare()
 
-  const { run, nextStep } = useTutorial()
+  const { run, nextStep } = useBoardTutorial()
 
   const onShareModalClose = () => {
     setShowShareModal(false)
@@ -35,7 +42,7 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
 
     switch (snsType) {
       case 'KAKAO':
-        shareToKakao(boardName)
+        shareToKakao(board.title)
         break
       case 'INSTAGRAM':
         shareToInsta()
@@ -53,15 +60,29 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
     setShowShareModal(false)
   }
 
-  const [showToast, setShowToast] = useState(false)
+  const [showCopyCompleteToast, setShowCopyCompleteToast] = useState(false)
+  const [showNoPolaroidToast, setShowNoPolaroidToast] = useState(false)
+
+  const closeCopyCompleteToast = () => setShowCopyCompleteToast(false)
+  const closeNoPolaroidToast = () => setShowNoPolaroidToast(false)
 
   const copyLink = () => {
     sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_COPYLINK_BOARD })
     setShowShareModal(false)
     const currentURL = window.location.href
     return navigator.clipboard.writeText(currentURL).then(() => {
-      setShowToast(true)
+      setShowCopyCompleteToast(true)
     })
+  }
+
+  const onClickDecorateBoard = () => {
+    sendGTMEvent({ event: GTM_EVENT.CLICK_BTN_DECORATE_BOARD })
+    setShowShareModal(false)
+    if (board && board.items.length > 0) {
+      setIsSelectMode(true)
+    } else {
+      setShowNoPolaroidToast(true)
+    }
   }
 
   return (
@@ -73,16 +94,19 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
         }}
         className="w-6"
       />
-      <Toast
-        message="클립보드에 링크가 복사되었어요!"
-        isOpen={showToast}
-        setClose={() => setShowToast(false)}
+      <CopyCompleteToast
+        show={showCopyCompleteToast}
+        close={closeCopyCompleteToast}
+      />
+      <NoPolaroidToSelectToast
+        show={showNoPolaroidToast}
+        close={closeNoPolaroidToast}
       />
       <Modal isOpen={showShareModal} onClose={onShareModalClose}>
         <Modal.BottomModal icon={<TwoPolaroidsIcon className="scale-[2]" />}>
           <Modal.Close />
           <Modal.Title>보드를 친구에게 공유해보세요!</Modal.Title>
-          <Section title="링크 공유">
+          <Section>
             <Section.Item
               icon={<CopyIcon className="-rotate-45 scale-150" />}
               bg="bg-gray-900"
@@ -114,6 +138,14 @@ const ShareBtn = ({ boardName }: { boardName: string }) => {
               onClick={() => handleShare('FACEBOOK')}
             />
           </Section>
+          <div className="mb-5 flex w-[calc(100%-20px)] flex-col gap-5">
+            <div className="h-px bg-gray-300" />
+            <Button className="w-full" onClick={onClickDecorateBoard}>
+              <div className="flex items-center justify-center gap-1">
+                내 보드 꾸미고 저장하기 <PolaroidIcon />
+              </div>
+            </Button>
+          </div>
         </Modal.BottomModal>
       </Modal>
     </>
