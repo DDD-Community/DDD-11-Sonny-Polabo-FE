@@ -1,7 +1,7 @@
 import BackButton from '@/app/board/create/_components/BackButton'
 import BoardNameRecommendations from '@/app/board/create/_components/BoardNameRecommendations'
 import Image from 'next/image'
-import PolaboLogo from 'public/images/polabo-logo-christmas.png'
+import PolaboLogo from 'public/images/polabo-logo.png'
 import BoardAvailabilityCheckModal from './_components/BoardAvailabilityCheckModal'
 import BoardNameForm from './_components/BoardNameForm'
 
