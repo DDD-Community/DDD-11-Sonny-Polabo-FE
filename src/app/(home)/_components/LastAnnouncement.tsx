@@ -30,7 +30,8 @@ const LastAnnouncement = () => {
             <br />
             내부 논의 끝에, 1년 남짓의 시간을 함께 해온
             <br />
-            POLABO 서비스를 2025년 8월 31일을 끝으로
+            POLABO 서비스를{' '}
+            <span className="font-semiBold">2025년 8월 31일</span>을 끝으로
             <br />
             종료하게 되었습니다.
             <br />
